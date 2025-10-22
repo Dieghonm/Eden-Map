@@ -4,6 +4,7 @@ import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Login/TermsScreen';
 import ButtonPrimary from '../../components/ButtonPrimary';
+import ButtonSecundary from '../../components/ButtonSecundary';
 
 export default function TermsScreen({ navigation }) {
   const { theme } = useTheme();
@@ -56,6 +57,11 @@ export default function TermsScreen({ navigation }) {
       </TouchableOpacity>
 
       <ButtonPrimary
+        title="Continuar"
+        onPress={handleAccept}
+        disabled={!accepted}
+      />
+      <ButtonSecundary
         title="Continuar"
         onPress={handleAccept}
         disabled={!accepted}
