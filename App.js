@@ -1,20 +1,44 @@
+import React from 'react';
+import { View, ImageBackground, StyleSheet } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
+import AppNavigator from './src/navigation/AppNavigator';
+import AppProvider from './src/context/AppProvider';
+import { ThemeProvider, useTheme } from './src/context/ThemeProvider';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { createStyles } from './src/styles/App';
 
-export default function App() {
+function AppContent() {
+  const { theme } = useTheme();
+  const styles = createStyles(theme);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ImageBackground
+      source={require('./assets/Fundo.png')}
+      style={styles.container}
+      imageStyle={styles.image}
+      resizeMode="cover"
+    >
+      <View style={styles.overlay}>
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+        <StatusBar style="auto" />
+      </View>
+    </ImageBackground>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <ThemeProvider>
+        <AppProvider>
+          <AppContent />
+        </AppProvider>
+      </ThemeProvider>
+    </SafeAreaProvider>
+  );
+}
+
+
