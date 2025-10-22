@@ -3,13 +3,13 @@ export const lightTheme = {
   background: '#F9F9FB',
   secondary: '#E8E6F2',
   terciario: '#D4C6F0',
-
   fontColor: '#1E1E1E',
   placeholder: '#7A7A7A',
   warning: '#C0392B',
   alert: '#E74C3C',
   success: '#27AE60',
   button: '#7D9ED9',
+  buttonGradient: ['#7D9ED9', '#B98EFF'],
   accent: '#B98EFF',
 };
 
@@ -18,13 +18,13 @@ export const pinkTheme = {
   background: '#F4CDC0',
   secondary: '#d7b6eaff',
   terciario: '#E3A893',
-
   fontColor: '#4A2C2A',
   placeholder: '#696969ff',
   warning: '#C0392B',
   alert: '#e63f22ff',
   success: '#27AE60',
   button: '#7D9ED9',
+  buttonGradient: ['#E3A893', '#DCA2FF'],
   accent: '#DCA2FF',
 };
 
@@ -38,7 +38,7 @@ export const darkTheme = {
   warning: '#EA5959',
   alert: '#FFAA2E',
   success: '#38C197',
-  button: 'linear-gradient(90deg, #0A84FF 0%, #8A4AED 100%)',
+  button: '#0A84FF',
+  buttonGradient: ['#0A84FF', '#8A4AED'],
   accent: '#DCA2FF',
 };
-

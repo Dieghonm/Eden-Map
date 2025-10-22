@@ -1,20 +1,28 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from '../context/ThemeProvider';
 import { createStyles } from '../styles/components/ButtonPrimary';
 
-export default function ButtonPrimary({ title, onPress, style, disabled }) {
+export default function ButtonPrimary({ title, onPress, disabled }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
   return (
     <TouchableOpacity
-      style={[styles.button, disabled && styles.buttonDisabled, style]}
+      style={ disabled && styles.buttonDisabled}
       onPress={onPress}
       activeOpacity={0.8}
       disabled={disabled}
     >
-      <Text style={styles.buttonText}>{title}</Text>
+      <LinearGradient
+        colors={theme.buttonGradient}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        style={styles.gradientButton}
+      >
+        <Text style={styles.buttonText}>{title}</Text>
+      </LinearGradient>
     </TouchableOpacity>
   );
 }

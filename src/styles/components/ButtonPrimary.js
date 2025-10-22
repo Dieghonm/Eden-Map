@@ -3,24 +3,18 @@ import { spacing, borderRadius, fontSize, fontWeight } from '../../theme/texts';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
-    button: {
-      backgroundColor: theme.button,
-      padding: spacing.md,
-      borderRadius: borderRadius.md,
+    gradientButton: {
       alignItems: 'center',
       justifyContent: 'center',
-      minHeight: 48,
+      width: 290,
+      height: 45,
     },
     buttonDisabled: {
-      backgroundColor: theme.placeholder,
       opacity: 0.5,
     },
     buttonText: {
-      color: '#FFFFFF',
       fontSize: fontSize.lg,
       fontWeight: fontWeight.bold,
       fontFamily: 'Outfit_700Bold',
     },
   });
-
-  
