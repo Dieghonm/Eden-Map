@@ -33,12 +33,12 @@ export const darkTheme = {
   background: '#212224',
   secondary: '#3A3A3A',
   terciario: '#606060',
-
   fontColor: '#FFFFFF',
   placeholder: '#AAAAAA',
   warning: '#EA5959',
   alert: '#FFAA2E',
   success: '#38C197',
-  button: '#0A84FF',
+  button: 'linear-gradient(90deg, #0A84FF 0%, #8A4AED 100%)',
   accent: '#DCA2FF',
 };
+

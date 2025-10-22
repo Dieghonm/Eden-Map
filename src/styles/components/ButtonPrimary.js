@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { spacing, borderRadius, fontSize, fontWeight } from '../theme/texts';
-
+import { spacing, borderRadius, fontSize, fontWeight } from '../../theme/texts';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
@@ -17,9 +16,11 @@ export const createStyles = (theme) =>
       opacity: 0.5,
     },
     buttonText: {
-      color: '#e61d1dff',
+      color: '#FFFFFF',
       fontSize: fontSize.lg,
       fontWeight: fontWeight.bold,
       fontFamily: 'Outfit_700Bold',
     },
   });
+
+  
