@@ -5,6 +5,7 @@ import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Login/TermsScreen';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import ButtonSecundary from '../../components/ButtonSecundary';
+import Checkbox from '../../components/Checkbox';
 
 export default function TermsScreen({ navigation }) {
   const { theme } = useTheme();
@@ -21,28 +22,6 @@ export default function TermsScreen({ navigation }) {
 
   return (
     <View style={styles.card}>
-      <Text style={styles.title}>Termos de Uso</Text>
-      
-      <ScrollView style={styles.scrollContent} showsVerticalScrollIndicator={false}>
-        <Text style={styles.termsText}>
-          Bem-vindo ao EdenMap! Ao usar nosso aplicativo, você concorda com os seguintes termos:
-        </Text>
-        <Text style={styles.termsText}>
-          1. Você deve ter pelo menos 18 anos de idade para usar este aplicativo.
-        </Text>
-        <Text style={styles.termsText}>
-          2. Você é responsável por manter a confidencialidade de sua conta.
-        </Text>
-        <Text style={styles.termsText}>
-          3. Não compartilhe conteúdo ofensivo ou ilegal.
-        </Text>
-        <Text style={styles.termsText}>
-          4. Reservamo-nos o direito de modificar estes termos a qualquer momento.
-        </Text>
-        <Text style={styles.termsText}>
-          5. Seus dados serão tratados conforme nossa política de privacidade.
-        </Text>
-      </ScrollView>
 
       <TouchableOpacity
         style={styles.checkboxContainer}
@@ -56,13 +35,15 @@ export default function TermsScreen({ navigation }) {
         </Text>
       </TouchableOpacity>
 
+      <Checkbox />
+
       <ButtonPrimary
-        title="Continuar"
+        title="Criar minha conta"
         onPress={handleAccept}
         disabled={!accepted}
       />
       <ButtonSecundary
-        title="Continuar"
+        title="Login"
         onPress={handleAccept}
         disabled={!accepted}
       />

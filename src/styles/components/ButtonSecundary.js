@@ -3,11 +3,16 @@ import { spacing, borderRadius, fontSize, fontWeight } from '../../theme/texts';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
-    gradientButton: {
-      alignItems: 'center',
-      justifyContent: 'center',
+    button: {
       width: 290,
       height: 45,
+      backgroundColor: theme.secundaryButton,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    buttonContent: {
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     buttonDisabled: {
       opacity: 0.5,
@@ -16,6 +21,6 @@ export const createStyles = (theme) =>
       fontSize: fontSize.lg,
       fontWeight: fontWeight.bold,
       fontFamily: 'Outfit_700Bold',
-      color: theme.buttonTextColor,
+      color: theme.secundaryButtonText || theme.fontColor,
     },
   });

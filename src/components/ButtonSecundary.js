@@ -1,6 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { TouchableOpacity, Text, View } from 'react-native';
 import { useTheme } from '../context/ThemeProvider';
 import { createStyles } from '../styles/components/ButtonSecundary';
 
@@ -10,13 +9,14 @@ export default function ButtonSecundary({ title, onPress, disabled }) {
 
   return (
     <TouchableOpacity
-      style={ disabled && styles.buttonDisabled}
+      style={[styles.button, disabled && styles.buttonDisabled]}
       onPress={onPress}
       activeOpacity={0.8}
       disabled={disabled}
     >
-      <Text style={styles.buttonText}>{title}</Text>
-
+      <View style={styles.buttonContent}>
+        <Text style={styles.buttonText}>{title}</Text>
+      </View>
     </TouchableOpacity>
   );
 }
