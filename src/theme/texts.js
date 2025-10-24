@@ -25,8 +25,9 @@ export const borderRadius = {
   circle: 50,
 };
 
-export const font = {
-  fontFamily: 'Outfit_400Regular',
+export const fontFamily = {
+  r4: 'Outfit_400Regular',
+  b7: 'Outfit_700Bold'
 };
 
 export const fontWeight = {

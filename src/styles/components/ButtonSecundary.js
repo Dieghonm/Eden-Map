@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { spacing, borderRadius, fontSize, fontWeight } from '../../theme/texts';
+import { spacing, borderRadius, fontSize, fontWeight, fontFamily } from '../../theme/texts';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
@@ -9,6 +9,7 @@ export const createStyles = (theme) =>
       backgroundColor: theme.secundaryButton,
       alignItems: 'center',
       justifyContent: 'center',
+      margin: 15
     },
     buttonContent: {
       alignItems: 'center',
@@ -20,7 +21,7 @@ export const createStyles = (theme) =>
     buttonText: {
       fontSize: fontSize.lg,
       fontWeight: fontWeight.bold,
-      fontFamily: 'Outfit_700Bold',
+      fontFamily: fontFamily.b7,
       color: theme.secundaryButtonText || theme.fontColor,
     },
   });

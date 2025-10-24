@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { spacing, borderRadius, fontSize, fontWeight } from '../../theme/texts';
+import { spacing, borderRadius, fontSize, fontWeight, fontFamily } from '../../theme/texts';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
@@ -18,7 +18,7 @@ export const createStyles = (theme) =>
       fontSize: fontSize.header,
       fontWeight: fontWeight.bold,
       color: theme.fontColor,
-      fontFamily: 'Outfit_700Bold',
+      fontFamily: fontFamily.b7,
     },
     themeSelector: {
       flexDirection: 'row',

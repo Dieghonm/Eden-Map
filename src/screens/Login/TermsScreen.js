@@ -37,6 +37,7 @@ export default function TermsScreen({ onChangeScreen }) {
         onPress={() => setAcceptedTerms(!acceptedTerms)}
         textPrefix="Eu concordo com os"
         textLink="Termos e Condições"
+        color='alert'
       />
       
       <Checkbox 
@@ -44,6 +45,7 @@ export default function TermsScreen({ onChangeScreen }) {
         onPress={() => setAcceptedPrivacy(!acceptedPrivacy)}
         textPrefix="Eu concordo com a"
         textLink="Política de Privacidade"
+        color='warning'
       />
 
       <ButtonPrimary

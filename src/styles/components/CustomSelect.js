@@ -23,7 +23,7 @@ export const createStyles = (theme) =>
     },
     text: {
       fontSize: fontSize.md,
-      fontFamily: 'Outfit_400Regular',
+      fontFamily: fontFamily.r4,
       color: theme.fontColor,
       flex: 1,
     },

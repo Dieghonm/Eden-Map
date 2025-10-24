@@ -14,6 +14,11 @@ export const lightTheme = {
   secundaryButton: '#FFFFFF',
   secundaryButtonText: '#7D9ED9',
   accent: '#B98EFF',
+  glassGradient: [
+    'rgba(232, 230, 242, 0.4)',
+    'rgba(212, 198, 240, 0.4)',
+    'rgba(232, 230, 242, 0.4)',
+  ],
 };
 
 export const pinkTheme = {
@@ -32,6 +37,11 @@ export const pinkTheme = {
   secundaryButton: '#FFFFFF',
   secundaryButtonText: '#E3A893',
   accent: '#DCA2FF',
+  glassGradient: [
+    'rgba(215, 182, 234, 0.4)',
+    'rgba(227, 168, 147, 0.4)',
+    'rgba(215, 182, 234, 0.4)',
+  ],
 };
 
 export const darkTheme = {
@@ -50,4 +60,9 @@ export const darkTheme = {
   secundaryButton: '#FFFFFF',
   secundaryButtonText: '#0A84FF',
   accent: '#DCA2FF',
+  glassGradient: [
+    'rgba(76, 76, 76, 0.4)',
+    'rgba(158, 158, 158, 0.4)',
+    'rgba(76, 76, 76, 0.4)',
+  ],
 };

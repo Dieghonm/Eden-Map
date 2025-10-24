@@ -1,28 +1,16 @@
 import { StyleSheet } from 'react-native';
-import { spacing, borderRadius, fontSize, fontWeight } from '../../theme/texts';
+import { spacing, borderRadius, fontSize, fontWeight, fontFamily } from '../../theme/texts';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
-    // container: {
-    //   flex: 1,
-    //   padding: spacing.lg,
-    //   backgroundColor: 'transparent',
-    // },
-    // card: {
-    //   backgroundColor: theme.secondary,
-    //   padding: spacing.xl,
-    //   borderRadius: borderRadius.xl,
-    //   shadowColor: '#000',
-    //   shadowOffset: { width: 0, height: 2 },
-    //   shadowOpacity: 0.1,
-    //   shadowRadius: 8,
-    //   elevation: 5,
-    // },
+    card: {
+      alignItems: 'center',
+    },
     // title: {
     //   fontSize: fontSize.title,
     //   fontWeight: fontWeight.bold,
     //   color: theme.fontColor,
-    //   fontFamily: 'Outfit_700Bold',
+    //   fontFamily: fontFamily.b7,
     //   marginBottom: spacing.md,
     //   textAlign: 'center',
     // },
@@ -33,7 +21,7 @@ export const createStyles = (theme) =>
     // termsText: {
     //   fontSize: fontSize.md,
     //   color: theme.fontColor,
-    //   fontFamily: 'Outfit_400Regular',
+    //   fontFamily: fontFamily.r4,
     //   lineHeight: 22,
     //   marginBottom: spacing.sm,
     // },
@@ -59,7 +47,7 @@ export const createStyles = (theme) =>
     // checkboxLabel: {
     //   fontSize: fontSize.md,
     //   color: theme.fontColor,
-    //   fontFamily: 'Outfit_400Regular',
+    //   fontFamily: fontFamily.r4,
     //   flex: 1,
     // },
     // button: {
@@ -76,6 +64,6 @@ export const createStyles = (theme) =>
     //   color: '#FFFFFF',
     //   fontSize: fontSize.lg,
     //   fontWeight: fontWeight.bold,
-    //   fontFamily: 'Outfit_700Bold',
+    // fontFamily: fontFamily.b7,
     // },
   });

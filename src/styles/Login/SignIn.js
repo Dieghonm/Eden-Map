@@ -1,48 +1,55 @@
 import { StyleSheet } from 'react-native';
-import { spacing, borderRadius, fontSize, fontWeight, fontFamily } from '../theme/texts';
+import { spacing, borderRadius, fontSize, fontWeight, fontFamily } from '../../theme/texts';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: 'transparent',
-    },
-    content: {
-      flex: 1,
-      padding: spacing.lg,
+      width: '100%',
       justifyContent: 'center',
       alignItems: 'center',
     },
-    welcomeCard: {
+    card: {
       backgroundColor: theme.secondary,
-      padding: spacing.xl,
+      paddingVertical: spacing.xl,
+      paddingHorizontal: spacing.lg,
       borderRadius: borderRadius.xl,
-      width: '100%',
-      maxWidth: 400,
       alignItems: 'center',
+      gap: spacing.lg,
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.1,
       shadowRadius: 8,
       elevation: 5,
+      width: 340,
     },
-    welcomeTitle: {
-      fontSize: fontSize.header,
+    title: {
+      fontSize: fontSize.xl,
       fontWeight: fontWeight.bold,
-      color: theme.fontColor,
       fontFamily: fontFamily.b7,
-      marginBottom: spacing.md,
-    },
-    welcomeText: {
-      fontSize: fontSize.lg,
       color: theme.fontColor,
-      fontFamily: fontFamily.r4,
       textAlign: 'center',
-      lineHeight: 24,
     },
-    userName: {
-      color: theme.accent,
+    linksContainer: {
+      width: '100%',
+      gap: spacing.md,
+      alignItems: 'center',
+    },
+    linkText: {
+      fontSize: fontSize.sm,
+      fontFamily: fontFamily.r4,
+      color: theme.fontColor,
+      textAlign: 'center',
+      lineHeight: 18,
+    },
+    linkHighlight: {
+      color: '#4A90E2',
       fontWeight: fontWeight.bold,
       fontFamily: fontFamily.b7,
+    },
+    inputsContainer: {
+      gap: spacing.md,
+      width: '100%',
+      alignItems: 'center',
     },
   });

@@ -5,54 +5,40 @@ export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
       width: 290,
-      minHeight: 65,
-      backgroundColor: 'transparent',
+      height: 80,
+      backgroundColor: theme.secondary,
+      borderRadius: borderRadius.lg,
       flexDirection: 'row',
       alignItems: 'center',
-      paddingHorizontal: spacing.sm,
-      paddingVertical: spacing.sm,
-    },
-    containerDisabled: {
-      opacity: 0.5,
+      margin:15,
     },
     checkbox: {
-      width: 20,
-      height: 20,
-      borderWidth: 2,
-      borderColor: '#FFFFFF',
-      borderRadius: borderRadius.sm,
+      width: 15,
+      height: 15,
+      borderRadius: borderRadius.lg,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'transparent',
-      marginRight: spacing.md,
-      flexShrink: 0,
+      backgroundColor: theme.fontColor,
+      marginRight: 20,
+      marginLeft: 40
     },
     checkboxChecked: {
-      backgroundColor: '#4A90E2',
-      borderColor: '#4A90E2',
-    },
-    checkmark: {
-      color: '#FFFFFF',
-      fontSize: 14,
-      fontWeight: fontWeight.bold,
-    },
-    textContainer: {
-      flex: 1,
+      backgroundColor: theme.button,
     },
     text: {
-      fontSize: 11,
-      fontFamily: 'Outfit_400Regular',
-      color: '#FFFFFF',
+      fontSize: fontSize.md,
+      fontFamily: fontFamily.r4,
+      color: theme.fontColor,
       lineHeight: 16,
     },
-    link: {
-      color: '#4A90E2',
-      fontWeight: fontWeight.bold,
-      fontFamily: 'Outfit_700Bold',
+    linkalert: {
+      color: theme.alert,
+      fontFamily: fontFamily.r4,
+      textDecorationLine: 'underline'
     },
-    linkPink: {
-      color: '#FF6B9D',
-      fontWeight: fontWeight.bold,
-      fontFamily: 'Outfit_700Bold',
+    linkwarning: {
+      color: theme.warning,
+      fontFamily: fontFamily.r4,
+      textDecorationLine: 'underline'
     },
   });

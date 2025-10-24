@@ -5,6 +5,6 @@ export const createStyles = (theme, width, height) =>
     logo: {
       width: width,
       height: height,
-      padding: 0
+      marginBottom: 5
     },
   });

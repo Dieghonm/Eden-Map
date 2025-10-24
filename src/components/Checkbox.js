@@ -8,24 +8,30 @@ export default function Checkbox({
   onPress, 
   textPrefix = '',
   textLink = '',
-  disabled = false 
+  disabled = false,
+  color = ''
 }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
+  const linkStyle =
+    color === 'alert'
+      ? styles.linkalert
+      : color === 'warning'
+      ? styles.linkwarning
+      : { color: color || theme.fontColor };
+
   return (
     <TouchableOpacity
-      style={[styles.container, disabled && styles.containerDisabled]}
+      style={styles.container}
       onPress={onPress}
       activeOpacity={0.7}
       disabled={disabled}
     >
-      <View style={[styles.checkbox, checked && styles.checkboxChecked]}>
-        {checked && <Text style={styles.checkmark}>✓</Text>}
-      </View>
+      <View style={[styles.checkbox, checked && styles.checkboxChecked]} />
       <View style={styles.textContainer}>
-          <Text style={styles.text}>{textPrefix}</Text>
-          <Text style={styles.link}>{textLink}</Text>
+        <Text style={styles.text}>{textPrefix}</Text>
+        <Text style={linkStyle}>{textLink}</Text>
       </View>
     </TouchableOpacity>
   );
