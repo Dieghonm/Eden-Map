@@ -112,6 +112,7 @@ export default function Register({ navigation, onChangeScreen }) {
           title='Criar minha conta'
           onPress={handleRegister}
           disabled={!isFormValid}
+          width = {218}
         />
       </GlassBox>
     </ScrollView>

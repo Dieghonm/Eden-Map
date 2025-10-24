@@ -1,15 +1,15 @@
 import { StyleSheet } from 'react-native';
 import { spacing, borderRadius, fontSize, fontWeight, fontFamily } from '../../theme/texts';
 
-export const createStyles = (theme) =>
+export const createStyles = (theme, width = 290, height = 45) =>
   StyleSheet.create({
     button: {
-      width: 290,
-      height: 45,
+      width: width,
+      height: height,
       backgroundColor: theme.secundaryButton,
       alignItems: 'center',
       justifyContent: 'center',
-      margin: 15
+      margin: 15,
     },
     buttonContent: {
       alignItems: 'center',
