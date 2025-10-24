@@ -1,41 +1,58 @@
 import { StyleSheet } from 'react-native';
-import { spacing, borderRadius, fontSize } from '../../theme/texts';
+import { spacing, borderRadius, fontSize, fontWeight } from '../../theme/texts';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
-    checkboxContainer: {
+    container: {
+      width: 290,
+      minHeight: 65,
+      backgroundColor: 'transparent',
       flexDirection: 'row',
       alignItems: 'center',
-      width: 290,
-      height: 80,
-      backgroundColor: theme.secondary,
-      borderRadius: 10,
-      paddingHorizontal: spacing.md,
+      paddingHorizontal: spacing.sm,
+      paddingVertical: spacing.sm,
+    },
+    containerDisabled: {
+      opacity: 0.5,
     },
     checkbox: {
-      width: 24,
-      height: 24,
+      width: 20,
+      height: 20,
       borderWidth: 2,
-      borderColor: theme.terciario,
+      borderColor: '#FFFFFF',
       borderRadius: borderRadius.sm,
-      marginRight: spacing.md,
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: 'transparent',
+      marginRight: spacing.md,
+      flexShrink: 0,
     },
     checkboxChecked: {
-      backgroundColor: theme.success,
-      borderColor: theme.success,
+      backgroundColor: '#4A90E2',
+      borderColor: '#4A90E2',
     },
     checkmark: {
       color: '#FFFFFF',
-      fontSize: fontSize.md,
-      fontWeight: 'bold',
+      fontSize: 14,
+      fontWeight: fontWeight.bold,
     },
-    checkboxLabel: {
-      fontSize: fontSize.md,
-      color: theme.fontColor,
-      fontFamily: 'Outfit_400Regular',
+    textContainer: {
       flex: 1,
+    },
+    text: {
+      fontSize: 11,
+      fontFamily: 'Outfit_400Regular',
+      color: '#FFFFFF',
+      lineHeight: 16,
+    },
+    link: {
+      color: '#4A90E2',
+      fontWeight: fontWeight.bold,
+      fontFamily: 'Outfit_700Bold',
+    },
+    linkPink: {
+      color: '#FF6B9D',
+      fontWeight: fontWeight.bold,
+      fontFamily: 'Outfit_700Bold',
     },
   });

@@ -1,13 +1,12 @@
 import React from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
 import { useTheme } from '../context/ThemeProvider';
-import { createStyles } from '../styles/components/Checkbox';
+import { createStyles } from '../styles/components/CustomSelect';
 
-export default function Checkbox({ 
-  checked, 
+export default function CustomSelect({ 
+  label, 
+  placeholder = 'Selecione...', 
   onPress, 
-  textPrefix = '',
-  textLink = '',
   disabled = false 
 }) {
   const { theme } = useTheme();
@@ -20,12 +19,11 @@ export default function Checkbox({
       activeOpacity={0.7}
       disabled={disabled}
     >
-      <View style={[styles.checkbox, checked && styles.checkboxChecked]}>
-        {checked && <Text style={styles.checkmark}>✓</Text>}
-      </View>
-      <View style={styles.textContainer}>
-          <Text style={styles.text}>{textPrefix}</Text>
-          <Text style={styles.link}>{textLink}</Text>
+      <View style={styles.content}>
+        <Text style={styles.text}>
+          {label || placeholder}
+        </Text>
+        <Text style={styles.arrow}>▼</Text>
       </View>
     </TouchableOpacity>
   );
