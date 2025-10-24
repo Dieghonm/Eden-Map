@@ -48,7 +48,7 @@ export const darkTheme = {
   mode: 'dark',
   background: '#212224',
   secondary: '#3A3A3A',
-  terciario: '#606060',
+  terciario: '#797979',
   fontColor: '#FFFFFF',
   placeholder: '#AAAAAA',
   warning: '#EA5959',

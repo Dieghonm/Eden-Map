@@ -21,5 +21,14 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
       textAlign: 'center',
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    link: {
+      fontSize: fontSize.md,
+      fontFamily: fontFamily.b7,
+      fontWeight: fontWeight.bold,
+      color: theme.alert,
+      textDecorationLine: 'underline',
     },
   });

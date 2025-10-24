@@ -8,8 +8,6 @@
 //   //   }
 //   // };
 
-
-
 import React, { useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
@@ -42,13 +40,15 @@ export default function Register({ navigation, onChangeScreen }) {
   ];
 
   const handleRegister = () => {
-    // Validação básica
     if (formData.username.length >= 4 && 
         formData.email.includes('@') && 
         formData.password.length >= 8) {
-      // Aqui você implementaria a lógica de registro
       navigation.replace('Home');
     }
+  };
+
+  const handleGoToLogin = () => {
+    onChangeScreen('SIGNIN');
   };
 
   const isFormValid = 
@@ -61,8 +61,8 @@ export default function Register({ navigation, onChangeScreen }) {
       contentContainerStyle={styles.scrollContent}
       showsVerticalScrollIndicator={false}
     >
-      <GlassBox>
-        {showInfo && (
+      {showInfo && (
+        <GlassBox style={styles.infoCardContainer}>
           <InfoCard
             title='Regras usuário e senha'
             items={[
@@ -73,35 +73,40 @@ export default function Register({ navigation, onChangeScreen }) {
             ]}
             onClose={() => setShowInfo(false)}
           />
-        )}
-      </GlassBox>
-      <Logo style={styles.Logo}/>
+        </GlassBox>
+      )}
+      
+      <View style={styles.logoContainer}>
+        <Logo />
+      </View>
       
       <WelcomeText 
         title='Inscreva-se'
+        subtitle='Já possui uma conta? Faça login'
+        linkText='Faça login'
+        onLinkPress={handleGoToLogin}
       />
 
-      <GlassBox style={styles.inputsContainer}>
+      <GlassBox style={styles.formContainer}>
+        <TextInput
+          placeholder='Nome'
+          value={formData.username}
+          onChangeText={(text) => setFormData({...formData, username: text})}
+        />
 
-          <TextInput
-            placeholder='Nome'
-            value={formData.username}
-            onChangeText={(text) => setFormData({...formData, username: text})}
-          />
+        <TextInput
+          placeholder='E-mail'
+          value={formData.email}
+          onChangeText={(text) => setFormData({...formData, email: text})}
+        />
 
-          <TextInput
-            placeholder='E-mail'
-            value={formData.email}
-            onChangeText={(text) => setFormData({...formData, email: text})}
-          />
-
-          <TextInput
-            placeholder='Senha'
-            value={formData.password}
-            onChangeText={(text) => setFormData({...formData, password: text})}
-            secureTextEntry={true}
-            showPasswordToggle={true}
-          />
+        <TextInput
+          placeholder='Senha'
+          value={formData.password}
+          onChangeText={(text) => setFormData({...formData, password: text})}
+          secureTextEntry={true}
+          showPasswordToggle={true}
+        />
 
         <ButtonPrimary
           title='Criar minha conta'

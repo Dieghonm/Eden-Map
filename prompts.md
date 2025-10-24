@@ -1,0 +1,1 @@
+Analisa pra mim como foram feitos os elementos já existentes no programa como exemplo  o ButtonPrimary e o ButtonSecundary, como esta estruturado o css e as formas de utilizar. com base nisso 
