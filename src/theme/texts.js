@@ -1,5 +1,7 @@
 import { useFonts, Outfit_400Regular, Outfit_700Bold } from '@expo-google-fonts/outfit';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
+// Hook de carregamento das fontes
 export const useOutfitFonts = () => {
   const [fontsLoaded] = useFonts({
     Outfit_400Regular,
@@ -8,28 +10,29 @@ export const useOutfitFonts = () => {
   return fontsLoaded;
 };
 
+// Espaçamento — baseado na largura da tela
 export const spacing = {
-  xs: 4,
-  sm: 8,
-  md: 16,
-  lg: 24,
-  xl: 30,
-  xxl: 48,
+  xs: scale(4),
+  sm: scale(8),
+  md: scale(16),
+  lg: scale(24),
+  xl: scale(30),
+  xxl: scale(48),
 };
 
+// Bordas — escala proporcional
 export const borderRadius = {
-  sm: 4,
-  md: 8,
-  lg: 12,
-  xl: 20,
-  circle: 50,
+  m: scale(10),
+  g: scale(20),
 };
 
+// Fontes
 export const fontFamily = {
   r4: 'Outfit_400Regular',
-  b7: 'Outfit_700Bold'
+  b7: 'Outfit_700Bold',
 };
 
+// Peso das fontes (não precisa escalar)
 export const fontWeight = {
   thin: '100',
   extralight: '200',
@@ -43,13 +46,14 @@ export const fontWeight = {
   black: '900',
 };
 
+// Tamanhos de fonte — ajusta suavemente à tela
 export const fontSize = {
-  xs: 12,
-  sm: 14,
-  md: 16,
-  lg: 18,
-  xl: 20,
-  xxl: 24,
-  title: 28,
-  header: 32,
+  xs: moderateScale(12),
+  sm: moderateScale(14),
+  md: moderateScale(16),
+  lg: moderateScale(18),
+  xl: moderateScale(20),
+  xxl: moderateScale(24),
+  title: moderateScale(28),
+  header: moderateScale(32),
 };

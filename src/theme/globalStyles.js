@@ -1,9 +1,1 @@
-import { StyleSheet } from 'react-native';
-
-export const createGlobalStyles = (theme) =>
-  StyleSheet.create({
-    container: {
-
-    },
-
-  });
+const { width, height } = Dimensions.get('window');
