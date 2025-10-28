@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { verticalScale } from 'react-native-size-matters';
 import { spacing, fontSize, fontWeight, fontFamily } from '../../theme/texts';
 
 export const createStyles = (theme) =>
@@ -6,7 +7,8 @@ export const createStyles = (theme) =>
     container: {
       alignItems: 'center',
       width: '100%',
-      marginBottom: 15,
+      marginBottom: verticalScale(15),
+      paddingHorizontal: spacing.md,
     },
     title: {
       fontSize: fontSize.xxl,

@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
+import { scale, verticalScale } from 'react-native-size-matters';
 
 export const createStyles = (theme, width, height) =>
   StyleSheet.create({
     logo: {
-      width: width,
-      height: height,
-      marginBottom: 5
+      width: scale(width),
+      height: verticalScale(height),
+      marginBottom: verticalScale(5),
     },
   });

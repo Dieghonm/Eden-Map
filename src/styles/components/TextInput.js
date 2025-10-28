@@ -1,17 +1,19 @@
 import { StyleSheet } from 'react-native';
-import { spacing, borderRadius, fontSize, fontFamily } from '../../theme/texts';
+import { scale, verticalScale } from 'react-native-size-matters';
+import { spacing, borderRadius, fontSize, fontFamily, componentSizes } from '../../theme/texts';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
-      width: 215,
-      height: 40,
+      width: componentSizes.inputWidth,
+      height: componentSizes.inputHeight,
       backgroundColor: theme.terciario,
+      borderRadius: borderRadius.md,
       flexDirection: 'row',
       alignItems: 'center',
       paddingHorizontal: spacing.sm,
-      marginTop: 23,
-      marginBottom:7
+      marginTop: verticalScale(23),
+      marginBottom: verticalScale(7),
     },
     input: {
       flex: 1,

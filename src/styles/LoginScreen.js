@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { spacing, borderRadius, fontSize, fontWeight } from '../theme/texts';
+import { spacing } from '../theme/texts';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
@@ -7,9 +7,6 @@ export const createStyles = (theme) =>
       flex: 1,
       backgroundColor: 'transparent',
       alignItems: 'center',
-      marginTop: 62
-    },
-    content: {
-      padding: 30,
+      marginTop: spacing.xl,
     },
   });

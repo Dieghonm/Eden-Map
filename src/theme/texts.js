@@ -12,18 +12,27 @@ export const useOutfitFonts = () => {
 
 // Espaçamento — baseado na largura da tela
 export const spacing = {
-  xs: scale(4),
-  sm: scale(8),
-  md: scale(16),
-  lg: scale(24),
-  xl: scale(30),
-  xxl: scale(48),
+  xxs: scale(5),
+  xs: scale(10),
+  sm: scale(20),
+  md: scale(40),
+  lg: scale(80),
+  xl: scale(90), //topo da tela
+  xxl: scale(130),
+  xxxl: scale(160),
+  huge: scale(220),
+  giant: scale(290),
 };
 
-// Bordas — escala proporcional
+// Bordas — escala proporcional (CORRIGIDO)
 export const borderRadius = {
-  m: scale(10),
-  g: scale(20),
+  xs: scale(4),
+  sm: scale(8),
+  md: scale(12),
+  lg: scale(16),
+  xl: scale(20),
+  xxl: scale(28),
+  circle: scale(50), // Para elementos circulares
 };
 
 // Fontes
@@ -56,4 +65,16 @@ export const fontSize = {
   xxl: moderateScale(24),
   title: moderateScale(28),
   header: moderateScale(32),
+};
+
+// Dimensões comuns de componentes (ADICIONADO)
+export const componentSizes = {
+  buttonWidth: scale(290),
+  buttonHeight: verticalScale(45),
+  inputWidth: scale(215),
+  inputHeight: verticalScale(40),
+  checkboxSize: scale(15),
+  checkboxWidth: scale(290),
+  checkboxHeight: verticalScale(80),
+  iconSize: scale(24),
 };

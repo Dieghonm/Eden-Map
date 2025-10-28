@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { scale, verticalScale } from 'react-native-size-matters';
 import { spacing, borderRadius, fontSize, fontWeight, fontFamily } from '../../theme/texts';
 
 export const createStyles = (theme) =>
@@ -17,11 +18,12 @@ export const createStyles = (theme) =>
       alignItems: 'center',
       gap: spacing.lg,
       shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
+      shadowOffset: { width: 0, height: verticalScale(2) },
       shadowOpacity: 0.1,
-      shadowRadius: 8,
+      shadowRadius: scale(8),
       elevation: 5,
-      width: 340,
+      width: scale(340),
+      maxWidth: '90%',
     },
     title: {
       fontSize: fontSize.xl,
@@ -40,7 +42,7 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
       textAlign: 'center',
-      lineHeight: 18,
+      lineHeight: verticalScale(18),
     },
     linkHighlight: {
       color: '#4A90E2',

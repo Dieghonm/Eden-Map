@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { verticalScale } from 'react-native-size-matters';
 import { spacing, borderRadius, fontSize, fontWeight, fontFamily } from '../../theme/texts';
 
 export const createStyles = (theme) =>
@@ -10,7 +11,7 @@ export const createStyles = (theme) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginHorizontal : spacing.md,
+      marginHorizontal: spacing.md,
       marginBottom: spacing.sm,
     },
     title: {
@@ -21,12 +22,12 @@ export const createStyles = (theme) =>
     },
     content: {
       gap: spacing.sm,
-      paddingHorizontal : spacing.md,
+      paddingHorizontal: spacing.md,
     },
     item: {
       fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
-      lineHeight: 18,
+      lineHeight: verticalScale(18),
     },
   });

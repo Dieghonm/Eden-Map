@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, SafeAreaView } from 'react-native';
+import { View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeProvider';
 import { createStyles } from '../styles/LoginScreen';
 import TermsScreen from './Login/TermsScreen';
@@ -12,7 +13,6 @@ export default function LoginScreen({ navigation }) {
   const styles = createStyles(theme);
 
   const [currentScreen, setCurrentScreen] = useState('TERMS');
-  // const [currentScreen, setCurrentScreen] = useState('REGISTER');
 
   const handleScreenChange = (newScreen) => {
     console.log('Switching to screen:', newScreen);
@@ -30,13 +30,14 @@ export default function LoginScreen({ navigation }) {
   };
 
   const screensWithoutGif = ['REGISTER', 'CHANGEPASSWORD', 'PLANS'];
+  
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       {!screensWithoutGif.includes(currentScreen) && (
         <View style={styles.content}>
           <Img
-          source={require('../../assets/42.png')}
-          size={220}
+            source={require('../../assets/42.png')}
+            size={220}
           />
         </View>
       )}

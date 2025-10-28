@@ -1,15 +1,17 @@
 import { StyleSheet } from 'react-native';
-import { spacing, borderRadius, fontSize, fontWeight, fontFamily } from '../../theme/texts';
+import { scale, verticalScale } from 'react-native-size-matters';
+import { spacing, borderRadius, fontSize, fontWeight, fontFamily, componentSizes } from '../../theme/texts';
 
-export const createStyles = (theme, width = 290, height = 45) =>
+export const createStyles = (theme, width, height) =>
   StyleSheet.create({
     button: {
-      width: width,
-      height: height,
+      width: width ? scale(width) : componentSizes.buttonWidth,
+      height: height ? verticalScale(height) : componentSizes.buttonHeight,
       backgroundColor: theme.secundaryButton,
       alignItems: 'center',
       justifyContent: 'center',
-      margin: 15,
+      margin: spacing.md,
+      borderRadius: borderRadius.lg,
     },
     buttonContent: {
       alignItems: 'center',

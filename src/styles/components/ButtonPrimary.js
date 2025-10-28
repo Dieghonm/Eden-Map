@@ -1,14 +1,16 @@
 import { StyleSheet } from 'react-native';
-import { spacing, borderRadius, fontSize, fontWeight, fontFamily } from '../../theme/texts';
+import { scale, verticalScale } from 'react-native-size-matters';
+import { spacing, borderRadius, fontSize, fontWeight, fontFamily, componentSizes } from '../../theme/texts';
 
-export const createStyles = (theme, width = 290, height = 45) =>
+export const createStyles = (theme, width, height) =>
   StyleSheet.create({
     gradientButton: {
       alignItems: 'center',
       justifyContent: 'center',
-      width: width,
-      height: height,
-      margin: 15,
+      width: width ? scale(width) : componentSizes.buttonWidth,
+      height: height ? verticalScale(height) : componentSizes.buttonHeight,
+      margin: spacing.md,
+      borderRadius: borderRadius.lg,
     },
     buttonDisabled: {
       opacity: 0.5,

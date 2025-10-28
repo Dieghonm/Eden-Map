@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { scale, verticalScale } from 'react-native-size-matters';
 import { spacing, borderRadius, fontSize, fontWeight, fontFamily } from '../theme/texts';
 
 export const createStyles = (theme) =>
@@ -18,12 +19,12 @@ export const createStyles = (theme) =>
       padding: spacing.xl,
       borderRadius: borderRadius.xl,
       width: '100%',
-      maxWidth: 400,
+      maxWidth: scale(400),
       alignItems: 'center',
       shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
+      shadowOffset: { width: 0, height: verticalScale(2) },
       shadowOpacity: 0.1,
-      shadowRadius: 8,
+      shadowRadius: scale(8),
       elevation: 5,
     },
     welcomeTitle: {
@@ -38,7 +39,7 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
       fontFamily: fontFamily.r4,
       textAlign: 'center',
-      lineHeight: 24,
+      lineHeight: verticalScale(24),
     },
     userName: {
       color: theme.accent,

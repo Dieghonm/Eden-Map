@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { scale, verticalScale } from 'react-native-size-matters';
 import { spacing, borderRadius, fontSize, fontWeight, fontFamily } from '../../theme/texts';
 
 export const createStyles = (theme) =>
@@ -11,7 +12,7 @@ export const createStyles = (theme) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      borderBottomWidth: 1,
+      borderBottomWidth: scale(1),
       borderBottomColor: theme.secondary,
     },
     title: {
@@ -25,12 +26,12 @@ export const createStyles = (theme) =>
       gap: spacing.sm,
     },
     themeButton: {
-      width: 40,
-      height: 40,
+      width: scale(40),
+      height: scale(40),
       borderRadius: borderRadius.circle,
       justifyContent: 'center',
       alignItems: 'center',
-      borderWidth: 2,
+      borderWidth: scale(2),
       borderColor: 'transparent',
     },
     lightButton: {
@@ -44,7 +45,7 @@ export const createStyles = (theme) =>
     },
     activeButton: {
       borderColor: theme.accent,
-      borderWidth: 3,
+      borderWidth: scale(3),
     },
     themeButtonText: {
       fontSize: fontSize.lg,

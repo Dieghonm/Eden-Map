@@ -1,11 +1,14 @@
 import { StyleSheet } from 'react-native';
+import { scale } from 'react-native-size-matters';
 
-export const createStyles = (theme, size) =>
-  StyleSheet.create({
+export const createStyles = (theme, size) => {
+  const scaledSize = scale(size);
+  
+  return StyleSheet.create({
     container: {
-      width: size,
-      height: size,
-      borderRadius: size / 2,
+      width: scaledSize,
+      height: scaledSize,
+      borderRadius: scaledSize / 2,
       overflow: 'hidden',
     },
     image: {
@@ -13,3 +16,4 @@ export const createStyles = (theme, size) =>
       height: '100%',
     },
   });
+};
