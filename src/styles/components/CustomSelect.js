@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { scale, verticalScale } from 'react-native-size-matters';
-import { spacing, borderRadius, fontSize, fontFamily, componentSizes } from '../../theme/texts';
+import { horizontalScale, verticalScale } from '../../utils/responsive';
+import { spacing, borderRadius, fontSize, fontWeight, fontFamily, componentSizes } from '../../theme/texts';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
@@ -9,7 +9,7 @@ export const createStyles = (theme) =>
       height: componentSizes.buttonHeight,
       backgroundColor: theme.secondary,
       borderRadius: borderRadius.md,
-      borderWidth: scale(1),
+      borderWidth: horizontalScale(1),
       borderColor: theme.terciario,
       justifyContent: 'center',
       paddingHorizontal: spacing.md,

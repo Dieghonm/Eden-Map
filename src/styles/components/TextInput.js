@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { scale, verticalScale } from 'react-native-size-matters';
+import { horizontalScale, verticalScale } from '../../utils/responsive';
 import { spacing, borderRadius, fontSize, fontFamily, componentSizes } from '../../theme/texts';
 
 export const createStyles = (theme) =>

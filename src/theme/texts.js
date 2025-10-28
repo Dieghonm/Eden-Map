@@ -1,5 +1,5 @@
 import { useFonts, Outfit_400Regular, Outfit_700Bold } from '@expo-google-fonts/outfit';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { horizontalScale, verticalScale, moderateScale } from '../utils/responsive';
 
 // Hook de carregamento das fontes
 export const useOutfitFonts = () => {
@@ -12,27 +12,23 @@ export const useOutfitFonts = () => {
 
 // Espaçamento — baseado na largura da tela
 export const spacing = {
-  xxs: scale(5),
-  xs: scale(10),
-  sm: scale(20),
-  md: scale(40),
-  lg: scale(80),
-  xl: scale(90), //topo da tela
-  xxl: scale(130),
-  xxxl: scale(160),
-  huge: scale(220),
-  giant: scale(290),
+  xxs: horizontalScale(5), // marginBottom logo
+  xs: horizontalScale(20), // paddingVertical checkbox
+  sm: horizontalScale(0), 
+  md: horizontalScale(30), //espaco entre componentes
+  lg: horizontalScale(50), //paddingHorizontal checkbox
+  xl: horizontalScale(90), // topo da tela
+  xxl: horizontalScale(130),
+  xxxl: horizontalScale(160),
+  huge: horizontalScale(220), // imagem circular
+  giant: horizontalScale(290), // gradientButton
 };
 
-// Bordas — escala proporcional (CORRIGIDO)
+// Bordas — escala proporcional
 export const borderRadius = {
-  xs: scale(4),
-  sm: scale(8),
-  md: scale(12),
-  lg: scale(16),
-  xl: scale(20),
-  xxl: scale(28),
-  circle: scale(50), // Para elementos circulares
+  m: horizontalScale(10),
+  x: horizontalScale(20),
+  circle: horizontalScale(50),
 };
 
 // Fontes
@@ -41,7 +37,7 @@ export const fontFamily = {
   b7: 'Outfit_700Bold',
 };
 
-// Peso das fontes (não precisa escalar)
+// Peso das fontes
 export const fontWeight = {
   thin: '100',
   extralight: '200',
@@ -55,7 +51,7 @@ export const fontWeight = {
   black: '900',
 };
 
-// Tamanhos de fonte — ajusta suavemente à tela
+// Tamanhos de fonte
 export const fontSize = {
   xs: moderateScale(12),
   sm: moderateScale(14),
@@ -67,14 +63,14 @@ export const fontSize = {
   header: moderateScale(32),
 };
 
-// Dimensões comuns de componentes (ADICIONADO)
+// Dimensões comuns de componentes
 export const componentSizes = {
-  buttonWidth: scale(290),
+  buttonWidth: horizontalScale(290),
   buttonHeight: verticalScale(45),
-  inputWidth: scale(215),
+  inputWidth: horizontalScale(215),
   inputHeight: verticalScale(40),
-  checkboxSize: scale(15),
-  checkboxWidth: scale(290),
-  checkboxHeight: verticalScale(80),
-  iconSize: scale(24),
+  iconSize: horizontalScale(24),
 };
+
+
+export { horizontalScale as scale, verticalScale, moderateScale };

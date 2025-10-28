@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { scale } from 'react-native-size-matters';
-import { spacing, borderRadius, componentSizes } from '../../theme/texts';
+import { horizontalScale, verticalScale } from '../../utils/responsive';
+import { spacing, borderRadius, fontSize, fontWeight, fontFamily, componentSizes } from '../../theme/texts';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
@@ -11,7 +11,7 @@ export const createStyles = (theme) =>
       opacity: 0.5,
     },
     glassGradient: {
-      padding: scale(7),
+      padding: horizontalScale(7),
       borderRadius: borderRadius.xl,
       alignItems: 'center',
     },

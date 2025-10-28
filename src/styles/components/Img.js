@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { scale } from 'react-native-size-matters';
+import { horizontalScale } from '../../utils/responsive';
 
 export const createStyles = (theme, size) => {
-  const scaledSize = scale(size);
+  const scaledSize = horizontalScale(size);
   
   return StyleSheet.create({
     container: {

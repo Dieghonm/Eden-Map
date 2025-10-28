@@ -9,4 +9,7 @@ export const createStyles = (theme) =>
       alignItems: 'center',
       marginTop: spacing.xl,
     },
+    content:{
+      marginBottom: spacing.md
+    },
   });
