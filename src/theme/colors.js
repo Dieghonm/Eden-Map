@@ -1,3 +1,25 @@
+export const darkTheme = {
+  mode: 'dark',
+  background: '#212224',
+  secondary: '#3A3A3A',
+  terciario: '#797979',
+  fontColor: '#FFFFFF',
+  warning: '#EA5959',
+  alert: '#FFAA2E',
+  success: '#38C197',
+  button: '#0A84FF',
+  buttonGradient: ['#0A84FF', '#8A4AED'],
+  buttonTextColor: '#FFFFFF',
+  secundaryButton: '#FFFFFF',
+  secundaryButtonText: '#0A84FF',
+  accent: '#DCA2FF',
+  glassGradient: [
+    'rgba(76, 76, 76, 0.2)',
+    'rgba(150, 148, 148, 0.4)',
+    'rgba(76, 76, 76, 0.2)',
+  ],
+};
+
 export const lightTheme = {
   mode: 'light',
   background: '#F9F9FB',
@@ -44,24 +66,3 @@ export const pinkTheme = {
   ],
 };
 
-export const darkTheme = {
-  mode: 'dark',
-  background: '#212224',
-  secondary: '#3A3A3A',
-  terciario: '#797979',
-  fontColor: '#FFFFFF',
-  warning: '#EA5959',
-  alert: '#FFAA2E',
-  success: '#38C197',
-  button: '#0A84FF',
-  buttonGradient: ['#0A84FF', '#8A4AED'],
-  buttonTextColor: '#FFFFFF',
-  secundaryButton: '#FFFFFF',
-  secundaryButtonText: '#0A84FF',
-  accent: '#DCA2FF',
-  glassGradient: [
-    'rgba(76, 76, 76, 0.2)',
-    'rgba(150, 148, 148, 0.4)',
-    'rgba(76, 76, 76, 0.2)',
-  ],
-};

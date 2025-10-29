@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { View, TextInput as RNTextInput, TouchableOpacity, Text, Image } from 'react-native';
+import { View, TextInput as RNTextInput, TouchableOpacity, Image } from 'react-native';
 import { useTheme } from '../context/ThemeProvider';
 import { createStyles } from '../styles/components/TextInput';
-
 
 export default function TextInput({ 
   placeholder, 
@@ -10,14 +9,16 @@ export default function TextInput({
   onChangeText, 
   secureTextEntry = false,
   showPasswordToggle = false,
-  disabled = false 
+  disabled = false,
+  isValid = true,
+  showValidation = false
 }) {
   const { theme } = useTheme();
-  const styles = createStyles(theme);
+  const styles = createStyles(theme, isValid, showValidation);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   return (
-    <View style={styles.container }>
+    <View style={[styles.container, showValidation && !isValid && styles.containerInvalid]}>
       <RNTextInput
         style={styles.input}
         placeholder={placeholder}
@@ -33,9 +34,9 @@ export default function TextInput({
           onPress={() => setIsPasswordVisible(!isPasswordVisible)}
           activeOpacity={0.7}
         >
-        {isPasswordVisible ? 
-          <Image source={require('../../assets/icons/Eye.png')} />
-          : <Image source={require('../../assets/icons/EyeSlash.png')} />}
+          {isPasswordVisible ? 
+            <Image source={require('../../assets/icons/Eye.png')} />
+            : <Image source={require('../../assets/icons/EyeSlash.png')} />}
         </TouchableOpacity>
       )}
     </View>

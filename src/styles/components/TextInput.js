@@ -1,8 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { horizontalScale, verticalScale } from '../../utils/responsive';
-import { spacing, borderRadius, fontSize, fontFamily, componentSizes } from '../../theme/texts';
+import { spacing, borderRadius, fontSize, fontFamily } from '../../theme/texts';
 
-export const createStyles = (theme) =>
+export const createStyles = (theme, isValid = true, showValidation = false) =>
   StyleSheet.create({
     container: {
       width: spacing.huge,
@@ -12,6 +12,13 @@ export const createStyles = (theme) =>
       alignItems: 'center',
       marginTop: spacing.xs - spacing.xxs,
       marginBottom: spacing.xs - spacing.xxs,
+      borderWidth: horizontalScale(2),
+      borderColor: 'transparent',
+    },
+    containerInvalid: {
+      backgroundColor: theme.warning,
+      opacity: 0.4,
+
     },
     input: {
       flex: 1,
@@ -22,7 +29,6 @@ export const createStyles = (theme) =>
       height: '100%',
     },
     eyeButton: {
-      paddingRight : spacing.xxs * 2 ,
-
+      paddingRight: spacing.xxs * 2,
     },
   });

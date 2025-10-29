@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { View, Platform } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { View, Platform, Alert, ActivityIndicator, Text } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTheme } from '../../context/ThemeProvider';
+import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Login/Register';
 import Logo from '../../components/Logo';
 import WelcomeText from '../../components/WelcomeText';
@@ -9,17 +10,26 @@ import TextInput from '../../components/TextInput';
 import InfoCard from '../../components/InfoCard';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GlassBox from '../../components/GlassBox';
+import { api, tokenHelpers, BASE_URL } from '../../services/api';
 
 export default function Register({ navigation, onChangeScreen }) {
   const { theme } = useTheme();
+  const { setUser } = useContext(AppContext);
   const styles = createStyles(theme);
   
   const [showInfo, setShowInfo] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
   });
+  const [touched, setTouched] = useState({
+    username: false,
+    email: false,
+    password: false,
+  });
+  const [errorMessage, setErrorMessage] = useState('');
 
   const userRules = [' •  entre 4 - 20 caracteres'];
   const passwordRules = [
@@ -27,13 +37,81 @@ export default function Register({ navigation, onChangeScreen }) {
     ' •  use letras maiúsculas e minúsculas, números, sem espaçamentos'
   ];
 
-  const handleRegister = () => {
-    if (
-      formData.username.length >= 4 && 
-      formData.email.includes('@') && 
-      formData.password.length >= 8
-    ) {
-      navigation.replace('Home');
+  const validateUsername = (username) => {
+    return username.length >= 4 && username.length <= 20;
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePassword = (password) => {
+    const hasMinLength = password.length >= 8 && password.length <= 32;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const noSpaces = !/\s/.test(password);
+    
+    return hasMinLength && hasUpperCase && hasLowerCase && hasNumber && noSpaces;
+  };
+
+  const handleRegister = async () => {
+    if (!isFormValid) {
+      Alert.alert('Erro', 'Por favor, preencha todos os campos corretamente.');
+      return;
+    }
+
+    setLoading(true);
+    setErrorMessage('');
+
+    try {
+      const userData = {
+        login: formData.username.toLowerCase().trim(),
+        senha: formData.password,
+        email: formData.email.toLowerCase().trim(),
+        tag: 'cliente',
+        plan: 'trial'
+      };
+
+      console.log('📤 Enviando cadastro:', { ...userData, senha: '***' });
+      const response = await api.cadastro(userData);
+      console.log('✅ Cadastro realizado com sucesso:', response);
+      if (response.access_token) {
+        await tokenHelpers.save(response.access_token);
+      }
+      setUser({
+        login: response.user.login,
+        email: formData.email,
+        tag: userData.tag,
+        plan: userData.plan,
+        token_duration: response.token_duration,
+        expires: response.expires,
+      });
+      navigation.replace('Home')
+    } catch (error) {
+      console.error('❌ Erro no cadastro:', error);
+
+      let errorMsg = 'Erro ao criar conta. Tente novamente.';
+      if (error.status === 400) {
+        if (error.message.includes('Email')) {
+          errorMsg = 'Este email já está cadastrado.';
+        } else if (error.message.includes('Login')) {
+          errorMsg = 'Este nome de usuário já está em uso.';
+        } else {
+          errorMsg = error.message;
+        }
+      } else if (error.status === 429) {
+        errorMsg = 'Muitas tentativas. Aguarde um momento e tente novamente.';
+      } else if (error.status === 0) {
+        errorMsg = 'Erro de conexão. Verifique sua internet e se o servidor está rodando.';
+      }
+
+      setErrorMessage(errorMsg);
+      Alert.alert('Erro no Cadastro', errorMsg);
+
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -42,9 +120,9 @@ export default function Register({ navigation, onChangeScreen }) {
   };
 
   const isFormValid = 
-    formData.username.length >= 4 && 
-    formData.email.includes('@') && 
-    formData.password.length >= 8;
+    validateUsername(formData.username) && 
+    validateEmail(formData.email) && 
+    validatePassword(formData.password);
 
   return (
     <KeyboardAwareScrollView
@@ -55,8 +133,8 @@ export default function Register({ navigation, onChangeScreen }) {
       ]}
       enableOnAndroid={true}
       enableAutomaticScroll={true}
-      extraScrollHeight={Platform.OS === 'ios' ? 20 : 100}    // espaço extra quando o teclado abrir
-      keyboardOpeningTime={0}                                 // melhora a resposta em alguns dispositivos
+      extraScrollHeight={Platform.OS === 'ios' ? 20 : 100}
+      keyboardOpeningTime={0}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
     >
@@ -89,48 +167,72 @@ export default function Register({ navigation, onChangeScreen }) {
 
       <GlassBox>
         <TextInput
-          placeholder='Nome'
+          placeholder='Nome de Usuário'
           value={formData.username}
-          onChangeText={(text) => setFormData({ ...formData, username: text })}
-          // se seu TextInput custom aceitar, passe também onFocus/onBlur
+          onChangeText={(text) => {
+            setFormData({ ...formData, username: text });
+            if (!touched.username && text.length > 0) {
+              setTouched({ ...touched, username: true });
+            }
+            setErrorMessage('');
+          }}
+          isValid={validateUsername(formData.username)}
+          showValidation={touched.username}
+          disabled={loading}
         />
 
         <TextInput
           placeholder='E-mail'
           value={formData.email}
-          onChangeText={(text) => setFormData({ ...formData, email: text })}
+          onChangeText={(text) => {
+            setFormData({ ...formData, email: text });
+            if (!touched.email && text.length > 0) {
+              setTouched({ ...touched, email: true });
+            }
+            setErrorMessage('');
+          }}
+          isValid={validateEmail(formData.email)}
+          showValidation={touched.email}
+          disabled={loading}
+          keyboardType="email-address"
+          autoCapitalize="none"
         />
 
         <TextInput
           placeholder='Senha'
           value={formData.password}
-          onChangeText={(text) => setFormData({ ...formData, password: text })}
+          onChangeText={(text) => {
+            setFormData({ ...formData, password: text });
+            if (!touched.password && text.length > 0) {
+              setTouched({ ...touched, password: true });
+            }
+            setErrorMessage('');
+          }}
           secureTextEntry={true}
           showPasswordToggle={true}
-          style={styles.button}
+          isValid={validatePassword(formData.password)}
+          showValidation={touched.password}
+          disabled={loading}
         />
 
-        <View style={styles.space} />
+        {errorMessage ? (
+            <Text style={styles.errorText}>⚠️ {errorMessage}</Text>
+        ) : <View style={styles.space} />}
 
-        <ButtonPrimary
-          title='Criar minha conta'
-          onPress={handleRegister}
-          disabled={!isFormValid}
-          width={220}
-        />
+        {loading ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color={theme.button} />
+            <Text style={styles.loadingText}>Criando sua conta...</Text>
+          </View>
+        ) : (
+          <ButtonPrimary
+            title='Criar minha conta'
+            onPress={handleRegister}
+            disabled={!isFormValid}
+            width={220}
+          />
+        )}
       </GlassBox>
     </KeyboardAwareScrollView>
   );
 }
-
-
-
-
-//   // leva para a home
-//   // const { setUser } = useContext (AppContext);
-//   // const handleAccept = () => {
-//   //   if (bothAccepted) {
-//   //     setUser({ name: 'Usuário', acceptedTerms: true });
-//   //     navigation.replace('Home');
-//   //   }
-//   // };
