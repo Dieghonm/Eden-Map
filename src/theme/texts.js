@@ -10,19 +10,25 @@ export const useOutfitFonts = () => {
   return fontsLoaded;
 };
 
+// Função auxiliar para escalar com limite máximo
+const scaleMinMax = (size) => {
+  return Math.min(Math.min(horizontalScale(size), verticalScale(size)), size * 2);
+};
+
 // Espaçamento — baseado na largura da tela
 export const spacing = {
-  xxs: horizontalScale(5), // marginBottom logo
-  xs: horizontalScale(20), // paddingVertical checkbox
-  sm: horizontalScale(0), 
-  md: horizontalScale(30), //espaco entre componentes
-  lg: horizontalScale(50), //paddingHorizontal checkbox
-  xl: horizontalScale(90), // topo da tela
-  xxl: horizontalScale(130),
-  xxxl: horizontalScale(160),
+  xxs: scaleMinMax(5), // marginBottom logo
+  xs: scaleMinMax(20), // paddingVertical checkbox
+  sm: scaleMinMax(0), 
+  md: scaleMinMax(30), //espaco entre componentes
+  lg: scaleMinMax(50), //paddingHorizontal checkbox
+  xl: scaleMinMax(90), // topo da tela
+  xxl: scaleMinMax(130),
+  xxxl: scaleMinMax(160),
   huge: horizontalScale(220), // imagem circular
   giant: horizontalScale(290), // gradientButton
 };
+
 
 // Bordas — escala proporcional
 export const borderRadius = {
