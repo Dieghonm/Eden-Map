@@ -11,8 +11,8 @@ export const createStyles = (theme) =>
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginHorizontal: spacing.md,
-      marginBottom: spacing.sm,
+      marginHorizontal: spacing.xs,
+      marginBottom: spacing.xxs,
     },
     title: {
       fontSize: fontSize.md,
@@ -22,7 +22,7 @@ export const createStyles = (theme) =>
     },
     content: {
       gap: spacing.sm,
-      paddingHorizontal: spacing.md,
+      paddingHorizontal: spacing.xs,
     },
     item: {
       fontSize: fontSize.md,

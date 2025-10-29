@@ -1,15 +1,6 @@
-
-//   // leva para a home
-//   // const { setUser } = useContext (AppContext);
-//   // const handleAccept = () => {
-//   //   if (bothAccepted) {
-//   //     setUser({ name: 'Usuário', acceptedTerms: true });
-//   //     navigation.replace('Home');
-//   //   }
-//   // };
-
 import React, { useState } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, Platform } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTheme } from '../../context/ThemeProvider';
 import { createStyles } from '../../styles/Login/Register';
 import Logo from '../../components/Logo';
@@ -30,19 +21,18 @@ export default function Register({ navigation, onChangeScreen }) {
     password: '',
   });
 
-  const userRules = [
-    ' •  entre 4 - 20 caracteres'
-  ];
-
+  const userRules = [' •  entre 4 - 20 caracteres'];
   const passwordRules = [
     ' •  entre 8 - 32 caracteres',
     ' •  use letras maiúsculas e minúsculas, números, sem espaçamentos'
   ];
 
   const handleRegister = () => {
-    if (formData.username.length >= 4 && 
-        formData.email.includes('@') && 
-        formData.password.length >= 8) {
+    if (
+      formData.username.length >= 4 && 
+      formData.email.includes('@') && 
+      formData.password.length >= 8
+    ) {
       navigation.replace('Home');
     }
   };
@@ -57,9 +47,18 @@ export default function Register({ navigation, onChangeScreen }) {
     formData.password.length >= 8;
 
   return (
-    <ScrollView 
-      contentContainerStyle={styles.scrollContent}
+    <KeyboardAwareScrollView
+      style={{ flex: 1 }}
+      contentContainerStyle={[
+        styles.scrollContent,
+        { flexGrow: 1, justifyContent: 'center', paddingHorizontal: 20 }
+      ]}
+      enableOnAndroid={true}
+      enableAutomaticScroll={true}
+      extraScrollHeight={Platform.OS === 'ios' ? 20 : 100}    // espaço extra quando o teclado abrir
+      keyboardOpeningTime={0}                                 // melhora a resposta em alguns dispositivos
       showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps="handled"
     >
       {showInfo && (
         <GlassBox style={styles.infoCardContainer}>
@@ -73,10 +72,11 @@ export default function Register({ navigation, onChangeScreen }) {
             ]}
             onClose={() => setShowInfo(false)}
           />
+          <View style={styles.space} />
         </GlassBox>
       )}
       
-      <View style={styles.logoContainer}>
+      <View>
         <Logo />
       </View>
       
@@ -87,34 +87,50 @@ export default function Register({ navigation, onChangeScreen }) {
         onLinkPress={handleGoToLogin}
       />
 
-      <GlassBox style={styles.formContainer}>
+      <GlassBox>
         <TextInput
           placeholder='Nome'
           value={formData.username}
-          onChangeText={(text) => setFormData({...formData, username: text})}
+          onChangeText={(text) => setFormData({ ...formData, username: text })}
+          // se seu TextInput custom aceitar, passe também onFocus/onBlur
         />
 
         <TextInput
           placeholder='E-mail'
           value={formData.email}
-          onChangeText={(text) => setFormData({...formData, email: text})}
+          onChangeText={(text) => setFormData({ ...formData, email: text })}
         />
 
         <TextInput
           placeholder='Senha'
           value={formData.password}
-          onChangeText={(text) => setFormData({...formData, password: text})}
+          onChangeText={(text) => setFormData({ ...formData, password: text })}
           secureTextEntry={true}
           showPasswordToggle={true}
+          style={styles.button}
         />
+
+        <View style={styles.space} />
 
         <ButtonPrimary
           title='Criar minha conta'
           onPress={handleRegister}
           disabled={!isFormValid}
-          width = {218}
+          width={220}
         />
       </GlassBox>
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 }
+
+
+
+
+//   // leva para a home
+//   // const { setUser } = useContext (AppContext);
+//   // const handleAccept = () => {
+//   //   if (bothAccepted) {
+//   //     setUser({ name: 'Usuário', acceptedTerms: true });
+//   //     navigation.replace('Home');
+//   //   }
+//   // };

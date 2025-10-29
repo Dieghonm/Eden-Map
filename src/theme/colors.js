@@ -50,7 +50,6 @@ export const darkTheme = {
   secondary: '#3A3A3A',
   terciario: '#797979',
   fontColor: '#FFFFFF',
-  placeholder: '#AAAAAA',
   warning: '#EA5959',
   alert: '#FFAA2E',
   success: '#38C197',
@@ -61,8 +60,8 @@ export const darkTheme = {
   secundaryButtonText: '#0A84FF',
   accent: '#DCA2FF',
   glassGradient: [
-    'rgba(76, 76, 76, 0.4)',
-    'rgba(158, 158, 158, 0.4)',
-    'rgba(76, 76, 76, 0.4)',
+    'rgba(76, 76, 76, 0.2)',
+    'rgba(150, 148, 148, 0.4)',
+    'rgba(76, 76, 76, 0.2)',
   ],
 };

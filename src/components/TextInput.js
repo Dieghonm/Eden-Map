@@ -21,7 +21,7 @@ export default function TextInput({
       <RNTextInput
         style={styles.input}
         placeholder={placeholder}
-        placeholderTextColor={theme.placeholder}
+        placeholderTextColor={theme.fontColor}
         value={value}
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry && !isPasswordVisible}

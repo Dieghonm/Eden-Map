@@ -5,25 +5,24 @@ import { spacing, borderRadius, fontSize, fontFamily, componentSizes } from '../
 export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
-      width: componentSizes.inputWidth,
-      height: componentSizes.inputHeight,
+      width: spacing.huge,
+      height: spacing.xs * 2,
       backgroundColor: theme.terciario,
-      borderRadius: borderRadius.md,
       flexDirection: 'row',
       alignItems: 'center',
-      paddingHorizontal: spacing.sm,
-      marginTop: verticalScale(23),
-      marginBottom: verticalScale(7),
+      marginTop: spacing.xs - spacing.xxs,
+      marginBottom: spacing.xs - spacing.xxs,
     },
     input: {
       flex: 1,
-      fontSize: fontSize.md,
+      fontSize: fontSize.sm,
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
+      paddingHorizontal: spacing.xxs * 2,
       height: '100%',
     },
     eyeButton: {
-      padding: spacing.xs,
-      marginLeft: spacing.sm,
+      paddingRight : spacing.xxs * 2 ,
+
     },
   });

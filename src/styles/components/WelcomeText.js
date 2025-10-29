@@ -23,8 +23,7 @@ export const createStyles = (theme) =>
     },
     link: {
       fontSize: fontSize.md,
-      fontFamily: fontFamily.b7,
-      fontWeight: fontWeight.bold,
+      fontFamily: fontFamily.r4,
       color: theme.alert,
       textDecorationLine: 'underline',
     },

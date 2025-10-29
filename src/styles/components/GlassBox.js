@@ -5,14 +5,16 @@ import { spacing, borderRadius, fontSize, fontWeight, fontFamily, componentSizes
 export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
-      width: componentSizes.buttonWidth,
+      width: spacing.giant,
+      marginBottom:  spacing.md
     },
     containerDisabled: {
       opacity: 0.5,
     },
     glassGradient: {
-      padding: horizontalScale(7),
-      borderRadius: borderRadius.xl,
+      paddingTop: spacing.xs - spacing.xxs,
+      paddingHorizontal: spacing.xs - spacing.xxs,
+      borderRadius: borderRadius.m,
       alignItems: 'center',
     },
   });

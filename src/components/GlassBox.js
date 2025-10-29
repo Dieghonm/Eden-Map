@@ -12,7 +12,7 @@ export default function GlassBox({ children, style, disabled = false }) {
     <View style={[styles.container, disabled && styles.containerDisabled, style]}>
       <LinearGradient
         colors={theme.glassGradient}
-        start={{ x: 0.70, y: 0 }}
+        start={{ x: 0.7, y: 0.3 }}
         end={{ x: 0.2, y: 1}}
         style={styles.glassGradient}
       >

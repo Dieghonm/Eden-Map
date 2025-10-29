@@ -12,8 +12,8 @@ export default function LoginScreen({ navigation }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
-  const [currentScreen, setCurrentScreen] = useState('TERMS');
-  // const [currentScreen, setCurrentScreen] = useState('REGISTER');
+  // const [currentScreen, setCurrentScreen] = useState('TERMS');
+  const [currentScreen, setCurrentScreen] = useState('REGISTER');
 
   const handleScreenChange = (newScreen) => {
     console.log('Switching to screen:', newScreen);

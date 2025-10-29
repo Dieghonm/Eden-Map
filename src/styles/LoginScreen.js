@@ -7,7 +7,7 @@ export const createStyles = (theme) =>
       flex: 1,
       backgroundColor: 'transparent',
       alignItems: 'center',
-      marginTop: spacing.xl,
+      marginTop: spacing.lg,
     },
     content:{
       marginBottom: spacing.md

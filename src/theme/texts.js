@@ -26,7 +26,8 @@ export const spacing = {
 
 // Bordas — escala proporcional
 export const borderRadius = {
-  m: horizontalScale(10),
+  p: horizontalScale(10),
+  m: horizontalScale(15),
   x: horizontalScale(20),
   circle: horizontalScale(50),
 };
