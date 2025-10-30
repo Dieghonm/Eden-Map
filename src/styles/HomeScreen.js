@@ -46,4 +46,8 @@ export const createStyles = (theme) =>
       fontWeight: fontWeight.bold,
       fontFamily: fontFamily.b7,
     },
+    logoutContainer: {
+      marginTop: spacing.xl,
+      alignItems: 'center',
+    },
   });
