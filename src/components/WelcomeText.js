@@ -12,7 +12,6 @@ export default function WelcomeText({
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
-  // Se tiver linkText, divide o subtitle
   const renderSubtitle = () => {
     if (!subtitle) return null;
     
@@ -33,8 +32,8 @@ export default function WelcomeText({
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-      {renderSubtitle()}
+      {title ? <Text style={styles.title}>{title}</Text>: null}
+      {subtitle ? renderSubtitle(): null}
     </View>
   );
 }

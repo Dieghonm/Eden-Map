@@ -6,7 +6,7 @@ export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
       width: '100%',
-      marginBottom: spacing.md,
+      marginBottom: spacing.xs,
     },
     title: {
       fontSize: fontSize.xxl,

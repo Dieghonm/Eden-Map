@@ -23,11 +23,6 @@ export default function SignIn({ navigation, onChangeScreen }) {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleLogin = async () => {
-    if (!isFormValid) {
-      Alert.alert('Erro', 'Por favor, preencha todos os campos corretamente.');
-      return;
-    }
-
     setLoading(true);
     setErrorMessage('');
 
@@ -81,7 +76,7 @@ export default function SignIn({ navigation, onChangeScreen }) {
   };
 
   const isFormValid = 
-    formData.email.includes('@') && 
+    formData.email.trim().length > 0 && 
     formData.password.length >= 6;
 
   return (
@@ -90,17 +85,21 @@ export default function SignIn({ navigation, onChangeScreen }) {
 
       <WelcomeText title="Login" />
 
-      <WelcomeText 
-        subtitle="Ainda não tem um e-mail cadastrado?\nCrie sua conta aqui"
-        linkText="Crie sua conta aqui"
-        onLinkPress={() => handleGoToScreen('REGISTER')}
-      />
+      <View style={styles.TextREGISTER}>
+        <WelcomeText 
+          subtitle="Ainda não tem um e-mail cadastrado? Crie sua conta aqui"
+          linkText="Crie sua conta aqui"
+          onLinkPress={() => handleGoToScreen('REGISTER')}
+        />
+      </View>
 
-      <WelcomeText 
-        subtitle="Esqueceu sua senha?\nRecupere sua senha aqui" 
-        linkText="Recupere sua senha aqui"
-        onLinkPress={() => handleGoToScreen('FORGOT_PASSWORD')}
-      />
+      <View style={styles.TextFORGOT}>
+        <WelcomeText 
+          subtitle="Esqueceu sua senha? Recupere sua senha aqui" 
+          linkText="Recupere sua senha aqui"
+          onLinkPress={() => handleGoToScreen('FORGOT_PASSWORD')}
+        />
+      </View>
 
       <GlassBox>
         <TextInput

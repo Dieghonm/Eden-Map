@@ -24,7 +24,7 @@ export const spacing = {
   lg: scaleMinMax(50), //paddingHorizontal checkbox
   xl: scaleMinMax(90), // topo da tela
   xxl: scaleMinMax(130),
-  xxxl: scaleMinMax(160),
+  xxxl: scaleMinMax(200),
   huge: horizontalScale(220), // imagem circular
   giant: horizontalScale(290), // gradientButton
 };
