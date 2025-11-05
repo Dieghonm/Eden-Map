@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, ActivityIndicator, Alert, Image } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Login/SignIn';
@@ -127,7 +127,10 @@ export default function SignIn({ navigation, onChangeScreen }) {
         />
 
         {errorMessage ? (
-          <Text style={styles.errorText}>⚠️ {errorMessage}</Text>
+          <View style={styles.errorContainer}>
+            <Image style={styles.errorImg} source={require('../../../assets/icons/Exclamation.png')} />
+            <Text style={styles.errorText}>{errorMessage}</Text>
+          </View>
         ) : <View style={styles.space} />}
 
         {loading ? (

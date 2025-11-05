@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { spacing, fontSize, fontFamily } from '../../theme/texts';
+import { horizontalScale } from '../../utils/responsive';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
@@ -26,12 +27,28 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
       fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
-      marginTop: spacing.sm,
     },
     TextREGISTER: {
       width: Math.min(spacing.giant, 440),
     },
     TextFORGOT: {
       width: spacing.xxxl,
-    }
+    },
+    errorContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: spacing.xxs,
+    },
+    errorImg: {
+      width: horizontalScale(14),
+      height: horizontalScale(14),
+      marginRight: horizontalScale(6),
+    },
+    errorText: {
+      color: theme.fontColor,
+      fontSize: fontSize.sm,
+      fontFamily: fontFamily.r4,
+      textAlign: 'center',
+    },
   });

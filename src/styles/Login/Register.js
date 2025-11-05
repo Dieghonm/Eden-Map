@@ -11,7 +11,7 @@ export const createStyles = (theme) =>
       marginTop: spacing.xxs * 3,
     },
     errorText: {
-      color: theme.warning,
+      color: theme.fontColor,
       fontSize: fontSize.sm,
       fontFamily: fontFamily.r4,
       textAlign: 'center',
@@ -26,6 +26,23 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
       fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
-      marginTop: spacing.md,
     },
+    errorContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: spacing.xxs,
+    },
+    errorImg: {
+      width: horizontalScale(14),
+      height: horizontalScale(14),
+      marginRight: horizontalScale(6),
+    },
+    errorText: {
+      color: theme.fontColor,
+      fontSize: fontSize.sm,
+      fontFamily: fontFamily.r4,
+      textAlign: 'center',
+    },
+
   });

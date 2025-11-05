@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Platform, Alert, ActivityIndicator, Text } from 'react-native';
+import { View, Platform, Alert, ActivityIndicator, Text, Image } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
@@ -95,9 +95,9 @@ export default function Register({ navigation, onChangeScreen }) {
       let errorMsg = 'Erro ao criar conta. Tente novamente.';
       if (error.status === 400) {
         if (error.message.includes('Email')) {
-          errorMsg = 'Este email já está cadastrado.';
+          errorMsg = 'Email já está cadastrado.';
         } else if (error.message.includes('Login')) {
-          errorMsg = 'Este nome de usuário já está em uso.';
+          errorMsg = 'Nome de usuário já cadastrado.';
         } else {
           errorMsg = error.message;
         }
@@ -216,8 +216,12 @@ export default function Register({ navigation, onChangeScreen }) {
         />
 
         {errorMessage ? (
-            <Text style={styles.errorText}>⚠️ {errorMessage}</Text>
+          <View style={styles.errorContainer}>
+            <Image style={styles.errorImg} source={require('../../../assets/icons/Exclamation.png')} />
+            <Text style={styles.errorText}>{errorMessage}</Text>
+          </View>
         ) : <View style={styles.space} />}
+
 
         {loading ? (
           <View style={styles.loadingContainer}>

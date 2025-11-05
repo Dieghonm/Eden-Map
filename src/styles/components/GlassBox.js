@@ -14,7 +14,7 @@ export const createStyles = (theme) =>
     glassGradient: {
       paddingTop: spacing.xs - spacing.xxs,
       paddingHorizontal: spacing.xs - spacing.xxs,
-      borderRadius: borderRadius.m,
+      borderRadius: borderRadius.p,
       alignItems: 'center',
     },
   });

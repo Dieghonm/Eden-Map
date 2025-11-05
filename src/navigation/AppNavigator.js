@@ -26,6 +26,7 @@ export default function AppNavigator() {
     } else {
       setIsAuthenticated(false);
     }
+    setIsAuthenticated(false);
   }, [user]);
 
   const checkAuthStatus = async () => {

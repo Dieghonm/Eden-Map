@@ -210,7 +210,9 @@ export const api = {
   solicitarTempKey: async (emailOuLogin) => {
     return apiRequest('/tempkey', {
       method: 'POST',
-      body: JSON.stringify({ email_ou_login: emailOuLogin }),
+      body: JSON.stringify({ 
+        email_ou_login: emailOuLogin 
+      }),
     });
   },
 
@@ -221,6 +223,19 @@ export const api = {
       body: JSON.stringify({ 
         email_ou_login: emailOuLogin,
         tempKey: tempKey 
+      }),
+    });
+  },
+
+  // Alterar senha com tempKey
+  alterarSenhaComTempKey: async (data) => {
+    const { email, tempKey, novaSenha } = data;
+    return apiRequest('/alterar-senha', {
+      method: 'POST',
+      body: JSON.stringify({
+        email_ou_login: email,
+        tempKey: tempKey,
+        nova_senha: novaSenha
       }),
     });
   },

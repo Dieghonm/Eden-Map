@@ -7,13 +7,14 @@ import TermsScreen from './Login/TermsScreen';
 import Img from '../components/Img';
 import Register from './Login/Register';
 import SignIn from './Login/SignIn';
+import ForgotPassword from './Login/ForgotPassword';
 
 export default function LoginScreen({ navigation }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
-  // const [currentScreen, setCurrentScreen] = useState('TERMS');
-  const [currentScreen, setCurrentScreen] = useState('SIGNIN');
+  const [currentScreen, setCurrentScreen] = useState('TERMS');
+  // const [currentScreen, setCurrentScreen] = useState('FORGOT_PASSWORD');
 
   const handleScreenChange = (newScreen) => {
     console.log('Switching to screen:', newScreen);
@@ -25,6 +26,7 @@ export default function LoginScreen({ navigation }) {
       'TERMS': <TermsScreen onChangeScreen={handleScreenChange} />,
       'REGISTER': <Register onChangeScreen={handleScreenChange} navigation={navigation}/>,
       'SIGNIN': <SignIn onChangeScreen={handleScreenChange} navigation={navigation}/>,
+      'FORGOT_PASSWORD': <ForgotPassword onChangeScreen={handleScreenChange} />,
     };
 
     return screenComponents[currentScreen] || screenComponents.TERMS;
