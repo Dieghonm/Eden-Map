@@ -137,7 +137,6 @@ const getToken = async () => {
   }
 };
 
-// Função para remover token
 const removeToken = async () => {
   try {
     await AsyncStorage.removeItem('access_token');
@@ -147,9 +146,7 @@ const removeToken = async () => {
   }
 };
 
-// API Methods
 export const api = {
-  // Cadastro de usuário
   cadastro: async (userData) => {
     return apiRequest('/cadastro', {
       method: 'POST',
@@ -157,7 +154,6 @@ export const api = {
     });
   },
 
-  // Login
   login: async (credentials) => {
     return apiRequest('/login', {
       method: 'POST',
@@ -165,7 +161,6 @@ export const api = {
     });
   },
 
-  // Obter dados do usuário autenticado
   me: async () => {
     const token = await getToken();
     if (!token) {
@@ -180,14 +175,12 @@ export const api = {
     });
   },
 
-  // Health check
   health: async () => {
     return apiRequest('/health', {
       method: 'GET',
     });
   },
 
-  // Renovar token
   renovarToken: async (token) => {
     return apiRequest('/login', {
       method: 'POST',
@@ -195,7 +188,6 @@ export const api = {
     });
   },
 
-  // Listar usuários (admin/tester)
   listarUsuarios: async () => {
     const token = await getToken();
     return apiRequest('/usuarios', {
@@ -206,7 +198,6 @@ export const api = {
     });
   },
 
-  // Recuperação de senha - enviar código
   solicitarTempKey: async (emailOuLogin) => {
     return apiRequest('/tempkey', {
       method: 'POST',
@@ -216,7 +207,6 @@ export const api = {
     });
   },
 
-  // Recuperação de senha - validar código
   validarTempKey: async (emailOuLogin, tempKey) => {
     return apiRequest('/tempkey', {
       method: 'POST',
@@ -227,7 +217,6 @@ export const api = {
     });
   },
 
-  // Alterar senha com tempKey
   alterarSenhaComTempKey: async (data) => {
     const { email, tempKey, novaSenha } = data;
     return apiRequest('/alterar-senha', {
@@ -241,14 +230,12 @@ export const api = {
   },
 };
 
-// Helpers para token
 export const tokenHelpers = {
   save: saveToken,
   get: getToken,
   remove: removeToken,
 };
 
-// Exporta a URL base para uso em outras partes do app
 export { BASE_URL };
 
 export default api;

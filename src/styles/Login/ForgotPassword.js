@@ -4,23 +4,27 @@ import { horizontalScale, verticalScale } from '../../utils/responsive';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
-    scrollContent: {
-      alignItems: 'center',
-    },
-
+    // Container principal
     container: {
       alignItems: 'center',
-      paddingHorizontal: spacing.md,
+      
     },
 
-    infoCardContainer: {
-      marginBottom: spacing.md,
-    },
-
+    // Espaçamento vertical
     space: {
       marginTop: spacing.xxs * 3,
     },
 
+    // Container do InfoCard
+    infoCardContainer: {
+      marginBottom: spacing.md,
+    },
+
+    TextView: {
+      width: spacing.giant,
+    },
+
+    // === ESTILOS DE ERRO ===
     errorContainer: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -28,8 +32,14 @@ export const createStyles = (theme) =>
       marginBottom: spacing.xxs * 2,
     },
 
+    errorImg: {
+      width: horizontalScale(14),
+      height: horizontalScale(14),
+      marginRight: horizontalScale(6),
+    },
+
     errorText: {
-      color: theme.warning || theme.fontColor,
+      color: theme.fontColor,
       fontSize: fontSize.sm,
       fontFamily: fontFamily.r4,
       textAlign: 'center',
@@ -38,6 +48,7 @@ export const createStyles = (theme) =>
       marginTop: spacing.xxs,
     },
 
+    // === ESTILOS DE LOADING ===
     loadingContainer: {
       alignItems: 'center',
       justifyContent: 'center',
@@ -51,6 +62,7 @@ export const createStyles = (theme) =>
       marginTop: spacing.sm,
     },
 
+    // === ESTILOS DO CÓDIGO (4 DÍGITOS) ===
     codeContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -59,22 +71,16 @@ export const createStyles = (theme) =>
     },
 
     codeInput: {
-      width: horizontalScale(40),
-      height: verticalScale(50),
+      width: horizontalScale(50),
+      height: verticalScale(60),
       backgroundColor: theme.terciario,
       fontSize: fontSize.xxl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
       textAlign: 'center',
-      borderRadius: borderRadius.md,
     },
 
     codeInputFilled: {
-      // exemplo: backgroundColor: theme.secondary,
-    },
-
-    resendContainer: {
-      width: spacing.giant,
-      marginTop: spacing.xs,
+      borderColor: theme.accent,
     },
   });

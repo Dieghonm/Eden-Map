@@ -1,19 +1,18 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, Alert, ActivityIndicator, Platform, Image, TextInput as RNTextInput, StyleSheet } from 'react-native';
+import { View, Text, Alert, ActivityIndicator, Platform, Image, TextInput as RNTextInput } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTheme } from '../../context/ThemeProvider';
-import { spacing, fontSize, fontFamily, borderRadius } from '../../theme/texts';
-import { horizontalScale, verticalScale } from '../../utils/responsive';
+import { createStyles } from '../../styles/Login/ForgotPassword';
 import Logo from '../../components/Logo';
 import WelcomeText from '../../components/WelcomeText';
 import TextInput from '../../components/TextInput';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import ButtonSecundary from '../../components/ButtonSecundary';
 import GlassBox from '../../components/GlassBox';
-import InfoCard from '../../components/InfoCard';
 import { api } from '../../services/api';
+import { spacing } from '../../theme/texts';
 
-export default function PasswordRecovery({ onChangeScreen }) {
+export default function ForgotPassword({ onChangeScreen }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
@@ -22,19 +21,12 @@ export default function PasswordRecovery({ onChangeScreen }) {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [code, setCode] = useState(['', '', '', '']);
-  const [formData, setFormData] = useState({ newPassword: '', confirmPassword: '' });
-  const [touched, setTouched] = useState({ newPassword: false, confirmPassword: false });
-  const [showInfo, setShowInfo] = useState(true);
+  const [newPassword, setNewPassword] = useState('');
+  const [touched, setTouched] = useState(false);
   const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
 
-  const passwordRules = [
-    ' •  entre 8 - 32 caracteres',
-    ' •  use letras maiúsculas e minúsculas',
-    ' •  inclua números',
-    ' •  sem espaçamentos'
-  ];
-
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  
   const validatePassword = (password) => {
     const hasMinLength = password.length >= 8 && password.length <= 32;
     const hasUpperCase = /[A-Z]/.test(password);
@@ -43,21 +35,26 @@ export default function PasswordRecovery({ onChangeScreen }) {
     const noSpaces = !/\s/.test(password);
     return hasMinLength && hasUpperCase && hasLowerCase && hasNumber && noSpaces;
   };
-  const passwordsMatch = () => formData.newPassword === formData.confirmPassword && formData.confirmPassword !== '';
 
   const handleSendCode = async () => {
+    if (!validateEmail(email)) {
+      Alert.alert('Erro', 'Por favor, insira um e-mail válido.');
+      return;
+    }
+
     setLoading(true);
     setErrorMessage('');
+    
     try {
       await api.solicitarTempKey(email.toLowerCase().trim());
       Alert.alert('Código Enviado', 'Verifique seu e-mail para o código de verificação.');
       setScreenStage('CODE');
-      inputRefs[0].current?.focus();
+      setTimeout(() => inputRefs[0].current?.focus(), 100);
     } catch (error) {
       let msg = 'Erro ao enviar código.';
       if (error.status === 401) msg = 'E-mail não encontrado.';
       else if (error.status === 429) msg = 'Muitas tentativas. Aguarde.';
-      else if (error.status === 0) msg = 'Erro de conexão.';
+      else if (error.status === 0) msg = 'Erro de conexão. Verifique sua internet.';
       setErrorMessage(msg);
       Alert.alert('Erro', msg);
     } finally {
@@ -68,75 +65,92 @@ export default function PasswordRecovery({ onChangeScreen }) {
   const handleCodeChange = (text, index) => {
     const cleanText = text.replace(/[^0-9]/g, '');
     const newCode = [...code];
+    
     if (cleanText.length === 1) {
       newCode[index] = cleanText;
       setCode(newCode);
-      if (index < 3) inputRefs[index + 1].current?.focus();
+      if (index < 3) {
+        inputRefs[index + 1].current?.focus();
+      }
     } else if (cleanText.length === 0) {
       newCode[index] = '';
       setCode(newCode);
-      if (index > 0) inputRefs[index - 1].current?.focus();
+      if (index > 0) {
+        inputRefs[index - 1].current?.focus();
+      }
     }
+    
     setErrorMessage('');
   };
 
   const handleKeyPress = (e, index) => {
-    if (e.nativeEvent.key === 'Backspace' && code[index] === '' && index > 0)
+    if (e.nativeEvent.key === 'Backspace' && code[index] === '' && index > 0) {
       inputRefs[index - 1].current?.focus();
+    }
   };
 
   const handleVerifyCode = async () => {
     const fullCode = code.join('');
+    
     if (fullCode.length !== 4) {
-      Alert.alert('Erro', 'Por favor, insira o código completo.');
+      Alert.alert('Erro', 'Por favor, insira o código completo de 4 dígitos.');
       return;
     }
+    
     setLoading(true);
     setErrorMessage('');
+    
     try {
       await api.validarTempKey(email, fullCode);
       setScreenStage('NEW_PASSWORD');
     } catch (error) {
       let msg = 'Código inválido.';
-      if (error.status === 401 && error.message?.includes('expirado')) msg = 'Código expirado.';
-      else if (error.status === 401) msg = 'Código incorreto.';
-      else if (error.status === 429) msg = 'Muitas tentativas. Aguarde.';
-      else if (error.status === 0) msg = 'Erro de conexão.';
+      if (error.status === 401 && error.message?.includes('expirado')) {
+        msg = 'Código expirado. Solicite um novo código.';
+      } else if (error.status === 401) {
+        msg = 'Código incorreto. Tente novamente.';
+      } else if (error.status === 429) {
+        msg = 'Muitas tentativas. Aguarde um momento.';
+      } else if (error.status === 0) {
+        msg = 'Erro de conexão. Verifique sua internet.';
+      }
+      
       setErrorMessage(msg);
       Alert.alert('Erro', msg);
       setCode(['', '', '', '']);
-      inputRefs[0].current?.focus();
+      setTimeout(() => inputRefs[0].current?.focus(), 100);
     } finally {
       setLoading(false);
     }
   };
 
   const handleChangePassword = async () => {
-    if (!validatePassword(formData.newPassword)) {
+    if (!validatePassword(newPassword)) {
       Alert.alert('Erro', 'A senha não atende aos requisitos de segurança.');
-      return;
-    }
-    if (!passwordsMatch()) {
-      Alert.alert('Erro', 'As senhas não coincidem.');
       return;
     }
 
     setLoading(true);
     setErrorMessage('');
+    
     try {
       await api.alterarSenhaComTempKey({
         email: email,
         tempKey: code.join(''),
-        novaSenha: formData.newPassword,
+        novaSenha: newPassword,
       });
-      Alert.alert('Senha Alterada!', 'Faça login com sua nova senha.', [
-        { text: 'OK', onPress: () => onChangeScreen('SIGNIN') },
-      ]);
+      
+      Alert.alert(
+        'Sucesso!', 
+        'Senha alterada com sucesso. Faça login com sua nova senha.',
+        [{ text: 'OK', onPress: () => onChangeScreen('SIGNIN') }]
+      );
     } catch (error) {
       let msg = 'Erro ao alterar senha.';
-      if (error.status === 401) msg = 'Código inválido ou expirado.';
-      else if (error.status === 400) msg = 'Senha inválida.';
-      else if (error.status === 0) msg = 'Erro de conexão.';
+      if (error.status === 401) msg = 'Código inválido ou expirado. Solicite um novo código.';
+      else if (error.status === 400) msg = 'Senha inválida. Verifique os requisitos.';
+      else if (error.status === 0) msg = 'Erro de conexão. Verifique sua internet.';
+      
       setErrorMessage(msg);
       Alert.alert('Erro', msg);
     } finally {
@@ -144,10 +158,16 @@ export default function PasswordRecovery({ onChangeScreen }) {
     }
   };
 
+  // ========== RENDER: EMAIL STAGE ==========
   const renderEmailStage = () => (
     <View style={styles.container}>
       <Logo />
-      <WelcomeText title="Recuperação de senha" subtitle="Digite seu e-mail para receber o código de verificação." />
+      
+      <WelcomeText 
+        title="Recuperação de senha" 
+        subtitle="Digite seu e-mail para receber o código de verificação." 
+      />
+      
       <GlassBox>
         <TextInput
           placeholder="E-mail"
@@ -161,38 +181,61 @@ export default function PasswordRecovery({ onChangeScreen }) {
           disabled={loading}
           isValid={validateEmail(email)}
         />
+        
         {errorMessage ? (
           <View style={styles.errorContainer}>
-            <Image style={styles.errorImg} source={require('../../../assets/icons/Exclamation.png')} />
+            <Image 
+              style={styles.errorImg} 
+              source={require('../../../assets/icons/Exclamation.png')} 
+            />
             <Text style={styles.errorText}>{errorMessage}</Text>
           </View>
         ) : (
           <View style={styles.space} />
         )}
+        
         {loading ? (
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color={theme.button} />
             <Text style={styles.loadingText}>Enviando código...</Text>
           </View>
         ) : (
-          <ButtonPrimary title="Enviar Código" onPress={handleSendCode} disabled={!validateEmail(email)} width={220} />
+          <ButtonPrimary 
+            title="Enviar Código" 
+            onPress={handleSendCode} 
+            disabled={!validateEmail(email)} 
+            width={220} 
+          />
         )}
       </GlassBox>
-      <ButtonSecundary title="Voltar" onPress={() => onChangeScreen('SIGNIN')} />
+      
+      <ButtonSecundary 
+        title="Voltar" 
+        onPress={() => onChangeScreen('SIGNIN')} 
+      />
     </View>
   );
 
+  // ========== RENDER: CODE STAGE ==========
   const renderCodeStage = () => (
     <View style={styles.container}>
       <Logo />
-      <WelcomeText title="Verificação" subtitle="Digite o código de 4 dígitos enviado para seu e-mail." />
+      
+      <WelcomeText 
+        title="Verificação" 
+        subtitle="Digite o código de 4 dígitos enviado para seu e-mail." 
+      />
+      
       <GlassBox>
         <View style={styles.codeContainer}>
           {code.map((digit, index) => (
             <RNTextInput
               key={index}
               ref={inputRefs[index]}
-              style={[styles.codeInput, digit !== '' && styles.codeInputFilled]}
+              style={[
+                styles.codeInput, 
+                digit !== '' && styles.codeInputFilled
+              ]}
               value={digit}
               onChangeText={(text) => handleCodeChange(text, index)}
               onKeyPress={(e) => handleKeyPress(e, index)}
@@ -203,92 +246,127 @@ export default function PasswordRecovery({ onChangeScreen }) {
             />
           ))}
         </View>
+        
         {errorMessage ? (
           <View style={styles.errorContainer}>
-            <Image style={styles.errorImg} source={require('../../../assets/icons/Exclamation.png')} />
+            <Image 
+              style={styles.errorImg} 
+              source={require('../../../assets/icons/Exclamation.png')} 
+            />
             <Text style={styles.errorText}>{errorMessage}</Text>
           </View>
         ) : (
           <View style={styles.space} />
         )}
+        
         {loading ? (
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color={theme.button} />
             <Text style={styles.loadingText}>Verificando código...</Text>
           </View>
         ) : (
-          <ButtonPrimary title="Verificar" onPress={handleVerifyCode} disabled={code.some((d) => d === '')} width={220} />
+          <ButtonPrimary 
+            title="Verificar" 
+            onPress={handleVerifyCode} 
+            disabled={code.some((d) => d === '')} 
+            width={220} 
+          />
         )}
       </GlassBox>
-      <ButtonSecundary title="Voltar" onPress={() => setScreenStage('EMAIL')} />
+      
+      <ButtonSecundary 
+        title="Voltar" 
+        onPress={() => {
+          setScreenStage('EMAIL');
+          setCode(['', '', '', '']);
+          setErrorMessage('');
+        }} 
+      />
     </View>
   );
 
+  // ========== RENDER: NEW PASSWORD STAGE ==========
   const renderNewPasswordStage = () => (
     <View style={styles.container}>
-      {showInfo && (
-        <GlassBox style={styles.infoCardContainer}>
-          <InfoCard title="Requisitos da senha" items={passwordRules} onClose={() => setShowInfo(false)} />
-          <View style={styles.space} />
-        </GlassBox>
-      )}
       <Logo />
-      <WelcomeText title="Nova Senha" subtitle="Crie uma senha forte para sua conta." />
+      <View style={styles.TextView}>
+        <WelcomeText 
+          
+          title="Nova Senha" 
+          subtitle="Sua senha deve ter entre 8 e 32 caracteres, letras maiúsculas e minúsculas, números, sem espaços." 
+        />
+      </View>
+ 
+      
       <GlassBox>
         <TextInput
           placeholder="Nova Senha"
-          value={formData.newPassword}
+          value={newPassword}
           onChangeText={(text) => {
-            setFormData({ ...formData, newPassword: text });
-            if (!touched.newPassword && text.length > 0) setTouched({ ...touched, newPassword: true });
+            setNewPassword(text);
+            if (!touched && text.length > 0) {
+              setTouched(true);
+            }
             setErrorMessage('');
           }}
           secureTextEntry
           showPasswordToggle
           disabled={loading}
-          isValid={validatePassword(formData.newPassword)}
-          showValidation={touched.newPassword}
+          isValid={validatePassword(newPassword)}
+          showValidation={touched}
         />
-        <TextInput
-          placeholder="Confirmar Nova Senha"
-          value={formData.confirmPassword}
-          onChangeText={(text) => {
-            setFormData({ ...formData, confirmPassword: text });
-            if (!touched.confirmPassword && text.length > 0)
-              setTouched({ ...touched, confirmPassword: true });
-            setErrorMessage('');
-          }}
-          secureTextEntry
-          showPasswordToggle
-          disabled={loading}
-          isValid={passwordsMatch()}
-          showValidation={touched.confirmPassword}
-        />
+        
         {errorMessage ? (
-          <Text style={styles.errorText}>⚠️ {errorMessage}</Text>
+          <View style={styles.errorContainer}>
+            <Image 
+              style={styles.errorImg} 
+              source={require('../../../assets/icons/Exclamation.png')} 
+            />
+            <Text style={styles.errorText}>{errorMessage}</Text>
+          </View>
         ) : (
           <View style={styles.space} />
         )}
+        
         {loading ? (
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color={theme.button} />
             <Text style={styles.loadingText}>Alterando senha...</Text>
           </View>
         ) : (
-          <ButtonPrimary title="Alterar Senha" onPress={handleChangePassword} disabled={!validatePassword(formData.newPassword) || !passwordsMatch()} width={220} />
+          <ButtonPrimary 
+            title="Alterar Senha" 
+            onPress={handleChangePassword} 
+            disabled={!validatePassword(newPassword)} 
+            width={220} 
+          />
         )}
       </GlassBox>
-      <ButtonSecundary title="Voltar" onPress={() => setScreenStage('CODE')} />
+      
+      <ButtonSecundary 
+        title="Voltar" 
+        onPress={() => {
+          setScreenStage('CODE');
+          setNewPassword('');
+          setTouched(false);
+          setErrorMessage('');
+        }} 
+      />
     </View>
   );
 
+  // ========== RENDER PRINCIPAL ==========
   return (
     <KeyboardAwareScrollView
       style={{ flex: 1 }}
-      contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', paddingHorizontal: 20 }}
+      contentContainerStyle={{ 
+        flexGrow: 1, 
+        justifyContent: 'center', 
+        paddingHorizontal: 20 
+      }}
       enableOnAndroid
       enableAutomaticScroll
-      extraScrollHeight={Platform.OS === 'ios' ? 20 : 100}
+      extraScrollHeight={Platform.OS === 'ios' ? spacing.xs : spacing.lg}
       keyboardOpeningTime={0}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
@@ -299,19 +377,3 @@ export default function PasswordRecovery({ onChangeScreen }) {
     </KeyboardAwareScrollView>
   );
 }
-
-const createStyles = (theme) =>
-  StyleSheet.create({
-    scrollContent: { alignItems: 'center' },
-    container: { alignItems: 'center', paddingHorizontal: spacing.md },
-    infoCardContainer: { marginBottom: spacing.md },
-    space: { marginTop: spacing.xxs * 3 },
-    errorContainer: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginBottom: spacing.xxs * 2 },
-    errorText: { color: theme.warning || theme.fontColor, fontSize: fontSize.sm, fontFamily: fontFamily.r4, textAlign: 'center', marginLeft: spacing.xxs, marginBottom: spacing.xxs, marginTop: spacing.xxs },
-    loadingContainer: { alignItems: 'center', justifyContent: 'center', paddingVertical: spacing.md },
-    loadingText: { color: theme.fontColor, fontSize: fontSize.md, fontFamily: fontFamily.r4, marginTop: spacing.sm },
-    codeContainer: { flexDirection: 'row', justifyContent: 'space-between', gap: spacing.xs, marginVertical: spacing.xxs * 3 },
-    codeInput: { width: horizontalScale(40), height: verticalScale(50), backgroundColor: theme.terciario, fontSize: fontSize.xxl, fontFamily: fontFamily.b7, color: theme.fontColor, textAlign: 'center', borderRadius: borderRadius.md },
-    codeInputFilled: {},
-    errorImg: { width: 18, height: 18, marginRight: spacing.xxs },
-  });

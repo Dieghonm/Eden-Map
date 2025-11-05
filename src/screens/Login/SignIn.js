@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, ActivityIndicator, Alert, Image } from 'react-native';
+import { View, Text, ActivityIndicator, Alert, Image, Platform } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Login/SignIn';
@@ -9,6 +10,7 @@ import GlassBox from '../../components/GlassBox';
 import TextInput from '../../components/TextInput';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { api, tokenHelpers } from '../../services/api';
+import { spacing } from '../../theme/texts';
 
 export default function SignIn({ navigation, onChangeScreen }) {
   const { theme } = useTheme();
@@ -50,7 +52,6 @@ export default function SignIn({ navigation, onChangeScreen }) {
       });
 
       navigation.replace('Home');
-
     } catch (error) {
       console.error('❌ Erro no login:', error);
 
@@ -65,7 +66,6 @@ export default function SignIn({ navigation, onChangeScreen }) {
 
       setErrorMessage(errorMsg);
       Alert.alert('Erro no Login', errorMsg);
-
     } finally {
       setLoading(false);
     }
@@ -80,73 +80,87 @@ export default function SignIn({ navigation, onChangeScreen }) {
     formData.password.length >= 6;
 
   return (
-    <View style={styles.container}>
-      <Logo width={50} height={34} />
+    <KeyboardAwareScrollView
+      style={{ flex: 1 }}
+      contentContainerStyle={[
+        styles.container,
+        { flexGrow: 1, justifyContent: 'center', paddingHorizontal: spacing.xs }
+      ]}
+      enableOnAndroid={true}
+      enableAutomaticScroll={true}
+      extraScrollHeight={Platform.OS === 'ios' ? spacing.xs : spacing.xxl}
+      keyboardOpeningTime={0}
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps="handled"
+    >
+      <View style={styles.container}>
+        <Logo width={spacing.lg} height={spacing.md + spacing.xxs} />
 
-      <WelcomeText title="Login" />
+        <WelcomeText title="Login" />
 
-      <View style={styles.TextREGISTER}>
-        <WelcomeText 
-          subtitle="Ainda não tem um e-mail cadastrado? Crie sua conta aqui"
-          linkText="Crie sua conta aqui"
-          onLinkPress={() => handleGoToScreen('REGISTER')}
-        />
-      </View>
-
-      <View style={styles.TextFORGOT}>
-        <WelcomeText 
-          subtitle="Esqueceu sua senha? Recupere sua senha aqui" 
-          linkText="Recupere sua senha aqui"
-          onLinkPress={() => handleGoToScreen('FORGOT_PASSWORD')}
-        />
-      </View>
-
-      <GlassBox>
-        <TextInput
-          placeholder='Nome ou E-mail'
-          value={formData.email}
-          autoCapitalize="none"
-          disabled={loading}
-          keyboardType="email-address"
-          onChangeText={(text) => {
-            setFormData({...formData, email: text});
-            setErrorMessage('');
-          }}
-        />
-
-        <TextInput
-          placeholder='Senha'
-          value={formData.password}
-          secureTextEntry={true}
-          showPasswordToggle={true}
-          disabled={loading}
-          onChangeText={(text) => {
-            setFormData({...formData, password: text});
-            setErrorMessage('');
-          }}
-        />
-
-        {errorMessage ? (
-          <View style={styles.errorContainer}>
-            <Image style={styles.errorImg} source={require('../../../assets/icons/Exclamation.png')} />
-            <Text style={styles.errorText}>{errorMessage}</Text>
-          </View>
-        ) : <View style={styles.space} />}
-
-        {loading ? (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color={theme.button} />
-            <Text style={styles.loadingText}>Entrando...</Text>
-          </View>
-        ) : (
-          <ButtonPrimary 
-            title='Login'
-            onPress={handleLogin}
-            disabled={!isFormValid}
-            width={220}
+        <View style={styles.TextREGISTER}>
+          <WelcomeText 
+            subtitle="Ainda não tem um e-mail cadastrado? Crie sua conta aqui"
+            linkText="Crie sua conta aqui"
+            onLinkPress={() => handleGoToScreen('REGISTER')}
           />
-        )}
-      </GlassBox>
-    </View>
+        </View>
+
+        <View style={styles.TextFORGOT}>
+          <WelcomeText 
+            subtitle="Esqueceu sua senha? Recupere sua senha aqui" 
+            linkText="Recupere sua senha aqui"
+            onLinkPress={() => handleGoToScreen('FORGOT_PASSWORD')}
+          />
+        </View>
+
+        <GlassBox>
+          <TextInput
+            placeholder='Nome ou E-mail'
+            value={formData.email}
+            autoCapitalize="none"
+            disabled={loading}
+            keyboardType="email-address"
+            onChangeText={(text) => {
+              setFormData({...formData, email: text});
+              setErrorMessage('');
+            }}
+          />
+
+          <TextInput
+            placeholder='Senha'
+            value={formData.password}
+            secureTextEntry={true}
+            showPasswordToggle={true}
+            disabled={loading}
+            onChangeText={(text) => {
+              setFormData({...formData, password: text});
+              setErrorMessage('');
+            }}
+          />
+
+          {errorMessage ? (
+            <View style={styles.errorContainer}>
+              <Image style={styles.errorImg} source={require('../../../assets/icons/Exclamation.png')} />
+              <Text style={styles.errorText}>{errorMessage}</Text>
+            </View>
+          ) : <View style={styles.space} />}
+
+          {loading ? (
+            <View style={styles.loadingContainer}>
+              <ActivityIndicator size="large" color={theme.button} />
+              <Text style={styles.loadingText}>Entrando...</Text>
+            </View>
+          ) : (
+            <ButtonPrimary 
+              title='Login'
+              onPress={handleLogin}
+              disabled={!isFormValid}
+              width={220}
+            />
+          )}
+        </GlassBox>
+      </View>
+    </KeyboardAwareScrollView>
   );
 }

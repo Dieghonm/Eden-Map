@@ -19,38 +19,25 @@ export default function AppNavigator() {
     checkAuthStatus();
   }, []);
 
-  // Escuta mudanças no usuário do contexto
   useEffect(() => {
     if (user && user.login) {
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
     }
-    setIsAuthenticated(false);
+    setIsAuthenticated(false); // remover para prod
   }, [user]);
 
   const checkAuthStatus = async () => {
     try {
-      console.log('🔍 Verificando autenticação...');
-      
-      // Verifica se existe token armazenado
       const token = await tokenHelpers.get();
       
       if (!token) {
-        console.log('❌ Nenhum token encontrado');
         setIsAuthenticated(false);
         setIsLoading(false);
         return;
       }
-
-      console.log('✅ Token encontrado, validando...');
-      
-      // Valida o token com o backend
       const userData = await api.me();
-      
-      console.log('✅ Token válido, usuário autenticado:', userData);
-      
-      // Atualiza o contexto do usuário
       setUser({
         login: userData.login,
         email: userData.email,
@@ -61,9 +48,6 @@ export default function AppNavigator() {
       setIsAuthenticated(true);
       
     } catch (error) {
-      console.error('❌ Erro na validação do token:', error);
-      
-      // Se o token for inválido ou expirado, remove
       if (error.status === 401 || error.status === 403) {
         console.log('🗑️ Token inválido, removendo...');
         await tokenHelpers.remove();
@@ -77,7 +61,6 @@ export default function AppNavigator() {
     }
   };
 
-  // Tela de carregamento enquanto verifica autenticação
   if (isLoading) {
     return (
       <View style={{

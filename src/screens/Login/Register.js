@@ -11,6 +11,7 @@ import InfoCard from '../../components/InfoCard';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GlassBox from '../../components/GlassBox';
 import { api, tokenHelpers, BASE_URL } from '../../services/api';
+import { spacing } from '../../theme/texts';
 
 export default function Register({ navigation, onChangeScreen }) {
   const { theme } = useTheme();
@@ -129,11 +130,11 @@ export default function Register({ navigation, onChangeScreen }) {
       style={{ flex: 1 }}
       contentContainerStyle={[
         styles.scrollContent,
-        { flexGrow: 1, justifyContent: 'center', paddingHorizontal: 20 }
+        { flexGrow: 1, justifyContent: 'center', paddingHorizontal: spacing.xs }
       ]}
       enableOnAndroid={true}
       enableAutomaticScroll={true}
-      extraScrollHeight={Platform.OS === 'ios' ? 20 : 100}
+      extraScrollHeight={Platform.OS === 'ios' ? spacing.xs : spacing.xxxl / 2}
       keyboardOpeningTime={0}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
