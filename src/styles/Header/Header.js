@@ -21,6 +21,11 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
       fontFamily: fontFamily.b7,
     },
+    rightSection: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: spacing.md,
+    },
     themeSelector: {
       flexDirection: 'row',
       gap: spacing.sm,
@@ -52,5 +57,18 @@ export const createStyles = (theme) =>
     },
     activeButtonText: {
       transform: [{ scale: 1.2 }],
+    },
+    logoutButton: {
+      width: scale(40),
+      height: scale(40),
+      borderRadius: borderRadius.circle,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: theme.warning,
+      borderWidth: scale(2),
+      borderColor: 'transparent',
+    },
+    logoutButtonText: {
+      fontSize: fontSize.lg,
     },
   });

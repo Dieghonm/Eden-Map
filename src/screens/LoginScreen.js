@@ -17,7 +17,6 @@ export default function LoginScreen({ navigation }) {
   // const [currentScreen, setCurrentScreen] = useState('FORGOT_PASSWORD');
 
   const handleScreenChange = (newScreen) => {
-    console.log('Switching to screen:', newScreen);
     setCurrentScreen(newScreen);
   };
 

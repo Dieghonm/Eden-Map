@@ -25,7 +25,6 @@ export default function AppNavigator() {
     } else {
       setIsAuthenticated(false);
     }
-    setIsAuthenticated(false); // remover para prod
   }, [user]);
 
   const checkAuthStatus = async () => {
@@ -49,7 +48,6 @@ export default function AppNavigator() {
       
     } catch (error) {
       if (error.status === 401 || error.status === 403) {
-        console.log('🗑️ Token inválido, removendo...');
         await tokenHelpers.remove();
         setUser(null);
       }

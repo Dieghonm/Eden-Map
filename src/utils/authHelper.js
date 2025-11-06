@@ -7,7 +7,6 @@ import { removeData } from '../utils/storage';
  */
 export const logout = async (setUser, navigation) => {
   try {
-    console.log('🚪 Realizando logout...');
     
     // Remove token
     await tokenHelpers.remove();
@@ -22,9 +21,7 @@ export const logout = async (setUser, navigation) => {
     if (navigation) {
       navigation.replace('Login');
     }
-    
-    console.log('✅ Logout realizado com sucesso');
-    
+        
   } catch (error) {
     console.error('❌ Erro ao realizar logout:', error);
   }

@@ -31,24 +31,19 @@ const getBaseURL = () => {
   // Em desenvolvimento, detecta a plataforma
   const platform = Platform.OS;
   
-  console.log(`📱 Plataforma detectada: ${platform}`);
   
   switch (platform) {
     case 'web':
-      console.log(`🌐 Usando URL para WEB: ${API_CONFIG.development.web}`);
       return API_CONFIG.development.web;
     
     case 'android':
-      console.log(`🤖 Usando URL para ANDROID: ${API_CONFIG.development.android}`);
       return API_CONFIG.development.android;
     
     case 'ios':
-      console.log(`🍎 Usando URL para iOS: ${API_CONFIG.development.ios}`);
       return API_CONFIG.development.ios;
     
     default:
       // Fallback para dispositivo físico
-      console.log(`📱 Usando URL para DISPOSITIVO FÍSICO: ${API_CONFIG.development.physical}`);
       return API_CONFIG.development.physical;
   }
 };
@@ -68,13 +63,6 @@ const apiRequest = async (endpoint, options = {}) => {
       },
     };
 
-    console.log(`\n${'='.repeat(60)}`);
-    console.log(`🌐 API Request`);
-    console.log(`📍 URL: ${url}`);
-    console.log(`🔧 Method: ${options.method || 'GET'}`);
-    console.log(`📱 Platform: ${Platform.OS}`);
-    console.log(`${'='.repeat(60)}\n`);
-    
     const response = await fetch(url, config);
     const data = await response.json();
 
@@ -86,8 +74,6 @@ const apiRequest = async (endpoint, options = {}) => {
         data
       };
     }
-
-    console.log('✅ API Response:', data);
     return data;
 
   } catch (error) {
@@ -120,9 +106,7 @@ const apiRequest = async (endpoint, options = {}) => {
 const saveToken = async (token) => {
   try {
     await AsyncStorage.setItem('access_token', token);
-    console.log('✅ Token salvo com sucesso');
   } catch (error) {
-    console.error('❌ Erro ao salvar token:', error);
   }
 };
 
@@ -140,7 +124,6 @@ const getToken = async () => {
 const removeToken = async () => {
   try {
     await AsyncStorage.removeItem('access_token');
-    console.log('✅ Token removido com sucesso');
   } catch (error) {
     console.error('❌ Erro ao remover token:', error);
   }

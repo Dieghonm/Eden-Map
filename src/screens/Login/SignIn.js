@@ -34,9 +34,7 @@ export default function SignIn({ navigation, onChangeScreen }) {
         senha: formData.password,
       };
 
-      console.log('📤 Tentando login:', { login: credentials.login });
       const response = await api.login(credentials);
-      console.log('✅ Login realizado com sucesso:', response);
 
       if (response.access_token) {
         await tokenHelpers.save(response.access_token);
@@ -77,7 +75,7 @@ export default function SignIn({ navigation, onChangeScreen }) {
 
   const isFormValid = 
     formData.email.trim().length > 0 && 
-    formData.password.length >= 6;
+    formData.password.length >= 8;
 
   return (
     <KeyboardAwareScrollView

@@ -75,9 +75,7 @@ export default function Register({ navigation, onChangeScreen }) {
         plan: 'trial'
       };
 
-      console.log('📤 Enviando cadastro:', { ...userData, senha: '***' });
       const response = await api.cadastro(userData);
-      console.log('✅ Cadastro realizado com sucesso:', response);
       if (response.access_token) {
         await tokenHelpers.save(response.access_token);
       }
