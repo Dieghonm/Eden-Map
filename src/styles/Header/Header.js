@@ -5,9 +5,7 @@ import { spacing, borderRadius, fontSize, fontWeight, fontFamily } from '../../t
 export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
-      paddingTop: spacing.xl,
       paddingHorizontal: spacing.lg,
-      paddingBottom: spacing.md,
       backgroundColor: theme.background,
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -21,14 +19,50 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
       fontFamily: fontFamily.b7,
     },
-    rightSection: {
-      flexDirection: 'row',
+    
+    // Botão Hamburguer
+    hamburgerButton: {
+      width: scale(40),
+      height: scale(40),
+      justifyContent: 'center',
       alignItems: 'center',
-      gap: spacing.md,
+      padding: scale(8),
     },
+    hamburgerLine: {
+      width: scale(24),
+      height: scale(3),
+      backgroundColor: theme.fontColor,
+      marginVertical: scale(2),
+      borderRadius: scale(2),
+    },
+    
+    // Modal e Menu
+    modalOverlay: {
+      flex: 1,
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-end',
+    },
+    menuDropdown: {
+      marginTop: spacing.xl + spacing.md + spacing.lg,
+      marginRight: spacing.lg,
+      backgroundColor: theme.secondary,
+      borderRadius: borderRadius.m,
+      padding: spacing.md,
+      minWidth: scale(200),
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: verticalScale(2) },
+      shadowOpacity: 0.25,
+      shadowRadius: scale(8),
+      elevation: 5,
+    },
+    
+    // Theme Selector
     themeSelector: {
       flexDirection: 'row',
       gap: spacing.sm,
+      marginBottom: spacing.md,
+      justifyContent: 'center',
     },
     themeButton: {
       width: scale(40),
@@ -58,17 +92,19 @@ export const createStyles = (theme) =>
     activeButtonText: {
       transform: [{ scale: 1.2 }],
     },
+    
+    // Logout Button
     logoutButton: {
-      width: scale(40),
-      height: scale(40),
-      borderRadius: borderRadius.circle,
-      justifyContent: 'center',
-      alignItems: 'center',
       backgroundColor: theme.warning,
-      borderWidth: scale(2),
-      borderColor: 'transparent',
+      paddingVertical: spacing.xs,
+      paddingHorizontal: spacing.md,
+      borderRadius: borderRadius.m,
+      alignItems: 'center',
     },
     logoutButtonText: {
-      fontSize: fontSize.lg,
+      fontSize: fontSize.md,
+      fontWeight: fontWeight.bold,
+      fontFamily: fontFamily.b7,
+      color: '#FFFFFF',
     },
   });
