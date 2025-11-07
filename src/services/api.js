@@ -1,26 +1,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { Platform } from 'react-native';
 
 // Configuração da URL base da API
-// IMPORTANTE: Ajuste conforme seu ambiente
 const API_CONFIG = {
   development: {
-    // Para WEB (navegador)
     web: 'http://localhost:8000',
-    // Para Android Emulator
     android: 'http://10.0.2.2:8000',
-    // Para iOS Simulator
     ios: 'http://localhost:8000',
-    // Para dispositivo físico (substitua pelo IP da sua máquina)
-    physical: 'http://192.168.1.101:8000', // ← MUDE AQUI!
+    physical: 'http://192.168.1.101:8000',
   },
   production: {
     url: 'https://seu-app.onrender.com'
   }
 };
 
-// Detecta o ambiente e plataforma automaticamente
 const getBaseURL = () => {
   const environment = __DEV__ ? 'development' : 'production';
   
@@ -28,29 +21,22 @@ const getBaseURL = () => {
     return API_CONFIG.production.url;
   }
   
-  // Em desenvolvimento, detecta a plataforma
   const platform = Platform.OS;
-  
   
   switch (platform) {
     case 'web':
       return API_CONFIG.development.web;
-    
     case 'android':
       return API_CONFIG.development.android;
-    
     case 'ios':
       return API_CONFIG.development.ios;
-    
     default:
-      // Fallback para dispositivo físico
       return API_CONFIG.development.physical;
   }
 };
 
 const BASE_URL = getBaseURL();
 
-// Função auxiliar para fazer requisições
 const apiRequest = async (endpoint, options = {}) => {
   try {
     const url = `${BASE_URL}${endpoint}`;
@@ -83,7 +69,6 @@ const apiRequest = async (endpoint, options = {}) => {
       throw error;
     }
     
-    // Mensagem específica por plataforma
     let helpMessage = 'Erro de conexão. ';
     
     if (Platform.OS === 'web') {
@@ -102,15 +87,14 @@ const apiRequest = async (endpoint, options = {}) => {
   }
 };
 
-// Função para salvar token
 const saveToken = async (token) => {
   try {
     await AsyncStorage.setItem('access_token', token);
   } catch (error) {
+    console.error('❌ Erro ao salvar token:', error);
   }
 };
 
-// Função para obter token
 const getToken = async () => {
   try {
     const token = await AsyncStorage.getItem('access_token');
@@ -181,6 +165,9 @@ export const api = {
     });
   },
 
+  // ========== RECUPERAÇÃO DE SENHA ==========
+  
+  // Etapa 1: Solicitar código (envia email)
   solicitarTempKey: async (emailOuLogin) => {
     return apiRequest('/tempkey', {
       method: 'POST',
@@ -190,6 +177,7 @@ export const api = {
     });
   },
 
+  // Etapa 2: Validar código de 4 dígitos
   validarTempKey: async (emailOuLogin, tempKey) => {
     return apiRequest('/tempkey', {
       method: 'POST',
@@ -200,14 +188,16 @@ export const api = {
     });
   },
 
+  // Etapa 3: Alterar senha com código validado
+  // 🔧 CORREÇÃO: Deve usar /tempkey (não /alterar-senha) e enviar new_password (não nova_senha)
   alterarSenhaComTempKey: async (data) => {
     const { email, tempKey, novaSenha } = data;
-    return apiRequest('/alterar-senha', {
+    return apiRequest('/tempkey', {
       method: 'POST',
       body: JSON.stringify({
         email_ou_login: email,
         tempKey: tempKey,
-        nova_senha: novaSenha
+        new_password: novaSenha 
       }),
     });
   },

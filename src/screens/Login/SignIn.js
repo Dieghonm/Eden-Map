@@ -27,15 +27,12 @@ export default function SignIn({ navigation, onChangeScreen }) {
   const handleLogin = async () => {
     setLoading(true);
     setErrorMessage('');
-
     try {
       const credentials = {
-        login: formData.email.toLowerCase().trim(),
+        email_ou_login: formData.email.toLowerCase().trim(),
         senha: formData.password,
       };
-
       const response = await api.login(credentials);
-
       if (response.access_token) {
         await tokenHelpers.save(response.access_token);
       }
