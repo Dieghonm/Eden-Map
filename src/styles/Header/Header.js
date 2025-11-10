@@ -1,63 +1,54 @@
 import { StyleSheet } from 'react-native';
 import { scale, verticalScale } from 'react-native-size-matters';
 import { spacing, borderRadius, fontSize, fontWeight, fontFamily } from '../../theme/texts';
+import { darkTheme, lightTheme, pinkTheme } from '../../theme/colors';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
-      paddingHorizontal: spacing.lg,
-      backgroundColor: theme.background,
+      marginTop: spacing.xxs *2,
+      paddingHorizontal: spacing.md,
       flexDirection: 'row',
       justifyContent: 'space-between',
+    },
+    buttonsContainer: {
+      flexDirection: 'row',
       alignItems: 'center',
-      borderBottomWidth: scale(1),
-      borderBottomColor: theme.secondary,
+      gap: spacing.xs, 
     },
-    title: {
-      fontSize: fontSize.header,
-      fontWeight: fontWeight.bold,
-      color: theme.fontColor,
-      fontFamily: fontFamily.b7,
-    },
-    
-    // Botão Hamburguer
-    hamburgerButton: {
-      width: scale(40),
-      height: scale(40),
+    iconButton: {
+      width: spacing.md,
+      height: spacing.md,
       justifyContent: 'center',
       alignItems: 'center',
-      padding: scale(8),
-    },
-    hamburgerLine: {
-      width: scale(24),
-      height: scale(3),
-      backgroundColor: theme.fontColor,
-      marginVertical: scale(2),
-      borderRadius: scale(2),
     },
     
-    // Modal e Menu
+    icon: {
+      width: spacing.md,
+      height: spacing.md,
+      resizeMode: 'contain',
+    },
+    
+    iconHome: {
+      width: spacing.md,
+      height: spacing.md,
+      resizeMode: 'contain',
+    },
+    
     modalOverlay: {
       flex: 1,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      // backgroundColor: 'rgba(0, 0, 0, 0.5)',
       justifyContent: 'flex-start',
       alignItems: 'flex-end',
     },
     menuDropdown: {
-      marginTop: spacing.xl + spacing.md + spacing.lg,
-      marginRight: spacing.lg,
+      marginTop: spacing.lg,
+      marginRight: spacing.xs,
       backgroundColor: theme.secondary,
       borderRadius: borderRadius.m,
-      padding: spacing.md,
-      minWidth: scale(200),
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: verticalScale(2) },
-      shadowOpacity: 0.25,
-      shadowRadius: scale(8),
+      padding: spacing.xs,
       elevation: 5,
     },
-    
-    // Theme Selector
     themeSelector: {
       flexDirection: 'row',
       gap: spacing.sm,
@@ -67,24 +58,22 @@ export const createStyles = (theme) =>
     themeButton: {
       width: scale(40),
       height: scale(40),
+      margin: spacing.xxs,
       borderRadius: borderRadius.circle,
       justifyContent: 'center',
       alignItems: 'center',
-      borderWidth: scale(2),
-      borderColor: 'transparent',
     },
     lightButton: {
-      backgroundColor: '#F9F9FB',
+      backgroundColor: lightTheme.background,
     },
     pinkButton: {
-      backgroundColor: '#F4CDC0',
+      backgroundColor: pinkTheme.background,
     },
     darkButton: {
-      backgroundColor: '#212224',
+      backgroundColor: darkTheme.background,
     },
     activeButton: {
-      borderColor: theme.accent,
-      borderWidth: scale(3),
+
     },
     themeButtonText: {
       fontSize: fontSize.lg,
@@ -92,8 +81,6 @@ export const createStyles = (theme) =>
     activeButtonText: {
       transform: [{ scale: 1.2 }],
     },
-    
-    // Logout Button
     logoutButton: {
       backgroundColor: theme.warning,
       paddingVertical: spacing.xs,
