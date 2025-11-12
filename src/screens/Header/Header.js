@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
 import { View, TouchableOpacity, Modal, Text, Image } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Header/Header';
@@ -8,24 +7,20 @@ import { logout } from '../../utils/authHelper';
 import Logo from '../../components/Logo';
 import { spacing } from '../../theme/texts';
 
-export default function Header() {
+export default function Header({ onHomePress }) {
   const { theme, currentTheme, toggleTheme } = useTheme();
   const { setUser } = useContext(AppContext);
-  const navigation = useNavigation();
-  const route = useRoute();
   const [menuVisible, setMenuVisible] = useState(false);
   const styles = createStyles(theme);
 
-  const isHomeScreen = route.name === 'Home';
-
   const handleLogout = () => {
     setMenuVisible(false);
-    logout(setUser, navigation);
+    logout(setUser, null);
   };
 
   const handleHomePress = () => {
-    if (!isHomeScreen) {
-      navigation.navigate('Home');
+    if (onHomePress) {
+      onHomePress();
     }
   };
 
@@ -39,14 +34,10 @@ export default function Header() {
             style={styles.iconButton}
             onPress={handleHomePress}
             activeOpacity={0.7}
-            disabled={isHomeScreen}
           >
             <Image 
               source={require('../../../assets/icons/Home.png')} 
-              style={[
-                styles.icon,
-                { tintColor: isHomeScreen ? theme.alert : theme.secundaryButton }
-              ]}
+              style={[styles.icon, { tintColor: theme.secundaryButton }]}
             />
           </TouchableOpacity>
 

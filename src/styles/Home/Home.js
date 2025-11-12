@@ -7,20 +7,7 @@ export const createStyles = (theme) =>
     container: {
       alignItems: 'center',
       paddingHorizontal: spacing.md,
-      paddingTop: spacing.lg,
-    },
-    title: {
-      fontSize: fontFamily.b7,
-      color: theme.fontColor,
-      fontSize: fontSize.xxl,
-    },
-    subtitle: {
-      fontSize: fontFamily.r4,
-      color: theme.fontColor,
-      fontSize: fontSize.lg,
-    },
-    highlight: {
-      color: theme.alert,
+      paddingTop: spacing.xs,
     },
     desireCard: {
       paddingVertical: spacing.md,
@@ -28,7 +15,8 @@ export const createStyles = (theme) =>
     },
     cardTitle: {
       fontSize: fontSize.lg,
-      fontFamily: fontFamily.r4,
+      fontFamily: fontFamily.b7,
+      fontWeight: fontWeight.bold,
       color: theme.fontColor,
       textAlign: 'center',
       marginBottom: spacing.md,
@@ -52,7 +40,7 @@ export const createStyles = (theme) =>
       color: '#FFFFFF',
     },
 
-    // Modal Styles
+    // Modal Explorer Styles
     modalOverlay: {
       flex: 1,
       backgroundColor: 'rgba(0, 0, 0, 0.7)',
@@ -63,6 +51,7 @@ export const createStyles = (theme) =>
     modalContent: {
       width: '100%',
       maxWidth: horizontalScale(350),
+      maxHeight: verticalScale(600),
       paddingVertical: spacing.lg,
     },
     modalTitle: {
@@ -73,39 +62,29 @@ export const createStyles = (theme) =>
       textAlign: 'center',
       marginBottom: spacing.md,
     },
-    modalFeelingsList: {
-      gap: spacing.sm,
+    modalScroll: {
+      maxHeight: verticalScale(400),
       marginBottom: spacing.md,
       paddingHorizontal: spacing.xs,
     },
-    modalFeelingItem: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      paddingVertical: spacing.xs,
-      paddingHorizontal: spacing.md,
-      borderRadius: borderRadius.m,
-      minHeight: verticalScale(45),
+    dataSection: {
+      marginBottom: spacing.md,
+      paddingBottom: spacing.xs,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.terciario,
     },
-    modalFeelingSelected: {
-      borderWidth: horizontalScale(3),
-      borderColor: '#FFFFFF',
-    },
-    modalFeelingText: {
+    dataLabel: {
       fontSize: fontSize.md,
-      fontFamily: fontFamily.r4,
-      color: '#FFFFFF',
-    },
-    checkmark: {
-      fontSize: fontSize.xl,
-      color: '#FFFFFF',
+      fontFamily: fontFamily.b7,
       fontWeight: fontWeight.bold,
+      color: theme.alert,
+      marginBottom: spacing.xxs,
     },
-    modalButtons: {
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      gap: spacing.md,
-      paddingHorizontal: spacing.md,
-      marginTop: spacing.xs,
+    dataValue: {
+      fontSize: fontSize.sm,
+      fontFamily: fontFamily.r4,
+      color: theme.fontColor,
+      lineHeight: verticalScale(18),
+      marginLeft: spacing.xxs,
     },
   });
