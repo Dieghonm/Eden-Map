@@ -38,7 +38,7 @@ export default function Desire({ onNext }) {
       contentContainerStyle={styles.scrollContent}
       enableOnAndroid={true}
       enableAutomaticScroll={true}
-      extraScrollHeight={Platform.OS === 'ios' ? spacing.xs : spacing.lg}
+      extraScrollHeight={Platform.OS === 'ios' ? spacing.xs : spacing.xl}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
     >

@@ -46,7 +46,7 @@ export default function Starting() {
         subtitle: {
           1: 'Em ',
           2: '3 meses',
-          3: ' você vai percorrer um dos     ',
+          3: ' você vai percorrer um dos        ',
           4: '5 caminhos',
           5: ' para desbloquear limitações e manifestar seu desejo profundo.'
         }

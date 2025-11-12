@@ -1,18 +1,13 @@
+// src/screens/Starting/Track.js
+
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
 import { createStyles } from '../../styles/Starting/Track';
 import { storeData } from '../../utils/storage';
+import { CAMINHOS } from '../../../assets/json/Sentimentos';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GlassBox from '../../components/GlassBox';
-
-const CAMINHOS = [
-  { id: 1, nome: 'Ansiedade', color: '#FFAA2E'},
-  { id: 2, nome: 'Autoimagem', color: '#38C197' },
-  { id: 3, nome: 'Atenção Plena', color: '#0A84FF' },
-  { id: 4, nome: 'Motivação', color: '#EA5959' },
-  { id: 5, nome: 'Relacionamentos', color: '#8A4AED' },
-];
 
 export default function Track({ onComplete }) {
   const { theme } = useTheme();

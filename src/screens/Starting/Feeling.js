@@ -1,20 +1,13 @@
+// src/screens/Starting/Feeling.js
+
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
 import { createStyles } from '../../styles/Starting/Feeling';
 import { storeData } from '../../utils/storage';
+import { SENTIMENTOS } from '../../../assets/json/Sentimentos';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GlassBox from '../../components/GlassBox';
-
-const FEELINGS = [
-  { id: 1, nome: 'Amor', color: '#EA5959' },
-  { id: 2, nome: 'Confiança', color: '#FFAA2E' },
-  { id: 3, nome: 'Equilíbrio', color: '#8A4AED' },
-  { id: 4, nome: 'Esperança', color: '#38C197' },
-  { id: 5, nome: 'Felicidade', color: '#FFFF56' },
-  { id: 6, nome: 'Liberdade', color: '#45A7F8' },
-  { id: 7, nome: 'Sensualidade', color: '#F552BF' },
-];
 
 export default function Feeling({ onNext }) {
   const { theme } = useTheme();
@@ -34,9 +27,10 @@ export default function Feeling({ onNext }) {
 
     try {
       await storeData('selectedFeelings', selectedFeelings);
+      console.log('✅ Sentimentos salvos:', selectedFeelings);
       onNext();
     } catch (error) {
-      console.error('Erro ao salvar sentimentos:', error);
+      console.error('❌ Erro ao salvar sentimentos:', error);
     }
   };
 
@@ -44,8 +38,8 @@ export default function Feeling({ onNext }) {
 
   return (
     <View style={styles.container}>
-      <GlassBox >
-        {FEELINGS.map((feeling) => {
+      <GlassBox>
+        {SENTIMENTOS.map((feeling) => {
           const isSelected = selectedFeelings.includes(feeling.id);
           return (
             <TouchableOpacity
@@ -76,8 +70,9 @@ export default function Feeling({ onNext }) {
             </TouchableOpacity>
           );
         })}
-      <View style={styles.spacer}/>
+        <View style={styles.spacer} />
       </GlassBox>
+      
       <ButtonPrimary
         title="Próximo passo"
         onPress={handleNext}

@@ -1,32 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Modal, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity} from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
 import { createStyles } from '../../styles/Home/Home';
 import { getData } from '../../utils/storage';
-import Logo from '../../components/Logo';
+import { SENTIMENTOS, CAMINHOS } from '../../../assets/json/Sentimentos';
+
 import WelcomeText from '../../components/WelcomeText';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import ButtonSecundary from '../../components/ButtonSecundary';
 import GlassBox from '../../components/GlassBox';
-import { spacing } from '../../theme/texts';
-
-const SENTIMENTOS = [
-  { id: 1, nome: 'Amor', color: '#EA5959' },
-  { id: 2, nome: 'Confiança', color: '#FFAA2E' },
-  { id: 3, nome: 'Equilíbrio', color: '#8A4AED' },
-  { id: 4, nome: 'Esperança', color: '#38C197' },
-  { id: 5, nome: 'Felicidade', color: '#FFFF56' },
-  { id: 6, nome: 'Liberdade', color: '#45A7F8' },
-  { id: 7, nome: 'Sensualidade', color: '#F552BF' },
-];
-
-const CAMINHOS = [
-  { id: 1, nome: 'Ansiedade' },
-  { id: 2, nome: 'Autoimagem' },
-  { id: 3, nome: 'Atenção Plena' },
-  { id: 4, nome: 'Motivação' },
-  { id: 5, nome: 'Relacionamentos' },
-];
 
 export default function Home({ onEditFeeling }) {
   const { theme } = useTheme();
@@ -36,7 +18,6 @@ export default function Home({ onEditFeeling }) {
   const [selectedFeelings, setSelectedFeelings] = useState([]);
   const [selectedPath, setSelectedPath] = useState(null);
   const [desireDescription, setDesireDescription] = useState('');
-  const [showExplorerModal, setShowExplorerModal] = useState(false);
 
   useEffect(() => {
     loadSavedData();
@@ -89,7 +70,6 @@ export default function Home({ onEditFeeling }) {
       console.log('📦 DADOS DO ASYNCSTORAGE:');
       console.log(JSON.stringify(allData, null, 2));
       
-      setShowExplorerModal(true);
     } catch (error) {
       console.error('❌ Erro ao explorar storage:', error);
     }
@@ -99,49 +79,39 @@ export default function Home({ onEditFeeling }) {
     return SENTIMENTOS.filter(s => selectedFeelings.includes(s.id));
   };
 
-  const getPathName = () => {
-    return CAMINHOS.find(c => c.id === selectedPath)?.nome || 'Não definido';
-  };
-
   return (
     <View style={styles.container}>
-      <WelcomeText
-        title='Bem-Vindo ao Eden Map'
-        subtitle='Encontre o paraíso dentro de você!'
-      />
-
+      <Text style={styles.title}>Bem-Vindo ao Eden Map</Text>
+      <Text style={styles.text}>Encontre o <Text style={styles.highlight}>paraíso </Text>dentro de você!</Text>
       <GlassBox style={styles.desireCard}>
-        <Text style={styles.cardTitle}>{desireName}</Text>
-        
+        <Text style={styles.cardTitle}>
+          {desireName.charAt(0).toUpperCase() + desireName.slice(1)}
+        </Text>
+        <View style={styles.line}/>
         <View style={styles.feelingsContainer}>
           {getSelectedFeelings().map((feeling) => (
             <View 
               key={feeling.id} 
-              style={[styles.feelingChip, { backgroundColor: feeling.color }]}
+              style={styles.feelingChip}
             >
               <Text style={styles.feelingText}>{feeling.nome}</Text>
+              <View style={[styles.color, { backgroundColor: feeling.color }]}/>
             </View>
           ))}
         </View>
-
-        <ButtonSecundary
-          title='Editar'
-          onPress={handleEdit}
-          width={160}
-          height={40}
-        />
+        <TouchableOpacity onPress={handleEdit} style={styles.editButton}>
+          <Text style={styles.editButtonText}>Editar</Text>
+        </TouchableOpacity>
       </GlassBox>
 
       <ButtonPrimary
         title='Entrada do Eden'
         onPress={handleEntrarEden}
-        width={290}
       />
 
       <ButtonSecundary
         title='Explorar'
         onPress={handleExplorar}
-        width={290}
       />
     </View>
   );

@@ -6,85 +6,78 @@ export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
       alignItems: 'center',
+      marginTop: spacing.lg + spacing.xs,
       paddingHorizontal: spacing.md,
-      paddingTop: spacing.xs,
+      // paddingTop: spacing.xs,
+    },
+    title: {
+      fontSize: fontSize.xxl,
+      fontFamily: fontFamily.b7,
+      color: theme.fontColor,
+    },
+    text: {
+      fontSize: fontSize.md,
+      fontFamily: fontFamily.r4,
+      color: theme.fontColor,
+    },
+    highlight: {
+      color: theme.alert,
     },
     desireCard: {
-      paddingVertical: spacing.md,
-      marginBottom: spacing.md,
+      paddingTop: spacing.md,
     },
     cardTitle: {
-      fontSize: fontSize.lg,
+      fontSize: fontSize.xl,
       fontFamily: fontFamily.b7,
-      fontWeight: fontWeight.bold,
       color: theme.fontColor,
-      textAlign: 'center',
-      marginBottom: spacing.md,
+      textAlign: 'left',
+      marginBottom: spacing.xs,
       paddingHorizontal: spacing.md,
     },
+    line:{
+      height:2,
+      width: spacing.huge,
+      backgroundColor: theme.alert,
+      marginBottom: spacing.xs,
+    },
     feelingsContainer: {
-      width: '100%',
       gap: spacing.xs,
       marginBottom: spacing.md,
       paddingHorizontal: spacing.xs,
     },
     feelingChip: {
-      paddingVertical: spacing.xs,
-      paddingHorizontal: spacing.md,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
       borderRadius: borderRadius.m,
+      backgroundColor: theme.secondary,
+      height:spacing.xxl /2,
+      width: spacing.huge,
       alignItems: 'center',
+      paddingHorizontal: spacing.xs
+      
     },
     feelingText: {
       fontSize: fontSize.md,
-      fontFamily: fontFamily.r4,
-      color: '#FFFFFF',
-    },
-
-    // Modal Explorer Styles
-    modalOverlay: {
-      flex: 1,
-      backgroundColor: 'rgba(0, 0, 0, 0.7)',
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingHorizontal: spacing.md,
-    },
-    modalContent: {
-      width: '100%',
-      maxWidth: horizontalScale(350),
-      maxHeight: verticalScale(600),
-      paddingVertical: spacing.lg,
-    },
-    modalTitle: {
-      fontSize: fontSize.xl,
       fontFamily: fontFamily.b7,
-      fontWeight: fontWeight.bold,
       color: theme.fontColor,
-      textAlign: 'center',
-      marginBottom: spacing.md,
     },
-    modalScroll: {
-      maxHeight: verticalScale(400),
-      marginBottom: spacing.md,
-      paddingHorizontal: spacing.xs,
+    color: {
+      height:spacing.xl/2,
+      width: spacing.xl/2,
+      borderRadius: borderRadius.m,
     },
-    dataSection: {
-      marginBottom: spacing.md,
-      paddingBottom: spacing.xs,
-      borderBottomWidth: 1,
-      borderBottomColor: theme.terciario,
+    editButton: {
+      height: spacing.xs * 2,
+      width: spacing.xxl,
+      backgroundColor: theme.terciario,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: spacing.md
+
     },
-    dataLabel: {
+    editButtonText: {
+      color: theme.fontColor,
       fontSize: fontSize.md,
       fontFamily: fontFamily.b7,
-      fontWeight: fontWeight.bold,
-      color: theme.alert,
-      marginBottom: spacing.xxs,
-    },
-    dataValue: {
-      fontSize: fontSize.sm,
-      fontFamily: fontFamily.r4,
-      color: theme.fontColor,
-      lineHeight: verticalScale(18),
-      marginLeft: spacing.xxs,
-    },
+    }
   });

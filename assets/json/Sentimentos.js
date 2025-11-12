@@ -1,4 +1,4 @@
-const SENTIMENTOS = [
+export const SENTIMENTOS = [
   { id: 1, nome: 'Amor', color: '#EA5959' },
   { id: 2, nome: 'Confiança', color: '#FFAA2E' },
   { id: 3, nome: 'Equilíbrio', color: '#8A4AED' },
@@ -8,10 +8,10 @@ const SENTIMENTOS = [
   { id: 7, nome: 'Sensualidade', color: '#F552BF' },
 ];
 
-const CAMINHOS = [
-  { id: 1, nome: 'Ansiedade' },
-  { id: 2, nome: 'Autoimagem' },
-  { id: 3, nome: 'Atenção Plena' },
-  { id: 4, nome: 'Motivação' },
-  { id: 5, nome: 'Relacionamentos' },
+export const CAMINHOS = [
+  { id: 1, nome: 'Ansiedade', color: '#FFAA2E' },
+  { id: 2, nome: 'Autoimagem', color: '#38C197' },
+  { id: 3, nome: 'Atenção Plena', color: '#0A84FF' },
+  { id: 4, nome: 'Motivação', color: '#EA5959' },
+  { id: 5, nome: 'Relacionamentos', color: '#8A4AED' },
 ];
