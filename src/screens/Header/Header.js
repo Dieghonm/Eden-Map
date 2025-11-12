@@ -9,7 +9,10 @@ import { spacing } from '../../theme/texts';
 
 export default function Header({ onHomePress, onResetStarting }) {
   const { theme, currentTheme, toggleTheme } = useTheme();
-  const { setUser } = useContext(AppContext);
+  const { 
+    setUser,
+    resetStarting 
+  } = useContext(AppContext);
   const [menuVisible, setMenuVisible] = useState(false);
   const styles = createStyles(theme);
 
@@ -18,38 +21,13 @@ export default function Header({ onHomePress, onResetStarting }) {
     logout(setUser, null);
   };
 
-  const handleResetStarting = () => {
-    Alert.alert(
-      'Reiniciar Jornada',
-      'Isso irá apagar seu desejo, sentimentos e caminho. Deseja continuar?',
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        {
-          text: 'Apagar',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              await removeData('desireName');
-              await removeData('desireDescription');
-              await removeData('selectedFeelings');
-              await removeData('selectedPath');
-              
-              setMenuVisible(false);
-              
-              if (onResetStarting) {
-                onResetStarting();
-              }
-              
-              Alert.alert('Sucesso', 'Dados apagados! Você pode começar uma nova jornada.');
-            } catch (error) {
-              console.error('❌ Erro ao apagar dados:', error);
-              Alert.alert('Erro', 'Não foi possível apagar os dados.');
-            }
-          }
-        }
-      ]
-    );
-  };
+  const handleResetStarting = async () => {
+    const success = await resetStarting();
+    setMenuVisible(false);
+    if (success && onResetStarting) {
+      onResetStarting();
+    }
+};
 
   const handleHomePress = () => {
     if (onHomePress) {
