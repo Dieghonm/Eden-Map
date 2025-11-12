@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
 import { createStyles } from '../../styles/Home/Home';
+import { getData } from '../../utils/storage';
 import Logo from '../../components/Logo';
 import WelcomeText from '../../components/WelcomeText';
 import ButtonPrimary from '../../components/ButtonPrimary';
@@ -19,36 +20,31 @@ const SENTIMENTOS = [
   { id: 7, nome: 'Sensualidade', color: '#FF6EC7' },
 ];
 
-export default function Home() {
+export default function Home({ onRefresh }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
   
-  const [selectedFeelings, setSelectedFeelings] = useState([4, 5, 6]); // IDs: Esperança, Felicidade, Liberdade
-  const [modalVisible, setModalVisible] = useState(false);
-  const [tempSelected, setTempSelected] = useState([]);
+  const [desireName, setDesireName] = useState('Nome do desejo');
+  const [selectedFeelings, setSelectedFeelings] = useState([]);
 
-  const handleOpenModal = () => {
-    setTempSelected([...selectedFeelings]);
-    setModalVisible(true);
-  };
+  useEffect(() => {
+    loadSavedData();
+  }, []);
 
-  const handleCloseModal = () => {
-    setModalVisible(false);
-    setTempSelected([]);
-  };
-
-  const handleSaveSelection = () => {
-    setSelectedFeelings([...tempSelected]);
-    setModalVisible(false);
-    console.log('Sentimentos salvos:', tempSelected);
-  };
-
-  const toggleFeeling = (id) => {
-    if (tempSelected.includes(id)) {
-      setTempSelected(tempSelected.filter(f => f !== id));
-    } else if (tempSelected.length < 3) {
-      setTempSelected([...tempSelected, id]);
+  const loadSavedData = async () => {
+    try {
+      const savedName = await getData('desireName');
+      const savedFeelings = await getData('selectedFeelings');
+      
+      if (savedName) setDesireName(savedName);
+      if (savedFeelings) setSelectedFeelings(savedFeelings);
+    } catch (error) {
+      console.error('❌ Erro ao carregar dados:', error);
     }
+  };
+
+  const handleEdit = () => {
+    console.log('Editar pressionado - implementar modal ou navegação');
   };
 
   const getSelectedFeelings = () => {
@@ -57,13 +53,15 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bem-Vindo ao Eden Map</Text>
-      <Text style={styles.subtitle}>
-        Encontre o <Text style={styles.highlight}>paraíso</Text> dentro de você!
-      </Text>
+      <Logo width={spacing.lg} height={spacing.md} />
+      
+      <WelcomeText
+        title='Bem-Vindo ao Eden Map'
+        subtitle='Encontre o paraíso dentro de você!'
+      />
 
       <GlassBox style={styles.desireCard}>
-        <Text style={styles.cardTitle}>Nome do desejo</Text>
+        <Text style={styles.cardTitle}>{desireName}</Text>
         
         <View style={styles.feelingsContainer}>
           {getSelectedFeelings().map((feeling) => (
@@ -78,7 +76,7 @@ export default function Home() {
 
         <ButtonSecundary
           title='Editar'
-          onPress={handleOpenModal}
+          onPress={handleEdit}
           width={160}
           height={40}
         />
@@ -86,66 +84,15 @@ export default function Home() {
 
       <ButtonPrimary
         title='Entrada do Eden'
-        onPress={() => console.log('Entrada do Eden pressionado')}
+        onPress={() => console.log('Entrada do Eden')}
         width={290}
       />
 
       <ButtonSecundary
         title='Explorar'
-        onPress={() => console.log('Explorar pressionado')}
+        onPress={() => console.log('Explorar')}
         width={290}
       />
-
-      {/* Modal de Seleção */}
-      <Modal
-        visible={modalVisible}
-        transparent
-        animationType="fade"
-        onRequestClose={handleCloseModal}
-      >
-        <View style={styles.modalOverlay}>
-          <GlassBox style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Selecione 3 sentimentos</Text>
-            
-            <View style={styles.modalFeelingsList}>
-              {SENTIMENTOS.map((feeling) => (
-                <TouchableOpacity
-                  key={feeling.id}
-                  style={[
-                    styles.modalFeelingItem,
-                    { backgroundColor: feeling.color },
-                    tempSelected.includes(feeling.id) && styles.modalFeelingSelected,
-                  ]}
-                  onPress={() => toggleFeeling(feeling.id)}
-                  activeOpacity={0.7}
-                  disabled={!tempSelected.includes(feeling.id) && tempSelected.length >= 3}
-                >
-                  <Text style={styles.modalFeelingText}>{feeling.nome}</Text>
-                  {tempSelected.includes(feeling.id) && (
-                    <Text style={styles.checkmark}>✓</Text>
-                  )}
-                </TouchableOpacity>
-              ))}
-            </View>
-
-            <View style={styles.modalButtons}>
-              <ButtonSecundary
-                title='Cancelar'
-                onPress={handleCloseModal}
-                width={120}
-                height={40}
-              />
-              <ButtonPrimary
-                title='Salvar'
-                onPress={handleSaveSelection}
-                disabled={tempSelected.length !== 3}
-                width={120}
-                height={40}
-              />
-            </View>
-          </GlassBox>
-        </View>
-      </Modal>
     </View>
   );
 }

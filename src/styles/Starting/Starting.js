@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { spacing, fontSize, fontFamily, fontWeight } from '../../theme/texts';
+import { spacing, fontSize, fontFamily, fontWeight, borderRadius } from '../../theme/texts';
 import { verticalScale } from '../../utils/responsive';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
-    container: {
+    headerContainer: {
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
       paddingTop: spacing.xl *2,
@@ -13,33 +13,40 @@ export const createStyles = (theme) =>
       paddingTop: spacing.xxs,
       paddingHorizontal: spacing.xs + spacing.xxs,
     },
-
-    description: {
-      marginTop: spacing.xxs,
-      paddingTop: spacing.md,
-      borderTopWidth: 3,
-      borderTopColor: theme.fontColor,
-      fontSize: fontSize.xxl,
-      fontFamily: fontFamily.b7,
+    stepsHeaderContainer: {
+      marginTop: spacing.lg,
+      marginHorizontal: spacing.lg,
+    },
+    title: {
       color: theme.fontColor,
-      // textAlign: 'center',
-      // lineHeight: verticalScale(22),
-      marginBottom: spacing.md, 
-      width: spacing.giant,
+      fontFamily: fontFamily.b7,
+      fontSize: fontSize.xxl,
+      marginEnd: spacing.xxs
+    },
+    text: {
+      color: theme.fontColor,
+      fontFamily: fontFamily.r4,
+      fontSize: fontSize.md,
     },
     highlight: {
       color: theme.alert,
-      fontFamily: fontFamily.b7,
-      fontWeight: fontWeight.bold,
-    },
-    guideText: {
-      fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
-      color: theme.fontColor,
-      textAlign: 'center',
-      lineHeight: verticalScale(22),
-      marginTop: spacing.md,
-      marginBottom: spacing.xs,
-      width: spacing.giant,
+      fontSize: fontSize.md,
     },
-  });
+    progressContainer: {
+      flexDirection: 'row',
+      gap: spacing.xs,
+      marginVertical: spacing.md,
+      width: spacing.giant,
+      justifyContent: 'center',
+    },
+    progressBar: {
+      flex: 1,
+      height: verticalScale(4),
+      backgroundColor: theme.terciario,
+      borderRadius: borderRadius.p,
+    },
+    progressActive: {
+      backgroundColor: theme.success,
+    },
+  })

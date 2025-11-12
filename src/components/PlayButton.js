@@ -93,8 +93,8 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
         <Image
           source={
             isPlaying
-              ? require('../../assets/Pause.png')
-              : require('../../assets/Play.png')
+              ? require('../../assets/icons/Pause.png')
+              : require('../../assets/icons/Play.png')
           }
           style={styles.playIcon}
           resizeMode="contain"

@@ -1,47 +1,128 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
 import { createStyles } from '../../styles/Starting/Starting';
 import Logo from '../../components/Logo';
 import WelcomeText from '../../components/WelcomeText';
-import PlayButton from '../../components/PlayButton';
-import ButtonPrimary from '../../components/ButtonPrimary';
+import Intro from './Intro';
+import Desire from './Desire';
+import Feeling from './Feeling';
+import Track from './Track';
 import { spacing } from '../../theme/texts';
 
 export default function Starting() {
   const { theme } = useTheme();
   const styles = createStyles(theme);
+  const [currentStep, setCurrentStep] = useState('INTRO');
+
+  const BringHeader = () => {
+    const headerConfig = {
+      INTRO: {
+        title: 'Introdução',
+        subtitle: 'No Eden Map, sua jornada começa com um desejo profundo.',
+      },
+      DESIRE: {
+        title: 'Primeiro passo',
+        subtitle: {
+          1: 'O Eden Map te ajuda a ',
+          2: 'manifestar um desejo',
+          3: ' real, a partir de uma',
+          4: ' intenção clara.',
+          5: ''
+        }
+      },
+      FEELING: {
+        title: 'Segundo passo',
+        subtitle: {
+          1: 'Escolha os ',
+          2: '3 sentimentos',
+          3: ' que conectam você à ',
+          4: 'parte subjetiva',
+          5: ' do desejo.'
+        }
+      },
+      TRACK: {
+        title: 'Terceiro Passo',
+        subtitle: {
+          1: 'Em ',
+          2: '3 meses',
+          3: ' você vai percorrer um dos     ',
+          4: '5 caminhos',
+          5: ' para desbloquear limitações e manifestar seu desejo profundo.'
+        }
+      },
+    };
+
+    const steps = ['DESIRE', 'FEELING', 'TRACK'];
+    const currentIndex = steps.indexOf(currentStep) + 1;
+
+    const config = headerConfig[currentStep] || headerConfig.INTRO;
+
+    if (currentStep === 'INTRO') {
+      return (
+        <View style={styles.headerContainer}>
+          <Logo width={spacing.lg} height={spacing.md} />
+          <View style={styles.introText}>
+            <WelcomeText
+              title={config.title}
+              subtitle={config.subtitle}
+            />
+          </View>
+        </View>
+      );
+    }
+
+    return (
+      <View style={styles.stepsHeaderContainer}>
+        <Text style={styles.title}>{config.title}</Text>
+        <Text style={styles.text}>
+          {config.subtitle[1]}
+          <Text style={styles.highlight}>{config.subtitle[2]}</Text>
+          {config.subtitle[3]}
+          <Text style={styles.highlight}>{config.subtitle[4]}</Text>
+          {config.subtitle[5]}
+        </Text>
+
+        <View style={styles.progressContainer}>
+          {steps.map((step, index) => (
+            <View
+              key={step}
+              style={[
+                styles.progressBar,
+                index < currentIndex
+                  ? styles.progressActive
+                  : styles.progressInactive
+              ]}
+            />
+          ))}
+        </View>
+      </View>
+    );
+  };
+
+  const BringBody = () => {
+    switch (currentStep) {
+      case 'INTRO':
+        return <Intro onStartGuide={() => setCurrentStep('DESIRE')} />;
+      
+      case 'DESIRE':
+        return <Desire onNext={() => setCurrentStep('FEELING')} />;
+      
+      case 'FEELING':
+        return <Feeling onNext={() => setCurrentStep('TRACK')} />;
+      
+      case 'TRACK':
+        return <Track onComplete={() => console.log('Guia completo!')} />;
+      
+      default:
+        return <Intro onStartGuide={() => setCurrentStep('DESIRE')} />;
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Logo width={spacing.lg} height={spacing.md} />
-      <View style={styles.introText}>
-        <WelcomeText
-          style={styles.introText}
-          title='Introdução'
-          subtitle='No Eden Map, sua jornada começa com um desejo profundo.'
-        />
-      </View>
-
-      <Text style={styles.description}>
-        Escute o áudio de <Text style={styles.highlight}>2 min</Text> abaixo e descubra a{' '}
-        <Text style={styles.highlight}>melhor maneira de fazer seu desejo.</Text> 
-      </Text>
-      
-      <PlayButton 
-        text='Tutorial - Desejo'
-        source={require('../../../assets/audios/TutorialDesejo.mp3')}
-        duration={150}
-      />
-      
-      <Text style={styles.guideText}>
-        Veja o nosso guia em <Text style={styles.highlight}>3 passos</Text>, e entenda como funciona a plataforma.
-      </Text>
-      
-      <ButtonPrimary
-        title='Iniciar guia'
-        onPress={() => console.log('Iniciar guia pressionado')}
-      />
+      <BringHeader />
+      <BringBody />
     </View>
   );
 }
