@@ -28,8 +28,19 @@ export default function AppNavigator() {
   }, [user]);
 
   const checkAuthStatus = async () => {
+    
     try {
       const token = await tokenHelpers.get();
+      const desireName = await AsyncStorage.getItem('desireName');
+      const desireDescription = await AsyncStorage.getItem('desireDescription');
+      const selectedFeelings = await AsyncStorage.getItem('selectedFeelings');
+      const selectedPath = await AsyncStorage.getItem('selectedPath');
+
+      console.log(token,'token <------------------------------------');
+      console.log(desireName,'desireName <------------------------------------');
+      console.log(desireDescription,'desireDescription <------------------------------------');
+      console.log(selectedFeelings,'selectedFeelings <------------------------------------');
+      console.log(selectedPath,'selectedPath <------------------------------------');
       
       if (!token) {
         setIsAuthenticated(false);
@@ -45,6 +56,9 @@ export default function AppNavigator() {
       });
       
       setIsAuthenticated(true);
+
+
+      
       
     } catch (error) {
       if (error.status === 401 || error.status === 403) {

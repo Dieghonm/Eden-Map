@@ -10,7 +10,7 @@ import Feeling from './Feeling';
 import Track from './Track';
 import { spacing } from '../../theme/texts';
 
-export default function Starting() {
+export default function Starting({ onComplete }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
   const [currentStep, setCurrentStep] = useState('INTRO');
@@ -112,7 +112,7 @@ export default function Starting() {
         return <Feeling onNext={() => setCurrentStep('TRACK')} />;
       
       case 'TRACK':
-        return <Track onComplete={() => console.log('Guia completo!')} />;
+        return <Track onComplete={onComplete} />;
       
       default:
         return <Intro onStartGuide={() => setCurrentStep('DESIRE')} />;

@@ -49,6 +49,11 @@ export default function HomeScreen({ navigation }) {
     checkGuideStatus();
   };
 
+  const handleResetStarting = () => {
+    setCurrentScreen('STARTING');
+    checkGuideStatus();
+  };
+
   const renderScreen = () => {
     switch (currentScreen) {
       case 'HOME':
@@ -67,7 +72,10 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Header onHomePress={() => setCurrentScreen('HOME')} />
+      <Header 
+        onHomePress={() => setCurrentScreen('HOME')} 
+        onResetStarting={handleResetStarting}
+      />
       <View style={{ flex: 1 }}>
         {renderScreen()}
       </View>

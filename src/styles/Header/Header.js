@@ -6,10 +6,12 @@ import { darkTheme, lightTheme, pinkTheme } from '../../theme/colors';
 export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
-      marginTop: spacing.xxs *2,
+      marginTop: spacing.xxs * 2,
       paddingHorizontal: spacing.md,
       flexDirection: 'row',
       justifyContent: 'space-between',
+      width: spacing.xxl * 3,
+      alignSelf: 'center'
     },
     buttonsContainer: {
       flexDirection: 'row',
@@ -37,7 +39,6 @@ export const createStyles = (theme) =>
     
     modalOverlay: {
       flex: 1,
-      // backgroundColor: 'rgba(0, 0, 0, 0.5)',
       justifyContent: 'flex-start',
       alignItems: 'flex-end',
     },
@@ -80,6 +81,20 @@ export const createStyles = (theme) =>
     },
     activeButtonText: {
       transform: [{ scale: 1.2 }],
+    },
+    resetButton: {
+      backgroundColor: theme.alert,
+      paddingVertical: spacing.xs,
+      paddingHorizontal: spacing.md,
+      borderRadius: borderRadius.m,
+      alignItems: 'center',
+      marginBottom: spacing.xs,
+    },
+    resetButtonText: {
+      fontSize: fontSize.md,
+      fontWeight: fontWeight.bold,
+      fontFamily: fontFamily.b7,
+      color: '#FFFFFF',
     },
     logoutButton: {
       backgroundColor: theme.warning,
