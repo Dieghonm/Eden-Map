@@ -1,32 +1,41 @@
-// src/screens/Starting/Track.js
-
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
+import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Starting/Track';
-import { storeData } from '../../utils/storage';
 import { CAMINHOS } from '../../../assets/json/Sentimentos';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import GlassBox from '../../components/GlassBox';
 
 export default function Track({ onComplete }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
-  const [selectedPath, setSelectedPath] = useState(null);
+  
+  // Pega dados e setter do Provider
+  const { 
+    selectedPath: savedPath,
+    setSelectedPath 
+  } = useContext(AppContext);
+
+  // Estado local sincronizado com Provider
+  const [localPath, setLocalPath] = useState(savedPath || null);
+
+  // Sincroniza com Provider quando componente monta
+  useEffect(() => {
+    if (savedPath) {
+      setLocalPath(savedPath);
+    }
+  }, []);
 
   const handleComplete = async () => {
-    if (!selectedPath) return;
+    if (!localPath) return;
 
-    try {
-      await storeData('selectedPath', selectedPath);
-      console.log('✅ Caminho salvo:', selectedPath);
-      console.log('🎉 Guia completo!');
-      
-      if (onComplete) {
-        onComplete();
-      }
-    } catch (error) {
-      console.error('❌ Erro ao salvar caminho:', error);
+    // Salva no Provider (que salva automaticamente no storage)
+    await setSelectedPath(localPath);
+    
+    console.log('🎉 Guia completo!');
+    
+    if (onComplete) {
+      onComplete();
     }
   };
 
@@ -41,14 +50,14 @@ export default function Track({ onComplete }) {
             style={[
               styles.pathButton,
               { borderColor: path.color, borderWidth: 2 },
-              selectedPath === path.id && styles.pathButtonSelected,
+              localPath === path.id && styles.pathButtonSelected,
             ]}
-            onPress={() => setSelectedPath(path.id)}
+            onPress={() => setLocalPath(path.id)}
             activeOpacity={0.8}
           >
             <Text style={[
               styles.pathText,
-              selectedPath === path.id && styles.pathTextSelected,
+              localPath === path.id && styles.pathTextSelected,
             ]}>
               {path.nome}
             </Text>
@@ -59,7 +68,7 @@ export default function Track({ onComplete }) {
       <ButtonPrimary
         title='Descubra seu caminho'
         onPress={handleComplete}
-        disabled={!selectedPath}
+        disabled={!localPath}
       />
     </View>
   );

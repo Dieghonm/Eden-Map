@@ -1,290 +1,127 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useCallback } from 'react';
 import { storeData, getData, removeData } from '../utils/storage';
 
 export const AppContext = createContext();
 
 export default function AppProvider({ children }) {
-  // ========== DADOS DO USUÁRIO ==========
-  const [user, setUser] = useState(null);
-
-  // ========== DADOS DO STARTING ==========
-  const [desireName, setDesireName] = useState('');
-  const [desireDescription, setDesireDescription] = useState('');
-  const [selectedFeelings, setSelectedFeelings] = useState([]);
-  const [selectedPath, setSelectedPath] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUserState] = useState(null);
+  const [desireName, setDesireNameState] = useState('');
+  const [desireDescription, setDesireDescriptionState] = useState('');
+  const [selectedFeelings, setSelectedFeelingsState] = useState([]);
+  const [selectedPath, setSelectedPathState] = useState(null);
   const [isStartingComplete, setIsStartingComplete] = useState(false);
 
-  // ========== CARREGA DADOS AO INICIAR ==========
   useEffect(() => {
-    loadAllData();
+    initializeApp();
   }, []);
 
-  // ========== SALVA USUÁRIO QUANDO MUDAR ==========
-  useEffect(() => {
-    if (user !== null) storeData('user', user);
-  }, [user]);
-
-  // ========== VERIFICA SE STARTING ESTÁ COMPLETO ==========
-  useEffect(() => {
-    checkIfStartingComplete();
-  }, [desireName, selectedFeelings, selectedPath]);
-
-  // ========== FUNÇÕES DE CARREGAMENTO ==========
-  const loadAllData = async () => {
-    try {
-      // Carrega usuário
-      const storedUser = await getData('user');
-      if (storedUser) setUser(storedUser);
-
-      // Carrega dados do Starting
-      const savedDesireName = await getData('desireName');
-      const savedDesireDescription = await getData('desireDescription');
-      const savedFeelings = await getData('selectedFeelings');
-      const savedPath = await getData('selectedPath');
-
-      if (savedDesireName) setDesireName(savedDesireName);
-      if (savedDesireDescription) setDesireDescription(savedDesireDescription);
-      if (savedFeelings) setSelectedFeelings(savedFeelings);
-      if (savedPath) setSelectedPath(savedPath);
-
-      console.log('✅ Todos os dados carregados do AppProvider');
-    } catch (error) {
-      console.error('❌ Erro ao carregar dados:', error);
-    }
+  const initializeApp = async () => {
+    setIsLoading(true);
+    const userData = await getData('user');
+    const desireNameData = await getData('desireName');
+    const desireDescData = await getData('desireDescription');
+    const feelingsData = await getData('selectedFeelings');
+    const pathData = await getData('selectedPath');
+    setUserState(userData || null);
+    setDesireNameState(desireNameData || '');
+    setDesireDescriptionState(desireDescData || '');
+    setSelectedFeelingsState(feelingsData || []);
+    setSelectedPathState(pathData || null);
+    if (!desireNameData) await storeData('desireName', '');
+    if (!desireDescData) await storeData('desireDescription', '');
+    if (!feelingsData) await storeData('selectedFeelings', []);
+    if (!pathData) await storeData('selectedPath', null);
+    setIsLoading(false);
   };
 
-  const checkIfStartingComplete = () => {
+  useEffect(() => {
     const complete = 
       desireName.trim().length > 0 && 
       selectedFeelings.length === 3 && 
       selectedPath !== null;
-    
     setIsStartingComplete(complete);
-  };
+  }, [desireName, selectedFeelings, selectedPath]);
 
-  // ========== FUNÇÕES DE SALVAMENTO - STARTING ==========
-  const saveDesireName = async (name) => {
-    try {
-      await storeData('desireName', name);
-      setDesireName(name);
-      console.log('✅ Nome do desejo salvo:', name);
-    } catch (error) {
-      console.error('❌ Erro ao salvar nome do desejo:', error);
-    }
-  };
+  const setUser = useCallback(async (userData) => {
+    setUserState(userData);
+    await storeData('user', userData);
+  }, []);
 
-  const saveDesireDescription = async (description) => {
-    try {
-      await storeData('desireDescription', description);
-      setDesireDescription(description);
-      console.log('✅ Descrição do desejo salva');
-    } catch (error) {
-      console.error('❌ Erro ao salvar descrição:', error);
-    }
-  };
+  const setDesireName = useCallback(async (name) => {
+    const trimmedName = typeof name === 'string' ? name.trim() : '';
+    setDesireNameState(trimmedName);
+    await storeData('desireName', trimmedName);
+  }, []);
 
-  const saveSelectedFeelings = async (feelings) => {
-    try {
-      await storeData('selectedFeelings', feelings);
-      setSelectedFeelings(feelings);
-      console.log('✅ Sentimentos salvos:', feelings);
-    } catch (error) {
-      console.error('❌ Erro ao salvar sentimentos:', error);
-    }
-  };
+  const setDesireDescription = useCallback(async (description) => {
+    const trimmedDesc = typeof description === 'string' ? description.trim() : '';
+    setDesireDescriptionState(trimmedDesc);
+    await storeData('desireDescription', trimmedDesc);
+  }, []);
 
-  const saveSelectedPath = async (path) => {
-    try {
-      await storeData('selectedPath', path);
-      setSelectedPath(path);
-      console.log('✅ Caminho salvo:', path);
-    } catch (error) {
-      console.error('❌ Erro ao salvar caminho:', error);
-    }
-  };
+  const setSelectedFeelings = useCallback(async (feelings) => {
+    const validFeelings = Array.isArray(feelings) ? feelings : [];
+    setSelectedFeelingsState(validFeelings);
+    await storeData('selectedFeelings', validFeelings);
+  }, []);
 
-  // ========== FUNÇÃO DE RESET ==========
-  const resetStarting = async () => {
-    try {
-      await removeData('desireName');
-      await removeData('desireDescription');
-      await removeData('selectedFeelings');
-      await removeData('selectedPath');
+  const setSelectedPath = useCallback(async (path) => {
+    setSelectedPathState(path);
+    await storeData('selectedPath', path);
+  }, []);
 
-      setDesireName('');
-      setDesireDescription('');
-      setSelectedFeelings([]);
-      setSelectedPath(null);
-      setIsStartingComplete(false);
+  const resetStarting = useCallback(async () => {
+    const emptyName = '';
+    const emptyDescription = '';
+    const emptyFeelings = [];
+    const emptyPath = null;
+    setDesireNameState(emptyName);
+    setDesireDescriptionState(emptyDescription);
+    setSelectedFeelingsState(emptyFeelings);
+    setSelectedPathState(emptyPath);
+    await new Promise(resolve => setTimeout(resolve, 0));
+    await storeData('desireName', emptyName);
+    await storeData('desireDescription', emptyDescription);
+    await storeData('selectedFeelings', emptyFeelings);
+    await storeData('selectedPath', emptyPath);
+    return true;
+  }, [desireName, desireDescription, selectedFeelings, selectedPath]);
 
-      console.log('✅ Dados do Starting resetados');
-    } catch (error) {
-      console.error('❌ Erro ao resetar dados:', error);
-    }
-  };
+  const resetUser = useCallback(async () => {
+    setUserState(null);
+    await removeData('user');
+  }, []);
 
-  // ========== VALUE DO CONTEXTO ==========
   const value = {
-    // Dados do usuário
+    isLoading,
     user,
     setUser,
-
-    // Dados do Starting
+    resetUser,
     desireName,
     desireDescription,
     selectedFeelings,
     selectedPath,
     isStartingComplete,
-
-    // Funções de salvamento
-    saveDesireName,
-    saveDesireDescription,
-    saveSelectedFeelings,
-    saveSelectedPath,
-
-    // Funções auxiliares
+    setDesireName,
+    setDesireDescription,
+    setSelectedFeelings,
+    setSelectedPath,
     resetStarting,
-    loadAllData,
+    initializeApp,
   };
 
-  return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
+  return (
+    <AppContext.Provider value={value}>
+      {children}
+    </AppContext.Provider>
+  );
 }
 
-// ========== EXEMPLOS DE USO ==========
-
-/*
-// ===============================================
-// 1. DESIRE.JS - Salvar desejo
-// ===============================================
-import React, { useState, useContext } from 'react';
-import { AppContext } from '../../context/AppProvider';
-
-export default function Desire({ onNext }) {
-  const { saveDesireName, saveDesireDescription } = useContext(AppContext);
-  const [localName, setLocalName] = useState('');
-  const [localDescription, setLocalDescription] = useState('');
-
-  const handleNext = async () => {
-    await saveDesireName(localName.trim());
-    await saveDesireDescription(localDescription.trim());
-    onNext();
-  };
-
-  // ... resto do código
-}
-
-// ===============================================
-// 2. FEELING.JS - Salvar sentimentos
-// ===============================================
-import React, { useState, useContext } from 'react';
-import { AppContext } from '../../context/AppProvider';
-
-export default function Feeling({ onNext }) {
-  const { saveSelectedFeelings } = useContext(AppContext);
-  const [localFeelings, setLocalFeelings] = useState([]);
-
-  const handleNext = async () => {
-    await saveSelectedFeelings(localFeelings);
-    onNext();
-  };
-
-  // ... resto do código
-}
-
-// ===============================================
-// 3. TRACK.JS - Salvar caminho
-// ===============================================
-import React, { useState, useContext } from 'react';
-import { AppContext } from '../../context/AppProvider';
-
-export default function Track({ onComplete }) {
-  const { saveSelectedPath } = useContext(AppContext);
-  const [localPath, setLocalPath] = useState(null);
-
-  const handleComplete = async () => {
-    await saveSelectedPath(localPath);
-    onComplete();
-  };
-
-  // ... resto do código
-}
-
-// ===============================================
-// 4. HOME.JS - Ler dados salvos
-// ===============================================
-import React, { useContext } from 'react';
-import { AppContext } from '../../context/AppProvider';
-import { SENTIMENTOS, CAMINHOS } from '../../../assets/json/Sentimentos';
-
-export default function Home({ onEditFeeling }) {
-  const { 
-    desireName, 
-    desireDescription,
-    selectedFeelings, 
-    selectedPath 
-  } = useContext(AppContext);
-
-  const getSelectedFeelings = () => {
-    return SENTIMENTOS.filter(s => selectedFeelings.includes(s.id));
-  };
-
-  const getSelectedPath = () => {
-    return CAMINHOS.find(c => c.id === selectedPath);
-  };
-
-  // ... resto do código
-}
-
-// ===============================================
-// 5. HEADER.JS - Resetar tudo
-// ===============================================
-import React, { useContext } from 'react';
-import { AppContext } from '../../context/AppProvider';
-import { Alert } from 'react-native';
-
-export default function Header({ onResetStarting }) {
-  const { resetStarting } = useContext(AppContext);
-
-  const handleResetStarting = () => {
-    Alert.alert(
-      'Reiniciar Jornada',
-      'Isso irá apagar seu desejo, sentimentos e caminho. Deseja continuar?',
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        {
-          text: 'Apagar',
-          style: 'destructive',
-          onPress: async () => {
-            await resetStarting();
-            if (onResetStarting) onResetStarting();
-            Alert.alert('Sucesso', 'Dados apagados!');
-          }
-        }
-      ]
-    );
-  };
-
-  // ... resto do código
-}
-
-// ===============================================
-// 6. HOMESCREEN.JS - Verificar se Starting está completo
-// ===============================================
-import React, { useContext, useEffect, useState } from 'react';
-import { AppContext } from '../context/AppProvider';
-
-export default function HomeScreen({ navigation }) {
-  const { isStartingComplete } = useContext(AppContext);
-  const [currentScreen, setCurrentScreen] = useState('LOADING');
-
-  useEffect(() => {
-    if (isStartingComplete) {
-      setCurrentScreen('HOME');
-    } else {
-      setCurrentScreen('STARTING');
-    }
-  }, [isStartingComplete]);
-
-  // ... resto do código
-}
-*/
+export const useApp = () => {
+  const context = React.useContext(AppContext);
+  if (!context) {
+    throw new Error('useApp deve ser usado dentro de AppProvider');
+  }
+  return context;
+};

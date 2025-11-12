@@ -14,7 +14,7 @@ import { spacing } from '../../theme/texts';
 
 export default function SignIn({ navigation, onChangeScreen }) {
   const { theme } = useTheme();
-  const { setUser } = useContext(AppContext);
+  const { setUser } = useContext(AppContext); // Usa o setter do Provider
   const styles = createStyles(theme);
 
   const [formData, setFormData] = useState({
@@ -27,17 +27,21 @@ export default function SignIn({ navigation, onChangeScreen }) {
   const handleLogin = async () => {
     setLoading(true);
     setErrorMessage('');
+    
     try {
       const credentials = {
         email_ou_login: formData.email.toLowerCase().trim(),
         senha: formData.password,
       };
+      
       const response = await api.login(credentials);
+      
       if (response.access_token) {
         await tokenHelpers.save(response.access_token);
       }
 
-      setUser({
+      // Salva no Provider (que salva automaticamente no storage)
+      await setUser({
         login: response.user.login,
         email: response.user.email || formData.email,
         tag: response.user.tag,

@@ -10,12 +10,12 @@ import TextInput from '../../components/TextInput';
 import InfoCard from '../../components/InfoCard';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GlassBox from '../../components/GlassBox';
-import { api, tokenHelpers, BASE_URL } from '../../services/api';
+import { api, tokenHelpers } from '../../services/api';
 import { spacing } from '../../theme/texts';
 
 export default function Register({ navigation, onChangeScreen }) {
   const { theme } = useTheme();
-  const { setUser } = useContext(AppContext);
+  const { setUser } = useContext(AppContext); // Usa o setter do Provider
   const styles = createStyles(theme);
   
   const [showInfo, setShowInfo] = useState(true);
@@ -76,10 +76,13 @@ export default function Register({ navigation, onChangeScreen }) {
       };
 
       const response = await api.cadastro(userData);
+      
       if (response.access_token) {
         await tokenHelpers.save(response.access_token);
       }
-      setUser({
+
+      // Salva no Provider (que salva automaticamente no storage)
+      await setUser({
         login: response.user.login,
         email: formData.email,
         tag: userData.tag,
@@ -87,7 +90,8 @@ export default function Register({ navigation, onChangeScreen }) {
         token_duration: response.token_duration,
         expires: response.expires,
       });
-      navigation.replace('Home')
+
+      navigation.replace('Home');
     } catch (error) {
       console.error('❌ Erro no cadastro:', error);
 
@@ -220,7 +224,6 @@ export default function Register({ navigation, onChangeScreen }) {
             <Text style={styles.errorText}>{errorMessage}</Text>
           </View>
         ) : <View style={styles.space} />}
-
 
         {loading ? (
           <View style={styles.loadingContainer}>

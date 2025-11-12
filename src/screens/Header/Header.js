@@ -4,7 +4,6 @@ import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Header/Header';
 import { logout } from '../../utils/authHelper';
-import { removeData } from '../../utils/storage';
 import Logo from '../../components/Logo';
 import { spacing } from '../../theme/texts';
 

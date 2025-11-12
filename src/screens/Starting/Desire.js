@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TextInput as RNTextInput, Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTheme } from '../../context/ThemeProvider';
+import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Starting/Desire';
-import { storeData } from '../../utils/storage';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GlassBox from '../../components/GlassBox';
 import { spacing } from '../../theme/texts';
@@ -11,26 +11,30 @@ import { spacing } from '../../theme/texts';
 export default function Desire({ onNext }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
+  
+  const { 
+    desireName: savedName,
+    desireDescription: savedDescription,
+    setDesireName,
+    setDesireDescription 
+  } = useContext(AppContext);
 
-  const [desireName, setDesireName] = useState('');
-  const [desireDescription, setDesireDescription] = useState('');
+  const [localName, setLocalName] = useState(savedName || '');
+  const [localDescription, setLocalDescription] = useState(savedDescription || '');
 
-  const caracter = 15
+  const maxChars = 15;
 
   const isFormValid = 
-    desireName.trim().length > 0 && 
-    desireName.trim().length <= caracter &&
-    desireDescription.trim().length > 0;
+    localName.trim().length > 0 && 
+    localName.trim().length <= maxChars &&
+    localDescription.trim().length > 0;
 
   const handleNext = async () => {
     if (!isFormValid) return;
-    try {
-      await storeData('desireName', desireName.trim());
-      await storeData('desireDescription', desireDescription.trim());
-      onNext();
-    } catch (error) {
-      console.error('❌ Erro ao salvar desejo:', error);
-    }
+    await setDesireName(localName);
+    await setDesireDescription(localDescription);
+    
+    onNext();
   };
 
   return (
@@ -50,12 +54,13 @@ export default function Desire({ onNext }) {
               style={styles.input}
               placeholder='Máximo de 15 caracteres'
               placeholderTextColor={theme.fontColor}
-              value={desireName}
-              onChangeText={setDesireName}
-              maxLength={caracter}
+              value={localName}
+              onChangeText={setLocalName}
+              maxLength={maxChars}
             />
           </View>
         </GlassBox>
+
         <GlassBox>
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Descreva o desejo material.</Text>
@@ -63,8 +68,8 @@ export default function Desire({ onNext }) {
               style={[styles.input, styles.textArea]}
               placeholder='Máximo de 300 caracteres'
               placeholderTextColor={theme.fontColor}
-              value={desireDescription}
-              onChangeText={setDesireDescription}
+              value={localDescription}
+              onChangeText={setLocalDescription}
               multiline
               numberOfLines={4}
               textAlignVertical="top"
@@ -72,6 +77,7 @@ export default function Desire({ onNext }) {
             />
           </View>
         </GlassBox>
+
         <Text style={styles.helperText}>
           Para avançar preencha as boxes acima
         </Text>
