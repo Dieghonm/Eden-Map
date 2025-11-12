@@ -6,6 +6,7 @@ import { useTheme } from '../context/ThemeProvider';
 import { api, tokenHelpers } from '../services/api';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 
@@ -35,12 +36,6 @@ export default function AppNavigator() {
       const desireDescription = await AsyncStorage.getItem('desireDescription');
       const selectedFeelings = await AsyncStorage.getItem('selectedFeelings');
       const selectedPath = await AsyncStorage.getItem('selectedPath');
-
-      console.log(token,'token <------------------------------------');
-      console.log(desireName,'desireName <------------------------------------');
-      console.log(desireDescription,'desireDescription <------------------------------------');
-      console.log(selectedFeelings,'selectedFeelings <------------------------------------');
-      console.log(selectedPath,'selectedPath <------------------------------------');
       
       if (!token) {
         setIsAuthenticated(false);
