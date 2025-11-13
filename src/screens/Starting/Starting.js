@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { Text, View } from 'react-native';
+
 import { useTheme } from '../../context/ThemeProvider';
 import { createStyles } from '../../styles/Starting/Starting';
+import { spacing } from '../../theme/texts';
+
 import Logo from '../../components/Logo';
 import WelcomeText from '../../components/WelcomeText';
+
 import Intro from './Intro';
 import Desire from './Desire';
 import Feeling from './Feeling';
 import Track from './Track';
-import { spacing } from '../../theme/texts';
+import Questions from './Questions';
+
 
 export default function Starting({ onComplete }) {
   const { theme } = useTheme();
@@ -42,7 +47,7 @@ export default function Starting({ onComplete }) {
         }
       },
       TRACK: {
-        title: 'Terceiro Passo',
+        title: 'Trilhas',
         subtitle: {
           1: 'Em ',
           2: '3 meses',
@@ -51,10 +56,20 @@ export default function Starting({ onComplete }) {
           5: ' para desbloquear limitações e manifestar seu desejo profundo.'
         }
       },
+      QUESTIONS: {
+        title: 'Questionário',
+        subtitle: {
+          1: '',
+          2: 'Descubra qual tema',
+          3: ' impede a realização do seu desejo. Em',
+          4: '20 perguntas',
+          5: ' traga à luz os bloqueios que te afastam do que quer viver.'
+        }
+      },
     };
 
-    const steps = ['DESIRE', 'FEELING', 'TRACK'];
-    const currentIndex = steps.indexOf(currentStep) + 1;
+    const steps = ['TRACK', 'DESIRE', 'FEELING', 'QUESTIONS'];
+    const currentIndex = steps.indexOf(currentStep);
 
     const config = headerConfig[currentStep] || headerConfig.INTRO;
 
@@ -84,40 +99,46 @@ export default function Starting({ onComplete }) {
         </Text>
 
         <View style={styles.progressContainer}>
-          {steps.map((step, index) => (
-            <View
-              key={step}
-              style={[
-                styles.progressBar,
-                index < currentIndex
-                  ? styles.progressActive
-                  : styles.progressInactive
-              ]}
-            />
-          ))}
+          {steps.map((step, index) => {
+            if (index === steps.length - 1) return null
+            return (
+              <View
+                key={step}
+                style={[
+                  styles.progressBar,
+                  index < currentIndex
+                    ? styles.progressActive
+                    : styles.progressInactive
+                ]}
+              />
+            )
+          })}
         </View>
       </View>
     );
   };
 
-  const BringBody = () => {
-    switch (currentStep) {
-      case 'INTRO':
-        return <Intro onStartGuide={() => setCurrentStep('DESIRE')} />;
-      
-      case 'DESIRE':
-        return <Desire onNext={() => setCurrentStep('FEELING')} />;
-      
-      case 'FEELING':
-        return <Feeling onNext={() => setCurrentStep('TRACK')} />;
-      
-      case 'TRACK':
-        return <Track onComplete={onComplete} />;
-      
-      default:
-        return <Intro onStartGuide={() => setCurrentStep('DESIRE')} />;
-    }
-  };
+const BringBody = () => {
+  switch (currentStep) {
+    case 'INTRO':
+      return <Intro onStartGuide={() => setCurrentStep('TRACK')} />;
+
+    case 'TRACK':
+      return <Track onNext={() => setCurrentStep('DESIRE')} />;
+
+    case 'DESIRE':
+      return <Desire onNext={() => setCurrentStep('FEELING')} />;
+
+    case 'FEELING':
+      return <Feeling onNext={() => setCurrentStep('QUESTIONS')} />;
+
+    case 'QUESTIONS':
+      return <Questions onFinish={() => console.log('guia finalizado')} />;
+
+    default:
+      return <Intro onStartGuide={() => setCurrentStep('TRACK')} />;
+  }
+};
 
   return (
     <View style={styles.container}>

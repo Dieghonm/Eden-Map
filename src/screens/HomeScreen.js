@@ -50,7 +50,6 @@ export default function HomeScreen({ navigation }) {
   };
 
   const renderScreen = () => {
-    // Mostra loading enquanto o Provider está inicializando
     if (appLoading) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
