@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Text, View } from 'react-native';
 
 import { useTheme } from '../../context/ThemeProvider';
+import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Starting/Starting';
 import { spacing } from '../../theme/texts';
 
@@ -13,12 +14,44 @@ import Desire from './Desire';
 import Feeling from './Feeling';
 import Track from './Track';
 import Questions from './Questions';
-
+import Result from './Result';
+import PathDetail from './PathDetail';
+import Confirmation from './Confirmation';
 
 export default function Starting({ onComplete }) {
   const { theme } = useTheme();
+  const { setSelectedPath } = useContext(AppContext);
   const styles = createStyles(theme);
+  
   const [currentStep, setCurrentStep] = useState('INTRO');
+  const [questionResults, setQuestionResults] = useState(null);
+  const [selectedPathName, setSelectedPathName] = useState(null);
+
+  const handleQuestionComplete = (results) => {
+    setQuestionResults(results);
+    setCurrentStep('RESULT');
+  };
+
+  const handlePathSelection = (pathName) => {
+    setSelectedPathName(pathName);
+    setCurrentStep('PATH_DETAIL');
+  };
+
+  const handlePathConfirmation = async () => {
+    // Salva o caminho escolhido no Provider
+    const pathId = ['Ansiedade', 'Autoimagem', 'Atenção Plena', 'Motivação', 'Relacionamentos']
+      .indexOf(selectedPathName) + 1;
+    
+    await setSelectedPath(pathId);
+    setCurrentStep('CONFIRMATION');
+  };
+
+  const handleGoHome = () => {
+    // Chama o callback para completar o Starting
+    if (onComplete) {
+      onComplete();
+    }
+  };
 
   const BringHeader = () => {
     const headerConfig = {
@@ -63,6 +96,11 @@ export default function Starting({ onComplete }) {
 
     const config = headerConfig[currentStep] || headerConfig.INTRO;
 
+    // Não mostra header em algumas telas
+    if (['QUESTIONS', 'RESULT', 'PATH_DETAIL', 'CONFIRMATION'].includes(currentStep)) {
+      return null;
+    }
+
     if (currentStep === 'INTRO') {
       return (
         <View style={styles.headerContainer}>
@@ -76,59 +114,79 @@ export default function Starting({ onComplete }) {
         </View>
       );
     }
-    if (currentStep !== 'QUESTIONS') {
-      return (
-        <View style={styles.stepsHeaderContainer}>
-          <Text style={styles.title}>{config.title}</Text>
-          <Text style={styles.text}>
-            {config.subtitle[1]}
-            <Text style={styles.highlight}>{config.subtitle[2]}</Text>
-            {config.subtitle[3]}
-            <Text style={styles.highlight}>{config.subtitle[4]}</Text>
-            {config.subtitle[5]}
-          </Text>
 
-          <View style={styles.progressContainer}>
-            {steps.map((step, index) => {
-              if (index === steps.length) return null
-              return (
-                <View
-                  key={step}
-                  style={[
-                    styles.progressBar,
-                    index <= currentIndex
-                      ? styles.progressActive
-                      : styles.progressInactive
-                  ]}
-                />
-              )
-            })}
-          </View>
+    return (
+      <View style={styles.stepsHeaderContainer}>
+        <Text style={styles.title}>{config.title}</Text>
+        <Text style={styles.text}>
+          {config.subtitle[1]}
+          <Text style={styles.highlight}>{config.subtitle[2]}</Text>
+          {config.subtitle[3]}
+          <Text style={styles.highlight}>{config.subtitle[4]}</Text>
+          {config.subtitle[5]}
+        </Text>
+
+        <View style={styles.progressContainer}>
+          {steps.map((step, index) => {
+            if (index === steps.length) return null;
+            return (
+              <View
+                key={step}
+                style={[
+                  styles.progressBar,
+                  index <= currentIndex
+                    ? styles.progressActive
+                    : styles.progressInactive
+                ]}
+              />
+            );
+          })}
         </View>
-      );}
+      </View>
+    );
   };
 
-const BringBody = () => {
-  switch (currentStep) {
-    case 'INTRO':
-      return <Intro onStartGuide={() => setCurrentStep('DESIRE')} />;
+  const BringBody = () => {
+    switch (currentStep) {
+      case 'INTRO':
+        return <Intro onStartGuide={() => setCurrentStep('DESIRE')} />;
 
-    case 'DESIRE':
-      return <Desire onNext={() => setCurrentStep('FEELING')} />;
+      case 'DESIRE':
+        return <Desire onNext={() => setCurrentStep('FEELING')} />;
 
-    case 'FEELING':
-      return <Feeling onNext={() => setCurrentStep('TRACK')} />;
-    
-    case 'TRACK':
-      return <Track onNext={() => setCurrentStep('QUESTIONS')} />;
+      case 'FEELING':
+        return <Feeling onNext={() => setCurrentStep('TRACK')} />;
+      
+      case 'TRACK':
+        return <Track onNext={() => setCurrentStep('QUESTIONS')} />;
 
-    case 'QUESTIONS':
-      return <Questions onFinish={() => console.log('guia finalizado')} />;
+      case 'QUESTIONS':
+        return <Questions onComplete={handleQuestionComplete} />;
 
-    default:
-      return <Intro onStartGuide={() => setCurrentStep('TRACK')} />;
-  }
-};
+      case 'RESULT':
+        return (
+          <Result 
+            results={questionResults} 
+            onNext={handlePathSelection}
+          />
+        );
+
+      case 'PATH_DETAIL':
+        return (
+          <PathDetail 
+            selectedPathName={selectedPathName}
+            onConfirm={handlePathConfirmation}
+            onBack={() => setCurrentStep('RESULT')}
+          />
+        );
+
+      case 'CONFIRMATION':
+        return <Confirmation onGoHome={handleGoHome} />;
+
+      default:
+        return <Intro onStartGuide={() => setCurrentStep('DESIRE')} />;
+    }
+  };
 
   return (
     <View style={styles.container}>

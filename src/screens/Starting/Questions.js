@@ -9,15 +9,11 @@ export default function Questions({ onComplete }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
-  const [Start, setStart] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [answers, setAnswers] = useState({});
-  const [finished, setFinished] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
 
   const totalQuestions = Object.keys(PERGUNTAS).length;
-
-  const onStart = () => setStart(true);
 
   const handleSelect = (value) => {
     setSelectedOption(value);
@@ -32,7 +28,13 @@ export default function Questions({ onComplete }) {
     }));
 
     if (currentQuestion === totalQuestions) {
-      setFinished(true);
+      // Finaliza e chama o callback com os resultados normalizados
+      const finalAnswers = {
+        ...answers,
+        [sentimento]: (answers[sentimento] || 0) + selectedOption,
+      };
+      const porcentagem = normalizarParaPorcentagem(finalAnswers);
+      onComplete(porcentagem);
       return;
     }
 
@@ -45,12 +47,14 @@ export default function Questions({ onComplete }) {
     const min = Math.min(...valores);
     const valoresPositivos = valores.map(v => v - min);
     const soma = valoresPositivos.reduce((a, b) => a + b, 0);
+    
     if (soma === 0) {
       const igual = 100 / valores.length;
       return Object.fromEntries(
         Object.keys(resultados).map(k => [k, Number(igual.toFixed(2))])
       );
     }
+    
     return Object.fromEntries(
       Object.keys(resultados).map((k, i) => [
         k,
@@ -68,23 +72,6 @@ export default function Questions({ onComplete }) {
   ];
 
   const currentQuestionData = PERGUNTAS[currentQuestion];
-
-  if (finished) {
-    const porcentagem = normalizarParaPorcentagem(answers);
-
-    return (
-      <View style={styles.container}>
-        <Text style={styles.resultTitle}>Resultado</Text>
-        {Object.keys(porcentagem).map(key => (
-          <Text key={key} style={styles.resultItem}>
-            {key}: {porcentagem[key]}%
-          </Text>
-        ))}
-        <ButtonPrimary title="Concluir" onPress={() => onComplete?.(porcentagem)} />
-      </View>
-    );
-  }
-
   const isLastQuestion = currentQuestion === totalQuestions;
   const buttonLabel = isLastQuestion ? 'Finalizar teste' : 'Próxima pergunta';
 
