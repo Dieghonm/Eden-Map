@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, Modal, TouchableOpacity, TextInput as RNTextInput, Platform } from 'react-native';
+import { View, Text, Modal, TouchableOpacity, TextInput as RNTextInput, Platform, Image } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
@@ -9,7 +9,6 @@ import { createStyles } from '../../styles/Header/EditModal';
 import ButtonSecundary from '../../components/ButtonSecundary';
 import GlassBox from '../../components/GlassBox';
 import ButtonPrimary from '../../components/ButtonPrimary';
-import Feeling from '../Starting/Feeling';
 
 export default function EditModal({ visible, onClose, onSave }) {
   const { theme } = useTheme();
@@ -50,6 +49,7 @@ export default function EditModal({ visible, onClose, onSave }) {
     await setSelectedFeelings(localFeelings);
     if (onSave) onSave();
     handleClose();
+    setEditMode(null)
   };
 
   const toggleFeeling = (id) => {
@@ -75,7 +75,11 @@ export default function EditModal({ visible, onClose, onSave }) {
       
         <TouchableOpacity
           style={[styles.optionButton, {borderColor: theme.warning}]}
-          onPress={() => setEditMode('desire')}
+          onPress={() => {
+            setLocalName(savedName || '');
+            setLocalDescription(savedDescription || '');
+            setEditMode('desire');
+          }}
           activeOpacity={0.7}
         >
           <Text style={styles.optionText}>Editar desejo material</Text>
@@ -83,8 +87,11 @@ export default function EditModal({ visible, onClose, onSave }) {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.optionButton, {borderColor: theme.success,}]}
-          onPress={() => setEditMode('feeling')}
+          style={[styles.optionButton, {borderColor: theme.success}]}
+          onPress={() => {
+            setLocalFeelings(savedFeelings || []);
+            setEditMode('feeling');
+          }}
           activeOpacity={0.7}
         >
           <Text style={styles.optionText}>Editar desejo subjetivo</Text>
@@ -144,7 +151,7 @@ export default function EditModal({ visible, onClose, onSave }) {
         </GlassBox>
         <View style={styles.teste}>
           <ButtonPrimary
-            title="Salvar"
+            title="Salvar alterações"
             onPress={handleSaveDesire}
             disabled={!isDesireValid}
             width={220}
@@ -164,8 +171,53 @@ export default function EditModal({ visible, onClose, onSave }) {
   // TELA DE EDIÇÃO DOS SENTIMENTOS
   const renderFeelingEdit = () => (
     <View style={styles.modalContent}>
-      <Feeling />
+      <Text style={styles.modalTitle}>Editar Sentimentos</Text>
+      
+      <GlassBox>
+        {SENTIMENTOS.map((feeling) => {
+          const isSelected = localFeelings.includes(feeling.id);
+          const isDisabled = !isSelected && localFeelings.length >= 3;
+          
+          return (
+            <TouchableOpacity
+              key={feeling.id}
+              style={styles.feelingButton}
+              onPress={() => toggleFeeling(feeling.id)}
+              activeOpacity={0.8}
+              disabled={isDisabled}
+            >
+              <View style={styles.feelingRow}>
+                <Text style={styles.feelingText}>{feeling.nome}</Text>
+                <View
+                  style={[
+                    styles.checkCircle,
+                    { backgroundColor: feeling.color }
+                  ]}
+                />
+              </View>
+              <Image
+                source={
+                  isSelected
+                    ? require('../../../assets/icons/Checked.png')
+                    : require('../../../assets/icons/Unchecked.png')
+                }
+                style={styles.playIcon}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+          );
+        })}
+        <View style={styles.spacer} />
+      </GlassBox>
 
+      <View style={styles.teste}>
+        <ButtonPrimary
+          title="Voltar"
+          onPress={handleSaveFeeling}
+          disabled={!isFeelingValid}
+          width={220}
+        />
+      </View>
     </View>
   );
 

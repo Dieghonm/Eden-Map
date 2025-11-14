@@ -8,12 +8,11 @@ export const createStyles = (theme) =>
       flex: 1,
       backgroundColor: 'rgba(0, 0, 0, 0.7)',
       alignItems: 'center',
-      
     },
     modalBox: {
-      marginTop:spacing.xs * 6,
+      marginTop: spacing.xs * 6,
       backgroundColor: theme.background,
-      paddingTop:spacing.md,
+      paddingTop: spacing.md,
       borderRadius: borderRadius.p,
       width: spacing.giant,
       alignItems: 'center',
@@ -26,20 +25,11 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
       marginVertical: spacing.xs,
-
-    },
-    subtitle: {
-    //   fontSize: fontSize.md,
-    //   fontFamily: fontFamily.r4,
-    //   color: theme.fontColor,
-    // //   marginBottom: spacing.xs,
-    // //   textAlign: 'center',
     },
     
     // Botões da tela inicial
     optionButton: {
       width: spacing.huge,
-      // height: spacing.lg,
       backgroundColor: theme.background,
       borderRadius: borderRadius.p,
       justifyContent: 'center',
@@ -47,7 +37,6 @@ export const createStyles = (theme) =>
       marginBottom: spacing.md,
       borderWidth: 2,
       paddingVertical: 20
-      
     },
     optionText: {
       fontSize: fontSize.md,
@@ -56,34 +45,67 @@ export const createStyles = (theme) =>
       lineHeight: 26,
     },
 
-    // // Inputs do desejo
+    // Inputs do desejo
     inputContainer: {
       width: spacing.huge + spacing.md,
-    //   marginBottom: spacing.xs,
     },
     label: {
       fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
-      marginBottom: spacing.xxs *2,
+      marginBottom: spacing.xxs * 2,
     },
     input: {
-    //   width: '100%',
-    //   minHeight: verticalScale(40),
       backgroundColor: theme.terciario,
       fontSize: fontSize.sm,
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
       paddingHorizontal: spacing.xs,
-      paddingVertical: spacing.xxs *2,
+      paddingVertical: spacing.xxs * 2,
       marginBottom: spacing.xs,
     },
     textArea: {
       minHeight: spacing.xxl,
     },
     teste: {
-      marginBottom:spacing.xs
-
+      marginBottom: spacing.xs
     },
 
+    // Estilos para Feelings
+    feelingButton: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: spacing.xs,
+    },
+    feelingRow: {
+      flexDirection: 'row',
+      backgroundColor: theme.fontColor,
+      width: spacing.xxl + spacing.md,
+      height: spacing.xs * 2,
+      borderRadius: borderRadius.circle,
+      padding: spacing.xxs * 1.5,
+      paddingLeft: spacing.xs,
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      margin: spacing.xxs * 2
+    },
+    feelingText: {
+      fontSize: fontSize.sm,
+      fontFamily: fontFamily.r4,
+      color: theme.background,
+      textAlign: 'center',
+    },
+    checkCircle: {
+      width: horizontalScale(30),
+      height: horizontalScale(30),
+      borderRadius: borderRadius.circle,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    spacer: {
+      height: spacing.xs
+    },
+    scrollContent: {
+      alignItems: 'center',
+    },
   });
