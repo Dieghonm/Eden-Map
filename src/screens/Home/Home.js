@@ -1,17 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Home/Home';
 import { SENTIMENTOS, CAMINHOS } from '../../../assets/json/Sentimentos';
-import WelcomeText from '../../components/WelcomeText';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import ButtonSecundary from '../../components/ButtonSecundary';
 import GlassBox from '../../components/GlassBox';
+import EditModal from './EditModal';
+
 
 export default function Home({ onEditFeeling }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
+  
+  const [modalVisible, setModalVisible] = useState(false);
   
   // Pega TODOS os dados do Provider (somente leitura)
   const { 
@@ -23,9 +26,16 @@ export default function Home({ onEditFeeling }) {
   } = useContext(AppContext);
 
   const handleEdit = () => {
-    if (onEditFeeling) {
-      onEditFeeling();
-    }
+    setModalVisible(true);
+  };
+
+  const handleModalClose = () => {
+    setModalVisible(false);
+  };
+
+  const handleModalSave = () => {
+    // Callback opcional quando salvar
+    console.log('✅ Dados atualizados com sucesso!');
   };
 
   const handleEntrarEden = () => {
@@ -41,7 +51,6 @@ export default function Home({ onEditFeeling }) {
   };
 
   const handleExplorar = () => {
-    // Agora os dados estão todos no Provider
     console.log('📦 DADOS DO PROVIDER:');
     console.log('User:', user);
     console.log('Desire Name:', desireName);
@@ -54,11 +63,6 @@ export default function Home({ onEditFeeling }) {
   // Helper para pegar os objetos completos dos sentimentos
   const getSelectedFeelings = () => {
     return SENTIMENTOS.filter(s => selectedFeelings.includes(s.id));
-  };
-
-  // Helper para pegar o objeto completo do caminho
-  const getSelectedPath = () => {
-    return CAMINHOS.find(c => c.id === selectedPath);
   };
 
   return (
@@ -102,6 +106,12 @@ export default function Home({ onEditFeeling }) {
       <ButtonSecundary
         title='Explorar Dados'
         onPress={handleExplorar}
+      />
+
+      <EditModal
+        visible={modalVisible}
+        onClose={handleModalClose}
+        onSave={handleModalSave}
       />
     </View>
   );

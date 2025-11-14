@@ -2,7 +2,7 @@ import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { createStyles } from '../../styles/Starting/Questions';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { PERGUNTAS } from '../../../assets/json/Sentimentos';
 
 export default function Questions({ onComplete }) {
@@ -14,6 +14,13 @@ export default function Questions({ onComplete }) {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const totalQuestions = Object.keys(PERGUNTAS).length;
+
+  // Reset quando o componente é montado
+  useEffect(() => {
+    setCurrentQuestion(1);
+    setAnswers({});
+    setSelectedOption(null);
+  }, []);
 
   const handleSelect = (value) => {
     setSelectedOption(value);

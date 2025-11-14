@@ -32,6 +32,11 @@ export default function Starting({ onComplete }) {
     setCurrentStep('RESULT');
   };
 
+  const handleRetakeQuiz = () => {
+    setQuestionResults(null);
+    setCurrentStep('QUESTIONS');
+  };
+
   const handlePathSelection = (pathName) => {
     setSelectedPathName(pathName);
     setCurrentStep('PATH_DETAIL');
@@ -168,6 +173,7 @@ export default function Starting({ onComplete }) {
           <Result 
             results={questionResults} 
             onNext={handlePathSelection}
+            onRetake={handleRetakeQuiz}
           />
         );
 

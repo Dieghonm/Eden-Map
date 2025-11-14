@@ -5,7 +5,7 @@ import { createStyles } from '../../styles/Starting/Result';
 import { CAMINHOS } from '../../../assets/json/Sentimentos';
 import ButtonPrimary from '../../components/ButtonPrimary';
 
-export default function Result({ results, onNext }) {
+export default function Result({ results, onNext, onRetake }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
@@ -43,7 +43,7 @@ export default function Result({ results, onNext }) {
 
       <ButtonPrimary
         title="Refazer teste"
-        onPress={() => {/* Implementar refazer */}}
+        onPress={onRetake}
       />
     </View>
   );
