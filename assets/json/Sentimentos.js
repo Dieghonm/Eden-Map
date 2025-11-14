@@ -9,13 +9,82 @@ export const SENTIMENTOS = [
 ];
 
 export const CAMINHOS = [
-  { id: 1, nome: 'Ansiedade', color: '#FFAA2E' },
-  { id: 2, nome: 'Autoimagem', color: '#38C197' },
-  { id: 3, nome: 'Atenção Plena', color: '#0A84FF' },
-  { id: 4, nome: 'Motivação', color: '#EA5959' },
-  { id: 5, nome: 'Relacionamentos', color: '#8A4AED' },
-  { id: 6, nome: 'Comunicação', color: '#45A7F8' }
+  { 
+    id: 1, 
+    nome: 'Ansiedade', 
+    color: '#FFAA2E',
+    descricao: [
+      "Atraia seu ",
+      "desejo",
+      " acalmando os pensamentos, ",
+      "dissolvendo medos",
+      " e transformando a ansiedade em ",
+      "clareza e confiança",
+      "."
+    ]
+  },
+
+  { 
+    id: 2, 
+    nome: 'Autoimagem', 
+    color: '#38C197',
+    descricao: [
+      "Atraia seu ",
+      "desejo",
+      " reconstruindo sua autoimagem, ",
+      "acolhendo suas imperfeições",
+      " e ",
+      "fortalecendo sua confiança",
+      " na sua jornada."
+    ]
+  },
+
+  { 
+    id: 3, 
+    nome: 'Atenção Plena', 
+    color: '#0A84FF',
+    descricao: [
+      "Atraia seu ",
+      "desejo",
+      " treinando sua mente para ",
+      "sair do piloto automático",
+      ", aumentando sua presença e ",
+      "fortalecendo sua capacidade de foco",
+      "."
+    ]
+  },
+
+  { 
+    id: 4, 
+    nome: 'Motivação', 
+    color: '#EA5959',
+    descricao: [
+      "Atraia seu ",
+      "desejo",
+      " renovando sua energia, ",
+      "conectando-se com sua paixão",
+      " e despertando a motivação para ",
+      "avançar com propósito",
+      "."
+    ]
+  },
+
+  { 
+    id: 5, 
+    nome: 'Relacionamentos', 
+    color: '#8A4AED',
+    descricao: [
+      "Atraia seu ",
+      "desejo",
+      " curando padrões nos relacionamentos, ",
+      "comunicando com clareza",
+      " e criando ",
+      "conexões mais leves e ",
+      "verdadeiras."
+    ]
+  },
 ];
+
 
 export const PERGUNTAS = {
   1: {
@@ -99,4 +168,3 @@ export const PERGUNTAS = {
     question: 'Percebo que realizar meu desejo exige ação minha e conexão com outros.'
   }
 };
-

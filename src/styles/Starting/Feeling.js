@@ -20,6 +20,7 @@ export const createStyles = (theme) =>
       height: spacing.xs *2,
       borderRadius: borderRadius.circle,
       padding: spacing.xxs *1.5,
+      paddingLeft: spacing.xs,
       alignItems: 'center',
       justifyContent: 'space-between',
       margin: spacing.xxs *2

@@ -94,8 +94,8 @@ export default function AppNavigator() {
         <Stack.Screen name="Home" component={HomeScreen} />
         
       ) : (
-        // <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Login" component={HomeScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        // <Stack.Screen name="Login" component={HomeScreen} />
       )}
     </Stack.Navigator>
   );

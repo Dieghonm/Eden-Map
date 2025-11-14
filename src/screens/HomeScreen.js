@@ -67,6 +67,7 @@ export default function HomeScreen({ navigation }) {
       
       case 'STARTING':
         return <Starting onComplete={() => setCurrentScreen('HOME')} />;
+                // return <Home onEditFeeling={handleEditFeeling} />;
       
       default:
         return <Starting onComplete={() => setCurrentScreen('HOME')} />;

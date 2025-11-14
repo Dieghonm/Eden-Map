@@ -16,17 +16,20 @@ export const createStyles = (theme) =>
     stepsHeaderContainer: {
       marginTop: spacing.lg,
       marginHorizontal: spacing.lg,
+      width: spacing.giant,
+      alignSelf: 'center',
     },
     title: {
       color: theme.fontColor,
       fontFamily: fontFamily.b7,
       fontSize: fontSize.xxl,
-      marginEnd: spacing.xxs
+      marginEnd: spacing.xxs,
     },
     text: {
       color: theme.fontColor,
       fontFamily: fontFamily.r4,
       fontSize: fontSize.md,
+      height: spacing.md * 2
     },
     highlight: {
       color: theme.alert,
