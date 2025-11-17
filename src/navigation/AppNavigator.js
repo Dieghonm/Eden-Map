@@ -7,7 +7,6 @@ import { api, tokenHelpers } from '../services/api';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import ExplorerScreen from '../screens/ExplorerScreen';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 
@@ -81,15 +80,18 @@ export default function AppNavigator() {
         cardStyle: { backgroundColor: 'transparent' },
       }}
     >
+      {/* <Stack.Screen name="Explorer" component={ExplorerScreen} /> */}
       {isAuthenticated ? (
         <>
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="Explorer" component={ExplorerScreen} />
         </>
       ) : (
-        // <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Login" component={HomeScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        
       )}
     </Stack.Navigator>
   );
 }
+
+
