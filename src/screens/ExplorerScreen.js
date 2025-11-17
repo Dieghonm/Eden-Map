@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeProvider';
 import { createStyles } from '../styles/ExplorerScreen';
@@ -11,6 +11,24 @@ export default function ExplorerScreen({ navigation }) {
 
   const handlePress = (option) => {
     console.log('📍 Opção selecionada:', option);
+    
+    // Navegar para a tela correspondente
+    switch(option) {
+      case 'Vídeos':
+        navigation.navigate('Videos');
+        break;
+      case 'Missões':
+        navigation.navigate('Missoes');
+        break;
+      case 'Meditações':
+        navigation.navigate('Meditacoes');
+        break;
+      case 'Reflexões':
+        navigation.navigate('Reflexoes');
+        break;
+      default:
+        console.log('❌ Opção não encontrada:', option);
+    }
   };
 
   return (
@@ -25,30 +43,30 @@ export default function ExplorerScreen({ navigation }) {
 
       <View style={styles.buttonsContainer}>
         <ImgButton 
-          title= {"Vídeos"}
+          title="Vídeos"
           onPress={() => handlePress('Vídeos')}
-          img={'ExpVideos'}
+          img="ExpVideos"
         />
         <ImgButton 
-          title= {"Missões"}
+          title="Missões"
           onPress={() => handlePress('Missões')} 
-          img={'ExpMissoes'}
+          img="ExpMissoes"
         />
         <ImgButton 
-          title= {"Meditações"}
+          title="Meditações"
           onPress={() => handlePress('Meditações')} 
-          img={'ExpMeditacoes'}
+          img="ExpMeditacoes"
         />
         <ImgButton 
-          title= {"Reflexões"}
+          title="Reflexões"
           onPress={() => handlePress('Reflexões')} 
-          img={'ExpReflexoes'}
+          img="ExpReflexoes"
         />          
       </View>
 
       <ButtonPrimary 
         onPress={() => navigation.goBack()}
-        title={'Voltar'}
+        title="Voltar"
       />
     </SafeAreaView>
   );

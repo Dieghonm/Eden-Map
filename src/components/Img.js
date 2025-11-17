@@ -12,7 +12,7 @@ export default function Img({ source, size = 120 }) {
       <Image 
         source={source} 
         style={styles.image}
-        resizeMode="cover"
+        resizeMode="cover"  // ← Como prop
       />
     </View>
   );

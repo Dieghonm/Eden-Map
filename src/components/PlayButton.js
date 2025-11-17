@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { TouchableOpacity, Image, View, Text, Animated } from 'react-native';
-import { Audio } from 'expo-av';
+import { useAudioPlayer } from 'expo-audio';
 import Svg, { Circle } from 'react-native-svg';
 import { useTheme } from '../context/ThemeProvider';
 import { createStyles } from '../styles/components/PlayButton';
@@ -11,8 +11,11 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
   const { theme } = useTheme();
   const styles = createStyles(theme);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [sound, setSound] = useState(null);
   const progress = useRef(new Animated.Value(0)).current;
+  const animationRef = useRef(null);
+  
+  // Cria o player de áudio
+  const player = useAudioPlayer(source);
 
   const borderColor = theme?.button || '#0A84FF';
   const borderBase = theme?.terciario || '#797979';
@@ -21,33 +24,70 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
   const strokeWidth = 6;
   const circumference = 2 * Math.PI * radius;
 
+  // Monitora o status do player
   useEffect(() => {
-    return sound ? () => { sound.unloadAsync(); } : undefined;
-  }, [sound]);
-
-  const handlePress = async () => {
-    if (!isPlaying) {
-      const { sound: newSound } = await Audio.Sound.createAsync(source);
-      setSound(newSound);
-      await newSound.playAsync();
-      setIsPlaying(true);
-      Animated.timing(progress, {
-        toValue: 1,
-        duration: duration * 1000,
-        useNativeDriver: true,
-      }).start();
-      newSound.setOnPlaybackStatusUpdate(status => {
-        if (status.didJustFinish) {
-          setIsPlaying(false);
-          progress.setValue(0);
+    const subscription = player.addListener('playingStatusDidChange', (status) => {
+      if (status.playing) {
+        setIsPlaying(true);
+        
+        // Para qualquer animação anterior
+        if (animationRef.current) {
+          animationRef.current.stop();
         }
-      });
-    } else {
-      if (sound) {
-        await sound.stopAsync();
+        
+        // Inicia a animação de progresso
+        animationRef.current = Animated.timing(progress, {
+          toValue: 1,
+          duration: duration * 1000,
+          useNativeDriver: true,
+        });
+        
+        animationRef.current.start();
+        
+      } else {
         setIsPlaying(false);
-        progress.setValue(0);
+        
+        // Se chegou ao fim, reseta o progresso
+        if (status.didJustFinish) {
+          progress.setValue(0);
+          if (animationRef.current) {
+            animationRef.current.stop();
+          }
+        }
       }
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, [player, duration, progress]);
+
+  // Cleanup ao desmontar
+  useEffect(() => {
+    return () => {
+      // Para a animação
+      if (animationRef.current) {
+        animationRef.current.stop();
+      }
+      
+      // Remove o player
+      if (player) {
+        player.remove();
+      }
+    };
+  }, [player]);
+
+  const handlePress = () => {
+    if (!isPlaying) {
+      player.play();
+    } else {
+      player.pause();
+      
+      // Para a animação e reseta o progresso
+      if (animationRef.current) {
+        animationRef.current.stop();
+      }
+      progress.setValue(0);
     }
   };
 

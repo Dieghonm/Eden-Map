@@ -11,7 +11,7 @@ export default function Logo({ width = 53, height = 35 }) {
     <Image 
       source={require('../../assets/Logo.png')} 
       style={styles.logo}
-      resizeMode="contain"
+      resizeMode="contain"  // ← Como prop
     />
   );
 }

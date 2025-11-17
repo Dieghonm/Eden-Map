@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, TouchableOpacity, Modal, Text, Image, Alert } from 'react-native';
+import { View, TouchableOpacity, Modal, Text, Image, Pressable } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Header/Header';
@@ -27,7 +27,7 @@ export default function Header({ onHomePress, onResetStarting }) {
     if (success && onResetStarting) {
       onResetStarting();
     }
-};
+  };
 
   const handleHomePress = () => {
     if (onHomePress) {
@@ -73,13 +73,16 @@ export default function Header({ onHomePress, onResetStarting }) {
         transparent
         animationType="fade"
         onRequestClose={() => setMenuVisible(false)}
+        statusBarTranslucent
       >
-        <TouchableOpacity 
+        <Pressable 
           style={styles.modalOverlay}
-          activeOpacity={1}
           onPress={() => setMenuVisible(false)}
         >
-          <View style={styles.menuDropdown}>
+          <Pressable
+            style={styles.menuDropdown}
+            onPress={(e) => e.stopPropagation()}
+          >
             <View style={styles.themeSelector}>
               <TouchableOpacity
                 style={[
@@ -139,8 +142,8 @@ export default function Header({ onHomePress, onResetStarting }) {
             >
               <Text style={styles.logoutButtonText}>🚪 Sair</Text>
             </TouchableOpacity>
-          </View>
-        </TouchableOpacity>
+          </Pressable>
+        </Pressable>
       </Modal>
     </>
   );

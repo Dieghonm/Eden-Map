@@ -43,7 +43,7 @@ export default function ImgButton({
       <Image
         source={imageSource}
         style={styles.buttonIcon}
-        resizeMode="contain"
+        resizeMode="contain"  // ← Como prop
       />
     </TouchableOpacity>
   );

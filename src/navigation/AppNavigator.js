@@ -7,6 +7,13 @@ import { api, tokenHelpers } from '../services/api';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import ExplorerScreen from '../screens/ExplorerScreen';
+import Header from '../screens/Header/Header';
+
+
+import VideosScreen from '../screens/Explorer/VideosScreen';
+import MissoesScreen from '../screens/Explorer/MissoesScreen';
+import MeditacoesScreen from '../screens/Explorer/MeditacoesScreen';
+import ReflexoesScreen from '../screens/Explorer/ReflexoesScreen';
 
 const Stack = createStackNavigator();
 
@@ -80,18 +87,96 @@ export default function AppNavigator() {
         cardStyle: { backgroundColor: 'transparent' },
       }}
     >
-      {/* <Stack.Screen name="Explorer" component={ExplorerScreen} /> */}
       {isAuthenticated ? (
         <>
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Explorer" component={ExplorerScreen} />
+          <Stack.Screen name="Home">
+            {(props) => (
+              <View style={{ flex: 1 }}>
+                <Header 
+                  onHomePress={() => props.navigation.navigate('Home')}
+                  onResetStarting={() => {
+                    // Força o HomeScreen a resetar
+                    props.navigation.setParams({ triggerReset: Date.now() });
+                  }}
+                />
+                <HomeScreen {...props} />
+              </View>
+            )}
+          </Stack.Screen>
+
+          <Stack.Screen name="Explorer">
+            {(props) => (
+              <View style={{ flex: 1 }}>
+                <Header 
+                  onHomePress={() => props.navigation.navigate('Home')}
+                  onResetStarting={() => {
+                    props.navigation.navigate('Home', { triggerReset: Date.now() });
+                  }}
+                />
+                <ExplorerScreen {...props} />
+              </View>
+            )}
+          </Stack.Screen>
+          
+          <Stack.Screen name="Videos">
+            {(props) => (
+              <View style={{ flex: 1 }}>
+                <Header 
+                  onHomePress={() => props.navigation.navigate('Home')}
+                  onResetStarting={() => {
+                    props.navigation.navigate('Home', { triggerReset: Date.now() });
+                  }}
+                />
+                <VideosScreen {...props} />
+              </View>
+            )}
+          </Stack.Screen>
+
+          <Stack.Screen name="Missoes">
+            {(props) => (
+              <View style={{ flex: 1 }}>
+                <Header 
+                  onHomePress={() => props.navigation.navigate('Home')}
+                  onResetStarting={() => {
+                    props.navigation.navigate('Home', { triggerReset: Date.now() });
+                  }}
+                />
+                <MissoesScreen {...props} />
+              </View>
+            )}
+          </Stack.Screen>
+
+          <Stack.Screen name="Meditacoes">
+            {(props) => (
+              <View style={{ flex: 1 }}>
+                <Header 
+                  onHomePress={() => props.navigation.navigate('Home')}
+                  onResetStarting={() => {
+                    props.navigation.navigate('Home', { triggerReset: Date.now() });
+                  }}
+                />
+                <MeditacoesScreen {...props} />
+              </View>
+            )}
+          </Stack.Screen>
+
+          <Stack.Screen name="Reflexoes">
+            {(props) => (
+              <View style={{ flex: 1 }}>
+                <Header 
+                  onHomePress={() => props.navigation.navigate('Home')}
+                  onResetStarting={() => {
+                    props.navigation.navigate('Home', { triggerReset: Date.now() });
+                  }}
+                />
+                <ReflexoesScreen {...props} />
+              </View>
+            )}
+          </Stack.Screen>
         </>
       ) : (
         <Stack.Screen name="Login" component={LoginScreen} />
-        
       )}
     </Stack.Navigator>
   );
 }
-
-

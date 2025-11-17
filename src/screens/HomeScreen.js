@@ -4,19 +4,19 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeProvider';
 import { AppContext } from '../context/AppProvider';
 import { createStyles } from '../styles/HomeScreen';
-import Header from './Header/Header';
 import Starting from './Starting/Starting';
 import Home from './Home/Home';
 import Feeling from './Starting/Feeling';
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({ navigation, route }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
   
   // Pega os dados e status do Provider
   const { 
     isLoading: appLoading,
-    isStartingComplete 
+    isStartingComplete,
+    resetStarting 
   } = useContext(AppContext);
   
   const [currentScreen, setCurrentScreen] = useState('LOADING');
@@ -32,6 +32,13 @@ export default function HomeScreen({ navigation }) {
     }
   }, [appLoading, isStartingComplete]);
 
+  // Monitora o parâmetro de reset vindo do Header
+  useEffect(() => {
+    if (route.params?.triggerReset) {
+      handleResetStarting();
+    }
+  }, [route.params?.triggerReset]);
+
   const handleEditFeeling = () => {
     setCurrentScreen('EDIT_FEELING');
   };
@@ -43,9 +50,10 @@ export default function HomeScreen({ navigation }) {
     }
   };
 
-  const handleResetStarting = () => {
-    // Após resetar, o Provider automaticamente atualiza isStartingComplete
-    // O useEffect acima vai detectar e mudar para STARTING
+  const handleResetStarting = async () => {
+    // Reseta os dados do Starting
+    await resetStarting();
+    // Força a mudança para a tela de Starting
     setCurrentScreen('STARTING');
   };
 
@@ -74,15 +82,7 @@ export default function HomeScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Header 
-        onHomePress={() => {
-          if (isStartingComplete) {
-            setCurrentScreen('HOME');
-          }
-        }} 
-        onResetStarting={handleResetStarting}
-      />
+    <SafeAreaView style={{ flex: 1 }} edges={['left', 'right', 'bottom']}>
       <View style={{ flex: 1 }}>
         {renderScreen()}
       </View>
