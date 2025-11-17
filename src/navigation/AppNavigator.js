@@ -6,6 +6,7 @@ import { useTheme } from '../context/ThemeProvider';
 import { api, tokenHelpers } from '../services/api';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
+import ExplorerScreen from '../screens/ExplorerScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
@@ -29,19 +30,15 @@ export default function AppNavigator() {
   }, [user]);
 
   const checkAuthStatus = async () => {
-    
     try {
       const token = await tokenHelpers.get();
-      const desireName = await AsyncStorage.getItem('desireName');
-      const desireDescription = await AsyncStorage.getItem('desireDescription');
-      const selectedFeelings = await AsyncStorage.getItem('selectedFeelings');
-      const selectedPath = await AsyncStorage.getItem('selectedPath');
       
       if (!token) {
         setIsAuthenticated(false);
         setIsLoading(false);
         return;
       }
+      
       const userData = await api.me();
       setUser({
         login: userData.login,
@@ -51,10 +48,6 @@ export default function AppNavigator() {
       });
       
       setIsAuthenticated(true);
-
-
-      
-      
     } catch (error) {
       if (error.status === 401 || error.status === 403) {
         await tokenHelpers.remove();
@@ -62,7 +55,6 @@ export default function AppNavigator() {
       }
       
       setIsAuthenticated(false);
-      
     } finally {
       setIsLoading(false);
     }
@@ -89,13 +81,14 @@ export default function AppNavigator() {
         cardStyle: { backgroundColor: 'transparent' },
       }}
     >
-              
       {isAuthenticated ? (
-        <Stack.Screen name="Home" component={HomeScreen} />
-        
+        <>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Explorer" component={ExplorerScreen} />
+        </>
       ) : (
-        <Stack.Screen name="Login" component={LoginScreen} />
-        // <Stack.Screen name="Login" component={HomeScreen} />
+        // <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Login" component={HomeScreen} />
       )}
     </Stack.Navigator>
   );

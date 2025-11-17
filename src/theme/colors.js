@@ -22,10 +22,10 @@ export const darkTheme = {
 
 export const lightTheme = {
   mode: 'light',
-  background: '#F9F9FB',
+  background: '#978562e3',
   secondary: '#E8E6F2',
   terciario: '#D4C6F0',
-  fontColor: '#1E1E1E',
+  fontColor: '#b19a18ff',
   placeholder: '#7A7A7A',
   warning: '#EA5959',
   alert: '#FFAA2E',
@@ -43,26 +43,60 @@ export const lightTheme = {
   ],
 };
 
+// export const pinkTheme = {
+//   mode: 'pink',
+//   background: '#774f4fff',
+//   secondary: '#460bbbff',
+//   // terciario: '#784fcaff',
+//     terciario: '#3f2626ff',
+
+//   fontColor: '#0ABAB5',
+//   placeholder: '#7E7E7E',
+
+//   warning: '#E86A6A',
+//   alert: '#FFB347',
+//   success: '#2ECC71',
+
+//   button: '#AFC9FF',
+//   buttonGradient: ['#F3B1D2', '#C9A7F5'],
+//   buttonTextColor: '#3B2E58',
+
+//   secundaryButton: '#FFFFFF',
+//   secundaryButtonText: '#C78AC6',
+
+//   accent: '#C9A7F5',
+//   glassGradient: [
+//     'rgba(87, 57, 57, 0.33)',
+//     'rgba(243, 166, 166, 1)',
+//     'rgba(87, 57, 57, 0.33)',
+//   ],
+// };
+
 export const pinkTheme = {
   mode: 'pink',
-  background: '#F4CDC0',
-  secondary: '#d7b6eaff',
-  terciario: '#E3A893',
-  fontColor: '#4A2C2A',
-  placeholder: '#696969ff',
-  warning: '#EA5959',
-  alert: '#FFAA2E',
-  success: '#27AE60',
-  button: '#7D9ED9',
-  buttonGradient: ['#E3A893', '#DCA2FF'],
-  buttonTextColor: '#4A2C2A',
-  secundaryButton: '#FFFFFF',
-  secundaryButtonText: '#E3A893',
-  accent: '#DCA2FF',
+  background: '#3B3620',
+  secondary: '#7A2569',
+  terciario: '#213332',
+
+  fontColor: '#0ABAB5',
+  placeholder: '#7E7E7E',
+
+  warning: '#E86A6A',
+  alert: '#FFB347',
+  success: '#2ECC71',
+
+  button: '#AFC9FF',
+  buttonGradient: ['#F3B1D2', '#C9A7F5'],
+  buttonTextColor: '#3B2E58',
+
+  secundaryButton: '#BA9C09',
+  secundaryButtonText: '#213332',
+
+  accent: '#C9A7F5',
   glassGradient: [
-    'rgba(215, 182, 234, 0.4)',
-    'rgba(227, 168, 147, 0.4)',
-    'rgba(215, 182, 234, 0.4)',
+    '#3B2035',
+    '#9b518bff',
+    '#3B2035',
   ],
 };
 

@@ -60,14 +60,13 @@ export default function HomeScreen({ navigation }) {
 
     switch (currentScreen) {
       case 'HOME':
-        return <Home onEditFeeling={handleEditFeeling} />;
+        return <Home onEditFeeling={handleEditFeeling} navigation={navigation} />;
       
       case 'EDIT_FEELING':
         return <Feeling onNext={handleFeelingComplete} />;
       
       case 'STARTING':
         return <Starting onComplete={() => setCurrentScreen('HOME')} />;
-                // return <Home onEditFeeling={handleEditFeeling} />;
       
       default:
         return <Starting onComplete={() => setCurrentScreen('HOME')} />;

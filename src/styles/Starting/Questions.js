@@ -19,6 +19,7 @@ export const createStyles = (theme) =>
       fontSize: fontSize.xxl,
       fontFamily: fontFamily.b7,
       marginBottom: spacing.xs / 2,
+      height:spacing.md
       
     },
     highlight: {
@@ -31,7 +32,8 @@ export const createStyles = (theme) =>
       fontSize: fontSize.xxl,
       fontFamily: fontFamily.b7,
       marginBottom: spacing.xs,
-      paddingRight: spacing.xxxl
+      paddingRight: spacing.xxxl,
+      height:spacing.md - (spacing.xxs *1.5)
     },
     progressContainer: {
       flexDirection: 'row',
@@ -52,8 +54,9 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
       fontSize: fontSize.xl,
       fontFamily: fontFamily.b7,
-      marginVertical: spacing.xs,
-      height: spacing.md * 2,
+      marginTop: spacing.xs,
+      height: spacing.xs * 4,
+
     },
     viewOptions: {
       marginBottom: spacing.md

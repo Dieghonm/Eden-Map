@@ -10,7 +10,7 @@ import GlassBox from '../../components/GlassBox';
 import EditModal from './EditModal';
 
 
-export default function Home({ onEditFeeling }) {
+export default function Home({ onEditFeeling, navigation }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
   
@@ -51,13 +51,9 @@ export default function Home({ onEditFeeling }) {
   };
 
   const handleExplorar = () => {
-    console.log('📦 DADOS DO PROVIDER:');
-    console.log('User:', user);
-    console.log('Desire Name:', desireName);
-    console.log('Desire Description:', desireDescription);
-    console.log('Selected Feelings:', selectedFeelings);
-    console.log('Selected Path:', selectedPath);
-    console.log('---');
+    if (navigation) {
+      navigation.navigate('Explorer');
+    }
   };
 
   // Helper para pegar os objetos completos dos sentimentos
@@ -104,7 +100,7 @@ export default function Home({ onEditFeeling }) {
       />
 
       <ButtonSecundary
-        title='Explorar Dados'
+        title='Explorar'
         onPress={handleExplorar}
       />
 
