@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Home/Home';
@@ -34,7 +34,6 @@ export default function Home({ onEditFeeling, navigation }) {
   };
 
   const handleModalSave = () => {
-    // Callback opcional quando salvar
     console.log('✅ Dados atualizados com sucesso!');
   };
 
@@ -48,11 +47,26 @@ export default function Home({ onEditFeeling, navigation }) {
     console.log('Descrição:', desireDescription);
     console.log('Sentimentos:', feelingNames);
     console.log('Caminho:', pathName);
+    
+    Alert.alert(
+      '🌟 Entrada do Eden',
+      'Funcionalidade em desenvolvimento!\n\nEm breve você terá acesso à jornada completa.',
+      [{ text: 'OK' }]
+    );
   };
 
   const handleExplorar = () => {
-    if (navigation) {
+    console.log('📍 Navegando para Explorer...');
+    
+    try {
       navigation.navigate('Explorer');
+    } catch (error) {
+      console.error('❌ Erro ao navegar:', error);
+      Alert.alert(
+        'Erro de Navegação',
+        'Não foi possível acessar o Explorer. Tente novamente.',
+        [{ text: 'OK' }]
+      );
     }
   };
 
