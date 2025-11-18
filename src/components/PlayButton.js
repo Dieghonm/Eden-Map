@@ -14,7 +14,6 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
   const progress = useRef(new Animated.Value(0)).current;
   const animationRef = useRef(null);
   
-  // Cria o player de áudio
   const player = useAudioPlayer(source);
 
   const borderColor = theme?.button || '#0A84FF';
@@ -24,18 +23,15 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
   const strokeWidth = 6;
   const circumference = 2 * Math.PI * radius;
 
-  // Monitora o status do player
   useEffect(() => {
     const subscription = player.addListener('playingStatusDidChange', (status) => {
       if (status.playing) {
         setIsPlaying(true);
         
-        // Para qualquer animação anterior
         if (animationRef.current) {
           animationRef.current.stop();
         }
         
-        // Inicia a animação de progresso
         animationRef.current = Animated.timing(progress, {
           toValue: 1,
           duration: duration * 1000,
@@ -47,7 +43,6 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
       } else {
         setIsPlaying(false);
         
-        // Se chegou ao fim, reseta o progresso
         if (status.didJustFinish) {
           progress.setValue(0);
           if (animationRef.current) {
@@ -62,15 +57,12 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
     };
   }, [player, duration, progress]);
 
-  // Cleanup ao desmontar
   useEffect(() => {
     return () => {
-      // Para a animação
       if (animationRef.current) {
         animationRef.current.stop();
       }
       
-      // Remove o player
       if (player) {
         player.remove();
       }
@@ -83,7 +75,6 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
     } else {
       player.pause();
       
-      // Para a animação e reseta o progresso
       if (animationRef.current) {
         animationRef.current.stop();
       }

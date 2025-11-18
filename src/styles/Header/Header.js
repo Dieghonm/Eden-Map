@@ -28,13 +28,11 @@ export const createStyles = (theme) =>
     icon: {
       width: spacing.md,
       height: spacing.md,
-      resizeMode: 'contain',
     },
     
     iconHome: {
       width: spacing.md,
       height: spacing.md,
-      resizeMode: 'contain',
     },
     
     modalOverlay: {

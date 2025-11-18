@@ -168,3 +168,4 @@ export const PERGUNTAS = {
     question: 'Percebo que realizar meu desejo exige ação minha e conexão com outros.'
   }
 };
+

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { View, ImageBackground, StyleSheet } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -24,7 +23,7 @@ function AppContent() {
       source={require('./assets/Fundo.png')}
       style={styles.container}
       imageStyle={styles.image}
-      resizeMode="cover"  // ← Como prop
+      resizeMode="cover"
     >
       <View style={styles.overlay}>
         <NavigationContainer>

@@ -48,7 +48,8 @@ export default function Header({ onHomePress, onResetStarting }) {
           >
             <Image 
               source={require('../../../assets/icons/Home.png')} 
-              style={[styles.icon, { tintColor: theme.secundaryButton }]}
+              style={styles.icon}
+              tintColor={theme.secundaryButton}
             />
           </TouchableOpacity>
 
@@ -59,10 +60,8 @@ export default function Header({ onHomePress, onResetStarting }) {
           >
             <Image 
               source={require('../../../assets/icons/Config.png')} 
-              style={[
-                styles.icon,
-                { tintColor: menuVisible ? theme.alert : theme.secundaryButton }
-              ]}
+              style={styles.icon}
+              tintColor={menuVisible ? theme.alert : theme.secundaryButton}
             />
           </TouchableOpacity>
         </View>
