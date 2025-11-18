@@ -2,10 +2,17 @@ import { TouchableOpacity, Text, Image } from 'react-native';
 import { useTheme } from '../context/ThemeProvider';
 import { createStyles } from '../styles/components/ImgButton';
 
-import ExpMeditacoes from '../../assets/icons/ExpMeditacoes.png';
-import ExpMissoes from '../../assets/icons/ExpMissoes.png';
-import ExpReflexoes from '../../assets/icons/ExpReflexoes.png';
+import Checked from '../../assets/icons/Checked.png';
+import ExpBlock from '../../assets/icons/ExpBlock.png';
 import ExpVideos from '../../assets/icons/ExpVideos.png';
+import ExpMissoes from '../../assets/icons/ExpMissoes.png';
+import ExpMeditacoes from '../../assets/icons/ExpMeditacoes.png';
+import ExpReflexoes from '../../assets/icons/ExpReflexoes.png';
+import ExpSombra from '../../assets/icons/ExpSombra.png';
+import ExpLuz from '../../assets/icons/ExpLuz.png';
+import ExpDescreva from '../../assets/icons/ExpDescreva.png';
+import ExpSentimentos from '../../assets/icons/ExpSentimentos.png';
+
 
 export default function ImgButton({ 
   title, 
@@ -20,20 +27,48 @@ export default function ImgButton({
   let imageSource;
 
   switch (img) {
-    case 'ExpMeditacoes':
-      imageSource = ExpMeditacoes;
+    case 'Checked':
+      imageSource = Checked;
       break;
-    case 'ExpMissoes':
-      imageSource = ExpMissoes;
+
+    case 'ExpBlock':
+      imageSource = ExpBlock;
       break;
-    case 'ExpReflexoes':
-      imageSource = ExpReflexoes;
-      break;
+
     case 'ExpVideos':
       imageSource = ExpVideos;
       break;
-    default:
+
+    case 'ExpMissoes':
+      imageSource = ExpMissoes;
+      break;
+
+    case 'ExpMeditacoes':
       imageSource = ExpMeditacoes;
+      break;
+
+    case 'ExpReflexoes':
+      imageSource = ExpReflexoes;
+      break;
+
+    case 'ExpSombra':
+      imageSource = ExpSombra;
+      break;
+
+    case 'ExpLuz':
+      imageSource = ExpLuz;
+      break;
+
+    case 'ExpDescreva':
+      imageSource = ExpDescreva;
+      break;
+
+    case 'ExpSentimentos':
+      imageSource = ExpSentimentos;
+      break;
+
+    default:
+      imageSource = ExpBlock; // fallback
       break;
   }
 
@@ -43,8 +78,9 @@ export default function ImgButton({
       <Image
         source={imageSource}
         style={styles.buttonIcon}
-        resizeMode="contain"  // ← Como prop
+        resizeMode="contain"
       />
     </TouchableOpacity>
   );
 }
+

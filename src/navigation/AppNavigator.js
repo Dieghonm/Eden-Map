@@ -9,13 +9,15 @@ import LoginScreen from '../screens/LoginScreen';
 import ExplorerScreen from '../screens/ExplorerScreen';
 import Header from '../screens/Header/Header';
 
-
 import VideosScreen from '../screens/Explorer/VideosScreen';
 import MissoesScreen from '../screens/Explorer/MissoesScreen';
 import MeditacoesScreen from '../screens/Explorer/MeditacoesScreen';
 import ReflexoesScreen from '../screens/Explorer/ReflexoesScreen';
 
 const Stack = createStackNavigator();
+
+// Toggle aqui: true = pula o login (DEV), false = comportamento normal
+const DEV_SKIP_LOGIN = false;
 
 export default function AppNavigator() {
   const { user, setUser } = useContext(AppContext);
@@ -24,8 +26,23 @@ export default function AppNavigator() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
+    // Se estiver em modo DEV e quiser pular login, configura usuário dummy
+    if (DEV_SKIP_LOGIN) {
+      // Ajuste os dados conforme o que suas telas esperam
+      setUser({
+        login: 'dev',
+        email: 'dev@example.com',
+        tag: 'dev',
+        plan: 'dev-plan',
+      });
+      setIsAuthenticated(true);
+      setIsLoading(false);
+      return;
+    }
+
+    // Modo normal: checa token / API
     checkAuthStatus();
-  }, []);
+  }, []); // só no mount
 
   useEffect(() => {
     if (user && user.login) {

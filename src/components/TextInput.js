@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { View, TextInput as RNTextInput, TouchableOpacity, Image } from 'react-native';
 import { useTheme } from '../context/ThemeProvider';
 import { createStyles } from '../styles/components/TextInput';
@@ -14,11 +14,23 @@ export default function TextInput({
   showValidation = false
 }) {
   const { theme } = useTheme();
-  const styles = createStyles(theme, isValid, showValidation);
+
+  // ⛔ Antes: recarregava estilos e recriava componentes
+  // const styles = createStyles(theme, isValid, showValidation);
+
+  // ✅ Agora: estilos são memorizados e NÃO dependem da validação
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
+  // A validação controla SOMENTE a borda
+  const finalContainerStyle = [
+    styles.container,
+    showValidation && !isValid && { borderColor: theme.error }
+  ];
+
   return (
-    <View style={[styles.container, showValidation && !isValid && styles.containerInvalid]}>
+    <View style={finalContainerStyle}>
       <RNTextInput
         style={styles.input}
         placeholder={placeholder}
@@ -28,15 +40,17 @@ export default function TextInput({
         secureTextEntry={secureTextEntry && !isPasswordVisible}
         editable={!disabled}
       />
+
       {showPasswordToggle && (
         <TouchableOpacity
           style={styles.eyeButton}
           onPress={() => setIsPasswordVisible(!isPasswordVisible)}
           activeOpacity={0.7}
         >
-          {isPasswordVisible ? 
-            <Image source={require('../../assets/icons/Eye.png')} />
-            : <Image source={require('../../assets/icons/EyeSlash.png')} />}
+          {isPasswordVisible
+            ? <Image source={require('../../assets/icons/Eye.png')} />
+            : <Image source={require('../../assets/icons/EyeSlash.png')} />
+          }
         </TouchableOpacity>
       )}
     </View>

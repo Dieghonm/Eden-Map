@@ -167,7 +167,6 @@ export const api = {
 
   // ========== RECUPERAÇÃO DE SENHA ==========
   
-  // Etapa 1: Solicitar código (envia email)
   solicitarTempKey: async (emailOuLogin) => {
     return apiRequest('/tempkey', {
       method: 'POST',
@@ -177,7 +176,6 @@ export const api = {
     });
   },
 
-  // Etapa 2: Validar código de 4 dígitos
   validarTempKey: async (emailOuLogin, tempKey) => {
     return apiRequest('/tempkey', {
       method: 'POST',
@@ -188,8 +186,6 @@ export const api = {
     });
   },
 
-  // Etapa 3: Alterar senha com código validado
-  // 🔧 CORREÇÃO: Deve usar /tempkey (não /alterar-senha) e enviar new_password (não nova_senha)
   alterarSenhaComTempKey: async (data) => {
     const { email, tempKey, novaSenha } = data;
     return apiRequest('/tempkey', {
@@ -199,6 +195,49 @@ export const api = {
         tempKey: tempKey,
         new_password: novaSenha 
       }),
+    });
+  },
+
+  // ========== ✨ NOVOS ENDPOINTS PARA STARTING ==========
+
+  /**
+   * Atualiza dados da jornada Starting do usuário
+   * @param {Object} startingData - Dados do Starting
+   * @param {string} startingData.desejo_nome - Nome do desejo (máx 15 caracteres)
+   * @param {string} startingData.desejo_descricao - Descrição do desejo (máx 300 caracteres)
+   * @param {number[]} startingData.sentimentos_selecionados - Array de 3 IDs [1-5]
+   * @param {string} startingData.caminho_selecionado - Nome do caminho
+   * @param {Object} startingData.teste_resultados - Resultados do teste em %
+   */
+  atualizarStarting: async (startingData) => {
+    const token = await getToken();
+    if (!token) {
+      throw new Error('Token não encontrado');
+    }
+
+    return apiRequest('/me/starting', {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(startingData),
+    });
+  },
+
+  /**
+   * Reseta todos os dados da jornada Starting
+   */
+  resetarStarting: async () => {
+    const token = await getToken();
+    if (!token) {
+      throw new Error('Token não encontrado');
+    }
+
+    return apiRequest('/me/starting', {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
   },
 };
