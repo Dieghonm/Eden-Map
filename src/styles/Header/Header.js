@@ -6,7 +6,7 @@ import { darkTheme, lightTheme, pinkTheme } from '../../theme/colors';
 export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
-      marginTop: spacing.xxs * 2,
+      marginTop: spacing.lg,
       paddingHorizontal: spacing.md,
       flexDirection: 'row',
       justifyContent: 'space-between',

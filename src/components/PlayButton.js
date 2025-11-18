@@ -12,7 +12,6 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
   const styles = createStyles(theme);
   const [isPlaying, setIsPlaying] = useState(false);
   const progress = useRef(new Animated.Value(0)).current;
-  const animationRef = useRef(null);
   
   const player = useAudioPlayer(source);
 
@@ -23,64 +22,52 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
   const strokeWidth = 6;
   const circumference = 2 * Math.PI * radius;
 
-  useEffect(() => {
-    const subscription = player.addListener('playingStatusDidChange', (status) => {
-      if (status.playing) {
-        setIsPlaying(true);
-        
-        if (animationRef.current) {
-          animationRef.current.stop();
-        }
-        
-        animationRef.current = Animated.timing(progress, {
-          toValue: 1,
-          duration: duration * 1000,
-          useNativeDriver: true,
-        });
-        
-        animationRef.current.start();
-        
-      } else {
+  const startAnimation = () => {
+    progress.setValue(0);
+    
+    Animated.timing(progress, {
+      toValue: 1,
+      duration: duration * 1000,
+      useNativeDriver: false,
+    }).start(({ finished }) => {
+      if (finished) {
         setIsPlaying(false);
-        
-        if (status.didJustFinish) {
-          progress.setValue(0);
-          if (animationRef.current) {
-            animationRef.current.stop();
-          }
-        }
+        progress.setValue(0);
       }
     });
+  };
 
-    return () => {
-      subscription.remove();
-    };
-  }, [player, duration, progress]);
+  const stopAnimation = () => {
+    progress.stopAnimation();
+    progress.setValue(0);
+  };
+
+  const handlePress = async () => {
+    try {
+      if (!isPlaying) {
+        await player.play();
+        setIsPlaying(true);
+        startAnimation();
+      } else {
+        await player.pause();
+        setIsPlaying(false);
+        stopAnimation();
+      }
+    } catch (error) {
+      console.log('Erro no player:', error);
+    }
+  };
 
   useEffect(() => {
     return () => {
-      if (animationRef.current) {
-        animationRef.current.stop();
-      }
-      
-      if (player) {
-        player.remove();
+      try {
+        progress.stopAnimation();
+        player.pause();
+      } catch (error) {
+        console.log('Cleanup error:', error);
       }
     };
-  }, [player]);
-
-  const handlePress = () => {
-    if (!isPlaying) {
-      player.play();
-    } else {
-      player.pause();
-      
-      if (animationRef.current) {
-        animationRef.current.stop();
-      }
-      progress.setValue(0);
-    }
-  };
+  }, []);
 
   const strokeDashoffset = progress.interpolate({
     inputRange: [0, 1],
@@ -109,6 +96,7 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
             strokeWidth={strokeWidth}
             opacity={0.3}
           />
+          
           <AnimatedCircle
             stroke={borderColor}
             fill="none"
@@ -116,11 +104,14 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
             cy={radius + strokeWidth / 2}
             r={radius}
             strokeWidth={strokeWidth}
-            strokeDasharray={`${circumference} ${circumference}`}
+            strokeDasharray={circumference}
             strokeDashoffset={strokeDashoffset}
             strokeLinecap="round"
+            rotation="-90"
+            origin={`${radius + strokeWidth / 2}, ${radius + strokeWidth / 2}`}
           />
         </Svg>
+        
         <Image
           source={
             isPlaying
