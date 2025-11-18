@@ -4,11 +4,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { AppContext } from '../context/AppProvider';
 import { useTheme } from '../context/ThemeProvider';
 import { api, tokenHelpers } from '../services/api';
+
+import Header from '../screens/Header/Header';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import ExplorerScreen from '../screens/ExplorerScreen';
-import Header from '../screens/Header/Header';
-
+import DayScreen from '../screens/DayScreen';
 import VideosScreen from '../screens/Explorer/VideosScreen';
 import MissoesScreen from '../screens/Explorer/MissoesScreen';
 import MeditacoesScreen from '../screens/Explorer/MeditacoesScreen';
@@ -117,6 +118,20 @@ export default function AppNavigator() {
                   }}
                 />
                 <HomeScreen {...props} />
+              </View>
+            )}
+          </Stack.Screen>
+
+          <Stack.Screen name="Day">
+            {(props) => (
+              <View style={{ flex: 1 }}>
+                <Header 
+                  onHomePress={() => props.navigation.navigate('Home')}
+                  onResetStarting={() => {
+                    props.navigation.navigate('Home', { triggerReset: Date.now() });
+                  }}
+                />
+                <DayScreen {...props} />
               </View>
             )}
           </Stack.Screen>

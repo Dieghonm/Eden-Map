@@ -9,14 +9,10 @@ import ButtonSecundary from '../../components/ButtonSecundary';
 import GlassBox from '../../components/GlassBox';
 import EditModal from './EditModal';
 
-
 export default function Home({ onEditFeeling, navigation }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
-  
-  const [modalVisible, setModalVisible] = useState(false);
-  
-  // Pega TODOS os dados do Provider (somente leitura)
+    const [modalVisible, setModalVisible] = useState(false);
   const { 
     desireName,
     desireDescription,
@@ -26,51 +22,13 @@ export default function Home({ onEditFeeling, navigation }) {
   } = useContext(AppContext);
 
   const handleEdit = () => {
-    setModalVisible(true);
+    setModalVisible(!modalVisible);
   };
 
-  const handleModalClose = () => {
-    setModalVisible(false);
+  const handlebutton = (screen) => {
+    navigation.navigate(screen);
   };
 
-  const handleModalSave = () => {
-    console.log('✅ Dados atualizados com sucesso!');
-  };
-
-  const handleEntrarEden = () => {
-    const pathName = CAMINHOS.find(c => c.id === selectedPath)?.nome || 'Não definido';
-    const feelingNames = getSelectedFeelings().map(f => f.nome);
-    
-    console.log('🌟 ENTRADA DO EDEN 🌟');
-    console.log('Usuário:', user?.login || 'Não logado');
-    console.log('Desejo:', desireName);
-    console.log('Descrição:', desireDescription);
-    console.log('Sentimentos:', feelingNames);
-    console.log('Caminho:', pathName);
-    
-    Alert.alert(
-      '🌟 Entrada do Eden',
-      'Funcionalidade em desenvolvimento!\n\nEm breve você terá acesso à jornada completa.',
-      [{ text: 'OK' }]
-    );
-  };
-
-  const handleExplorar = () => {
-    console.log('📍 Navegando para Explorer...');
-    
-    try {
-      navigation.navigate('Explorer');
-    } catch (error) {
-      console.error('❌ Erro ao navegar:', error);
-      Alert.alert(
-        'Erro de Navegação',
-        'Não foi possível acessar o Explorer. Tente novamente.',
-        [{ text: 'OK' }]
-      );
-    }
-  };
-
-  // Helper para pegar os objetos completos dos sentimentos
   const getSelectedFeelings = () => {
     return SENTIMENTOS.filter(s => selectedFeelings.includes(s.id));
   };
@@ -110,18 +68,17 @@ export default function Home({ onEditFeeling, navigation }) {
 
       <ButtonPrimary
         title='Entrada do Eden'
-        onPress={handleEntrarEden}
+        onPress={() => handlebutton('Day')}
       />
 
       <ButtonSecundary
         title='Explorar'
-        onPress={handleExplorar}
+        onPress={() => handlebutton('Explorer')}
       />
 
       <EditModal
         visible={modalVisible}
-        onClose={handleModalClose}
-        onSave={handleModalSave}
+        onClose={handleEdit}
       />
     </View>
   );

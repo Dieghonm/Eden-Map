@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-import YoutubeIframe from "react-native-youtube-iframe";  // 👉 IMPORTANTE
+import YoutubeIframe from "react-native-youtube-iframe";
 
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GlassBox from '../../components/GlassBox';
 import { createStyles } from '../../styles/Explorer/VideosScreen';
 import { useTheme } from '../../context/ThemeProvider';
 import { VIDEOS } from '../../../assets/json/Semanas';
+import VideoPlayer from '../../components/VideoPlayer';
+import ButtonSecundary from '../../components/ButtonSecundary';
 
 export default function VideosScreen({ navigation }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const currentVideo = VIDEOS[currentVideoIndex];
   const totalVideos = VIDEOS.length;
@@ -22,12 +24,14 @@ export default function VideosScreen({ navigation }) {
   const handleNext = () => {
     if (currentVideoIndex < totalVideos - 1) {
       setCurrentVideoIndex(prev => prev + 1);
+      setIsPlaying(false);
     }
   };
 
   const handlePrevious = () => {
     if (currentVideoIndex > 0) {
       setCurrentVideoIndex(prev => prev - 1);
+      setIsPlaying(false);
     }
   };
 
@@ -40,24 +44,29 @@ export default function VideosScreen({ navigation }) {
         <GlassBox style={styles.videoCard}>
           
           <Text style={styles.videoTitle}>{currentVideo.topico}</Text>
-          <Text style={styles.videoDescription}>{currentVideo.sinopse}</Text>
-          <Text style={styles.videoDuration}>Duração: 5 minutos</Text>
-
-          {/* 🎥 PLAYER DO YOUTUBE */}
-          <YoutubeIframe
-            height={220}
-            play={false}
+          <Text style={styles.videoDescription}>
+            {currentVideo.sinopse[0]}
+            <Text style={styles.highlight}>{currentVideo.sinopse[1]}</Text>
+            {currentVideo.sinopse[2]}
+            <Text style={styles.highlight}>{currentVideo.sinopse[3]}</Text>
+            {currentVideo.sinopse[4]}
+          </Text>
+          <VideoPlayer
             videoId={currentVideo.video}
+            height={220}
+            play={isPlaying}
+            onChangeState={state => {
+              if (state === 'ended') setIsPlaying(false);
+            }}
           />
-
+          <Text style={styles.videoDuration}>Duração: 5 minutos</Text>
           <ButtonPrimary
             title="Assistir agora"
-            onPress={() => console.log('▶️ Reproduzindo:', currentVideo.video)}
+            onPress={() => setIsPlaying(true)}
             width={220}
           />
         </GlassBox>
 
-        {/* Navegação entre semanas */}
         <View style={styles.navigation}>
           <TouchableOpacity 
             style={styles.navButton}
@@ -86,7 +95,7 @@ export default function VideosScreen({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        <ButtonPrimary
+        <ButtonSecundary
           title="Voltar"
           onPress={() => navigation.goBack()}
         />

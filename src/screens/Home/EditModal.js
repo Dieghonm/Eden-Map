@@ -227,16 +227,25 @@ export default function EditModal({ visible, onClose, onSave }) {
       transparent
       animationType="fade"
       onRequestClose={handleClose}
+      // ✅ CORREÇÃO: Adicionar props de acessibilidade
+      accessible={true}
+      accessibilityViewIsModal={true}
     >
       <TouchableOpacity
         style={styles.modalOverlay}
         activeOpacity={1}
         onPress={handleClose}
+        // ✅ CORREÇÃO: Remover aria-hidden implícito
+        accessible={false}
+        importantForAccessibility="no-hide-descendants"
       >
         <TouchableOpacity
           style={styles.modalBox}
           activeOpacity={1}
           onPress={(e) => e.stopPropagation()}
+          // ✅ CORREÇÃO: Garantir foco no conteúdo do modal
+          accessible={true}
+          accessibilityRole="dialog"
         >
           {editMode === null && renderInitialView()}
           {editMode === 'desire' && renderDesireEdit()}

@@ -6,107 +6,52 @@ export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      paddingHorizontal: spacing.lg,
-    },
-    scrollContent: {
+      marginTop: spacing.lg,
       alignItems: 'center',
-      paddingBottom: spacing.md,
     },
-    title: {
+    videoTitle: {
       fontSize: fontSize.xxl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      marginVertical: spacing.md,
+      marginTop: spacing.xs,
+      textAlign: 'left',
       alignSelf: 'flex-start',
-    },
-
-    // Filtros
-    filterScroll: {
-      maxHeight: verticalScale(50),
-      marginBottom: spacing.md,
-    },
-    filterContent: {
-      paddingRight: spacing.md,
-    },
-    filterChip: {
-      backgroundColor: theme.secondary,
-      paddingHorizontal: spacing.xs,
-      paddingVertical: spacing.xxs,
-      borderRadius: borderRadius.circle,
-      marginRight: spacing.xxs,
-      borderWidth: 2,
-      borderColor: 'transparent',
-    },
-    filterChipActive: {
-      backgroundColor: theme.button,
-      borderColor: theme.accent,
-    },
-    filterText: {
-      fontSize: fontSize.sm,
-      fontFamily: fontFamily.r4,
-      color: theme.fontColor,
-    },
-    filterTextActive: {
-      fontFamily: fontFamily.b7,
-      color: theme.buttonTextColor,
-    },
-
-    // Card do vídeo
-    videoCard: {
-      width: spacing.giant,
-      padding: spacing.md,
-      marginBottom: spacing.md,
-    },
-    videoTitle: {
-      fontSize: fontSize.xl,
-      fontFamily: fontFamily.b7,
-      color: theme.fontColor,
-      marginBottom: spacing.xxs,
+      height: spacing.xxl/2,
     },
     videoDescription: {
-      fontSize: fontSize.md,
+      fontSize: fontSize.lg,
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
       lineHeight: spacing.xs,
-      marginBottom: spacing.xs,
+      height: spacing.xs * 5
     },
     videoDuration: {
-      fontSize: fontSize.sm,
-      fontFamily: fontFamily.r4,
+      fontSize: fontSize.xl,
+      fontFamily: fontFamily.b7,
       color: theme.alert,
-      marginBottom: spacing.md,
+      marginBottom: spacing.xs,
+    },    
+    highlight: {
+      color: theme.alert,
+      fontFamily: fontFamily.b7,
     },
-    videoPlaceholder: {
-      width: '100%',
-      height: verticalScale(180),
-      backgroundColor: theme.terciario,
-      borderRadius: borderRadius.m,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginBottom: spacing.md,
-    },
-    placeholderText: {
-      fontSize: fontSize.header,
-    },
-
-    // Navegação
     navigation: {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
       gap: spacing.md,
       marginBottom: spacing.md,
+      backgroundColor: theme.secondary,
+      borderRadius: borderRadius.circle,
     },
     navButton: {
       width: horizontalScale(50),
       height: horizontalScale(50),
-      backgroundColor: theme.secondary,
-      borderRadius: borderRadius.circle,
       justifyContent: 'center',
       alignItems: 'center',
     },
     navIcon: {
-      fontSize: fontSize.xl,
+      fontSize: fontSize.header,
       color: theme.fontColor,
     },
     navIconDisabled: {
@@ -118,5 +63,6 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
       minWidth: horizontalScale(60),
       textAlign: 'center',
+      marginHorizontal: spacing.md
     },
   });

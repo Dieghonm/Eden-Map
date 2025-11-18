@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { TouchableOpacity, Image, View, Text, Animated } from 'react-native';
+import { TouchableOpacity, Image, View, Text, Animated, Platform } from 'react-native';
 import { useAudioPlayer } from 'expo-audio';
 import Svg, { Circle } from 'react-native-svg';
 import { useTheme } from '../context/ThemeProvider';
@@ -21,6 +21,8 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
   const radius = 26;
   const strokeWidth = 6;
   const circumference = 2 * Math.PI * radius;
+  const centerX = radius + strokeWidth / 2;
+  const centerY = radius + strokeWidth / 2;
 
   const startAnimation = () => {
     progress.setValue(0);
@@ -74,6 +76,22 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
     outputRange: [circumference, 0],
   });
 
+  // Props específicas para web vs mobile
+  const svgProps = Platform.OS === 'web' 
+    ? {} 
+    : { collapsable: false };
+
+  const circleRotationProps = Platform.OS === 'web'
+    ? {
+        rotation: "-90",
+        style: { transformOrigin: 'center' }
+      }
+    : {
+        rotation: "-90",
+        originX: centerX,
+        originY: centerY
+      };
+
   return (
     <TouchableOpacity 
       style={styles.playBox} 
@@ -86,29 +104,31 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
           height={radius * 2 + strokeWidth}
           width={radius * 2 + strokeWidth}
           style={styles.svgWrapper}
+          {...svgProps}
         >
+          {/* Círculo base (estático) */}
           <Circle
             stroke={borderBase}
             fill="none"
-            cx={radius + strokeWidth / 2}
-            cy={radius + strokeWidth / 2}
+            cx={centerX}
+            cy={centerY}
             r={radius}
             strokeWidth={strokeWidth}
             opacity={0.3}
           />
           
+          {/* Círculo de progresso (animado) */}
           <AnimatedCircle
             stroke={borderColor}
             fill="none"
-            cx={radius + strokeWidth / 2}
-            cy={radius + strokeWidth / 2}
+            cx={centerX}
+            cy={centerY}
             r={radius}
             strokeWidth={strokeWidth}
             strokeDasharray={circumference}
             strokeDashoffset={strokeDashoffset}
             strokeLinecap="round"
-            rotation="-90"
-            origin={`${radius + strokeWidth / 2}, ${radius + strokeWidth / 2}`}
+            {...circleRotationProps}
           />
         </Svg>
         
