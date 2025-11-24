@@ -1,16 +1,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 
-// Configuração da URL base da API
+// ============================================================================
+// CONFIGURAÇÃO DA API
+// ============================================================================
+
 const API_CONFIG = {
   development: {
     web: 'http://localhost:8000',
     android: 'http://10.0.2.2:8000',
     ios: 'http://localhost:8000',
-    physical: 'http://192.168.1.101:8000',
+    physical: 'http://192.168.1.101:8000', // Altere para seu IP local
   },
   production: {
-    url: 'https://seu-app.onrender.com'
+    url: 'https://seu-app.onrender.com' // Altere para sua URL de produção
   }
 };
 
@@ -36,6 +39,54 @@ const getBaseURL = () => {
 };
 
 const BASE_URL = getBaseURL();
+
+// ============================================================================
+// GERENCIAMENTO DE TOKENS
+// ============================================================================
+
+export const tokenHelpers = {
+  save: async (accessToken, refreshToken = null) => {
+    try {
+      await AsyncStorage.setItem('access_token', accessToken);
+      if (refreshToken) {
+        await AsyncStorage.setItem('refresh_token', refreshToken);
+      }
+    } catch (error) {
+      console.error('❌ Erro ao salvar tokens:', error);
+    }
+  },
+
+  get: async () => {
+    try {
+      return await AsyncStorage.getItem('access_token');
+    } catch (error) {
+      console.error('❌ Erro ao obter token:', error);
+      return null;
+    }
+  },
+
+  getRefresh: async () => {
+    try {
+      return await AsyncStorage.getItem('refresh_token');
+    } catch (error) {
+      console.error('❌ Erro ao obter refresh token:', error);
+      return null;
+    }
+  },
+
+  remove: async () => {
+    try {
+      await AsyncStorage.removeItem('access_token');
+      await AsyncStorage.removeItem('refresh_token');
+    } catch (error) {
+      console.error('❌ Erro ao remover tokens:', error);
+    }
+  }
+};
+
+// ============================================================================
+// REQUISIÇÕES HTTP
+// ============================================================================
 
 const apiRequest = async (endpoint, options = {}) => {
   try {
@@ -87,167 +138,320 @@ const apiRequest = async (endpoint, options = {}) => {
   }
 };
 
-const saveToken = async (token) => {
-  try {
-    await AsyncStorage.setItem('access_token', token);
-  } catch (error) {
-    console.error('❌ Erro ao salvar token:', error);
+const authenticatedRequest = async (endpoint, options = {}) => {
+  const token = await tokenHelpers.get();
+  
+  if (!token) {
+    throw {
+      status: 401,
+      message: 'Token não encontrado. Faça login novamente.',
+      data: null
+    };
   }
+
+  return apiRequest(endpoint, {
+    ...options,
+    headers: {
+      ...options.headers,
+      'Authorization': `Bearer ${token}`,
+    },
+  });
 };
 
-const getToken = async () => {
-  try {
-    const token = await AsyncStorage.getItem('access_token');
-    return token;
-  } catch (error) {
-    console.error('❌ Erro ao obter token:', error);
-    return null;
-  }
-};
+// ============================================================================
+// API - AUTENTICAÇÃO
+// ============================================================================
 
-const removeToken = async () => {
-  try {
-    await AsyncStorage.removeItem('access_token');
-  } catch (error) {
-    console.error('❌ Erro ao remover token:', error);
-  }
-};
+export const authAPI = {
+  /**
+   * Cadastro de novo usuário
+   * @param {Object} userData - { login, password, email, tag?, plan? }
+   * @returns {Object} { access_token, refresh_token, user }
+   */
 
-export const api = {
   cadastro: async (userData) => {
-    return apiRequest('/cadastro', {
+    return apiRequest('/users/', {
       method: 'POST',
       body: JSON.stringify(userData),
     });
   },
 
+  /**
+   * Login com credenciais
+   * @param {Object} credentials - { login, password }
+   * @returns {Object} { access_token, refresh_token, user }
+   */
   login: async (credentials) => {
-    return apiRequest('/login', {
+    return apiRequest('/auth/login', {
       method: 'POST',
       body: JSON.stringify(credentials),
     });
   },
 
-  me: async () => {
-    const token = await getToken();
-    if (!token) {
-      throw new Error('Token não encontrado');
-    }
-
-    return apiRequest('/me', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  },
-
-  health: async () => {
-    return apiRequest('/health', {
-      method: 'GET',
-    });
-  },
-
-  renovarToken: async (token) => {
-    return apiRequest('/login', {
+  /**
+   * Renovar access token
+   * @param {string} refreshToken - Refresh token
+   * @returns {Object} { access_token, refresh_token, user }
+   */
+  refresh: async (refreshToken) => {
+    return apiRequest('/auth/refresh', {
       method: 'POST',
-      body: JSON.stringify({ token }),
+      body: JSON.stringify({ refresh_token: refreshToken }),
     });
   },
+};
 
-  listarUsuarios: async () => {
-    const token = await getToken();
-    return apiRequest('/usuarios', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-  },
+// ============================================================================
+// API - RECUPERAÇÃO DE SENHA
+// ============================================================================
 
-  // ========== RECUPERAÇÃO DE SENHA ==========
-  
-  solicitarTempKey: async (emailOuLogin) => {
-    return apiRequest('/tempkey', {
+export const passwordRecoveryAPI = {
+  /**
+   * Etapa 1: Solicitar código de recuperação
+   * @param {string} email - Email do usuário
+   * @returns {Object} { message, email }
+   */
+  solicitarCodigo: async (email) => {
+    return apiRequest('/auth/password-recovery/request', {
       method: 'POST',
-      body: JSON.stringify({ 
-        email_ou_login: emailOuLogin 
-      }),
+      body: JSON.stringify({ email }),
     });
   },
-
-  validarTempKey: async (emailOuLogin, tempKey) => {
-    return apiRequest('/tempkey', {
-      method: 'POST',
-      body: JSON.stringify({ 
-        email_ou_login: emailOuLogin,
-        tempKey: tempKey 
-      }),
-    });
-  },
-
-  alterarSenhaComTempKey: async (data) => {
-    const { email, tempKey, novaSenha } = data;
-    return apiRequest('/tempkey', {
-      method: 'POST',
-      body: JSON.stringify({
-        email_ou_login: email,
-        tempKey: tempKey,
-        new_password: novaSenha 
-      }),
-    });
-  },
-
-  // ========== ✨ NOVOS ENDPOINTS PARA STARTING ==========
 
   /**
-   * Atualiza dados da jornada Starting do usuário
-   * @param {Object} startingData - Dados do Starting
-   * @param {string} startingData.desejo_nome - Nome do desejo (máx 15 caracteres)
-   * @param {string} startingData.desejo_descricao - Descrição do desejo (máx 300 caracteres)
-   * @param {number[]} startingData.sentimentos_selecionados - Array de 3 IDs [1-5]
-   * @param {string} startingData.caminho_selecionado - Nome do caminho
-   * @param {Object} startingData.teste_resultados - Resultados do teste em %
+   * Etapa 2: Verificar código
+   * @param {string} email - Email do usuário
+   * @param {string} code - Código de 4 dígitos
+   * @returns {Object} { message, email }
    */
-  atualizarStarting: async (startingData) => {
-    const token = await getToken();
-    if (!token) {
-      throw new Error('Token não encontrado');
-    }
+  verificarCodigo: async (email, code) => {
+    return apiRequest('/auth/password-recovery/verify', {
+      method: 'POST',
+      body: JSON.stringify({ email, code }),
+    });
+  },
 
-    return apiRequest('/me/starting', {
+  /**
+   * Etapa 3: Redefinir senha
+   * @param {string} email - Email do usuário
+   * @param {string} code - Código de 4 dígitos
+   * @param {string} newPassword - Nova senha
+   * @returns {Object} { message, email }
+   */
+  redefinirSenha: async (email, code, newPassword) => {
+    return apiRequest('/auth/password-recovery/reset', {
+      method: 'POST',
+      body: JSON.stringify({ 
+        email, 
+        code, 
+        new_password: newPassword 
+      }),
+    });
+  },
+};
+
+// ============================================================================
+// API - USUÁRIO (PRECISA SER CRIADA NO BACKEND)
+// ============================================================================
+
+export const userAPI = {
+  /**
+   * Buscar dados do usuário autenticado
+   * ⚠️ FALTA CRIAR NO BACKEND: GET /me
+   * @returns {Object} Dados completos do usuário
+   */
+  me: async () => {
+    return authenticatedRequest('/me', {
+      method: 'GET',
+    });
+  },
+
+  /**
+   * Atualizar dados do usuário
+   * ⚠️ FALTA CRIAR NO BACKEND: PUT /me
+   * @param {Object} userData - Dados a serem atualizados
+   * @returns {Object} Usuário atualizado
+   */
+  atualizarPerfil: async (userData) => {
+    return authenticatedRequest('/me', {
       method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      body: JSON.stringify(userData),
+    });
+  },
+
+  /**
+   * Deletar conta do usuário
+   * ⚠️ FALTA CRIAR NO BACKEND: DELETE /me
+   * @returns {Object} Confirmação
+   */
+  deletarConta: async () => {
+    return authenticatedRequest('/me', {
+      method: 'DELETE',
+    });
+  },
+};
+
+// ============================================================================
+// API - STARTING (ONBOARDING) - PRECISA SER CRIADA NO BACKEND
+// ============================================================================
+
+export const startingAPI = {
+  /**
+   * Buscar dados do Starting
+   * ⚠️ FALTA CRIAR NO BACKEND: GET /me/starting
+   * @returns {Object} Dados do Starting
+   */
+  buscar: async () => {
+    return authenticatedRequest('/me/starting', {
+      method: 'GET',
+    });
+  },
+
+  /**
+   * Atualizar dados do Starting
+   * ⚠️ FALTA CRIAR NO BACKEND: PUT /me/starting
+   * @param {Object} startingData - Dados do Starting
+   * @returns {Object} Starting atualizado
+   */
+  atualizar: async (startingData) => {
+    return authenticatedRequest('/me/starting', {
+      method: 'PUT',
       body: JSON.stringify(startingData),
     });
   },
 
   /**
-   * Reseta todos os dados da jornada Starting
+   * Resetar Starting
+   * ⚠️ FALTA CRIAR NO BACKEND: DELETE /me/starting
+   * @returns {Object} Confirmação
    */
-  resetarStarting: async () => {
-    const token = await getToken();
-    if (!token) {
-      throw new Error('Token não encontrado');
-    }
-
-    return apiRequest('/me/starting', {
+  resetar: async () => {
+    return authenticatedRequest('/me/starting', {
       method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
     });
   },
 };
 
-export const tokenHelpers = {
-  save: saveToken,
-  get: getToken,
-  remove: removeToken,
+// ============================================================================
+// API - PROGRESSO - PRECISA SER CRIADA NO BACKEND
+// ============================================================================
+
+export const progressAPI = {
+  /**
+   * Buscar progresso do usuário
+   * ⚠️ FALTA CRIAR NO BACKEND: GET /me/progress
+   * @returns {Object} Dados de progresso
+   */
+  buscar: async () => {
+    return authenticatedRequest('/me/progress', {
+      method: 'GET',
+    });
+  },
+
+  /**
+   * Atualizar progresso
+   * ⚠️ FALTA CRIAR NO BACKEND: PUT /me/progress
+   * @param {Object} progressData - Dados de progresso
+   * @returns {Object} Progresso atualizado
+   */
+  atualizar: async (progressData) => {
+    return authenticatedRequest('/me/progress', {
+      method: 'PUT',
+      body: JSON.stringify(progressData),
+    });
+  },
+};
+
+// ============================================================================
+// API - CONTEÚDO - PRECISA SER CRIADA NO BACKEND
+// ============================================================================
+
+export const contentAPI = {
+  /**
+   * Listar semanas
+   * ⚠️ FALTA CRIAR NO BACKEND: GET /content/weeks
+   * @returns {Array} Lista de semanas
+   */
+  listarSemanas: async () => {
+    return authenticatedRequest('/content/weeks', {
+      method: 'GET',
+    });
+  },
+
+  /**
+   * Listar dias de uma semana
+   * ⚠️ FALTA CRIAR NO BACKEND: GET /content/weeks/{week_id}/days
+   * @param {number} weekId - ID da semana
+   * @returns {Array} Lista de dias
+   */
+  listarDias: async (weekId) => {
+    return authenticatedRequest(`/content/weeks/${weekId}/days`, {
+      method: 'GET',
+    });
+  },
+
+  /**
+   * Buscar conteúdo de um dia
+   * ⚠️ FALTA CRIAR NO BACKEND: GET /content/days/{day_id}
+   * @param {number} dayId - ID do dia
+   * @returns {Object} Conteúdo do dia
+   */
+  buscarDia: async (dayId) => {
+    return authenticatedRequest(`/content/days/${dayId}`, {
+      method: 'GET',
+    });
+  },
+};
+
+// ============================================================================
+// API - HEALTH CHECK
+// ============================================================================
+
+export const healthAPI = {
+  check: async () => {
+    return apiRequest('/health', {
+      method: 'GET',
+    });
+  },
+};
+
+// ============================================================================
+// EXPORTAÇÃO PRINCIPAL (COMPATIBILIDADE COM CÓDIGO ANTIGO)
+// ============================================================================
+
+export const api = {
+  // Autenticação
+  cadastro: authAPI.cadastro,
+  login: authAPI.login,
+  refresh: authAPI.refresh,
+
+  // Recuperação de senha
+  solicitarTempKey: passwordRecoveryAPI.solicitarCodigo,
+  validarTempKey: passwordRecoveryAPI.verificarCodigo,
+  alterarSenhaComTempKey: passwordRecoveryAPI.redefinirSenha,
+
+  // Usuário
+  me: userAPI.me,
+  atualizarPerfil: userAPI.atualizarPerfil,
+  deletarConta: userAPI.deletarConta,
+
+  // Starting
+  atualizarStarting: startingAPI.atualizar,
+  resetarStarting: startingAPI.resetar,
+  buscarStarting: startingAPI.buscar,
+
+  // Progresso
+  buscarProgresso: progressAPI.buscar,
+  atualizarProgresso: progressAPI.atualizar,
+
+  // Conteúdo
+  listarSemanas: contentAPI.listarSemanas,
+  listarDias: contentAPI.listarDias,
+  buscarDia: contentAPI.buscarDia,
+
+  // Health
+  health: healthAPI.check,
 };
 
 export { BASE_URL };
-
 export default api;

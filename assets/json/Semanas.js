@@ -1,53 +1,138 @@
 export const SEMANAS = [
   {
-    id: 1,
-    nome: 'A entrada',
-    img: 'https://i.imgur.com/1CbUzFS.jpeg',
-    trilha: {
-      Ansiedade: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
+    "id": 1,
+    "nome": "A entrada",
+    "img": "https://i.imgur.com/1CbUzFS.jpeg",
+    "trilha": {
+      "Ansiedade": {
+        "dia1": {
+          "Descrição_Cena1": "Descreva uma memória em que você sentiu orgulho genuíno de si mesmo?",
+          "Descrição_Cena2": "Qual lembrança da infância traz felicidade e ainda guarda significado em você?"
+        },
+        "dia2": {
+          "video": "Tópico - ???"
+        },
+        "dia3": {},
+        "dia4": {
+          "missao": "Vestindo o eu ideal - Coloque uma roupa que faça você se sentir confiante."
+        },
+        "dia5": {
+          "tracking": [
+            "Positivos",
+            "Eu sinto que tudo ao meu redor está conspirando a favor da concretização do meu desejo. (luz)"
+          ]
+        },
+        "dia6": {},
+        "dia7": {
+          "perguntas": [
+            "luz",
+            "Quais 3 aspectos da sua vida atual serão lembrados no futuro com profunda gratidão?"
+          ]
+        }
       },
-      Autoimagem: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
+      "Autoimagem": {
+        "dia1": {
+          "Descrição_Cena1": "Qual momento da sua rotina mostra você totalmente presente e focado?",
+          "Descrição_Cena2": "Qual lembrança antiga mostra você imerso no momento, curioso e atento ao redor?"
+        },
+        "dia2": {
+          "video": "Tópico - ???"
+        },
+        "dia3": {},
+        "dia4": {
+          "missao": "Abraço da Natureza - Reservar um momento nesta semana para estar ao ar livre, em contato com a natureza."
+        },
+        "dia5": {
+          "tracking": [
+            "Positivos",
+            "Eu sinto que tudo ao meu redor está conspirando a favor da concretização do meu desejo. (luz)"
+          ]
+        },
+        "dia6": {},
+        "dia7": {
+          "perguntas": [
+            "luz",
+            "Quais 3 aspectos da sua vida atual serão lembrados no futuro com profunda gratidão?"
+          ]
+        }
       },
-      Atenção_Plenas: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
+      "Atenção_Plenas": {
+        "dia1": {
+          "Descrição_Cena1": "Reviva uma lembrança de alegria compartilhada com alguém especial.",
+          "Descrição_Cena2": "Relembre uma oportunidade que alguém te ofereceu e transformou seu caminho."
+        },
+        "dia2": {
+          "video": "Tópico - ???"
+        },
+        "dia3": {},
+        "dia4": {
+          "missao": "Ritmo Sereno - Essa semana converse e se movimente de forma lenta em comparação às pessoas ao seu redor. Isso o manterá relaxado."
+        },
+        "dia5": {
+          "tracking": [
+            "Positivos",
+            "Eu sinto que tudo ao meu redor está conspirando a favor da concretização do meu desejo. (luz)"
+          ]
+        },
+        "dia6": {},
+        "dia7": {
+          "perguntas": [
+            "luz",
+            "Quais 3 aspectos da sua vida atual serão lembrados no futuro com profunda gratidão?"
+          ]
+        }
       },
-      Motivação: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
+      "Motivação": {
+        "dia1": {
+          "Descrição_Cena1": "Imagine uma lembrança em que você se sentiu profundamente motivado e cheio de energia interior.",
+          "Descrição_Cena2": "Visualize-se em uma cena futura em que age com foco, confiança e determinação total."
+        },
+        "dia2": {
+          "video": "Tópico - ???"
+        },
+        "dia3": {},
+        "dia4": {
+          "missao": "Chama da Inspiração - Veja um filme que reacenda sua motivação para ir atrás do que deseja."
+        },
+        "dia5": {
+          "tracking": [
+            "Positivos",
+            "Eu sinto que tudo ao meu redor está conspirando a favor da concretização do meu desejo. (luz)"
+          ]
+        },
+        "dia6": {},
+        "dia7": {
+          "perguntas": [
+            "luz",
+            "Quais 3 aspectos da sua vida atual serão lembrados no futuro com profunda gratidão?"
+          ]
+        }
       },
-      Relacionamentos: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
+      "Relacionamentos": {
+        "dia1": {
+          "Descrição_Cena1": "Imagine uma cena do passado em que você se sentiu leve, tranquilo e confiante no fluxo da vida.",
+          "Descrição_Cena2": "Visualize um momento em que o medo se dissolveu e você agiu com calma, clareza e coragem."
+        },
+        "dia2": {
+          "video": "Tópico - ???"
+        },
+        "dia3": {},
+        "dia4": {
+          "missao": "Centelha Viva - Seja a fonte de entusiasmo e motivação para as pessoas com quem convive."
+        },
+        "dia5": {
+          "tracking": [
+            "Positivos",
+            "Eu sinto que tudo ao meu redor está conspirando a favor da concretização do meu desejo. (luz)"
+          ]
+        },
+        "dia6": {},
+        "dia7": {
+          "perguntas": [
+            "luz",
+            "Quais 3 aspectos da sua vida atual serão lembrados no futuro com profunda gratidão?"
+          ]
+        }
       }
     }
   },
@@ -58,7 +143,7 @@ export const SEMANAS = [
     trilha: {
       Ansiedade: {
         dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
+        dia2: { video: '2' },
         dia3: {},
         dia4: { insight: '' },
         dia5: { tracking: '' },

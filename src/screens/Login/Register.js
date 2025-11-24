@@ -15,7 +15,7 @@ import { spacing } from '../../theme/texts';
 
 export default function Register({ navigation, onChangeScreen }) {
   const { theme } = useTheme();
-  const { setUser } = useContext(AppContext); // Usa o setter do Provider
+  const { setUser } = useContext(AppContext);
   const styles = createStyles(theme);
   
   const [showInfo, setShowInfo] = useState(true);
@@ -58,11 +58,6 @@ export default function Register({ navigation, onChangeScreen }) {
   };
 
   const handleRegister = async () => {
-    if (!isFormValid) {
-      Alert.alert('Erro', 'Por favor, preencha todos os campos corretamente.');
-      return;
-    }
-
     setLoading(true);
     setErrorMessage('');
 
@@ -75,8 +70,11 @@ export default function Register({ navigation, onChangeScreen }) {
         plan: 'trial'
       };
 
+      console.log(userData,'data');
       const response = await api.cadastro(userData);
+      console.log(response, 'resp');
       
+
       if (response.access_token) {
         await tokenHelpers.save(response.access_token);
       }
