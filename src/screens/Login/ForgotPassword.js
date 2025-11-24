@@ -43,7 +43,7 @@ export default function ForgotPassword({ onChangeScreen }) {
       setTouched(false);
       setErrorMessage('');
     } else if (screenStage === 'NEW_PASSWORD') {
-      setCode(['', '', '', '']);
+      // ✅ NÃO limpa o código aqui, só o erro
       setErrorMessage('');
     }
   }, [screenStage]);
@@ -69,15 +69,20 @@ export default function ForgotPassword({ onChangeScreen }) {
     setErrorMessage('');
 
     try {
+      // ✅ CORREÇÃO: Enviar apenas o email
       await api.solicitarTempKey(email.toLowerCase().trim());
+      
       Alert.alert('Código Enviado', 'Verifique seu e-mail para o código de verificação.');
       goToStage('CODE');
       setTimeout(() => inputRefs[0].current?.focus(), 100);
     } catch (error) {
+      console.error('❌ Erro ao enviar código:', error);
+      
       let msg = 'Erro ao enviar código.';
       if (error.status === 401) msg = 'E-mail não encontrado.';
       else if (error.status === 429) msg = 'Muitas tentativas. Aguarde.';
       else if (error.status === 0) msg = 'Erro de conexão. Verifique sua internet.';
+      
       setErrorMessage(msg);
       Alert.alert('Erro', msg);
     } finally {
@@ -120,9 +125,13 @@ export default function ForgotPassword({ onChangeScreen }) {
     setErrorMessage('');
 
     try {
+      // ✅ CORREÇÃO: Enviar email e code separados
       await api.validarTempKey(email, fullCode);
+      
       goToStage('NEW_PASSWORD');
     } catch (error) {
+      console.error('❌ Erro ao verificar código:', error);
+      
       let msg = 'Código inválido.';
       if (error.status === 401 && error.message?.includes('expirado')) {
         msg = 'Código expirado. Solicite um novo código.';
@@ -153,11 +162,27 @@ export default function ForgotPassword({ onChangeScreen }) {
     setErrorMessage('');
 
     try {
-      await api.alterarSenhaComTempKey({
+      const fullCode = code.join('');
+      
+      // ✅ Validar se o código está presente
+      if (!fullCode || fullCode.length !== 4) {
+        Alert.alert('Erro', 'Código inválido. Por favor, volte e digite o código novamente.');
+        setLoading(false);
+        return;
+      }
+      
+      // ✅ CORREÇÃO: Enviar dados corretos
+      console.log('📤 Enviando reset de senha:', {
         email,
-        tempKey: code.join(''),
-        novaSenha: newPassword,
+        code: fullCode,
+        new_password: newPassword
       });
+      
+      await api.redefinirSenha(
+        email.toLowerCase().trim(),
+        fullCode,
+        newPassword
+      );
 
       Alert.alert(
         'Sucesso!',
@@ -165,10 +190,18 @@ export default function ForgotPassword({ onChangeScreen }) {
         [{ text: 'OK', onPress: () => onChangeScreen('SIGNIN') }]
       );
     } catch (error) {
+      console.error('❌ Erro ao alterar senha:', error);
+      
       let msg = 'Erro ao alterar senha.';
-      if (error.status === 401) msg = 'Código inválido ou expirado. Solicite um novo código.';
-      else if (error.status === 400) msg = 'Senha inválida. Verifique os requisitos.';
-      else if (error.status === 0) msg = 'Erro de conexão. Verifique sua internet.';
+      if (error.status === 401) {
+        msg = 'Código inválido ou expirado. Solicite um novo código.';
+      } else if (error.status === 400) {
+        msg = 'Senha inválida. Verifique os requisitos.';
+      } else if (error.status === 422) {
+        msg = 'Dados inválidos. Verifique email, código e senha.';
+      } else if (error.status === 0) {
+        msg = 'Erro de conexão. Verifique sua internet.';
+      }
 
       setErrorMessage(msg);
       Alert.alert('Erro', msg);

@@ -62,38 +62,40 @@ export default function Register({ navigation, onChangeScreen }) {
     setErrorMessage('');
 
     try {
+      // ✅ CORREÇÃO: Usar nomes corretos dos campos
       const userData = {
         login: formData.username.toLowerCase().trim(),
-        senha: formData.password,
+        password: formData.password,  // ← Era "senha", agora "password"
         email: formData.email.toLowerCase().trim(),
         tag: 'cliente',
         plan: 'trial'
       };
 
-      console.log(userData,'data');
+      console.log('📤 Enviando cadastro:', userData);
       const response = await api.cadastro(userData);
-      console.log(response, 'resp');
-      
+      console.log('✅ Resposta do cadastro:', response);
 
+      // Salvar tokens
       if (response.access_token) {
-        await tokenHelpers.save(response.access_token);
+        await tokenHelpers.save(response.access_token, response.refresh_token);
       }
 
-      // Salva no Provider (que salva automaticamente no storage)
+      // Salvar dados do usuário
       await setUser({
         login: response.user.login,
-        email: formData.email,
-        tag: userData.tag,
-        plan: userData.plan,
-        token_duration: response.token_duration,
-        expires: response.expires,
+        email: response.user.email,
+        tag: response.user.tag,
+        plan: response.user.plan,
       });
 
+      // Navegar para Home
       navigation.replace('Home');
+
     } catch (error) {
       console.error('❌ Erro no cadastro:', error);
 
       let errorMsg = 'Erro ao criar conta. Tente novamente.';
+      
       if (error.status === 400) {
         if (error.message.includes('Email')) {
           errorMsg = 'Email já está cadastrado.';
@@ -103,9 +105,9 @@ export default function Register({ navigation, onChangeScreen }) {
           errorMsg = error.message;
         }
       } else if (error.status === 429) {
-        errorMsg = 'Muitas tentativas. Aguarde um momento e tente novamente.';
+        errorMsg = 'Muitas tentativas. Aguarde um momento.';
       } else if (error.status === 0) {
-        errorMsg = 'Erro de conexão. Verifique sua internet e se o servidor está rodando.';
+        errorMsg = 'Erro de conexão. Verifique sua internet e se o backend está rodando.';
       }
 
       setErrorMessage(errorMsg);
@@ -218,10 +220,15 @@ export default function Register({ navigation, onChangeScreen }) {
 
         {errorMessage ? (
           <View style={styles.errorContainer}>
-            <Image style={styles.errorImg} source={require('../../../assets/icons/Exclamation.png')} />
+            <Image 
+              style={styles.errorImg} 
+              source={require('../../../assets/icons/Exclamation.png')} 
+            />
             <Text style={styles.errorText}>{errorMessage}</Text>
           </View>
-        ) : <View style={styles.space} />}
+        ) : (
+          <View style={styles.space} />
+        )}
 
         {loading ? (
           <View style={styles.loadingContainer}>

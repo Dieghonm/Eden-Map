@@ -10,10 +10,10 @@ const API_CONFIG = {
     web: 'http://localhost:8000',
     android: 'http://10.0.2.2:8000',
     ios: 'http://localhost:8000',
-    physical: 'http://192.168.1.101:8000', // Altere para seu IP local
+    physical: 'http://192.168.1.101:8000',
   },
   production: {
-    url: 'https://seu-app.onrender.com' // Altere para sua URL de produção
+    url: 'https://seu-app.onrender.com'
   }
 };
 
@@ -159,16 +159,19 @@ const authenticatedRequest = async (endpoint, options = {}) => {
 };
 
 // ============================================================================
-// API - AUTENTICAÇÃO
+// EXPORTAÇÃO PRINCIPAL - API UNIFICADA
 // ============================================================================
 
-export const authAPI = {
+export const api = {
+  // ===========================
+  // AUTENTICAÇÃO
+  // ===========================
+  
   /**
    * Cadastro de novo usuário
    * @param {Object} userData - { login, password, email, tag?, plan? }
    * @returns {Object} { access_token, refresh_token, user }
    */
-
   cadastro: async (userData) => {
     return apiRequest('/users/', {
       method: 'POST',
@@ -199,19 +202,17 @@ export const authAPI = {
       body: JSON.stringify({ refresh_token: refreshToken }),
     });
   },
-};
 
-// ============================================================================
-// API - RECUPERAÇÃO DE SENHA
-// ============================================================================
-
-export const passwordRecoveryAPI = {
+  // ===========================
+  // RECUPERAÇÃO DE SENHA
+  // ===========================
+  
   /**
    * Etapa 1: Solicitar código de recuperação
    * @param {string} email - Email do usuário
    * @returns {Object} { message, email }
    */
-  solicitarCodigo: async (email) => {
+  solicitarTempKey: async (email) => {
     return apiRequest('/auth/password-recovery/request', {
       method: 'POST',
       body: JSON.stringify({ email }),
@@ -224,7 +225,7 @@ export const passwordRecoveryAPI = {
    * @param {string} code - Código de 4 dígitos
    * @returns {Object} { message, email }
    */
-  verificarCodigo: async (email, code) => {
+  validarTempKey: async (email, code) => {
     return apiRequest('/auth/password-recovery/verify', {
       method: 'POST',
       body: JSON.stringify({ email, code }),
@@ -248,13 +249,16 @@ export const passwordRecoveryAPI = {
       }),
     });
   },
-};
 
-// ============================================================================
-// API - USUÁRIO (PRECISA SER CRIADA NO BACKEND)
-// ============================================================================
+  // Aliases antigos (compatibilidade)
+  alterarSenhaComTempKey: async (email, code, newPassword) => {
+    return api.redefinirSenha(email, code, newPassword);
+  },
 
-export const userAPI = {
+  // ===========================
+  // USUÁRIO
+  // ===========================
+  
   /**
    * Buscar dados do usuário autenticado
    * ⚠️ FALTA CRIAR NO BACKEND: GET /me
@@ -289,19 +293,17 @@ export const userAPI = {
       method: 'DELETE',
     });
   },
-};
 
-// ============================================================================
-// API - STARTING (ONBOARDING) - PRECISA SER CRIADA NO BACKEND
-// ============================================================================
-
-export const startingAPI = {
+  // ===========================
+  // STARTING (ONBOARDING)
+  // ===========================
+  
   /**
    * Buscar dados do Starting
    * ⚠️ FALTA CRIAR NO BACKEND: GET /me/starting
    * @returns {Object} Dados do Starting
    */
-  buscar: async () => {
+  buscarStarting: async () => {
     return authenticatedRequest('/me/starting', {
       method: 'GET',
     });
@@ -313,7 +315,7 @@ export const startingAPI = {
    * @param {Object} startingData - Dados do Starting
    * @returns {Object} Starting atualizado
    */
-  atualizar: async (startingData) => {
+  atualizarStarting: async (startingData) => {
     return authenticatedRequest('/me/starting', {
       method: 'PUT',
       body: JSON.stringify(startingData),
@@ -325,24 +327,22 @@ export const startingAPI = {
    * ⚠️ FALTA CRIAR NO BACKEND: DELETE /me/starting
    * @returns {Object} Confirmação
    */
-  resetar: async () => {
+  resetarStarting: async () => {
     return authenticatedRequest('/me/starting', {
       method: 'DELETE',
     });
   },
-};
 
-// ============================================================================
-// API - PROGRESSO - PRECISA SER CRIADA NO BACKEND
-// ============================================================================
-
-export const progressAPI = {
+  // ===========================
+  // PROGRESSO
+  // ===========================
+  
   /**
    * Buscar progresso do usuário
    * ⚠️ FALTA CRIAR NO BACKEND: GET /me/progress
    * @returns {Object} Dados de progresso
    */
-  buscar: async () => {
+  obterProgresso: async () => {
     return authenticatedRequest('/me/progress', {
       method: 'GET',
     });
@@ -354,19 +354,28 @@ export const progressAPI = {
    * @param {Object} progressData - Dados de progresso
    * @returns {Object} Progresso atualizado
    */
-  atualizar: async (progressData) => {
+  atualizarProgresso: async (progressData) => {
     return authenticatedRequest('/me/progress', {
       method: 'PUT',
       body: JSON.stringify(progressData),
     });
   },
-};
 
-// ============================================================================
-// API - CONTEÚDO - PRECISA SER CRIADA NO BACKEND
-// ============================================================================
+  /**
+   * Avançar dia
+   * ⚠️ FALTA CRIAR NO BACKEND: POST /me/progress/advance
+   * @returns {Object} Progresso atualizado
+   */
+  avancarDia: async () => {
+    return authenticatedRequest('/me/progress/advance', {
+      method: 'POST',
+    });
+  },
 
-export const contentAPI = {
+  // ===========================
+  // CONTEÚDO
+  // ===========================
+  
   /**
    * Listar semanas
    * ⚠️ FALTA CRIAR NO BACKEND: GET /content/weeks
@@ -401,56 +410,16 @@ export const contentAPI = {
       method: 'GET',
     });
   },
-};
 
-// ============================================================================
-// API - HEALTH CHECK
-// ============================================================================
-
-export const healthAPI = {
-  check: async () => {
+  // ===========================
+  // HEALTH CHECK
+  // ===========================
+  
+  health: async () => {
     return apiRequest('/health', {
       method: 'GET',
     });
   },
-};
-
-// ============================================================================
-// EXPORTAÇÃO PRINCIPAL (COMPATIBILIDADE COM CÓDIGO ANTIGO)
-// ============================================================================
-
-export const api = {
-  // Autenticação
-  cadastro: authAPI.cadastro,
-  login: authAPI.login,
-  refresh: authAPI.refresh,
-
-  // Recuperação de senha
-  solicitarTempKey: passwordRecoveryAPI.solicitarCodigo,
-  validarTempKey: passwordRecoveryAPI.verificarCodigo,
-  alterarSenhaComTempKey: passwordRecoveryAPI.redefinirSenha,
-
-  // Usuário
-  me: userAPI.me,
-  atualizarPerfil: userAPI.atualizarPerfil,
-  deletarConta: userAPI.deletarConta,
-
-  // Starting
-  atualizarStarting: startingAPI.atualizar,
-  resetarStarting: startingAPI.resetar,
-  buscarStarting: startingAPI.buscar,
-
-  // Progresso
-  buscarProgresso: progressAPI.buscar,
-  atualizarProgresso: progressAPI.atualizar,
-
-  // Conteúdo
-  listarSemanas: contentAPI.listarSemanas,
-  listarDias: contentAPI.listarDias,
-  buscarDia: contentAPI.buscarDia,
-
-  // Health
-  health: healthAPI.check,
 };
 
 export { BASE_URL };

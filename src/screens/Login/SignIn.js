@@ -14,7 +14,7 @@ import { spacing } from '../../theme/texts';
 
 export default function SignIn({ navigation, onChangeScreen }) {
   const { theme } = useTheme();
-  const { setUser } = useContext(AppContext); // Usa o setter do Provider
+  const { setUser } = useContext(AppContext);
   const styles = createStyles(theme);
 
   const [formData, setFormData] = useState({
@@ -29,42 +29,48 @@ export default function SignIn({ navigation, onChangeScreen }) {
     setErrorMessage('');
     
     try {
+      // ✅ CORREÇÃO: Backend espera { login, password }
       const credentials = {
-        email_ou_login: formData.email.toLowerCase().trim(),
-        senha: formData.password,
+        login: formData.email.toLowerCase().trim(),  // ← Era "email_ou_login"
+        password: formData.password,  // ← Era "senha"
       };
       
+      console.log('📤 Enviando login:', credentials);
       const response = await api.login(credentials);
+      console.log('✅ Resposta do login:', response);
       
+      // Salvar tokens
       if (response.access_token) {
-        await tokenHelpers.save(response.access_token);
+        await tokenHelpers.save(response.access_token, response.refresh_token);
       }
 
-      // Salva no Provider (que salva automaticamente no storage)
+      // Salvar dados do usuário no Provider
       await setUser({
         login: response.user.login,
         email: response.user.email || formData.email,
         tag: response.user.tag,
         plan: response.user.plan,
-        token_duration: response.token_duration,
-        expires: response.expires,
       });
 
+      // Navegar para Home
       navigation.replace('Home');
+
     } catch (error) {
       console.error('❌ Erro no login:', error);
 
       let errorMsg = 'Erro ao fazer login. Tente novamente.';
+      
       if (error.status === 401) {
-        errorMsg = 'Email ou senha incorretos.';
+        errorMsg = 'Login ou senha incorretos.';
       } else if (error.status === 429) {
         errorMsg = 'Muitas tentativas. Aguarde um momento.';
       } else if (error.status === 0) {
-        errorMsg = 'Erro de conexão. Verifique sua internet.';
+        errorMsg = 'Erro de conexão. Verifique sua internet e se o backend está rodando.';
       }
 
       setErrorMessage(errorMsg);
       Alert.alert('Erro no Login', errorMsg);
+
     } finally {
       setLoading(false);
     }
@@ -140,10 +146,15 @@ export default function SignIn({ navigation, onChangeScreen }) {
 
           {errorMessage ? (
             <View style={styles.errorContainer}>
-              <Image style={styles.errorImg} source={require('../../../assets/icons/Exclamation.png')} />
+              <Image 
+                style={styles.errorImg} 
+                source={require('../../../assets/icons/Exclamation.png')} 
+              />
               <Text style={styles.errorText}>{errorMessage}</Text>
             </View>
-          ) : <View style={styles.space} />}
+          ) : (
+            <View style={styles.space} />
+          )}
 
           {loading ? (
             <View style={styles.loadingContainer}>
