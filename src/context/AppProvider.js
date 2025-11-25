@@ -1,3 +1,4 @@
+// src/context/AppProvider.js - VERSÃO COM SINCRONIZAÇÃO
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import { storeData, getData, removeData } from '../utils/storage';
 import { api } from '../services/api';
@@ -13,13 +14,15 @@ export default function AppProvider({ children }) {
   const [selectedPath, setSelectedPathState] = useState(null);
   const [isStartingComplete, setIsStartingComplete] = useState(false);
   
-  const [progressoJornada, setProgressoJornadaState] = useState({
-    semana_atual: 1,
-    dia_atual: 1,
-    data_inicio: null,
-    historico: []
-  });
+  // ✅ Estados separados de progresso (conforme o backend)
+  const [semanaAtual, setSemanaAtual] = useState(1);
+  const [diaAtual, setDiaAtual] = useState(1);
+  const [progressoAtualizadoEm, setProgressoAtualizadoEm] = useState(null);
 
+  // ============================================================================
+  // INICIALIZAÇÃO
+  // ============================================================================
+  
   useEffect(() => {
     initializeApp();
   }, []);
@@ -27,60 +30,109 @@ export default function AppProvider({ children }) {
   const initializeApp = async () => {
     setIsLoading(true);
     
-    // Carrega dados do AsyncStorage
-    const userData = await getData('user');
-    const desireNameData = await getData('desireName');
-    const desireDescData = await getData('desireDescription');
-    const feelingsData = await getData('selectedFeelings');
-    const pathData = await getData('selectedPath');
-    const progressoData = await getData('progressoJornada');
-    
-    setUserState(userData || null);
-    setDesireNameState(desireNameData || '');
-    setDesireDescriptionState(desireDescData || '');
-    setSelectedFeelingsState(feelingsData || []);
-    setSelectedPathState(pathData || null);
-    
-    // ✨ CARREGA PROGRESSO
-    if (progressoData) {
-      setProgressoJornadaState(progressoData);
-    } else {
-      // Se não tem local, tenta buscar do backend
-      await sincronizarProgressoComBackend();
-    }
-    
-    // Inicializa chaves vazias se não existirem
-    if (!desireNameData) await storeData('desireName', '');
-    if (!desireDescData) await storeData('desireDescription', '');
-    if (!feelingsData) await storeData('selectedFeelings', []);
-    if (!pathData) await storeData('selectedPath', null);
-    if (!progressoData) await storeData('progressoJornada', {
-      semana_atual: 1,
-      dia_atual: 1,
-      data_inicio: null,
-      historico: []
-    });
-    
-    setIsLoading(false);
-  };
-
-  // ✨ NOVO: Sincroniza progresso com backend
-  const sincronizarProgressoComBackend = async () => {
     try {
-      const response = await api.obterProgresso();
+      // Carrega dados do AsyncStorage
+      const userData = await getData('user');
+      const desireNameData = await getData('desireName');
+      const desireDescData = await getData('desireDescription');
+      const feelingsData = await getData('selectedFeelings');
+      const pathData = await getData('selectedPath');
+      const semanaData = await getData('semanaAtual');
+      const diaData = await getData('diaAtual');
       
-      if (response.sucesso && response.progresso) {
-        const progresso = response.progresso;
-        setProgressoJornadaState(progresso);
-        await storeData('progressoJornada', progresso);
-        console.log('✅ Progresso sincronizado com backend:', progresso);
+      setUserState(userData || null);
+      setDesireNameState(desireNameData || '');
+      setDesireDescriptionState(desireDescData || '');
+      setSelectedFeelingsState(feelingsData || []);
+      setSelectedPathState(pathData || null);
+      setSemanaAtual(semanaData || 1);
+      setDiaAtual(diaData || 1);
+      
+      // ✅ Se tem usuário logado, sincroniza com backend
+      if (userData && userData.email) {
+        await sincronizarComBackend(userData.email);
       }
+      
     } catch (error) {
-      console.log('⚠️ Não foi possível sincronizar progresso:', error);
-      // Mantém o progresso padrão local
+      console.error('❌ Erro ao inicializar app:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  // ============================================================================
+  // SINCRONIZAÇÃO COM BACKEND
+  // ============================================================================
+  
+  /**
+   * ✅ Sincroniza TODOS os dados com o backend
+   * Busca selected_path, test_results e progress
+   */
+  const sincronizarComBackend = async (email) => {
+    try {
+      console.log('🔄 Sincronizando dados com backend...');
+      
+      const response = await api.buscarDadosUsuario(email);
+      
+      console.log('✅ Dados recebidos do backend:', response);
+      
+      // Atualizar selected_path
+      if (response.selected_path) {
+        setSelectedPathState(response.selected_path);
+        await storeData('selectedPath', response.selected_path);
+      }
+      
+      // Atualizar progresso
+      if (response.progress) {
+        const { semana, dia } = response.progress;
+        setSemanaAtual(semana || 1);
+        setDiaAtual(dia || 1);
+        await storeData('semanaAtual', semana || 1);
+        await storeData('diaAtual', dia || 1);
+      }
+      
+      // Atualizar timestamp
+      setProgressoAtualizadoEm(new Date().toISOString());
+      
+      console.log('✅ Sincronização completa');
+      
+    } catch (error) {
+      console.log('⚠️ Não foi possível sincronizar com backend:', error);
+      // Mantém os dados locais
+    }
+  };
+
+  /**
+   * ✅ Sincroniza apenas o progresso
+   */
+  const sincronizarProgressoComBackend = async () => {
+    if (!user || !user.email) {
+      console.log('⚠️ Usuário não está logado, não é possível sincronizar');
+      return;
+    }
+
+    try {
+      const response = await api.buscarDadosUsuario(user.email);
+      
+      if (response.progress) {
+        const { semana, dia } = response.progress;
+        setSemanaAtual(semana || 1);
+        setDiaAtual(dia || 1);
+        await storeData('semanaAtual', semana || 1);
+        await storeData('diaAtual', dia || 1);
+        setProgressoAtualizadoEm(new Date().toISOString());
+        console.log('✅ Progresso sincronizado:', { semana, dia });
+      }
+      
+    } catch (error) {
+      console.log('⚠️ Erro ao sincronizar progresso:', error);
+    }
+  };
+
+  // ============================================================================
+  // VERIFICAÇÃO DE COMPLETUDE
+  // ============================================================================
+  
   useEffect(() => {
     const complete = 
       desireName.trim().length > 0 && 
@@ -89,9 +141,18 @@ export default function AppProvider({ children }) {
     setIsStartingComplete(complete);
   }, [desireName, selectedFeelings, selectedPath]);
 
+  // ============================================================================
+  // SETTERS COM SINCRONIZAÇÃO
+  // ============================================================================
+  
   const setUser = useCallback(async (userData) => {
     setUserState(userData);
     await storeData('user', userData);
+    
+    // ✅ Ao fazer login, sincroniza dados
+    if (userData && userData.email) {
+      await sincronizarComBackend(userData.email);
+    }
   }, []);
 
   const setDesireName = useCallback(async (name) => {
@@ -112,84 +173,70 @@ export default function AppProvider({ children }) {
     await storeData('selectedFeelings', validFeelings);
   }, []);
 
+  /**
+   * ✅ Setter do selected_path COM SINCRONIZAÇÃO
+   */
   const setSelectedPath = useCallback(async (path) => {
     setSelectedPathState(path);
     await storeData('selectedPath', path);
-  }, []);
-
-  // ✨ NOVO: Setter do progresso
-  const setProgressoJornada = useCallback(async (progresso) => {
-    setProgressoJornadaState(progresso);
-    await storeData('progressoJornada', progresso);
     
-    // Tenta sincronizar com backend
-    try {
-      await api.atualizarProgresso({
-        semana_atual: progresso.semana_atual,
-        dia_atual: progresso.dia_atual
-      });
-      console.log('✅ Progresso salvo no backend');
-    } catch (error) {
-      console.log('⚠️ Erro ao salvar progresso no backend:', error);
+    // ✅ Sincroniza com backend
+    if (user && user.email && path) {
+      try {
+        await api.atualizarCaminho(user.email, path);
+        console.log('✅ Caminho salvo no backend:', path);
+      } catch (error) {
+        console.log('⚠️ Erro ao salvar caminho no backend:', error);
+      }
     }
-  }, []);
+  }, [user]);
 
-  // ✨ NOVO: Avançar dia automaticamente
+  /**
+   * ✅ Avançar dia COM SINCRONIZAÇÃO
+   */
   const avancarDia = useCallback(async () => {
-    try {
-      const response = await api.avancarDia();
-      
-      if (response.sucesso && response.progresso) {
-        setProgressoJornadaState(response.progresso);
-        await storeData('progressoJornada', response.progresso);
-        console.log('✅ Dia avançado:', response.progresso);
-        return response;
-      } else {
-        return response; // Jornada completa
-      }
-    } catch (error) {
-      console.error('❌ Erro ao avançar dia:', error);
-      
-      // Fallback: avança localmente
-      const { semana_atual, dia_atual } = progressoJornada;
-      let novaSemana = semana_atual;
-      let novoDia = dia_atual;
-      
-      if (dia_atual < 7) {
-        novoDia += 1;
-      } else if (semana_atual < 12) {
-        novaSemana += 1;
-        novoDia = 1;
-      } else {
-        return { sucesso: false, message: 'Jornada completa!' };
-      }
-      
-      const novoProgresso = {
-        ...progressoJornada,
-        semana_atual: novaSemana,
-        dia_atual: novoDia,
-        historico: [
-          ...progressoJornada.historico,
-          {
-            semana: novaSemana,
-            dia: novoDia,
-            data: new Date().toISOString(),
-            acao: 'avanco_local'
-          }
-        ]
-      };
-      
-      setProgressoJornadaState(novoProgresso);
-      await storeData('progressoJornada', novoProgresso);
-      
+    let novaSemana = semanaAtual;
+    let novoDia = diaAtual;
+    
+    // Lógica de avanço
+    if (diaAtual < 7) {
+      novoDia = diaAtual + 1;
+    } else if (semanaAtual < 12) {
+      novaSemana = semanaAtual + 1;
+      novoDia = 1;
+    } else {
       return {
-        sucesso: true,
-        message: `Avançado para Semana ${novaSemana}, Dia ${novoDia} (offline)`,
-        progresso: novoProgresso
+        sucesso: false,
+        message: '🎉 Parabéns! Você completou toda a jornada!'
       };
     }
-  }, [progressoJornada]);
+    
+    // Atualiza estado local
+    setSemanaAtual(novaSemana);
+    setDiaAtual(novoDia);
+    setProgressoAtualizadoEm(new Date().toISOString());
+    await storeData('semanaAtual', novaSemana);
+    await storeData('diaAtual', novoDia);
+    
+    // ✅ Sincroniza com backend
+    if (user && user.email) {
+      try {
+        await api.atualizarProgresso(user.email, novaSemana, novoDia);
+        console.log('✅ Progresso salvo no backend:', { novaSemana, novoDia });
+      } catch (error) {
+        console.log('⚠️ Erro ao salvar progresso no backend:', error);
+      }
+    }
+    
+    return {
+      sucesso: true,
+      message: `Avançado para Semana ${novaSemana}, Dia ${novoDia}`
+    };
+  }, [semanaAtual, diaAtual, user]);
 
+  /**
+   * ✅ Reiniciar jornada COM SINCRONIZAÇÃO
+   */
   const resetStarting = useCallback(async () => {
     const emptyName = '';
     const emptyDescription = '';
@@ -200,27 +247,46 @@ export default function AppProvider({ children }) {
     setDesireDescriptionState(emptyDescription);
     setSelectedFeelingsState(emptyFeelings);
     setSelectedPathState(emptyPath);
-    
-    await new Promise(resolve => setTimeout(resolve, 0));
+    setSemanaAtual(1);
+    setDiaAtual(1);
     
     await storeData('desireName', emptyName);
     await storeData('desireDescription', emptyDescription);
     await storeData('selectedFeelings', emptyFeelings);
     await storeData('selectedPath', emptyPath);
+    await storeData('semanaAtual', 1);
+    await storeData('diaAtual', 1);
+    
+    // ✅ Reseta também no backend
+    if (user && user.email) {
+      try {
+        await api.atualizarCaminho(user.email, null);
+        await api.atualizarProgresso(user.email, 1, 1);
+        console.log('✅ Jornada resetada no backend');
+      } catch (error) {
+        console.log('⚠️ Erro ao resetar jornada no backend:', error);
+      }
+    }
     
     return true;
-  }, []);
+  }, [user]);
 
   const resetUser = useCallback(async () => {
     setUserState(null);
     await removeData('user');
   }, []);
 
+  // ============================================================================
+  // PROVIDER
+  // ============================================================================
+  
   const value = {
     isLoading,
     user,
     setUser,
     resetUser,
+    
+    // Starting
     desireName,
     desireDescription,
     selectedFeelings,
@@ -231,11 +297,17 @@ export default function AppProvider({ children }) {
     setSelectedFeelings,
     setSelectedPath,
     resetStarting,
-    initializeApp,
-    progressoJornada,
-    setProgressoJornada,
+    
+    // Progresso (campos separados)
+    semanaAtual,
+    diaAtual,
+    progressoAtualizadoEm,
     avancarDia,
+    
+    // Sincronização
+    sincronizarComBackend,
     sincronizarProgressoComBackend,
+    initializeApp,
   };
 
   return (

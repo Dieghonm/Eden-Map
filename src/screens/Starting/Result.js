@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+// src/screens/Starting/Results.js - VERSÃO CORRIGIDA
+import React, { useState, useContext } from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
@@ -25,15 +26,31 @@ export default function Result({ results, onNext, onRetake }) {
     try {
       setEnviandoDados(true);
 
-      const testeResultados = {};
+      // ✅ CORREÇÃO: Preparar objeto correto
+      const testResults = {
+        Ansiedade: 0,
+        Atenção_Plena: 0,
+        Autoimagem: 0,
+        Motivação: 0,
+        Relacionamentos: 0
+      };
+
+      // Preencher com os valores reais
       Results.forEach(result => {
-        testeResultados[result.name] = result.percentage;
+        // Converter nome do caminho para formato do backend
+        const key = result.name === 'Atenção Plena' 
+          ? 'Atenção_Plena' 
+          : result.name;
+        testResults[key] = result.percentage;
       });
 
-      const response = await api.atualizarTestResults({
-        email:user.email,
-        test_results: testeResultados
-      });
+      console.log('📤 Enviando test_results:', testResults);
+
+      // ✅ CORREÇÃO: Passar parâmetros separados
+      const response = await api.atualizarTestResults(
+        user.email,
+        testResults
+      );
 
       console.log('✅ Resultados do teste salvos:', response);
       return true;
@@ -42,11 +59,18 @@ export default function Result({ results, onNext, onRetake }) {
       console.error('❌ Erro ao salvar resultados:', error);
       
       Alert.alert(
-        'Erro',
-        'Não foi possível salvar os resultados do teste. Você pode continuar, mas os dados não serão salvos.',
+        'Erro ao Salvar',
+        'Não foi possível salvar os resultados do teste. Você pode continuar, mas os dados não serão salvos no servidor.',
         [
-          { text: 'Continuar Mesmo Assim', style: 'default' },
-          { text: 'Tentar Novamente', onPress: () => enviarResultadosTeste() }
+          { 
+            text: 'Continuar Mesmo Assim', 
+            style: 'default',
+            onPress: () => {} 
+          },
+          { 
+            text: 'Tentar Novamente', 
+            onPress: () => enviarResultadosTeste() 
+          }
         ]
       );
       
@@ -56,15 +80,11 @@ export default function Result({ results, onNext, onRetake }) {
     }
   };
 
-  /**
-   * ✨ HANDLER PARA SELECIONAR CAMINHO
-   * Envia os resultados do teste antes de prosseguir
-   */
   const handlePathSelection = async (pathName) => {
-    // Primeiro, salva os resultados do teste
-    const sucesso = await enviarResultadosTeste();
+    // Salva os resultados do teste antes de prosseguir
+    await enviarResultadosTeste();
     
-    // Continua mesmo se falhar (usuário decidiu)
+    // Continua para a próxima tela
     onNext(pathName);
   };
 
@@ -98,7 +118,9 @@ export default function Result({ results, onNext, onRetake }) {
       </View>
 
       {enviandoDados && (
-        <Text style={styles.subtitle}>Salvando resultados...</Text>
+        <View style={{ alignItems: 'center', marginVertical: 10 }}>
+          <Text style={styles.subtitle}>Salvando resultados...</Text>
+        </View>
       )}
 
       <ButtonPrimary

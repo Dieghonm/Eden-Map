@@ -297,7 +297,7 @@ export const api = {
     return apiRequest('/users/test-results', {
       method: 'PUT',
       body: JSON.stringify({ 
-        email,
+        email: email,
         test_results: testResults
       }),
     });
