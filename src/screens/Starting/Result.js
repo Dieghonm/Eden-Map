@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
+import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Starting/Result';
 import { CAMINHOS } from '../../../assets/json/Sentimentos';
 import ButtonPrimary from '../../components/ButtonPrimary';
@@ -9,10 +10,10 @@ import { api } from '../../services/api';
 export default function Result({ results, onNext, onRetake }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
+  const { user } = useContext(AppContext);
   
   const [enviandoDados, setEnviandoDados] = useState(false);
 
-  // Ordenar resultados por porcentagem (maior primeiro)
   const Results = Object.entries(results)
     .map(([name, percentage]) => {
       const caminho = CAMINHOS.find(c => c.nome === name);
@@ -20,21 +21,18 @@ export default function Result({ results, onNext, onRetake }) {
     })
     .sort((a, b) => b.percentage - a.percentage);
 
-  /**
-   * ✨ ENVIAR RESULTADOS DO TESTE PARA O BACKEND
-   */
   const enviarResultadosTeste = async () => {
     try {
       setEnviandoDados(true);
-      
-      // Formatar resultados para o backend
+
       const testeResultados = {};
       Results.forEach(result => {
         testeResultados[result.name] = result.percentage;
       });
 
-      const response = await api.atualizarStarting({
-        teste_resultados: testeResultados
+      const response = await api.atualizarTestResults({
+        email:user.email,
+        test_results: testeResultados
       });
 
       console.log('✅ Resultados do teste salvos:', response);

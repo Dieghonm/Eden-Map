@@ -1,3 +1,4 @@
+// src/services/api.js
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 
@@ -250,47 +251,19 @@ export const api = {
     });
   },
 
-  // Aliases antigos (compatibilidade)
-  alterarSenhaComTempKey: async (email, code, newPassword) => {
-    return api.redefinirSenha(email, code, newPassword);
-  },
-
   // ===========================
-  // USUÁRIO
+  // USUÁRIO - DADOS COMPLETOS
   // ===========================
   
   /**
-   * Buscar dados do usuário autenticado
-   * ⚠️ FALTA CRIAR NO BACKEND: GET /me
-   * @returns {Object} Dados completos do usuário
+   * ✅ Buscar todos os dados do usuário usando email
+   * @param {string} email - Email do usuário
+   * @returns {Object} { user_id, login, email, selected_path, test_results, progress }
    */
-  me: async () => {
-    return authenticatedRequest('/me', {
-      method: 'GET',
-    });
-  },
-
-  /**
-   * Atualizar dados do usuário
-   * ⚠️ FALTA CRIAR NO BACKEND: PUT /me
-   * @param {Object} userData - Dados a serem atualizados
-   * @returns {Object} Usuário atualizado
-   */
-  atualizarPerfil: async (userData) => {
-    return authenticatedRequest('/me', {
-      method: 'PUT',
-      body: JSON.stringify(userData),
-    });
-  },
-
-  /**
-   * Deletar conta do usuário
-   * ⚠️ FALTA CRIAR NO BACKEND: DELETE /me
-   * @returns {Object} Confirmação
-   */
-  deletarConta: async () => {
-    return authenticatedRequest('/me', {
-      method: 'DELETE',
+  buscarDadosUsuario: async (email) => {
+    return apiRequest('/users/data', {
+      method: 'POST',
+      body: JSON.stringify({ email }),
     });
   },
 
@@ -299,115 +272,54 @@ export const api = {
   // ===========================
   
   /**
-   * Buscar dados do Starting
-   * ⚠️ FALTA CRIAR NO BACKEND: GET /me/starting
-   * @returns {Object} Dados do Starting
+   * ✅ Atualizar selected_path
+   * @param {string} email - Email do usuário
+   * @param {string} selectedPath - Caminho selecionado (Ansiedade, Atenção Plena, etc)
+   * @returns {Object} Confirmação da atualização
    */
-  buscarStarting: async () => {
-    return authenticatedRequest('/me/starting', {
-      method: 'GET',
-    });
-  },
-
-  /**
-   * Atualizar dados do Starting
-   * ⚠️ FALTA CRIAR NO BACKEND: PUT /me/starting
-   * @param {Object} startingData - Dados do Starting
-   * @returns {Object} Starting atualizado
-   */
-  atualizarStarting: async (startingData) => {
-    return authenticatedRequest('/me/starting', {
+  atualizarCaminho: async (email, selectedPath) => {
+    return apiRequest('/users/selected-path', {
       method: 'PUT',
-      body: JSON.stringify(startingData),
+      body: JSON.stringify({ 
+        email, 
+        selected_path: selectedPath 
+      }),
     });
   },
 
   /**
-   * Resetar Starting
-   * ⚠️ FALTA CRIAR NO BACKEND: DELETE /me/starting
-   * @returns {Object} Confirmação
+   * ✅ Atualizar test_results
+   * @param {string} email - Email do usuário
+   * @param {Object} testResults - Resultados do teste { Ansiedade: 20, Atenção_Plena: 20, ... }
+   * @returns {Object} Confirmação da atualização
    */
-  resetarStarting: async () => {
-    return authenticatedRequest('/me/starting', {
-      method: 'DELETE',
-    });
-  },
-
-  // ===========================
-  // PROGRESSO
-  // ===========================
-  
-  /**
-   * Buscar progresso do usuário
-   * ⚠️ FALTA CRIAR NO BACKEND: GET /me/progress
-   * @returns {Object} Dados de progresso
-   */
-  obterProgresso: async () => {
-    return authenticatedRequest('/me/progress', {
-      method: 'GET',
-    });
-  },
-
-  /**
-   * Atualizar progresso
-   * ⚠️ FALTA CRIAR NO BACKEND: PUT /me/progress
-   * @param {Object} progressData - Dados de progresso
-   * @returns {Object} Progresso atualizado
-   */
-  atualizarProgresso: async (progressData) => {
-    return authenticatedRequest('/me/progress', {
+  atualizarTestResults: async (email, testResults) => {
+    return apiRequest('/users/test-results', {
       method: 'PUT',
-      body: JSON.stringify(progressData),
+      body: JSON.stringify({ 
+        email,
+        test_results: testResults
+      }),
     });
   },
 
   /**
-   * Avançar dia
-   * ⚠️ FALTA CRIAR NO BACKEND: POST /me/progress/advance
-   * @returns {Object} Progresso atualizado
+   * ✅ Atualizar progresso (semana e dia)
+   * @param {string} email - Email do usuário
+   * @param {number} semana - Semana atual (1-12)
+   * @param {number} dia - Dia atual (1-7)
+   * @returns {Object} { message, user_id, email, progress, progress_updated_at }
    */
-  avancarDia: async () => {
-    return authenticatedRequest('/me/progress/advance', {
-      method: 'POST',
-    });
-  },
-
-  // ===========================
-  // CONTEÚDO
-  // ===========================
-  
-  /**
-   * Listar semanas
-   * ⚠️ FALTA CRIAR NO BACKEND: GET /content/weeks
-   * @returns {Array} Lista de semanas
-   */
-  listarSemanas: async () => {
-    return authenticatedRequest('/content/weeks', {
-      method: 'GET',
-    });
-  },
-
-  /**
-   * Listar dias de uma semana
-   * ⚠️ FALTA CRIAR NO BACKEND: GET /content/weeks/{week_id}/days
-   * @param {number} weekId - ID da semana
-   * @returns {Array} Lista de dias
-   */
-  listarDias: async (weekId) => {
-    return authenticatedRequest(`/content/weeks/${weekId}/days`, {
-      method: 'GET',
-    });
-  },
-
-  /**
-   * Buscar conteúdo de um dia
-   * ⚠️ FALTA CRIAR NO BACKEND: GET /content/days/{day_id}
-   * @param {number} dayId - ID do dia
-   * @returns {Object} Conteúdo do dia
-   */
-  buscarDia: async (dayId) => {
-    return authenticatedRequest(`/content/days/${dayId}`, {
-      method: 'GET',
+  atualizarProgresso: async (email, semana, dia) => {
+    return apiRequest('/users/progress', {
+      method: 'PUT',
+      body: JSON.stringify({ 
+        email,
+        progress: {
+          semana,
+          dia
+        }
+      }),
     });
   },
 

@@ -8,6 +8,7 @@ export const SENTIMENTOS = [
   { id: 7, nome: 'Sensualidade', color: '#F552BF' }
 ];
 
+
 export const CAMINHOS = [
   { 
     id: 1, 

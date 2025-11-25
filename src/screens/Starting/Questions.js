@@ -35,7 +35,6 @@ export default function Questions({ onComplete }) {
     }));
 
     if (currentQuestion === totalQuestions) {
-      // Finaliza e chama o callback com os resultados normalizados
       const finalAnswers = {
         ...answers,
         [sentimento]: (answers[sentimento] || 0) + selectedOption,

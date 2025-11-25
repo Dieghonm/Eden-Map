@@ -1,5 +1,3 @@
-// src/context/AppProvider.js - ADICIONAR PROGRESSO
-
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import { storeData, getData, removeData } from '../utils/storage';
 import { api } from '../services/api';
@@ -15,7 +13,6 @@ export default function AppProvider({ children }) {
   const [selectedPath, setSelectedPathState] = useState(null);
   const [isStartingComplete, setIsStartingComplete] = useState(false);
   
-  // ✨ NOVO: Estado do progresso
   const [progressoJornada, setProgressoJornadaState] = useState({
     semana_atual: 1,
     dia_atual: 1,
@@ -235,7 +232,6 @@ export default function AppProvider({ children }) {
     setSelectedPath,
     resetStarting,
     initializeApp,
-    // ✨ NOVO: Progresso
     progressoJornada,
     setProgressoJornada,
     avancarDia,

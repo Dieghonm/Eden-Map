@@ -1,5 +1,3 @@
-// src/screens/Starting/PathDetail.js - VERSÃO CAMPOS SEPARADOS
-
 import React, { useContext } from 'react';
 import { View, Text, Alert, ActivityIndicator } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
@@ -13,30 +11,18 @@ import Img from '../../components/Img';
 export default function PathDetail({ selectedPathName, onConfirm, onBack }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
-  
-  // ✨ Pegar setProgresso do contexto
   const { setProgresso } = useContext(AppContext);
   const [salvandoProgresso, setSalvandoProgresso] = React.useState(false);
-
   const pathData = CAMINHOS.find(c => c.nome === selectedPathName);
 
   if (!pathData) return null;
-
-  // ✨ Handler para confirmar caminho E inicializar progresso (Semana 1, Dia 1)
   const handleConfirmPath = async () => {
     setSalvandoProgresso(true);
-
     try {
-      // Inicializa progresso: Semana 1, Dia 1
       await setProgresso(1, 1);
-
-      console.log('✅ Progresso inicial salvo: Semana 1, Dia 1');
-
-      // Chama callback original
       if (onConfirm) {
         onConfirm();
       }
-
     } catch (error) {
       console.error('❌ Erro ao salvar progresso inicial:', error);
 
