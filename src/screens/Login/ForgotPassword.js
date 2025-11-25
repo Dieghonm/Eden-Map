@@ -183,12 +183,8 @@ export default function ForgotPassword({ onChangeScreen }) {
         fullCode,
         newPassword
       );
-
-      Alert.alert(
-        'Sucesso!',
-        'Senha alterada com sucesso. Faça login com sua nova senha.',
-        [{ text: 'OK', onPress: () => onChangeScreen('SIGNIN') }]
-      );
+      onChangeScreen('SIGNIN') 
+      
     } catch (error) {
       console.error('❌ Erro ao alterar senha:', error);
       

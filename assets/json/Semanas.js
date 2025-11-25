@@ -3,713 +3,146 @@ export const SEMANAS = [
     "id": 1,
     "nome": "A entrada",
     "img": "https://i.imgur.com/1CbUzFS.jpeg",
-    "trilha": {
-      "Ansiedade": {
-        "dia1": {
-          "Descrição_Cena1": "Descreva uma memória em que você sentiu orgulho genuíno de si mesmo?",
-          "Descrição_Cena2": "Qual lembrança da infância traz felicidade e ainda guarda significado em você?"
-        },
-        "dia2": {
-          "video": "Tópico - ???"
-        },
-        "dia3": {},
-        "dia4": {
-          "missao": "Vestindo o eu ideal - Coloque uma roupa que faça você se sentir confiante."
-        },
-        "dia5": {
-          "tracking": [
-            "Positivos",
-            "Eu sinto que tudo ao meu redor está conspirando a favor da concretização do meu desejo. (luz)"
-          ]
-        },
-        "dia6": {},
-        "dia7": {
-          "perguntas": [
-            "luz",
-            "Quais 3 aspectos da sua vida atual serão lembrados no futuro com profunda gratidão?"
-          ]
-        }
-      },
-      "Autoimagem": {
-        "dia1": {
-          "Descrição_Cena1": "Qual momento da sua rotina mostra você totalmente presente e focado?",
-          "Descrição_Cena2": "Qual lembrança antiga mostra você imerso no momento, curioso e atento ao redor?"
-        },
-        "dia2": {
-          "video": "Tópico - ???"
-        },
-        "dia3": {},
-        "dia4": {
-          "missao": "Abraço da Natureza - Reservar um momento nesta semana para estar ao ar livre, em contato com a natureza."
-        },
-        "dia5": {
-          "tracking": [
-            "Positivos",
-            "Eu sinto que tudo ao meu redor está conspirando a favor da concretização do meu desejo. (luz)"
-          ]
-        },
-        "dia6": {},
-        "dia7": {
-          "perguntas": [
-            "luz",
-            "Quais 3 aspectos da sua vida atual serão lembrados no futuro com profunda gratidão?"
-          ]
-        }
-      },
-      "Atenção_Plenas": {
-        "dia1": {
-          "Descrição_Cena1": "Reviva uma lembrança de alegria compartilhada com alguém especial.",
-          "Descrição_Cena2": "Relembre uma oportunidade que alguém te ofereceu e transformou seu caminho."
-        },
-        "dia2": {
-          "video": "Tópico - ???"
-        },
-        "dia3": {},
-        "dia4": {
-          "missao": "Ritmo Sereno - Essa semana converse e se movimente de forma lenta em comparação às pessoas ao seu redor. Isso o manterá relaxado."
-        },
-        "dia5": {
-          "tracking": [
-            "Positivos",
-            "Eu sinto que tudo ao meu redor está conspirando a favor da concretização do meu desejo. (luz)"
-          ]
-        },
-        "dia6": {},
-        "dia7": {
-          "perguntas": [
-            "luz",
-            "Quais 3 aspectos da sua vida atual serão lembrados no futuro com profunda gratidão?"
-          ]
-        }
-      },
-      "Motivação": {
-        "dia1": {
-          "Descrição_Cena1": "Imagine uma lembrança em que você se sentiu profundamente motivado e cheio de energia interior.",
-          "Descrição_Cena2": "Visualize-se em uma cena futura em que age com foco, confiança e determinação total."
-        },
-        "dia2": {
-          "video": "Tópico - ???"
-        },
-        "dia3": {},
-        "dia4": {
-          "missao": "Chama da Inspiração - Veja um filme que reacenda sua motivação para ir atrás do que deseja."
-        },
-        "dia5": {
-          "tracking": [
-            "Positivos",
-            "Eu sinto que tudo ao meu redor está conspirando a favor da concretização do meu desejo. (luz)"
-          ]
-        },
-        "dia6": {},
-        "dia7": {
-          "perguntas": [
-            "luz",
-            "Quais 3 aspectos da sua vida atual serão lembrados no futuro com profunda gratidão?"
-          ]
-        }
-      },
-      "Relacionamentos": {
-        "dia1": {
-          "Descrição_Cena1": "Imagine uma cena do passado em que você se sentiu leve, tranquilo e confiante no fluxo da vida.",
-          "Descrição_Cena2": "Visualize um momento em que o medo se dissolveu e você agiu com calma, clareza e coragem."
-        },
-        "dia2": {
-          "video": "Tópico - ???"
-        },
-        "dia3": {},
-        "dia4": {
-          "missao": "Centelha Viva - Seja a fonte de entusiasmo e motivação para as pessoas com quem convive."
-        },
-        "dia5": {
-          "tracking": [
-            "Positivos",
-            "Eu sinto que tudo ao meu redor está conspirando a favor da concretização do meu desejo. (luz)"
-          ]
-        },
-        "dia6": {},
-        "dia7": {
-          "perguntas": [
-            "luz",
-            "Quais 3 aspectos da sua vida atual serão lembrados no futuro com profunda gratidão?"
-          ]
-        }
-      }
-    }
   },
   {
     id: 2,
     nome: 'O campo',
     img: 'https://i.imgur.com/dYI3ztz.jpeg',
-    trilha: {
-      Ansiedade: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '2' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Autoimagem: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Atenção_Plenas: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Motivação: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Relacionamentos: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      }
-    }
   },
   {
     id: 3,
     nome: 'O lago',
     img: 'https://i.imgur.com/Ith8HA7.png',
-    trilha: {
-      Ansiedade: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Autoimagem: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Atenção_Plenas: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Motivação: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Relacionamentos: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      }
-    }
   },
   {
     id: 4,
     nome: 'O deserto',
     img: 'https://i.imgur.com/duAnW3g.png',
-    trilha: {
-      Ansiedade: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Autoimagem: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Atenção_Plenas: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Motivação: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Relacionamentos: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      }
-    }
   },
   {
     id: 5,
     nome: 'O pântano',
     img: 'https://i.imgur.com/MHVXFS1.jpeg',
-    trilha: {
-      Ansiedade: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Autoimagem: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Atenção_Plenas: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Motivação: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Relacionamentos: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      }
-    }
   },
   {
     id: 6,
     nome: 'A floresta',
     img: 'https://i.imgur.com/fPtZAvz.jpeg',
-    trilha: {
-      Ansiedade: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Autoimagem: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Atenção_Plenas: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Motivação: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Relacionamentos: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      }
-    }
   },
   {
     id: 7,
     nome: 'A subida',
     img: 'https://i.imgur.com/4vnVbsn.jpeg',
-    trilha: {
-      Ansiedade: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Autoimagem: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Atenção_Plenas: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Motivação: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Relacionamentos: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      }
-    }
   },
   {
     id: 8,
     nome: 'A colina',
     img: 'https://i.imgur.com/Ptoczae.jpeg',
-    trilha: {
-      Ansiedade: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Autoimagem: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Atenção_Plenas: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Motivação: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Relacionamentos: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      }
-    }
   },
   {
     id: 9,
     nome: 'O jardim',
     img: 'https://i.imgur.com/mxbJEw7.jpeg',
-    trilha: {
-      Ansiedade: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Autoimagem: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Atenção_Plenas: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Motivação: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Relacionamentos: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      }
-    }
   },
   {
     id: 10,
     nome: 'O bosque',
     img: 'https://i.imgur.com/ZylYl9r.jpeg',
-    trilha: {
-      Ansiedade: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Autoimagem: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Atenção_Plenas: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Motivação: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Relacionamentos: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      }
-    }
   },
   {
     id: 11,
     nome: 'A praia',
     img: 'https://i.imgur.com/DZxkQ34.jpeg',
-    trilha: {
-      Ansiedade: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Autoimagem: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Atenção_Plenas: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Motivação: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Relacionamentos: {
-        dia1: { video: 'introducao' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { missao: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      }
-    }
   },
   {
     id: 12,
     nome: 'O pico',
     img: 'https://i.imgur.com/MjfjsUN.jpeg',
-    trilha: {
-      Ansiedade: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Autoimagem: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Atenção_Plenas: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Motivação: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      },
-      Relacionamentos: {
-        dia1: { Descrição_Cena: '' },
-        dia2: { video: '' },
-        dia3: {},
-        dia4: { insight: '' },
-        dia5: { tracking: '' },
-        dia6: { musica: '' },
-        dia7: { perguntas: '' }
-      }
-    }
   }
 ];
 
+export const CALENDAR = [
+  {id: 1, exercicio: "DESCRICAOCENA"},
+  {id: 2, exercicio: "VIDEOS"},
+  {id: 3, exercicio: ""},
+  {id: 4, exercicio: "MISSAO"},
+  {id: 5, exercicio: "tracking"},
+  {id: 6, exercicio: ""},
+  {id: 7, exercicio: "perguntas"}
+]
+
+export const DESCRICAOCENA = {
+  "Autoimagem": [
+    { "id": 1, "Cena 1": "Descreva uma memória em que você sentiu orgulho genuíno de si mesmo?", "Cena 2": "Qual lembrança da infância traz felicidade e ainda tem um significado para você?" },
+    { "id": 2, "Cena 1": "Qual momento recente fez você sentir uma gratidão verdadeira e simples?", "Cena 2": "Que lembrança antiga desperta em você um sentimento profundo de gratidão?" },
+    { "id": 3, "Cena 1": "Em que momento da sua vida você se sentiu mais autêntico?", "Cena 2": "Qual é um ambiente em que você se sente totalmente você mesmo?" },
+    { "id": 4, "Cena 1": "Qual momento recente vem à mente em que você sentiu gratidão sincera?", "Cena 2": "Como é a cena do seu desejo realizado, com você sentindo gratidão por isso?" },
+    { "id": 5, "Cena 1": "Qual momento vem à mente em que você se sentiu inseguro ou insatisfeito?" },
+    { "id": 6 },
+    { "id": 7 },
+    { "id": 8, "Cena 1": "Qual cena o medo te paralisa e tudo parece dar errado ao tentar realizar seu desejo?" },
+    { "id": 9, "Cena 1": "Imagine uma cena do seu eu ideal vivendo o dia a dia.", "Cena 2": "Qual cena mostra você dando um passo importante em direção ao seu desejo realizado?" },
+    { "id": 10, "Cena 1": "Como seria o momento exato em que o seu desejo acabou de se realizar?" },
+    { "id": 11, "Cena 1": "Como seria viver a cena do desejo realizado com gratidão, confiança e presença total?", "Cena 2": "Imagine seu eu ideal, vivendo o momento em que seu desejo acabou de se concretizar." },
+    { "id": 12, "Cena 1": "Como você se imagina no instante em que seu desejo finalmente se realiza?" }
+  ],
+  "Atencao_Plena": [
+    { "id": 1, "Cena 1": "Qual momento da sua rotina mostra você totalmente presente e focado?", "Cena 2": "Qual lembrança antiga mostra você imerso no momento, curioso e atento ao redor?" },
+    { "id": 2, "Cena 1": "Qual momento recente fez você sentir uma gratidão verdadeira e simples?", "Cena 2": "Que lembrança antiga desperta em você um sentimento profundo de gratidão?" },
+    { "id": 3, "Cena 1": "Qual momento simples, futuro, você gostaria de viver com total foco e presença?", "Cena 2": "Imagine-se em um contexto ou local em que você se sente calmo e presente." },
+    { "id": 4, "Cena 1": "Qual momento recente vem à mente em que você sentiu gratidão sincera?", "Cena 2": "Como é a cena do seu desejo realizado, com você sentindo gratidão por isso?" },
+    { "id": 5, "Cena 1": "Qual lembrança mostra você distraído, perdendo o foco e se sentindo desconectado?" },
+    { "id": 6 },
+    { "id": 7, "Cena 1": "Qual lembrança de tédio ou distração mostra você fugindo do presente?" },
+    { "id": 8, "Cena 1": "Qual cena o medo te paralisa e tudo parece dar errado ao tentar realizar seu desejo?" },
+    { "id": 9 },
+    { "id": 10, "Cena 1": "Como seria o momento exato em que o seu desejo acabou de se realizar?" },
+    { "id": 11 },
+    { "id": 12, "Cena 1": "Como você se imagina no instante em que seu desejo finalmente se realiza?" }
+  ],
+  "Relacionamentos": [
+    { "id": 1, "Cena 1": "Reviva uma lembrança de alegria compartilhada com alguém especial.", "Cena 2": "Relembre uma oportunidade que alguém te ofereceu e transformou seu caminho." },
+    { "id": 2, "Cena 1": "Qual momento recente fez você sentir uma gratidão verdadeira e simples?", "Cena 2": "Que lembrança antiga desperta em você um sentimento profundo de gratidão?" },
+    { "id": 3, "Cena 1": "Qual momento fez você se sentir em sintonia com alguém, com leveza e compreensão?", "Cena 2": "Qual lembrança mostra quando você confiou em alguém e pôde ser autêntico, sem máscaras?" },
+    { "id": 4, "Cena 1": "Qual momento recente vem à mente em que você sentiu gratidão sincera?", "Cena 2": "Como é a cena do seu desejo realizado, com você sentindo gratidão por isso?" },
+    { "id": 5, "Cena 1": "Qual lembrança traz a sensação de ter sido julgado, mal interpretado ou isolado?" },
+    { "id": 6 },
+    { "id": 7, "Cena 1": "Qual é uma lembrança em que você julgou ou se fechou para alguém?" },
+    { "id": 8, "Cena 1": "Qual cena o medo te paralisa e tudo parece dar errado ao tentar realizar seu desejo?" },
+    { "id": 9, "Cena 1": "Com quem do passado você gostaria de se reconectar, e qual cena vem à mente?", "Cena 2": "Como seria um encontro com alguém que apoia seu desejo, trazendo confiança e sintonia?" },
+    { "id": 10, "Cena 1": "Como seria o momento exato em que o seu desejo acabou de se realizar?" },
+    { "id": 11, "Cena 1": "Como seria viver a cena do desejo realizado com gratidão, confiança e presença total?" },
+    { "id": 12, "Cena 1": "Como você se imagina no instante em que seu desejo finalmente se realiza?" }
+  ],
+  "Motivacao": [
+    { "id": 1, "Cena 1": "Imagine uma lembrança em que você se sentiu profundamente motivado e cheio de energia interior.", "Cena 2": "Visualize-se em uma cena futura em que age com foco, confiança e determinação total." },
+    { "id": 2, "Cena 1": "Qual momento recente fez você sentir uma gratidão verdadeira e simples?", "Cena 2": "Que lembrança antiga desperta em você um sentimento profundo de gratidão?" },
+    { "id": 3, "Cena 1": "Qual lembrança da sua rotina fez você se sentir mais vivo, motivado e cheio de energia?", "Cena 2": "Como seria uma cena simples do seu dia vivida com foco, confiança e motivação?" },
+    { "id": 4, "Cena 1": "Qual momento recente vem à mente em que você sentiu gratidão sincera?", "Cena 2": "Como é a cena do seu desejo realizado, com você sentindo gratidão por isso?" },
+    { "id": 5, "Cena 1": "Qual lembrança traz a sensação de cansaço, falta de energia ou motivação para agir?" },
+    { "id": 6 },
+    { "id": 7, "Cena 1": "Qual lembrança mostra você perdendo motivação e começando a duvidar do desejo?" },
+    { "id": 8, "Cena 1": "Qual cena o medo te paralisa e tudo parece dar errado ao tentar realizar seu desejo?" },
+    { "id": 9, "Cena 1": "Veja-se em um momento futuro cheio de confiança, presença e energia, prestes a realizar o desejo." },
+    { "id": 10, "Cena 1": "Como seria o momento exato em que o seu desejo acabou de se realizar?" },
+    { "id": 11 },
+    { "id": 12, "Cena 1": "Como você se imagina no instante em que seu desejo finalmente se realiza?" }
+  ],
+  "Ansiedade": [
+    { "id": 1, "Cena 1": "Imagine uma cena do passado em que você se sentiu leve, tranquilo e confiante no fluxo da vida.", "Cena 2": "Visualize um momento em que o medo se dissolveu e você agiu com calma, clareza e coragem." },
+    { "id": 2, "Cena 1": "Qual momento recente fez você sentir uma gratidão verdadeira e simples?", "Cena 2": "Que lembrança antiga desperta em você um sentimento profundo de gratidão?" },
+    { "id": 3, "Cena 1": "Lembre-se de um momento da sua rotina em que você se sentia calmo, seguro e presente.", "Cena 2": "Reviva uma experiência marcante em que a ansiedade desapareceu e tudo parecia em paz." },
+    { "id": 4, "Cena 1": "Qual momento recente vem à mente em que você sentiu gratidão sincera?", "Cena 2": "Como é a cena do seu desejo realizado, com você sentindo gratidão por isso?" },
+    { "id": 5 },
+    { "id": 6 },
+    { "id": 7, "Cena 1": "Qual lembrança do passado ainda pesa e parece justificar sua ansiedade hoje?" },
+    { "id": 8, "Cena 1": "Qual cena o medo te paralisa e tudo parece dar errado ao tentar realizar seu desejo?" },
+    { "id": 9, "Cena 1": "Qual lembrança mostra você enfrentando algo difícil com coragem, mesmo sem certeza?" },
+    { "id": 10, "Cena 1": "Como seria o momento exato em que o seu desejo acabou de se realizar?" },
+    { "id": 11 },
+    { "id": 12, "Cena 1": "Como você se imagina no instante em que seu desejo finalmente se realiza?" }
+  ]
+}
 
 export const VIDEOS = [
   { 
@@ -722,7 +155,7 @@ export const VIDEOS = [
       ' e descubra cada etapa da ',
       'jornada prática e transformadora',
       '.'
-]
+    ]
   },
   { 
     id: 2, 
@@ -857,3 +290,222 @@ export const VIDEOS = [
     ]
   },
 ];
+
+export const MISSAO = {
+  "Autoimagem": [
+    { 
+      "id": 1, 
+      "Titulo": "Vestindo o eu ideal.",
+      "Missão": "Coloque uma roupa que faça você se sentir confiante.",
+      "estrelas": 1,
+    },
+    { "id": 2, "Titulo": "Vestindo o eu ideal." },
+    { 
+      "id": 3, 
+      "Titulo": "Dança da Liberdade.",
+      "Missão": "Durante essa semana coloque música que te eleve, e dance por 5 minutos, como se ninguém o estivesse observando.",
+      "estrelas": 2,
+    },
+    { "id": 4, "Titulo": "Dança da Liberdade." },
+    { 
+      "id": 5, 
+      "Titulo": "Reflexo no Passado.",
+      "Missão": "Veja suas fotos antigas e reflita sobre suas qualidades concretas — ex: organizado; esforçado.",
+      "estrelas": 3,
+    },
+    { "id": 6, "Titulo": "Reflexo no Passado." },
+    { 
+      "id": 7, 
+      "Titulo": "Encarne o eu Ideal.",
+      "Missão": "Por 10 minutos, se coloque no papel do seu eu ideal e internalize como ele pensa e age.",
+      "estrelas": 4,
+    },
+    { "id": 8, "Titulo": "Encarne o eu Ideal." },
+    { 
+      "id": 9, 
+      "Titulo": "Voz do Cuidado.",
+      "Missão": "Faça uma ligação para alguém que te traga paz e te lembre do que há de bom em você e na vida.",
+      "estrelas": 5,
+    },
+    { "id": 10, "Titulo": "Voz do Cuidado." },
+    { 
+      "id": 11, 
+      "Titulo": "Espelho Honesto.",
+      "Missão": "Pergunte às pessoas em quem confia o que você pode fazer para melhorar, procurando feedbacks honestos.",
+      "estrelas": 5,
+    },
+    { "id": 12, "Titulo": "Espelho Honesto." }
+  ],
+  "Atencao_Plena": [
+    { 
+      "id": 1, 
+      "Titulo": "Abraço da Natureza",
+      "Missão": "Reservar um momento nesta semana para estar ao ar livre, em contato com a natureza.",
+      "estrelas": 1,
+    },
+    { "id": 2, "Titulo": "Abraço da Natureza" },
+    { 
+      "id": 3, 
+      "Titulo": "Mãos Conscientes",
+      "Missão": "Realize diariamente uma atividade manual de forma consciente — pintar, desenhar, tocar um instrumento.",
+      "estrelas": 2,
+    },
+    { "id": 4, "Titulo": "Mãos Conscientes" },
+    { 
+      "id": 5, 
+      "Titulo": "Sabor Presente",
+      "Missão": "Mergulhe na experiência de comer, sentindo sabor e sensações de forma consciente.",
+      "estrelas": 3,
+    },
+    { "id": 6, "Titulo": "Sabor Presente" },
+    { 
+      "id": 7, 
+      "Titulo": "Caminho Inusitado",
+      "Missão": "Quebre a rotina escolhendo um novo caminho para sua rotina, observando o ambiente ao redor.",
+      "estrelas": 4,
+    },
+    { "id": 8, "Titulo": "Caminho Inusitado" },
+    { 
+      "id": 9, 
+      "Titulo": "Abrace o novo",
+      "Missão": "Inscreva-se em uma aula de um hobbie que você sempre quis explorar.",
+      "estrelas": 5,
+    },
+    { "id": 10, "Titulo": "Abrace o novo" },
+    { 
+      "id": 11, 
+      "Titulo": "Fugindo da distração",
+      "Missão": "Evite atividades que te afastem do momento presente, como redes sociais.",
+      "estrelas": 5,
+    },
+    { "id": 12, "Titulo": "Fugindo da distração" }
+  ],
+  "Relacionamentos": [
+    { 
+      "id": 1, 
+      "Titulo": "Ritmo Sereno",
+      "Missão": "Converse e se movimente de forma mais lenta que o normal. Isso mantém seu corpo relaxado.",
+      "estrelas": 1,
+    },
+    { "id": 2, "Titulo": "Ritmo Sereno" },
+    { 
+      "id": 3, 
+      "Titulo": "Voz Positiva",
+      "Missão": "Observe seu modo de falar e evite frases negativas. Priorize positividade.",
+      "estrelas": 2,
+    },
+    { "id": 4, "Titulo": "Voz Positiva" },
+    { 
+      "id": 5, 
+      "Titulo": "Palavras de Luz",
+      "Missão": "Elogie uma pessoa desconhecida, praticando espontaneidade e conexão.",
+      "estrelas": 3,
+    },
+    { "id": 6, "Titulo": "Palavras de Luz" },
+    { 
+      "id": 7, 
+      "Titulo": "Voz da Gratidão",
+      "Missão": "Faça uma ligação surpresa para alguém especial e compartilhe carinho ou gratidão.",
+      "estrelas": 4,
+    },
+    { "id": 8, "Titulo": "Voz da Gratidão" },
+    { 
+      "id": 9, 
+      "Titulo": "Retorno Essencial",
+      "Missão": "Reaproxime-se de alguém importante do passado.",
+      "estrelas": 5,
+    },
+    { "id": 10, "Titulo": "Retorno Essencial" },
+    { 
+      "id": 11, 
+      "Titulo": "Laços de Perdão",
+      "Missão": "Reflita sobre uma relação mal resolvida e dê o primeiro passo pedindo perdão.",
+      "estrelas": 5,
+    },
+    { "id": 12, "Titulo": "Laços de Perdão" }
+  ],
+  "Motivacao": [
+    { 
+      "id": 1, 
+      "Titulo": "Chama da Inspiração",
+      "Missão": "Assista um filme que reacenda sua motivação para perseguir seus objetivos.",
+      "estrelas": 1,
+    },
+    { "id": 2, "Titulo": "Chama da Inspiração" },
+    { 
+      "id": 3, 
+      "Titulo": "Silêncio Sábio",
+      "Missão": "Evite contar seus planos para quem não apoia sua jornada.",
+      "estrelas": 2,
+    },
+    { "id": 4, "Titulo": "Silêncio Sábio" },
+    { 
+      "id": 5, 
+      "Titulo": "Recompensa Interior",
+      "Missão": "Crie um sistema de recompensas para cada passo dado em direção ao seu desejo.",
+      "estrelas": 3,
+    },
+    { "id": 6, "Titulo": "Recompensa Interior" },
+    { "id": 7, "Titulo": "" },
+    { "id": 8, "Titulo": "" },
+    { 
+      "id": 9, 
+      "Titulo": "Quebra de Corrente",
+      "Missão": "Diga não a um hábito confortável e repetitivo que drena sua energia.",
+      "estrelas": 5,
+    },
+    { "id": 10, "Titulo": "Quebra de Corrente" },
+    { 
+      "id": 11, 
+      "Titulo": "Centelha Viva",
+      "Missão": "Seja fonte de entusiasmo e motivação para os outros.",
+      "estrelas": 5,
+    },
+    { "id": 12, "Titulo": "Centelha Viva" },
+  ],
+  "Ansiedade": [
+    { 
+      "id": 1, 
+      "Titulo": "Centelha Viva",
+      "Missão": "Seja a fonte de entusiasmo e motivação para as pessoas com quem convive.",
+      "estrelas": 1,
+    },
+    { "id": 2, "Titulo": "Centelha Viva" },
+    { 
+      "id": 3, 
+      "Titulo": "Arte que Acolhe",
+      "Missão": "Busque músicas e filmes que acalmem você e tragam coragem.",
+      "estrelas": 2,
+    },
+    { "id": 4, "Titulo": "Arte que Acolhe" },
+    { 
+      "id": 5, 
+      "Titulo": "Âncora da Respiração",
+      "Missão": "Ao notar pensamentos negativos, redirecione a atenção para a respiração.",
+      "estrelas": 3,
+    },
+    { "id": 6, "Titulo": "Âncora da Respiração" },
+    { 
+      "id": 7, 
+      "Titulo": "Descrevendo a paz",
+      "Missão": "Escreva como seria sua vida hoje se a ansiedade não existisse.",
+      "estrelas": 4,
+    },
+    { "id": 8, "Titulo": "Descrevendo a paz" },
+    { 
+      "id": 9, 
+      "Titulo": "Retorno à Essência",
+      "Missão": "Reconecte-se com uma atividade da sua infância.",
+      "estrelas": 5,
+    },
+    { "id": 10, "Titulo": "Retorno à Essência" },
+    { 
+      "id": 11, 
+      "Titulo": "Morada da Calma",
+      "Missão": "Visite um lugar que te traz paz e leveza.",
+      "estrelas": 5,
+    },
+    { "id": 12, "Titulo": "Morada da Calma" }
+  ],
+}
+
