@@ -40,8 +40,8 @@ export default function SignIn({ navigation, onChangeScreen }) {
       console.log('✅ Resposta do login:', response);
       
       // Salvar tokens
-      if (response.access_token) {
-        await tokenHelpers.save(response.access_token, response.refresh_token);
+      if (response.refresh_token) {
+        await tokenHelpers.save(response.refresh_token);
       }
 
       // Salvar dados do usuário no Provider

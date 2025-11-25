@@ -18,7 +18,7 @@ import ReflexoesScreen from '../screens/Explorer/ReflexoesScreen';
 const Stack = createStackNavigator();
 
 // Toggle aqui: true = pula o login (DEV), false = comportamento normal
-const DEV_SKIP_LOGIN = true;
+const DEV_SKIP_LOGIN = false;
 
 export default function AppNavigator() {
   const { user, setUser } = useContext(AppContext);
