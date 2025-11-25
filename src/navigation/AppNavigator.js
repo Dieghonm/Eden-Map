@@ -1,3 +1,4 @@
+// src/navigation/AppNavigator.js - VERSÃO CORRIGIDA
 import React, { useEffect, useState, useContext } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -17,9 +18,6 @@ import ReflexoesScreen from '../screens/Explorer/ReflexoesScreen';
 
 const Stack = createStackNavigator();
 
-// Toggle aqui: true = pula o login (DEV), false = comportamento normal
-const DEV_SKIP_LOGIN = false;
-
 export default function AppNavigator() {
   const { user, setUser } = useContext(AppContext);
   const { theme } = useTheme();
@@ -27,60 +25,79 @@ export default function AppNavigator() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    // Se estiver em modo DEV e quiser pular login, configura usuário dummy
-    if (DEV_SKIP_LOGIN) {
-      // Ajuste os dados conforme o que suas telas esperam
-      setUser({
-        login: 'dev',
-        email: 'dev@example.com',
-        tag: 'dev',
-        plan: 'dev-plan',
-      });
-      setIsAuthenticated(true);
-      setIsLoading(false);
-      return;
-    }
-
-    // Modo normal: checa token / API
     checkAuthStatus();
-  }, []); // só no mount
+  }, []);
 
   useEffect(() => {
-    if (user && user.login) {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
-    }
+    const authenticated = !!(user && user.login);
+    setIsAuthenticated(authenticated);
   }, [user]);
 
   const checkAuthStatus = async () => {
     try {
-      const token = await tokenHelpers.get();
-      
-      if (!token) {
-        setIsAuthenticated(false);
-        setIsLoading(false);
-        return;
+      const accessToken = await tokenHelpers.get();
+      if (accessToken) {
+        if (!user || !user.login) {
+          try {
+            const userData = await api.me();
+            await setUser({
+              login: userData.login,
+              email: userData.email,
+              tag: userData.tag,
+              plan: userData.plan,
+            });
+            setIsAuthenticated(true);
+          } catch (error) {
+            console.error('❌ Erro ao buscar dados do usuário:', error);
+            await attemptTokenRefresh();
+          }
+        } else {
+          setIsAuthenticated(true);
+        }
+      } else {
+        console.log('⚠️ Access token não encontrado, tentando renovar...');
+        await attemptTokenRefresh();
       }
-      
-      const userData = await api.me();
-      setUser({
-        login: userData.login,
-        email: userData.email,
-        tag: userData.tag,
-        plan: userData.plan,
-      });
-      
-      setIsAuthenticated(true);
     } catch (error) {
-      if (error.status === 401 || error.status === 403) {
-        await tokenHelpers.remove();
-        setUser(null);
-      }
-      
+      console.error('❌ Erro ao verificar autenticação:', error);
       setIsAuthenticated(false);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const attemptTokenRefresh = async () => {
+    try {
+      const refreshToken = await tokenHelpers.getRefresh();
+      if (!refreshToken) {
+        console.log('❌ Nenhum refresh token encontrado');
+        setIsAuthenticated(false);
+        return;
+      }
+      const response = await api.refresh(refreshToken);
+      if (response.user) {
+        await setUser({
+          login: response.user.login,
+          email: response.user.email,
+          tag: response.user.tag,
+          plan: response.user.plan,
+        });
+        setIsAuthenticated(true);
+      } else {
+        const userData = await api.me();
+        await setUser({
+          login: userData.login,
+          email: userData.email,
+          tag: userData.tag,
+          plan: userData.plan,
+        });
+        setIsAuthenticated(true);
+      }
+    } catch (error) {
+      console.error('❌ Erro ao renovar token:', error);
+      await tokenHelpers.remove();
+      setUser(null);
+      setIsAuthenticated(false);
     }
   };
 
@@ -96,7 +113,6 @@ export default function AppNavigator() {
       </View>
     );
   }
-
   return (
     <Stack.Navigator
       initialRouteName={isAuthenticated ? 'Home' : 'Login'}
@@ -113,7 +129,6 @@ export default function AppNavigator() {
                 <Header 
                   onHomePress={() => props.navigation.navigate('Home')}
                   onResetStarting={() => {
-                    // Força o HomeScreen a resetar
                     props.navigation.setParams({ triggerReset: Date.now() });
                   }}
                 />

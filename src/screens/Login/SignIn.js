@@ -29,22 +29,19 @@ export default function SignIn({ navigation, onChangeScreen }) {
     setErrorMessage('');
     
     try {
-      // ✅ CORREÇÃO: Backend espera { login, password }
       const credentials = {
-        login: formData.email.toLowerCase().trim(),  // ← Era "email_ou_login"
-        password: formData.password,  // ← Era "senha"
+        login: formData.email.toLowerCase().trim(),
+        password: formData.password,
       };
       
       console.log('📤 Enviando login:', credentials);
       const response = await api.login(credentials);
       console.log('✅ Resposta do login:', response);
       
-      // Salvar tokens
-      if (response.refresh_token) {
-        await tokenHelpers.save(response.refresh_token);
+      if (response.access_token) {
+        await tokenHelpers.save(response.access_token, response.refresh_token);
       }
 
-      // Salvar dados do usuário no Provider
       await setUser({
         login: response.user.login,
         email: response.user.email || formData.email,
@@ -52,7 +49,6 @@ export default function SignIn({ navigation, onChangeScreen }) {
         plan: response.user.plan,
       });
 
-      // Navegar para Home
       navigation.replace('Home');
 
     } catch (error) {

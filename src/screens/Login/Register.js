@@ -76,8 +76,8 @@ export default function Register({ navigation, onChangeScreen }) {
       console.log('✅ Resposta do cadastro:', response);
 
       // Salvar tokens
-      if (response.refresh_token) {
-        await tokenHelpers.save(response.refresh_token);
+      if (response.access_token) {
+        await tokenHelpers.save(response.access_token, response.refresh_token);
       }
 
       // Salvar dados do usuário
