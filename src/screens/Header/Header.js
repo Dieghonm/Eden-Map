@@ -22,12 +22,13 @@ export default function Header({ onHomePress, onResetStarting }) {
   };
 
   const handleResetStarting = async () => {
-    const success = await resetStarting();
     setMenuVisible(false);
-    if (success && onResetStarting) {
+    const resultado = await resetStarting();
+    if (resultado?.sucesso && onResetStarting) {
       onResetStarting();
     }
   };
+
 
   const handleHomePress = () => {
     if (onHomePress) {

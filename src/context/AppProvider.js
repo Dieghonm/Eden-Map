@@ -13,16 +13,10 @@ export default function AppProvider({ children }) {
   const [selectedFeelings, setSelectedFeelingsState] = useState([]);
   const [selectedPath, setSelectedPathState] = useState(null);
   const [isStartingComplete, setIsStartingComplete] = useState(false);
-  
-  // ✅ Estados separados de progresso (conforme o backend)
   const [semanaAtual, setSemanaAtual] = useState(1);
   const [diaAtual, setDiaAtual] = useState(1);
   const [progressoAtualizadoEm, setProgressoAtualizadoEm] = useState(null);
 
-  // ============================================================================
-  // INICIALIZAÇÃO
-  // ============================================================================
-  
   useEffect(() => {
     initializeApp();
   }, []);
@@ -31,7 +25,6 @@ export default function AppProvider({ children }) {
     setIsLoading(true);
     
     try {
-      // Carrega dados do AsyncStorage
       const userData = await getData('user');
       const desireNameData = await getData('desireName');
       const desireDescData = await getData('desireDescription');
@@ -48,7 +41,6 @@ export default function AppProvider({ children }) {
       setSemanaAtual(semanaData || 1);
       setDiaAtual(diaData || 1);
       
-      // ✅ Se tem usuário logado, sincroniza com backend
       if (userData && userData.email) {
         await sincronizarComBackend(userData.email);
       }
@@ -60,29 +52,17 @@ export default function AppProvider({ children }) {
     }
   };
 
-  // ============================================================================
-  // SINCRONIZAÇÃO COM BACKEND
-  // ============================================================================
-  
   /**
    * ✅ Sincroniza TODOS os dados com o backend
    * Busca selected_path, test_results e progress
    */
   const sincronizarComBackend = async (email) => {
     try {
-      console.log('🔄 Sincronizando dados com backend...');
-      
       const response = await api.buscarDadosUsuario(email);
-      
-      console.log('✅ Dados recebidos do backend:', response);
-      
-      // Atualizar selected_path
       if (response.selected_path) {
         setSelectedPathState(response.selected_path);
         await storeData('selectedPath', response.selected_path);
       }
-      
-      // Atualizar progresso
       if (response.progress) {
         const { semana, dia } = response.progress;
         setSemanaAtual(semana || 1);
@@ -90,30 +70,21 @@ export default function AppProvider({ children }) {
         await storeData('semanaAtual', semana || 1);
         await storeData('diaAtual', dia || 1);
       }
-      
-      // Atualizar timestamp
       setProgressoAtualizadoEm(new Date().toISOString());
-      
-      console.log('✅ Sincronização completa');
-      
+   
     } catch (error) {
       console.log('⚠️ Não foi possível sincronizar com backend:', error);
-      // Mantém os dados locais
     }
   };
 
-  /**
-   * ✅ Sincroniza apenas o progresso
-   */
+
   const sincronizarProgressoComBackend = async () => {
     if (!user || !user.email) {
       console.log('⚠️ Usuário não está logado, não é possível sincronizar');
       return;
     }
-
     try {
       const response = await api.buscarDadosUsuario(user.email);
-      
       if (response.progress) {
         const { semana, dia } = response.progress;
         setSemanaAtual(semana || 1);
@@ -121,18 +92,14 @@ export default function AppProvider({ children }) {
         await storeData('semanaAtual', semana || 1);
         await storeData('diaAtual', dia || 1);
         setProgressoAtualizadoEm(new Date().toISOString());
-        console.log('✅ Progresso sincronizado:', { semana, dia });
       }
-      
+
     } catch (error) {
       console.log('⚠️ Erro ao sincronizar progresso:', error);
     }
   };
 
-  // ============================================================================
-  // VERIFICAÇÃO DE COMPLETUDE
-  // ============================================================================
-  
+
   useEffect(() => {
     const complete = 
       desireName.trim().length > 0 && 
@@ -141,15 +108,10 @@ export default function AppProvider({ children }) {
     setIsStartingComplete(complete);
   }, [desireName, selectedFeelings, selectedPath]);
 
-  // ============================================================================
-  // SETTERS COM SINCRONIZAÇÃO
-  // ============================================================================
-  
   const setUser = useCallback(async (userData) => {
     setUserState(userData);
     await storeData('user', userData);
     
-    // ✅ Ao fazer login, sincroniza dados
     if (userData && userData.email) {
       await sincronizarComBackend(userData.email);
     }
@@ -173,32 +135,22 @@ export default function AppProvider({ children }) {
     await storeData('selectedFeelings', validFeelings);
   }, []);
 
-  /**
-   * ✅ Setter do selected_path COM SINCRONIZAÇÃO
-   */
   const setSelectedPath = useCallback(async (path) => {
     setSelectedPathState(path);
     await storeData('selectedPath', path);
-    
-    // ✅ Sincroniza com backend
+
     if (user && user.email && path) {
       try {
         await api.atualizarCaminho(user.email, path);
-        console.log('✅ Caminho salvo no backend:', path);
       } catch (error) {
         console.log('⚠️ Erro ao salvar caminho no backend:', error);
       }
     }
   }, [user]);
 
-  /**
-   * ✅ Avançar dia COM SINCRONIZAÇÃO
-   */
   const avancarDia = useCallback(async () => {
     let novaSemana = semanaAtual;
     let novoDia = diaAtual;
-    
-    // Lógica de avanço
     if (diaAtual < 7) {
       novoDia = diaAtual + 1;
     } else if (semanaAtual < 12) {
@@ -234,9 +186,6 @@ export default function AppProvider({ children }) {
     };
   }, [semanaAtual, diaAtual, user]);
 
-  /**
-   * ✅ Reiniciar jornada COM SINCRONIZAÇÃO
-   */
   const resetStarting = useCallback(async () => {
     const emptyName = '';
     const emptyDescription = '';
@@ -257,12 +206,10 @@ export default function AppProvider({ children }) {
     await storeData('semanaAtual', 1);
     await storeData('diaAtual', 1);
     
-    // ✅ Reseta também no backend
     if (user && user.email) {
       try {
         await api.atualizarCaminho(user.email, null);
         await api.atualizarProgresso(user.email, 1, 1);
-        console.log('✅ Jornada resetada no backend');
       } catch (error) {
         console.log('⚠️ Erro ao resetar jornada no backend:', error);
       }
@@ -271,22 +218,89 @@ export default function AppProvider({ children }) {
     return true;
   }, [user]);
 
+  const handleResetStarting = async () => {
+      Alert.alert(
+        '🔄 Reiniciar Jornada',
+        'Tem certeza que deseja reiniciar sua jornada? Todos os seus dados serão resetados.',
+        [
+          {
+            text: 'Cancelar',
+            style: 'cancel'
+          },
+          {
+            text: 'Confirmar',
+            style: 'destructive',
+            onPress: async () => {
+              setMenuVisible(false);
+              
+              try {
+                const resultado = await resetStarting();
+                
+                if (resultado.sucesso) {
+                  Alert.alert(
+                    '✅ Jornada Resetada',
+                    'Sua jornada foi reiniciada com sucesso!',
+                    [
+                      {
+                        text: 'OK',
+                        onPress: () => {
+                          if (onResetStarting) {
+                            onResetStarting();
+                          }
+                        }
+                      }
+                    ]
+                  );
+                } else {
+                  Alert.alert(
+                    '⚠️ Erro Parcial',
+                    `Não foi possível resetar completamente: ${resultado.erro}. Alguns dados podem ter sido mantidos.`,
+                    [
+                      {
+                        text: 'Tentar Novamente',
+                        onPress: () => handleResetStarting()
+                      },
+                      {
+                        text: 'OK',
+                        style: 'cancel'
+                      }
+                    ]
+                  );
+                }
+              } catch (error) {
+                Alert.alert(
+                  '❌ Erro',
+                  'Não foi possível resetar a jornada. Tente novamente.',
+                  [
+                    {
+                      text: 'Tentar Novamente',
+                      onPress: () => handleResetStarting()
+                    },
+                    {
+                      text: 'Cancelar',
+                      style: 'cancel'
+                    }
+                  ]
+                );
+              }
+            }
+          }
+        ]
+      );
+    };
+
   const resetUser = useCallback(async () => {
     setUserState(null);
     await removeData('user');
   }, []);
 
-  // ============================================================================
-  // PROVIDER
-  // ============================================================================
-  
+
   const value = {
     isLoading,
     user,
     setUser,
     resetUser,
-    
-    // Starting
+
     desireName,
     desireDescription,
     selectedFeelings,
@@ -297,14 +311,12 @@ export default function AppProvider({ children }) {
     setSelectedFeelings,
     setSelectedPath,
     resetStarting,
-    
-    // Progresso (campos separados)
+
     semanaAtual,
     diaAtual,
     progressoAtualizadoEm,
     avancarDia,
-    
-    // Sincronização
+
     sincronizarComBackend,
     sincronizarProgressoComBackend,
     initializeApp,

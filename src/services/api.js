@@ -304,6 +304,18 @@ export const api = {
   },
 
   /**
+   * ✅ Resetar test_results para null
+   * @param {string} email - Email do usuário
+   * @returns {Object} Confirmação da atualização
+   */
+  resetarTestResults: async (email) => {
+    return apiRequest('/users/test-results/reset', {
+      method: 'DELETE',
+      body: JSON.stringify({ email }),
+    });
+  },
+
+  /**
    * ✅ Atualizar progresso (semana e dia)
    * @param {string} email - Email do usuário
    * @param {number} semana - Semana atual (1-12)
