@@ -10,9 +10,6 @@ export default function ExplorerScreen({ navigation }) {
   const styles = createStyles(theme);
 
   const handlePress = (option) => {
-    console.log('📍 Opção selecionada:', option);
-    
-    // Navegar para a tela correspondente
     switch(option) {
       case 'Vídeos':
         navigation.navigate('Videos');

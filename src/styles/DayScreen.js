@@ -34,4 +34,7 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.r4,
       fontSize: fontSize.md,
     },
+    spacer: {
+      height: spacing.xxl / 2
+    }
   });

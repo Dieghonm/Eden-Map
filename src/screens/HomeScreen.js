@@ -11,8 +11,6 @@ import Feeling from './Starting/Feeling';
 export default function HomeScreen({ navigation, route }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
-  
-  // Pega os dados e status do Provider
   const { 
     isLoading: appLoading,
     isStartingComplete,
@@ -21,7 +19,6 @@ export default function HomeScreen({ navigation, route }) {
   
   const [currentScreen, setCurrentScreen] = useState('LOADING');
 
-  // Monitora mudanças no status de completude do Starting
   useEffect(() => {
     if (!appLoading) {
       if (isStartingComplete) {
