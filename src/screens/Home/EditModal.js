@@ -104,6 +104,7 @@ export default function EditModal({ visible, onClose, onSave }) {
       </GlassBox>
     </View>
   );
+
   const renderDesireEdit = () => (
     <KeyboardAwareScrollView
       contentContainerStyle={styles.scrollContent}
@@ -164,6 +165,7 @@ export default function EditModal({ visible, onClose, onSave }) {
       </View>
     </KeyboardAwareScrollView>
   );
+
   const renderFeelingEdit = () => (
     <View style={styles.modalContent}>
       <Text style={styles.modalTitle}>Editar Sentimentos</Text>
@@ -222,6 +224,7 @@ export default function EditModal({ visible, onClose, onSave }) {
       transparent
       animationType="fade"
       onRequestClose={handleClose}
+      statusBarTranslucent
       accessible={true}
       accessibilityViewIsModal={true}
     >
@@ -232,17 +235,17 @@ export default function EditModal({ visible, onClose, onSave }) {
         accessible={false}
         importantForAccessibility="no-hide-descendants"
       >
-        <TouchableOpacity
+        <View
           style={styles.modalBox}
-          activeOpacity={1}
-          onPress={(e) => e.stopPropagation()}
           accessible={true}
           accessibilityRole="dialog"
+          accessibilityLabel="Editar informações"
+          onStartShouldSetResponder={() => true}
         >
           {editMode === null && renderInitialView()}
           {editMode === 'desire' && renderDesireEdit()}
           {editMode === 'feeling' && renderFeelingEdit()}
-        </TouchableOpacity>
+        </View>
       </TouchableOpacity>
     </Modal>
   );

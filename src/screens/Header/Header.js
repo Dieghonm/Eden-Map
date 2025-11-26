@@ -1,4 +1,3 @@
-// src/screens/Header/Header.js - VERSÃO SEM ALERTS
 import React, { useState, useContext } from 'react';
 import { View, TouchableOpacity, Modal, Text, Image, Pressable } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
@@ -89,11 +88,12 @@ export default function Header({ onHomePress, onResetStarting }) {
           accessible={false}
           importantForAccessibility="no-hide-descendants"
         >
-          <Pressable
+          <View
             style={styles.menuDropdown}
-            onPress={(e) => e.stopPropagation()}
             accessible={true}
             accessibilityRole="menu"
+            accessibilityLabel="Menu de configurações"
+            onStartShouldSetResponder={() => true}
           >
             <View style={styles.themeSelector}>
               <TouchableOpacity
@@ -164,7 +164,7 @@ export default function Header({ onHomePress, onResetStarting }) {
             >
               <Text style={styles.logoutButtonText}>🚪 Sair</Text>
             </TouchableOpacity>
-          </Pressable>
+          </View>
         </Pressable>
       </Modal>
     </>

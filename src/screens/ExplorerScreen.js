@@ -45,12 +45,12 @@ export default function ExplorerScreen({ navigation }) {
         <ImgButton 
           title="Vídeos"
           onPress={() => handlePress('Vídeos')}
-          img="ExpVideos"
+          img="VIDEOS"
         />
         <ImgButton 
           title="Missões"
           onPress={() => handlePress('Missões')} 
-          img="ExpMissoes"
+          img="MISSAO"
         />
         <ImgButton 
           title="Meditações"

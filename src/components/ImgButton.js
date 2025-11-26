@@ -35,11 +35,11 @@ export default function ImgButton({
       imageSource = ExpBlock;
       break;
 
-    case 'ExpVideos':
+    case 'VIDEOS':
       imageSource = ExpVideos;
       break;
 
-    case 'ExpMissoes':
+    case 'MISSAO':
       imageSource = ExpMissoes;
       break;
 
@@ -47,7 +47,7 @@ export default function ImgButton({
       imageSource = ExpMeditacoes;
       break;
 
-    case 'ExpReflexoes':
+    case 'TRACKING':
       imageSource = ExpReflexoes;
       break;
 
@@ -59,7 +59,7 @@ export default function ImgButton({
       imageSource = ExpLuz;
       break;
 
-    case 'ExpDescreva':
+    case 'DESCRICAOCENA':
       imageSource = ExpDescreva;
       break;
 
@@ -68,7 +68,7 @@ export default function ImgButton({
       break;
 
     default:
-      imageSource = ExpBlock; // fallback
+      imageSource = ExpBlock;
       break;
   }
 

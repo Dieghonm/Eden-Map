@@ -1,63 +1,63 @@
 export const SEMANAS = [
   {
-    "id": 1,
-    "nome": "A entrada",
-    "img": "https://i.imgur.com/1CbUzFS.jpeg",
+    id: 1,
+    nome: "A entrada",
+    img: "https://i.imgur.com/1CbUzFS.jpeg",
   },
   {
     id: 2,
     nome: 'O campo',
-    img: 'https://i.imgur.com/dYI3ztz.jpeg',
+    img: 'https://i.imgur.com/MHVXFS1.jpeg',
   },
   {
     id: 3,
     nome: 'O lago',
-    img: 'https://i.imgur.com/Ith8HA7.png',
+    img: 'https://i.imgur.com/fPtZAvz.jpeg',
   },
   {
     id: 4,
     nome: 'O deserto',
-    img: 'https://i.imgur.com/duAnW3g.png',
+    img: 'https://i.imgur.com/4vnVbsn.jpeg',
   },
   {
     id: 5,
     nome: 'O pântano',
-    img: 'https://i.imgur.com/MHVXFS1.jpeg',
+    img: 'https://i.imgur.com/Ptoczae.jpeg',
   },
   {
     id: 6,
     nome: 'A floresta',
-    img: 'https://i.imgur.com/fPtZAvz.jpeg',
+    img: 'https://i.imgur.com/mxbJEw7.jpeg',
   },
   {
     id: 7,
     nome: 'A subida',
-    img: 'https://i.imgur.com/4vnVbsn.jpeg',
+    img: 'https://i.imgur.com/ZylYl9r.jpeg',
   },
   {
     id: 8,
     nome: 'A colina',
-    img: 'https://i.imgur.com/Ptoczae.jpeg',
+    img: 'https://i.imgur.com/DZxkQ34.jpeg',
   },
   {
     id: 9,
     nome: 'O jardim',
-    img: 'https://i.imgur.com/mxbJEw7.jpeg',
+    img: 'https://i.imgur.com/MjfjsUN.jpeg',
   },
   {
     id: 10,
     nome: 'O bosque',
-    img: 'https://i.imgur.com/ZylYl9r.jpeg',
+    img: 'https://i.imgur.com/dYI3ztz.jpeg',
   },
   {
     id: 11,
     nome: 'A praia',
-    img: 'https://i.imgur.com/DZxkQ34.jpeg',
+    img: 'https://i.imgur.com/Ith8HA7.png',
   },
   {
     id: 12,
     nome: 'O pico',
-    img: 'https://i.imgur.com/MjfjsUN.jpeg',
+    img: 'https://i.imgur.com/duAnW3g.png',
   }
 ];
 
@@ -66,9 +66,9 @@ export const CALENDAR = [
   {id: 2, exercicio: "VIDEOS"},
   {id: 3, exercicio: ""},
   {id: 4, exercicio: "MISSAO"},
-  {id: 5, exercicio: "tracking"},
+  {id: 5, exercicio: "TRACKING"},
   {id: 6, exercicio: ""},
-  {id: 7, exercicio: "perguntas"}
+  {id: 7, exercicio: "PERGUNTAS"}
 ]
 
 export const DESCRICAOCENA = {
@@ -509,3 +509,156 @@ export const MISSAO = {
   ],
 }
 
+export const TRACKING = {
+  "Autoimagem": [
+    { "id": 1, "Tipo": "Luz", "texto": "Eu sinto que tudo ao meu redor está conspirando a favor da concretização do meu desejo." },
+    { "id": 2, "Tipo": "Luz", "texto": "Eu me amo plenamente." },
+    { "id": 3, "Tipo": "Luz", "texto": "Sou grato pelo passado, pelo presente e pelo que ainda virá." },
+    { "id": 4, "Tipo": "Luz", "texto": "Eu sou merecedor do meu desejo." },
+    { "id": 5, "Tipo": "Sombra", "texto": "Não me vejo capaz de promover a mudança que desejo na minha vida." },
+    { "id": 6, "Tipo": "Sombra", "texto": "Eu me sinto sozinho na minha jornada." },
+    { "id": 7, "Tipo": "Sombra", "texto": "Não acredito que meu desejo realmente vá se concretizar." },
+    { "id": 8, "Tipo": "Sombra", "texto": "Eu não sei exatamente quem eu sou." },
+    { "id": 9, "Tipo": "Luz", "texto": "Todos os dias me alinho com emoções elevadas que me aproximam do meu desejo." },
+    { "id": 10, "Tipo": "Luz", "texto": "Eu controlo quem eu represento." },
+    { "id": 11, "Tipo": "Luz", "texto": "Estou me sentindo mais feliz e apaixonado pela vida." },
+    { "id": 12, "Tipo": "Luz", "texto": "Sinto que tudo ao meu redor conspira a favor da realização do meu desejo." }
+  ],
+
+  "Atencao Plena": [
+    { "id": 1, "Tipo": "Luz", "texto": "Eu sinto que tudo ao meu redor está conspirando a favor da concretização do meu desejo." },
+    { "id": 2, "Tipo": "Luz", "texto": "Eu estou me tornando cada vez mais conectado e imerso no momento presente." },
+    { "id": 3, "Tipo": "Luz", "texto": "Sou grato pelo meu passado, pelo meu presente e pelo que ainda está por vir." },
+    { "id": 4, "Tipo": "Luz", "texto": "" },
+    { "id": 5, "Tipo": "Sombra", "texto": "Não me sinto capaz de criar a mudança que desejo na minha vida." },
+    { "id": 6, "Tipo": "Sombra", "texto": "Ao focar no presente, sinto às vezes vazio ou tédio, como se algo faltasse." },
+    { "id": 7, "Tipo": "Sombra", "texto": "Não acredito que meu desejo realmente vá se concretizar." },
+    { "id": 8, "Tipo": "Sombra", "texto": "Continuo buscando distrações o tempo todo." },
+    { "id": 9, "Tipo": "Luz", "texto": "Todos os dias me alinho com emoções elevadas que me aproximam do meu desejo." },
+    { "id": 10, "Tipo": "Luz", "texto": "Tenho cada vez mais controle sobre os elementos que tiram meu foco." },
+    { "id": 11, "Tipo": "Luz", "texto": "Estou me sentindo mais feliz e apaixonado pela vida." },
+    { "id": 12, "Tipo": "Luz", "texto": "Sinto que tudo ao meu redor conspira a favor da realização do meu desejo." }
+  ],
+
+  "Relacionamentos": [
+    { "id": 1, "Tipo": "Luz", "texto": "Eu sinto que tudo ao meu redor está conspirando a favor da concretização do meu desejo." },
+    { "id": 2, "Tipo": "Luz", "texto": "Eu me expresso com leveza e positividade." },
+    { "id": 3, "Tipo": "Luz", "texto": "Sou grato pelo meu passado, pelo meu presente e pelo que ainda está por vir." },
+    { "id": 4, "Tipo": "Luz", "texto": "Sempre tento me colocar no lugar do outro." },
+    { "id": 5, "Tipo": "Sombra", "texto": "Não me sinto capaz de criar a mudança que desejo na minha vida." },
+    { "id": 6, "Tipo": "Sombra", "texto": "Tenho o hábito de expressar meus pensamentos de modo negativo e pessimista." },
+    { "id": 7, "Tipo": "Sombra", "texto": "Não acredito que meu desejo realmente vá se concretizar." },
+    { "id": 8, "Tipo": "Sombra", "texto": "É um desafio para mim me conectar com empatia a opiniões distintas das minhas." },
+    { "id": 9, "Tipo": "Luz", "texto": "Todos os dias me alinho com emoções elevadas que me aproximam do meu desejo." },
+    { "id": 10, "Tipo": "Luz", "texto": "Estou aberto a ouvir e aprender, mesmo quando penso diferente no início." },
+    { "id": 11, "Tipo": "Luz", "texto": "Estou me sentindo mais feliz e apaixonado pela vida." },
+    { "id": 12, "Tipo": "Luz", "texto": "Sinto que tudo ao meu redor conspira a favor da realização do meu desejo." }
+  ],
+
+  "Motivacao": [
+    { "id": 1, "Tipo": "Luz", "texto": "Eu sinto que tudo ao meu redor está conspirando a favor da concretização do meu desejo." },
+    { "id": 2, "Tipo": "Luz", "texto": "A cada dia, minha motivação e disposição crescem." },
+    { "id": 3, "Tipo": "Luz", "texto": "Sou grato pelo meu passado, pelo meu presente e pelo que ainda está por vir." },
+    { "id": 4, "Tipo": "Luz", "texto": "Minha curiosidade e fascínio pela vida aumentam a cada dia." },
+    { "id": 5, "Tipo": "Sombra", "texto": "Não me sinto capaz de criar a mudança que desejo na minha vida." },
+    { "id": 6, "Tipo": "Sombra", "texto": "Manter a motivação tem sido um esforço constante para mim." },
+    { "id": 7, "Tipo": "Sombra", "texto": "Não acredito que meu desejo realmente vá se concretizar." },
+    { "id": 8, "Tipo": "Sombra", "texto": "Minha rotina me deixa cansado e desmotivado." },
+    { "id": 9, "Tipo": "Luz", "texto": "Todos os dias me alinho com emoções elevadas que me aproximam do meu desejo." },
+    { "id": 10, "Tipo": "Luz", "texto": "Me sinto inspirado pelos novos ambientes, rotinas e pessoas ao meu redor." },
+    { "id": 11, "Tipo": "Luz", "texto": "Estou me sentindo mais feliz e apaixonado pela vida." },
+    { "id": 12, "Tipo": "Luz", "texto": "Sinto que tudo ao meu redor conspira a favor da realização do meu desejo." }
+  ],
+
+  "Ansiedade": [
+    { "id": 1, "Tipo": "Luz", "texto": "Eu sinto que tudo ao meu redor está conspirando a favor da concretização do meu desejo." },
+    { "id": 2, "Tipo": "Luz", "texto": "Eu me sinto mais seguro para enfrentar meus medos." },
+    { "id": 3, "Tipo": "Luz", "texto": "Sou grato pelo meu passado, pelo meu presente e pelo que ainda está por vir." },
+    { "id": 4, "Tipo": "Luz", "texto": "Eu busco a coragem interna, independente do resultado." },
+    { "id": 5, "Tipo": "Sombra", "texto": "Não me sinto capaz de criar a mudança que desejo na minha vida." },
+    { "id": 6, "Tipo": "Sombra", "texto": "Eu preciso estar no controle, para me sentir seguro." },
+    { "id": 7, "Tipo": "Sombra", "texto": "Não acredito que meu desejo realmente vá se concretizar." },
+    { "id": 8, "Tipo": "Sombra", "texto": "Eu ainda imagino o futuro com base nos medos do passado." },
+    { "id": 9, "Tipo": "Luz", "texto": "Todos os dias me alinho com emoções elevadas que me aproximam do meu desejo." },
+    { "id": 10, "Tipo": "Luz", "texto": "Eu sou digno de segurança e plenitude." },
+    { "id": 11, "Tipo": "Luz", "texto": "Estou me sentindo mais feliz e apaixonado pela vida." },
+    { "id": 12, "Tipo": "Luz", "texto": "Sinto que tudo ao meu redor conspira a favor da realização do meu desejo." }
+  ]
+}
+
+export const PERGUNTAS = {
+  "Autoimagem": [
+    { "id": 1, "Tipo": "Luz", "Pergunta": "Quais 3 aspectos da sua vida atual serão lembrados no futuro com profunda gratidão?" },
+    { "id": 2, "Tipo": "Luz", "Pergunta": "Quais são as suas 3 qualidades que mais despertam orgulho?" },
+    { "id": 3, "Tipo": "Luz", "Pergunta": "Pense na pessoa que mais te admira no mundo, como ela te inspira?" },
+    { "id": 4, "Tipo": "Luz", "Pergunta": "Quais traços positivos da sua personalidade você sente que permanecem desde a infância?" },
+    { "id": 5, "Tipo": "Sombra", "Pergunta": "Liste 3 consequências difíceis de não agir em prol do seu desejo. Transforme esse medo em movimento." },
+    { "id": 6, "Tipo": "Sombra", "Pergunta": "Em que período da sua vida você mais se afastou do seu eu ideal? O que contribuiu para isso?" },
+    { "id": 7, "Tipo": "Sombra", "Pergunta": "Quais atitudes ou traços seus existem apenas para buscar aceitação e pertencimento?" },
+    { "id": 8, "Tipo": "Sombra", "Pergunta": "Em quais áreas você mais diminui o próprio valor?" },
+    { "id": 9, "Tipo": "Luz", "Pergunta": "" },
+    { "id": 10, "Tipo": "Luz", "Pergunta": "Qual personagem — real ou fictício — melhor reflete o que você enxerga como seu eu ideal?" },
+    { "id": 11, "Tipo": "Luz", "Pergunta": "Qual valor ou princípio você nunca abriria mão por causa da opinião dos outros?" },
+    { "id": 12, "Tipo": "Luz", "Pergunta": "Qual elogio te faria se sentir incrível?" }
+  ],
+
+  "AtencaoPlena": [
+    { "id": 1, "Tipo": "Luz", "Pergunta": "Quais 3 aspectos da sua vida atual serão lembrados no futuro com profunda gratidão?" },
+    { "id": 2, "Tipo": "Luz", "Pergunta": "Qual lugar do seu passado desperta uma nostalgia boa, onde você se sentia presente e em paz?" },
+    { "id": 3, "Tipo": "Luz", "Pergunta": "Qual momento recente, se vivido com atenção plena, talvez revelasse mais beleza?" },
+    { "id": 4, "Tipo": "Luz", "Pergunta": "Qual momento da sua rotina você gostaria que durasse mais, como se o tempo fosse mais lento?" },
+    { "id": 5, "Tipo": "Sombra", "Pergunta": "Liste 3 consequências difíceis de não agir em prol do seu desejo. Transforme esse medo em movimento." },
+    { "id": 6, "Tipo": "Sombra", "Pergunta": "Quais distrações do dia a dia tomam sua atenção a ponto de você se perder nelas?" },
+    { "id": 7, "Tipo": "Sombra", "Pergunta": "Qual gatilho físico ou emocional te traz de volta ao presente?" },
+    { "id": 8, "Tipo": "Sombra", "Pergunta": "Será que distrações e devaneios te afastam do que importa? Que pensamento você evita?" },
+    { "id": 9, "Tipo": "Luz", "Pergunta": "" },
+    { "id": 10, "Tipo": "Luz", "Pergunta": "Com quem você se sente tão conectado que o tempo parece parar e você fica totalmente presente?" },
+    { "id": 11, "Tipo": "Luz", "Pergunta": "Ao estar completamente presente, como seu corpo se sente: calor, respiração, tensão..." },
+    { "id": 12, "Tipo": "Luz", "Pergunta": "Em que momento do seu dia você se sente totalmente presente, sem nenhuma distração?" }
+  ],
+
+  "Relacionamento": [
+    { "id": 1, "Tipo": "Luz", "Pergunta": "Quais 3 aspectos da sua vida atual serão lembrados no futuro com profunda gratidão?" },
+    { "id": 2, "Tipo": "Luz", "Pergunta": "Quem na sua vida te aceita por inteiro, permitindo que você fale com liberdade? Por quê?" },
+    { "id": 3, "Tipo": "Luz", "Pergunta": "Que pessoas você deseja se conectar e quais valores ou traços vocês têm em comum?" },
+    { "id": 4, "Tipo": "Luz", "Pergunta": "Quando criança, era fácil mostrar quem você era ou havia medo de se expor?" },
+    { "id": 5, "Tipo": "Sombra", "Pergunta": "Liste 3 consequências difíceis de não agir em prol do seu desejo. Transforme esse medo em movimento." },
+    { "id": 6, "Tipo": "Sombra", "Pergunta": "Será que ao julgar os outros como inferiores você se coloca acima e impede vínculos verdadeiros?" },
+    { "id": 7, "Tipo": "Sombra", "Pergunta": "Alguma experiência passada ainda te impede de se expressar livre e plenamente?" },
+    { "id": 8, "Tipo": "Sombra", "Pergunta": "Qual foi a última vez que você se sentiu fora de sintonia com um grupo e o que causou essa desconexão?" },
+    { "id": 9, "Tipo": "Luz", "Pergunta": "" },
+    { "id": 10, "Tipo": "Luz", "Pergunta": "Em quais momentos o silêncio expressa mais sobre você do que qualquer palavra?" },
+    { "id": 11, "Tipo": "Luz", "Pergunta": "Quais são as formas não verbais que você usa para expressar carinho ou amor?" },
+    { "id": 12, "Tipo": "Luz", "Pergunta": "De quem você mais se sente grato por estar ao seu lado e o que faz essa pessoa única?" }
+  ],
+
+  "Motivacao": [
+    { "id": 1, "Tipo": "Luz", "Pergunta": "Quais 3 aspectos da sua vida atual serão lembrados no futuro com profunda gratidão?" },
+    { "id": 2, "Tipo": "Luz", "Pergunta": "Quem na sua vida desperta a força de perseguir seus sonhos e como essa presença o inspira?" },
+    { "id": 3, "Tipo": "Luz", "Pergunta": "Há alguma atividade que o inspira a se superar e desperta motivação e propósito?" },
+    { "id": 4, "Tipo": "Luz", "Pergunta": "Em que momento do seu dia ou semana você sente um pico de energia e disposição?" },
+    { "id": 5, "Tipo": "Sombra", "Pergunta": "Liste 3 consequências difíceis de não agir em prol do seu desejo. Transforme esse medo em movimento." },
+    { "id": 6, "Tipo": "Sombra", "Pergunta": "Após qual atividade do dia você costuma sentir maior cansaço ou fadiga?" },
+    { "id": 7, "Tipo": "Sombra", "Pergunta": "Existe alguém que diminui sua motivação de buscar o que você realmente deseja?" },
+    { "id": 8, "Tipo": "Sombra", "Pergunta": "O que antes recarregava sua motivação mas hoje já não provoca o mesmo efeito?" },
+    { "id": 9, "Tipo": "Luz", "Pergunta": "" },
+    { "id": 10, "Tipo": "Luz", "Pergunta": "Em que lugar você se sente mais vivo e cheio de energia?" },
+    { "id": 11, "Tipo": "Luz", "Pergunta": "Existe alguma lembrança que reacenda sua motivação?" },
+    { "id": 12, "Tipo": "Luz", "Pergunta": "Que interesse da sua infância ainda te inspira até hoje?" }
+  ],
+
+  "Ansiedade": [
+    { "id": 1, "Tipo": "Luz", "Pergunta": "Quais 3 aspectos da sua vida atual serão lembrados no futuro com profunda gratidão?" },
+    { "id": 2, "Tipo": "Luz", "Pergunta": "Onde no seu dia você encontra refúgio e tranquilidade?" },
+    { "id": 3, "Tipo": "Luz", "Pergunta": "Quem faz você se sentir protegido e por que essa presença traz tanta leveza?" },
+    { "id": 4, "Tipo": "Luz", "Pergunta": "Quando você decidiu agir apesar do medo, o que mudou em você?" },
+    { "id": 5, "Tipo": "Sombra", "Pergunta": "Liste 3 consequências difíceis de não agir em prol do seu desejo. Transforme esse medo em movimento." },
+    { "id": 6, "Tipo": "Sombra", "Pergunta": "Há situações sociais ou pessoas que ativam sentimentos de insegurança?" },
+    { "id": 7, "Tipo": "Sombra", "Pergunta": "Sua ansiedade surge mais por fatores externos ou internos?" },
+    { "id": 8, "Tipo": "Sombra", "Pergunta": "Como a ansiedade interfere na forma como você expressa seus talentos?" },
+    { "id": 9, "Tipo": "Luz", "Pergunta": "" },
+    { "id": 10, "Tipo": "Luz", "Pergunta": "Como estaria sua vida em 1 ano se você agisse hoje sem medo?" },
+    { "id": 11, "Tipo": "Luz", "Pergunta": "Se você imaginasse um futuro em paz, quem estaria ao seu lado?" },
+    { "id": 12, "Tipo": "Luz", "Pergunta": "Quem são as pessoas que mais te inspiram a ser corajoso?" }
+  ]
+}
