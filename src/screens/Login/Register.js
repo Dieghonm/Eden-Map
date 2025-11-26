@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Platform, Alert, ActivityIndicator, Text, Image } from 'react-native';
+import { View, Platform, ActivityIndicator, Text, Image } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
@@ -62,7 +62,6 @@ export default function Register({ navigation, onChangeScreen }) {
     setErrorMessage('');
 
     try {
-      // ✅ CORREÇÃO: Usar nomes corretos dos campos
       const userData = {
         login: formData.username.toLowerCase().trim(),
         password: formData.password,  // ← Era "senha", agora "password"
@@ -71,26 +70,17 @@ export default function Register({ navigation, onChangeScreen }) {
         plan: 'trial'
       };
 
-      console.log('📤 Enviando cadastro:', userData);
       const response = await api.cadastro(userData);
-      console.log('✅ Resposta do cadastro:', response);
-
-      // Salvar tokens
       if (response.access_token) {
         await tokenHelpers.save(response.access_token, response.refresh_token);
       }
-
-      // Salvar dados do usuário
       await setUser({
         login: response.user.login,
         email: response.user.email,
         tag: response.user.tag,
         plan: response.user.plan,
       });
-
-      // Navegar para Home
       navigation.replace('Home');
-
     } catch (error) {
       console.error('❌ Erro no cadastro:', error);
 
@@ -111,7 +101,6 @@ export default function Register({ navigation, onChangeScreen }) {
       }
 
       setErrorMessage(errorMsg);
-      Alert.alert('Erro no Cadastro', errorMsg);
 
     } finally {
       setLoading(false);

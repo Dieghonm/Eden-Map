@@ -1,3 +1,4 @@
+// src/screens/Header/Header.js - VERSÃO SEM ALERTS
 import React, { useState, useContext } from 'react';
 import { View, TouchableOpacity, Modal, Text, Image, Pressable } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
@@ -23,12 +24,17 @@ export default function Header({ onHomePress, onResetStarting }) {
 
   const handleResetStarting = async () => {
     setMenuVisible(false);
-    const resultado = await resetStarting();
-    if (resultado?.sucesso && onResetStarting) {
-      onResetStarting();
+    
+    try {
+      await resetStarting();
+      
+      if (onResetStarting) {
+        onResetStarting();
+      }
+    } catch (error) {
+      console.error('❌ Erro ao resetar jornada:', error);
     }
   };
-
 
   const handleHomePress = () => {
     if (onHomePress) {
@@ -74,21 +80,18 @@ export default function Header({ onHomePress, onResetStarting }) {
         animationType="fade"
         onRequestClose={() => setMenuVisible(false)}
         statusBarTranslucent
-        // ✅ CORREÇÃO: Props de acessibilidade
         accessible={true}
         accessibilityViewIsModal={true}
       >
         <Pressable 
           style={styles.modalOverlay}
           onPress={() => setMenuVisible(false)}
-          // ✅ CORREÇÃO: Remover aria-hidden
           accessible={false}
           importantForAccessibility="no-hide-descendants"
         >
           <Pressable
             style={styles.menuDropdown}
             onPress={(e) => e.stopPropagation()}
-            // ✅ CORREÇÃO: Garantir foco
             accessible={true}
             accessibilityRole="menu"
           >

@@ -256,7 +256,6 @@ export const api = {
   // ===========================
   
   /**
-   * ✅ Buscar todos os dados do usuário usando email
    * @param {string} email - Email do usuário
    * @returns {Object} { user_id, login, email, selected_path, test_results, progress }
    */
@@ -272,7 +271,6 @@ export const api = {
   // ===========================
   
   /**
-   * ✅ Atualizar selected_path
    * @param {string} email - Email do usuário
    * @param {string} selectedPath - Caminho selecionado (Ansiedade, Atenção Plena, etc)
    * @returns {Object} Confirmação da atualização
@@ -288,7 +286,6 @@ export const api = {
   },
 
   /**
-   * ✅ Atualizar test_results
    * @param {string} email - Email do usuário
    * @param {Object} testResults - Resultados do teste { Ansiedade: 20, Atenção_Plena: 20, ... }
    * @returns {Object} Confirmação da atualização
@@ -304,7 +301,6 @@ export const api = {
   },
 
   /**
-   * ✅ Resetar test_results para null
    * @param {string} email - Email do usuário
    * @returns {Object} Confirmação da atualização
    */
@@ -316,7 +312,6 @@ export const api = {
   },
 
   /**
-   * ✅ Atualizar progresso (semana e dia)
    * @param {string} email - Email do usuário
    * @param {number} semana - Semana atual (1-12)
    * @param {number} dia - Dia atual (1-7)

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, ActivityIndicator, Alert, Image, Platform } from 'react-native';
+import { View, Text, ActivityIndicator, Image, Platform } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
@@ -33,11 +33,7 @@ export default function SignIn({ navigation, onChangeScreen }) {
         login: formData.email.toLowerCase().trim(),
         password: formData.password,
       };
-      
-      console.log('📤 Enviando login:', credentials);
       const response = await api.login(credentials);
-      console.log('✅ Resposta do login:', response);
-      
       if (response.access_token) {
         await tokenHelpers.save(response.access_token, response.refresh_token);
       }
@@ -65,8 +61,6 @@ export default function SignIn({ navigation, onChangeScreen }) {
       }
 
       setErrorMessage(errorMsg);
-      Alert.alert('Erro no Login', errorMsg);
-
     } finally {
       setLoading(false);
     }

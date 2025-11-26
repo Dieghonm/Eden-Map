@@ -1,6 +1,6 @@
 // src/screens/Starting/Results.js - VERSÃO CORRIGIDA
 import React, { useState, useContext } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity} from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Starting/Result';
@@ -25,8 +25,6 @@ export default function Result({ results, onNext, onRetake }) {
   const enviarResultadosTeste = async () => {
     try {
       setEnviandoDados(true);
-
-      // ✅ CORREÇÃO: Preparar objeto correto
       const testResults = {
         Ansiedade: 0,
         Atenção_Plena: 0,
@@ -35,44 +33,21 @@ export default function Result({ results, onNext, onRetake }) {
         Relacionamentos: 0
       };
 
-      // Preencher com os valores reais
       Results.forEach(result => {
-        // Converter nome do caminho para formato do backend
         const key = result.name === 'Atenção Plena' 
           ? 'Atenção_Plena' 
           : result.name;
         testResults[key] = result.percentage;
       });
 
-      console.log('📤 Enviando test_results:', testResults);
-
-      // ✅ CORREÇÃO: Passar parâmetros separados
       const response = await api.atualizarTestResults(
         user.email,
         testResults
       );
-
-      console.log('✅ Resultados do teste salvos:', response);
       return true;
 
     } catch (error) {
       console.error('❌ Erro ao salvar resultados:', error);
-      
-      Alert.alert(
-        'Erro ao Salvar',
-        'Não foi possível salvar os resultados do teste. Você pode continuar, mas os dados não serão salvos no servidor.',
-        [
-          { 
-            text: 'Continuar Mesmo Assim', 
-            style: 'default',
-            onPress: () => {} 
-          },
-          { 
-            text: 'Tentar Novamente', 
-            onPress: () => enviarResultadosTeste() 
-          }
-        ]
-      );
       
       return false;
     } finally {

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Text, View, Alert, ActivityIndicator } from 'react-native';
+import { Text, View, ActivityIndicator } from 'react-native';
 
 import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
@@ -22,6 +22,7 @@ import Confirmation from './Confirmation';
 export default function Starting({ onComplete }) {
   const { theme } = useTheme();
   const { 
+    user,
     desireName,
     desireDescription,
     selectedFeelings,
@@ -49,57 +50,17 @@ export default function Starting({ onComplete }) {
     setCurrentStep('PATH_DETAIL');
   };
 
-  /**
-   * ✨ CONFIRMAR CAMINHO E ENVIAR TODOS OS DADOS PARA O BACKEND
-   */
   const handlePathConfirmation = async () => {
     setEnviandoDados(true);
-
     try {
-      // 1. Mapear nome do caminho para ID
-      const pathId = ['Ansiedade', 'Autoimagem', 'Atenção Plena', 'Motivação', 'Relacionamentos']
-        .indexOf(selectedPathName) + 1;
-      
-      // 2. Salvar no Provider local (para uso offline)
-      await setSelectedPath(pathId);
-      
-      // 3. Preparar dados para envio ao backend
-      const startingData = {
-        desejo_nome: desireName,
-        desejo_descricao: desireDescription,
-        sentimentos_selecionados: selectedFeelings,
-        caminho_selecionado: selectedPathName,
-        teste_resultados: questionResults
-      };
-
-      console.log('📤 Enviando dados do Starting:', startingData);
-
-      // 4. Enviar para o backend
-      const response = await api.atualizarStarting(startingData);
-
-      console.log('✅ Dados salvos no backend:', response);
-
-      // 5. Ir para confirmação
+      await setSelectedPath(selectedPathName);
+      await api.atualizarCaminho(user.email, selectedPathName);
+      await api.atualizarProgresso(user.email, 1, 1);
       setCurrentStep('CONFIRMATION');
 
     } catch (error) {
       console.error('❌ Erro ao salvar dados do Starting:', error);
 
-      Alert.alert(
-        'Erro ao Salvar',
-        'Não foi possível salvar seus dados no servidor. Deseja continuar offline?',
-        [
-          {
-            text: 'Tentar Novamente',
-            onPress: () => handlePathConfirmation()
-          },
-          {
-            text: 'Continuar Offline',
-            style: 'default',
-            onPress: () => setCurrentStep('CONFIRMATION')
-          }
-        ]
-      );
     } finally {
       setEnviandoDados(false);
     }

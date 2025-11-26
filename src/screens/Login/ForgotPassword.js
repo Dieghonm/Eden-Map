@@ -25,12 +25,10 @@ export default function ForgotPassword({ onChangeScreen }) {
   const [touched, setTouched] = useState(false);
   const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
 
-  // ✅ Função controlada para trocar de estágio
   const goToStage = (stage) => {
     setScreenStage(stage);
   };
 
-  // ✅ Efeito para limpar estados conforme o estágio atual
   useEffect(() => {
     if (screenStage === 'EMAIL') {
       setEmail('');
@@ -43,7 +41,6 @@ export default function ForgotPassword({ onChangeScreen }) {
       setTouched(false);
       setErrorMessage('');
     } else if (screenStage === 'NEW_PASSWORD') {
-      // ✅ NÃO limpa o código aqui, só o erro
       setErrorMessage('');
     }
   }, [screenStage]);
@@ -60,19 +57,11 @@ export default function ForgotPassword({ onChangeScreen }) {
   };
 
   const handleSendCode = async () => {
-    if (!validateEmail(email)) {
-      Alert.alert('Erro', 'Por favor, insira um e-mail válido.');
-      return;
-    }
-
     setLoading(true);
     setErrorMessage('');
 
     try {
-      // ✅ CORREÇÃO: Enviar apenas o email
       await api.solicitarTempKey(email.toLowerCase().trim());
-      
-      Alert.alert('Código Enviado', 'Verifique seu e-mail para o código de verificação.');
       goToStage('CODE');
       setTimeout(() => inputRefs[0].current?.focus(), 100);
     } catch (error) {
@@ -82,9 +71,7 @@ export default function ForgotPassword({ onChangeScreen }) {
       if (error.status === 401) msg = 'E-mail não encontrado.';
       else if (error.status === 429) msg = 'Muitas tentativas. Aguarde.';
       else if (error.status === 0) msg = 'Erro de conexão. Verifique sua internet.';
-      
       setErrorMessage(msg);
-      Alert.alert('Erro', msg);
     } finally {
       setLoading(false);
     }
@@ -116,16 +103,10 @@ export default function ForgotPassword({ onChangeScreen }) {
   const handleVerifyCode = async () => {
     const fullCode = code.join('');
 
-    if (fullCode.length !== 4) {
-      Alert.alert('Erro', 'Por favor, insira o código completo de 4 dígitos.');
-      return;
-    }
-
     setLoading(true);
     setErrorMessage('');
 
     try {
-      // ✅ CORREÇÃO: Enviar email e code separados
       await api.validarTempKey(email, fullCode);
       
       goToStage('NEW_PASSWORD');
@@ -163,21 +144,12 @@ export default function ForgotPassword({ onChangeScreen }) {
 
     try {
       const fullCode = code.join('');
-      
-      // ✅ Validar se o código está presente
+
       if (!fullCode || fullCode.length !== 4) {
-        Alert.alert('Erro', 'Código inválido. Por favor, volte e digite o código novamente.');
         setLoading(false);
         return;
       }
-      
-      // ✅ CORREÇÃO: Enviar dados corretos
-      console.log('📤 Enviando reset de senha:', {
-        email,
-        code: fullCode,
-        new_password: newPassword
-      });
-      
+
       await api.redefinirSenha(
         email.toLowerCase().trim(),
         fullCode,
@@ -200,13 +172,11 @@ export default function ForgotPassword({ onChangeScreen }) {
       }
 
       setErrorMessage(msg);
-      Alert.alert('Erro', msg);
     } finally {
       setLoading(false);
     }
   };
 
-  // ========== RENDER: EMAIL STAGE ==========
   const renderEmailStage = () => (
     <View style={styles.container}>
       <Logo />

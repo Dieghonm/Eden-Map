@@ -67,7 +67,6 @@ export default function EditModal({ visible, onClose, onSave }) {
 
   const isFeelingValid = localFeelings.length === 3;
 
-  // TELA INICIAL: Escolher o que editar
   const renderInitialView = () => (
     <View style={styles.modalContent}>
       <GlassBox>
@@ -105,8 +104,6 @@ export default function EditModal({ visible, onClose, onSave }) {
       </GlassBox>
     </View>
   );
-
-  // TELA DE EDIÇÃO DO DESEJO
   const renderDesireEdit = () => (
     <KeyboardAwareScrollView
       contentContainerStyle={styles.scrollContent}
@@ -167,8 +164,6 @@ export default function EditModal({ visible, onClose, onSave }) {
       </View>
     </KeyboardAwareScrollView>
   );
-
-  // TELA DE EDIÇÃO DOS SENTIMENTOS
   const renderFeelingEdit = () => (
     <View style={styles.modalContent}>
       <Text style={styles.modalTitle}>Editar Sentimentos</Text>
@@ -227,7 +222,6 @@ export default function EditModal({ visible, onClose, onSave }) {
       transparent
       animationType="fade"
       onRequestClose={handleClose}
-      // ✅ CORREÇÃO: Adicionar props de acessibilidade
       accessible={true}
       accessibilityViewIsModal={true}
     >
@@ -235,7 +229,6 @@ export default function EditModal({ visible, onClose, onSave }) {
         style={styles.modalOverlay}
         activeOpacity={1}
         onPress={handleClose}
-        // ✅ CORREÇÃO: Remover aria-hidden implícito
         accessible={false}
         importantForAccessibility="no-hide-descendants"
       >
@@ -243,7 +236,6 @@ export default function EditModal({ visible, onClose, onSave }) {
           style={styles.modalBox}
           activeOpacity={1}
           onPress={(e) => e.stopPropagation()}
-          // ✅ CORREÇÃO: Garantir foco no conteúdo do modal
           accessible={true}
           accessibilityRole="dialog"
         >

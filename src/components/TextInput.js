@@ -14,16 +14,8 @@ export default function TextInput({
   showValidation = false
 }) {
   const { theme } = useTheme();
-
-  // ⛔ Antes: recarregava estilos e recriava componentes
-  // const styles = createStyles(theme, isValid, showValidation);
-
-  // ✅ Agora: estilos são memorizados e NÃO dependem da validação
   const styles = useMemo(() => createStyles(theme), [theme]);
-
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  // A validação controla SOMENTE a borda
   const finalContainerStyle = [
     styles.container,
     showValidation && !isValid && { borderColor: theme.error }

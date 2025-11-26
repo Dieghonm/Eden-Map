@@ -13,7 +13,6 @@ export default function DayScreen({ navigation }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
   
-  // ✅ Usando campos separados
   const { 
     semanaAtual,
     diaAtual,
@@ -26,7 +25,6 @@ export default function DayScreen({ navigation }) {
   const [sincronizando, setSincronizando] = React.useState(false);
   const [avancando, setAvancando] = React.useState(false);
 
-  // Sincroniza ao entrar na tela
   useEffect(() => {
     sincronizarProgresso();
   }, []);
@@ -35,7 +33,6 @@ export default function DayScreen({ navigation }) {
     setSincronizando(true);
     try {
       await sincronizarProgressoComBackend();
-      console.log('✅ Progresso sincronizado');
     } catch (error) {
       console.log('⚠️ Erro ao sincronizar:', error);
     } finally {
@@ -83,8 +80,7 @@ export default function DayScreen({ navigation }) {
     );
   }
 
-  // Calcula progresso
-  const totalDias = 84; // 12 semanas * 7 dias
+  const totalDias = 84;
   const diasCompletos = (semanaAtual - 1) * 7 + diaAtual;
   const progressoPercentual = Math.round((diasCompletos / totalDias) * 100);
 
@@ -110,7 +106,6 @@ export default function DayScreen({ navigation }) {
           </Text>
         )}
 
-        {/* Barra de Progresso */}
         <View style={{ marginTop: 20 }}>
           <Text style={{ color: theme.fontColor, marginBottom: 5 }}>Progresso Geral</Text>
           <View style={{ 

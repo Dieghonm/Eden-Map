@@ -52,10 +52,6 @@ export default function AppProvider({ children }) {
     }
   };
 
-  /**
-   * ✅ Sincroniza TODOS os dados com o backend
-   * Busca selected_path, test_results e progress
-   */
   const sincronizarComBackend = async (email) => {
     try {
       const response = await api.buscarDadosUsuario(email);
@@ -170,11 +166,9 @@ export default function AppProvider({ children }) {
     await storeData('semanaAtual', novaSemana);
     await storeData('diaAtual', novoDia);
     
-    // ✅ Sincroniza com backend
     if (user && user.email) {
       try {
         await api.atualizarProgresso(user.email, novaSemana, novoDia);
-        console.log('✅ Progresso salvo no backend:', { novaSemana, novoDia });
       } catch (error) {
         console.log('⚠️ Erro ao salvar progresso no backend:', error);
       }
@@ -217,77 +211,6 @@ export default function AppProvider({ children }) {
     
     return true;
   }, [user]);
-
-  const handleResetStarting = async () => {
-      Alert.alert(
-        '🔄 Reiniciar Jornada',
-        'Tem certeza que deseja reiniciar sua jornada? Todos os seus dados serão resetados.',
-        [
-          {
-            text: 'Cancelar',
-            style: 'cancel'
-          },
-          {
-            text: 'Confirmar',
-            style: 'destructive',
-            onPress: async () => {
-              setMenuVisible(false);
-              
-              try {
-                const resultado = await resetStarting();
-                
-                if (resultado.sucesso) {
-                  Alert.alert(
-                    '✅ Jornada Resetada',
-                    'Sua jornada foi reiniciada com sucesso!',
-                    [
-                      {
-                        text: 'OK',
-                        onPress: () => {
-                          if (onResetStarting) {
-                            onResetStarting();
-                          }
-                        }
-                      }
-                    ]
-                  );
-                } else {
-                  Alert.alert(
-                    '⚠️ Erro Parcial',
-                    `Não foi possível resetar completamente: ${resultado.erro}. Alguns dados podem ter sido mantidos.`,
-                    [
-                      {
-                        text: 'Tentar Novamente',
-                        onPress: () => handleResetStarting()
-                      },
-                      {
-                        text: 'OK',
-                        style: 'cancel'
-                      }
-                    ]
-                  );
-                }
-              } catch (error) {
-                Alert.alert(
-                  '❌ Erro',
-                  'Não foi possível resetar a jornada. Tente novamente.',
-                  [
-                    {
-                      text: 'Tentar Novamente',
-                      onPress: () => handleResetStarting()
-                    },
-                    {
-                      text: 'Cancelar',
-                      style: 'cancel'
-                    }
-                  ]
-                );
-              }
-            }
-          }
-        ]
-      );
-    };
 
   const resetUser = useCallback(async () => {
     setUserState(null);

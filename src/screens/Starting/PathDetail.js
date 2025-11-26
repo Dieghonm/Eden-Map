@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, Text, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Starting/PathDetail';
@@ -7,42 +7,31 @@ import { CAMINHOS } from '../../../assets/json/Sentimentos';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import ButtonSecundary from '../../components/ButtonSecundary';
 import Img from '../../components/Img';
+import { api } from '../../services/api';
 
 export default function PathDetail({ selectedPathName, onConfirm, onBack }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
-  const { setProgresso } = useContext(AppContext);
+  const { user } = useContext(AppContext);
   const [salvandoProgresso, setSalvandoProgresso] = React.useState(false);
+  
   const pathData = CAMINHOS.find(c => c.nome === selectedPathName);
 
   if (!pathData) return null;
+
   const handleConfirmPath = async () => {
     setSalvandoProgresso(true);
     try {
-      await setProgresso(1, 1);
+      if (user && user.email) {
+        await api.atualizarProgresso(user.email, 1, 1);
+      }
+      
       if (onConfirm) {
         onConfirm();
       }
     } catch (error) {
       console.error('❌ Erro ao salvar progresso inicial:', error);
 
-      Alert.alert(
-        'Erro',
-        'Não foi possível salvar o progresso. Deseja continuar mesmo assim?',
-        [
-          {
-            text: 'Tentar Novamente',
-            onPress: () => handleConfirmPath()
-          },
-          {
-            text: 'Continuar',
-            style: 'default',
-            onPress: () => {
-              if (onConfirm) onConfirm();
-            }
-          }
-        ]
-      );
     } finally {
       setSalvandoProgresso(false);
     }
