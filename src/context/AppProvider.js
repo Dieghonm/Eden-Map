@@ -1,4 +1,3 @@
-// src/context/AppProvider.js - VERSÃO COM SINCRONIZAÇÃO
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import { storeData, getData, removeData } from '../utils/storage';
 import { api } from '../services/api';
@@ -16,6 +15,8 @@ export default function AppProvider({ children }) {
   const [semanaAtual, setSemanaAtual] = useState(1);
   const [diaAtual, setDiaAtual] = useState(1);
   const [progressoAtualizadoEm, setProgressoAtualizadoEm] = useState(null);
+  const [cenasRespostas, setCenasRespostas] = useState([]);
+  const [statusDias, setStatusDias] = useState({});
 
   useEffect(() => {
     initializeApp();
@@ -32,6 +33,8 @@ export default function AppProvider({ children }) {
       const pathData = await getData('selectedPath');
       const semanaData = await getData('semanaAtual');
       const diaData = await getData('diaAtual');
+      const cenasData = await getData('cenasRespostas');
+      const diasData = await getData('statusDias');
       
       setUserState(userData || null);
       setDesireNameState(desireNameData || '');
@@ -40,6 +43,8 @@ export default function AppProvider({ children }) {
       setSelectedPathState(pathData || null);
       setSemanaAtual(semanaData || 1);
       setDiaAtual(diaData || 1);
+      setCenasRespostas(cenasData || []);
+      setStatusDias(diasData || {});
       
       if (userData && userData.email) {
         await sincronizarComBackend(userData.email);
@@ -69,14 +74,11 @@ export default function AppProvider({ children }) {
       setProgressoAtualizadoEm(new Date().toISOString());
    
     } catch (error) {
-      console.log('⚠️ Não foi possível sincronizar com backend:', error);
     }
   };
 
-
   const sincronizarProgressoComBackend = async () => {
     if (!user || !user.email) {
-      console.log('⚠️ Usuário não está logado, não é possível sincronizar');
       return;
     }
     try {
@@ -91,10 +93,8 @@ export default function AppProvider({ children }) {
       }
 
     } catch (error) {
-      console.log('⚠️ Erro ao sincronizar progresso:', error);
     }
   };
-
 
   useEffect(() => {
     const complete = 
@@ -139,7 +139,6 @@ export default function AppProvider({ children }) {
       try {
         await api.atualizarCaminho(user.email, path);
       } catch (error) {
-        console.log('⚠️ Erro ao salvar caminho no backend:', error);
       }
     }
   }, [user]);
@@ -159,7 +158,6 @@ export default function AppProvider({ children }) {
       };
     }
     
-    // Atualiza estado local
     setSemanaAtual(novaSemana);
     setDiaAtual(novoDia);
     setProgressoAtualizadoEm(new Date().toISOString());
@@ -170,7 +168,6 @@ export default function AppProvider({ children }) {
       try {
         await api.atualizarProgresso(user.email, novaSemana, novoDia);
       } catch (error) {
-        console.log('⚠️ Erro ao salvar progresso no backend:', error);
       }
     }
     
@@ -205,7 +202,6 @@ export default function AppProvider({ children }) {
         await api.atualizarCaminho(user.email, null);
         await api.atualizarProgresso(user.email, 1, 1);
       } catch (error) {
-        console.log('⚠️ Erro ao resetar jornada no backend:', error);
       }
     }
     
@@ -217,6 +213,111 @@ export default function AppProvider({ children }) {
     await removeData('user');
   }, []);
 
+  const salvarCenasRespostas = useCallback(async (semana, path, respostas) => {
+    try {
+      const existingData = cenasRespostas || [];
+      
+      const novaEntrada = {
+        semana,
+        path,
+        timestamp: new Date().toISOString(),
+        cenas: respostas
+      };
+      
+      const filteredData = existingData.filter(
+        entry => entry.semana !== semana || entry.path !== path
+      );
+      
+      const updatedData = [...filteredData, novaEntrada];
+      
+      setCenasRespostas(updatedData);
+      await storeData('cenasRespostas', updatedData);
+      
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }, [cenasRespostas]);
+
+  const carregarStatusDia = useCallback(async (semana, dia) => {
+    try {
+      const key = `${semana}_${dia}`;
+      const statusData = await getData('statusDias');
+      
+      if (statusData && statusData[key]) {
+        setStatusDias(prev => ({
+          ...prev,
+          [key]: statusData[key]
+        }));
+      }
+    } catch (error) {
+    }
+  }, []);
+
+  const salvarStatusDia = useCallback(async (semana, dia, novoStatus) => {
+    try {
+      const key = `${semana}_${dia}`;
+      const statusAtualizado = {
+        ...statusDias,
+        [key]: {
+          ...statusDias[key],
+          ...novoStatus,
+          updatedAt: new Date().toISOString()
+        }
+      };
+      
+      setStatusDias(statusAtualizado);
+      await storeData('statusDias', statusAtualizado);
+      
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }, [statusDias]);
+
+  const marcarExercicioConcluido = useCallback(async (semana, tipoExercicio) => {
+    try {
+      const dia = diaAtual;
+      await salvarStatusDia(semana, dia, {
+        exercicioConcluido: true,
+        meditacaoLiberada: true,
+        tipoExercicio,
+        completedAt: new Date().toISOString()
+      });
+      
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }, [diaAtual, salvarStatusDia]);
+
+  const marcarMeditacaoConcluida = useCallback(async (semana, dia) => {
+    try {
+      await salvarStatusDia(semana, dia, {
+        meditacaoConcluida: true,
+        meditacaoCompletedAt: new Date().toISOString()
+      });
+      
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }, [salvarStatusDia]);
+
+  const buscarCenasResposta = useCallback((semana, path) => {
+    return cenasRespostas.find(
+      entry => entry.semana === semana && entry.path === path
+    );
+  }, [cenasRespostas]);
+
+  const buscarStatusDia = useCallback((semana, dia) => {
+    const key = `${semana}_${dia}`;
+    return statusDias[key] || {
+      exercicioConcluido: false,
+      meditacaoLiberada: false,
+      meditacaoConcluida: false,
+    };
+  }, [statusDias]);
 
   const value = {
     isLoading,
@@ -239,6 +340,16 @@ export default function AppProvider({ children }) {
     diaAtual,
     progressoAtualizadoEm,
     avancarDia,
+
+    cenasRespostas,
+    statusDias,
+    salvarCenasRespostas,
+    carregarStatusDia,
+    salvarStatusDia,
+    marcarExercicioConcluido,
+    marcarMeditacaoConcluida,
+    buscarCenasResposta,
+    buscarStatusDia,
 
     sincronizarComBackend,
     sincronizarProgressoComBackend,
