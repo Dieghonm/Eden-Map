@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeProvider';
@@ -19,32 +19,17 @@ export default function DayScreen() {
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
-  const { 
-    semanaAtual,
-    diaAtual,
-    selectedPath,
-    statusDias,
-    carregarStatusDia,
-    marcarMeditacaoConcluida,
-    avancarDia,
-  } = useApp();
-  
+  const { semanaAtual, diaAtual, selectedPath, avancarDia } = useApp();
+
   const SEMANA = SEMANAS[semanaAtual - 1];
   const DIA = CALENDAR[diaAtual - 1];
-  
+
   const [currentScreen, setCurrentScreen] = useState('');
-  
-  // Busca o status do dia atual
-  const statusDiaAtual = statusDias?.[`${semanaAtual}_${diaAtual}`] || {
+  const [statusDiaAtual, setStatusDiaAtual] = useState({
     exercicioConcluido: false,
     meditacaoLiberada: false,
     meditacaoConcluida: false,
-  };
-
-  useEffect(() => {
-    // Carrega o status ao montar
-    carregarStatusDia(semanaAtual, diaAtual);
-  }, [semanaAtual, diaAtual]);
+  });
 
   const buttonText = () => {
     switch (DIA.exercicio) {
@@ -65,31 +50,39 @@ export default function DayScreen() {
 
   const handleExercicioComplete = (sucesso) => {
     if (sucesso) {
-      // O AppProvider já marcou como concluído
       setCurrentScreen('');
+      setStatusDiaAtual(prev => ({
+        ...prev,
+        exercicioConcluido: true,
+        meditacaoLiberada: true
+      }));
     }
   };
 
-  const handleMeditacaoComplete = async (sucesso) => {
+  const handleMeditacaoComplete = (sucesso) => {
     if (sucesso) {
-      await marcarMeditacaoConcluida(semanaAtual, diaAtual);
       setCurrentScreen('');
+      setStatusDiaAtual(prev => ({
+        ...prev,
+        meditacaoConcluida: true
+      }));
     }
   };
 
   const handleConcluirDia = async () => {
-    const resultado = await avancarDia();
-    if (resultado.sucesso) {
-      console.log('✅', resultado.message);
-    } else {
-      console.log('🎉', resultado.message);
-    }
+    await avancarDia();
   };
 
-  // Verifica se o dia está completo
   const diaCompleto = statusDiaAtual.exercicioConcluido && statusDiaAtual.meditacaoConcluida;
 
-  // Renderiza as telas dos exercícios
+  const renderCompletedButton = (title) => (
+    <ImgButton 
+      title="Finalizado"
+      img="Checked"
+      onPress={() => {}}
+    />
+  );
+
   switch (currentScreen) {
     case 'DESCRICAOCENA':
       return <CenaDay onComplete={handleExercicioComplete} />;
@@ -107,7 +100,6 @@ export default function DayScreen() {
       break;
   }
 
-  // Tela principal do dia
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.TextContainer}>
@@ -127,55 +119,46 @@ export default function DayScreen() {
         />
       </View>
 
-      {/* Botão do Exercício Principal */}
       {DIA.exercicio !== '' ? (
-        <ImgButton 
-          title={statusDiaAtual.exercicioConcluido ? `✓ ${buttonText()}` : buttonText()}
-          onPress={() => setCurrentScreen(DIA.exercicio)}
-          img={DIA.exercicio === 'PERGUNTAS' 
-            ? ([5, 6, 7, 8].includes(diaAtual) ? 'ExpSombra' : 'ExpLuz')
-            : DIA.exercicio
-          }
-        />
+        statusDiaAtual.exercicioConcluido
+          ? renderCompletedButton()
+          : (
+            <ImgButton 
+              title={buttonText()}
+              onPress={() => setCurrentScreen(DIA.exercicio)}
+              img={DIA.exercicio === 'PERGUNTAS' 
+                ? ([5, 6, 7, 8].includes(diaAtual) ? 'ExpSombra' : 'ExpLuz')
+                : DIA.exercicio
+              }
+            />
+          )
       ) : (
-        <View style={styles.spacer} />
+        <View />
       )}
 
-      {/* Botão da Meditação */}
       {statusDiaAtual.meditacaoLiberada ? (
-        <ImgButton 
-          title={statusDiaAtual.meditacaoConcluida ? "✓ Meditação" : "Meditação"}
-          onPress={() => setCurrentScreen('MEDITACAO')}
-          img="ExpMeditacoes"
-        />
+        statusDiaAtual.meditacaoConcluida
+          ? renderCompletedButton()
+          : (
+            <ImgButton 
+              title="Meditação"
+              onPress={() => setCurrentScreen('MEDITACAO')}
+              img="ExpMeditacoes"
+            />
+          )
       ) : (
         <ImgButton 
           title="Bloqueado"
-          onPress={() => console.log('Meditação bloqueada')}
           img="ExpBlock"
         />
       )}
 
-      {/* Botão de Concluir Dia */}
       <ButtonPrimary 
         title="Concluir o dia"
         onPress={handleConcluirDia}
         disabled={!diaCompleto}
         height={40}
       />
-
-      {/* Indicador de Progresso */}
-      {statusDiaAtual.exercicioConcluido && !statusDiaAtual.meditacaoLiberada && (
-        <Text style={{ fontSize: 12, textAlign: 'center', marginTop: 10 }}>
-          ⏳ Complete o exercício para liberar a meditação
-        </Text>
-      )}
-      
-      {diaCompleto && (
-        <Text style={{ fontSize: 12, textAlign: 'center', marginTop: 10, color: theme.success }}>
-          ✓ Todas as atividades concluídas!
-        </Text>
-      )}
     </SafeAreaView>
   );
 }

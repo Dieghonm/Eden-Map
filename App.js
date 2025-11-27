@@ -4,6 +4,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './src/navigation/AppNavigator';
 import AppProvider from './src/context/AppProvider';
+import JourneyProvider from './src/context/JourneyProvider';
 import { ThemeProvider, useTheme } from './src/context/ThemeProvider';
 import { StatusBar } from 'expo-status-bar';
 import { createStyles } from './src/styles/App';
@@ -40,7 +41,9 @@ export default function App() {
     <SafeAreaProvider>
       <ThemeProvider>
         <AppProvider>
-          <AppContent />
+          <JourneyProvider>
+            <AppContent />
+          </JourneyProvider>
         </AppProvider>
       </ThemeProvider>
     </SafeAreaProvider>
