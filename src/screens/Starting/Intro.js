@@ -21,8 +21,8 @@ export default function Intro({onStartGuide}) {
       </Text>
       
       <PlayButton 
-        text='Tutorial - Desejo'
-        source={require('../../../assets/audios/TutorialDesejo.mp3')}
+        text="Tutorial - Desejo"
+        source="https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
         duration={150}
       />
       

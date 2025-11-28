@@ -10,10 +10,14 @@ const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 export default function PlayButton({ text = 'Áudio', source, duration = 150 }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
+
   const [isPlaying, setIsPlaying] = useState(false);
   const progress = useRef(new Animated.Value(0)).current;
-  
-  const player = useAudioPlayer(source);
+
+  // 🔥 Aqui está a correção: suporta string (URL) ou objeto { uri }
+  const player = useAudioPlayer(
+    typeof source === 'string' ? { uri: source } : source
+  );
 
   const borderColor = theme?.button || '#0A84FF';
   const borderBase = theme?.terciario || '#797979';
@@ -76,10 +80,7 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
     outputRange: [circumference, 0],
   });
 
-  // Props específicas para web vs mobile
-  const svgProps = Platform.OS === 'web' 
-    ? {} 
-    : { collapsable: false };
+  const svgProps = Platform.OS === 'web' ? {} : { collapsable: false };
 
   const circleRotationProps = Platform.OS === 'web'
     ? {
@@ -99,6 +100,7 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
       activeOpacity={0.7}
     >
       <Text style={styles.text}>{text}</Text>
+
       <View style={styles.iconWrapper}>
         <Svg
           height={radius * 2 + strokeWidth}
@@ -106,7 +108,7 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
           style={styles.svgWrapper}
           {...svgProps}
         >
-          {/* Círculo base (estático) */}
+          {/* Círculo base */}
           <Circle
             stroke={borderBase}
             fill="none"
@@ -116,8 +118,8 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
             strokeWidth={strokeWidth}
             opacity={0.3}
           />
-          
-          {/* Círculo de progresso (animado) */}
+
+          {/* Círculo animado */}
           <AnimatedCircle
             stroke={borderColor}
             fill="none"
@@ -131,7 +133,7 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
             {...circleRotationProps}
           />
         </Svg>
-        
+
         <Image
           source={
             isPlaying
