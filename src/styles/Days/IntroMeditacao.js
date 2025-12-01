@@ -8,31 +8,25 @@ export const createStyles = (theme) =>
       flexGrow: 1,
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
-      paddingTop: spacing.md,
+      paddingTop: spacing.lg * 3,
     },
     imageContainer: {
-      marginBottom: spacing.md,
+      marginBottom: spacing.md * 2,
     },
     title: {
-      fontSize: fontSize.xl,
+      fontSize: fontSize.xxl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      textAlign: 'center',
-      marginBottom: spacing.md,
-      paddingHorizontal: spacing.xs,
+      textAlign: 'justify',
+      marginBottom: spacing.xxs,
     },
     pergunta: {
       fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
-      color: theme.fontColor,
-      textAlign: 'center',
-      padding: spacing.xs,
+      color: theme.alert,
+      textAlign: 'justify',
       lineHeight: spacing.xs,
+      height: spacing.xl
     },
-    buttonsContainer: {
-      width: '100%',
-      alignItems: 'center',
-      gap: spacing.xs,
-      marginTop: spacing.md,
-    },
+
   });

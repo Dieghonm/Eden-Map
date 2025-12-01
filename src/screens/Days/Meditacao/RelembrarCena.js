@@ -73,55 +73,33 @@ export default function RelembrarCena({ selectedPath, semanaAtual, onVoltar, onC
       <GlassBox>
         <Text style={styles.cenaTitle}>{textoCena}</Text>
 
-        <View style={styles.respostaGroup}>
-          <Text style={styles.respostaLabel}>Onde se passou sua cena?</Text>
-          <Text style={styles.respostaText}>{cenaAtual.onde}</Text>
+        <View style={styles.inputGroup}>
+          <Text style={styles.cenaPart}>Onde se passou sua cena?</Text>
+          <Text style={styles.input}>{cenaAtual.onde}</Text>
         </View>
 
-        <View style={styles.respostaGroup}>
-          <Text style={styles.respostaLabel}>Quem estava ao seu redor?</Text>
-          <Text style={styles.respostaText}>{cenaAtual.quem}</Text>
+        <View style={styles.inputGroup}>
+          <Text style={styles.cenaPart}>Quem estava ao seu redor?</Text>
+          <Text style={styles.input}>{cenaAtual.quem}</Text>
         </View>
 
-        <View style={styles.respostaGroup}>
-          <Text style={styles.respostaLabel}>Qual era o contexto ou ação?</Text>
-          <Text style={styles.respostaText}>{cenaAtual.acao}</Text>
+        <View style={styles.inputGroup}>
+          <Text style={styles.cenaPart}>Qual era o contexto ou ação?</Text>
+          <Text style={[styles.input, styles.inputGrande]}>{cenaAtual.acao}</Text>
         </View>
       </GlassBox>
-
-      <View style={styles.navigationContainer}>
-        {currentCena > 1 && (
-          <ButtonSecundary
-            title="Cena Anterior"
-            onPress={handlePrevious}
-            width={135}
-            height={40}
-          />
-        )}
-
-        {currentCena < totalCenas && (
-          <ButtonSecundary
-            title="Próxima Cena"
-            onPress={handleNext}
-            width={135}
-            height={40}
-          />
-        )}
-      </View>
-
-      <View style={styles.mainButtonsContainer}>
-        <ButtonSecundary
-          title="Voltar"
-          onPress={onVoltar}
+      {currentCena < totalCenas ? 
+        <ButtonPrimary
+          title="Próxima Cena"
+          onPress={handleNext}
           height={40}
-        />
-
+        />:
         <ButtonPrimary
           title="Continuar"
           onPress={onContinuar}
           height={40}
         />
-      </View>
+      }
     </ScrollView>
   );
 }

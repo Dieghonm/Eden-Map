@@ -254,7 +254,7 @@ const Stack = createStackNavigator();
 
 const DEV_CONFIG = {
   // ✅ Ative para pular o Starting automaticamente
-  BYPASS_STARTING: false,
+  BYPASS_STARTING: true,
   
   // ✅ Se true, mostra botão flutuante para toggle manual
   SHOW_DEV_BUTTON: false,

@@ -8,58 +8,62 @@ export const createStyles = (theme) =>
       flexGrow: 1,
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
-      paddingTop: spacing.md,
+      paddingTop: spacing.xl,
     },
     title: {
       fontSize: fontSize.xxl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      textAlign: 'center',
-      marginBottom: spacing.md,
+      textAlign: 'left',
+      marginBottom: spacing.xs / 2,
     },
     description: {
       fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
-      textAlign: 'center',
-      padding: spacing.xs,
+      textAlign: 'left',
       lineHeight: spacing.xs,
+      marginBottom: spacing.md,
     },
     highlight: {
       color: theme.alert,
       fontFamily: fontFamily.b7,
     },
-    buttonsContainer: {
-      width: '100%',
+    imagebox:{
+      width:spacing.huge,
+      height: spacing.xxl / 2,
+      backgroundColor: theme.secondary,
+      flexDirection: 'row',
       alignItems: 'center',
-      gap: spacing.md,
-      marginTop: spacing.md,
+      borderRadius: borderRadius.p,
+      marginBottom: spacing.md
     },
-    sectionTitle: {
-      fontSize: fontSize.lg,
+    image:{
+      height:50,
+      width:50,
+      margin: spacing.md / 4,
+      borderRadius: borderRadius.p
+    },
+    ativate: {
+      backgroundColor: '#38C197',
+    }, 
+    desativate:{
+      backgroundColor: '#EA5959',
+    },
+    toggleText: {
+      fontSize: fontSize.md,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
       textAlign: 'center',
-      marginTop: spacing.xs,
+      marginHorizontal: spacing.xs * 2
     },
-    selectedContainer: {
-      width: spacing.giant,
-      height: spacing.lg - spacing.xxs,
-      backgroundColor: theme.success,
-      borderRadius: borderRadius.circle,
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingHorizontal: spacing.xs,
-    },
-    selectedText: {
+    sectionTitle: {
       fontSize: fontSize.xl,
       fontFamily: fontFamily.b7,
       color: theme.buttonTextColor,
+      marginBottom: spacing.md
     },
     navigationButtons: {
-      flexDirection: 'column',
-      width: '100%',
-      gap: spacing.xs,
-      marginTop: spacing.md,
+      gap: spacing.md,
     },
   });

@@ -34,23 +34,20 @@ export default function IntroMeditacao({ selectedPath, semanaAtual, onRelembrar,
         Desejo relembrar a cena abaixo antes de praticar?
       </Text>
 
-      <GlassBox>
-        <Text style={styles.pergunta}>{textoCena}</Text>
-      </GlassBox>
+      <Text style={styles.pergunta}>{textoCena}</Text>
 
-      <View style={styles.buttonsContainer}>
-        <ButtonPrimary
-          title="Relembrar cena"
-          onPress={onRelembrar}
-          height={40}
-        />
+      <ButtonPrimary
+        title="Relembrar cena"
+        onPress={onRelembrar}
+        height={40}
+      />
 
-        <ButtonSecundary
-          title="Ir para respiração"
-          onPress={onRespiracao}
-          height={40}
-        />
-      </View>
+      <ButtonSecundary
+        title="Ir para respiração"
+        onPress={onRespiracao}
+        height={40}
+      />
+
     </ScrollView>
   );
 }

@@ -1,13 +1,15 @@
-// src/screens/Days/Meditacao/RespiracaoConfig.js
 import React, { useState } from 'react';
-import { View, Text, ScrollView, Image } from 'react-native';
+import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { useTheme } from '../../../context/ThemeProvider';
 import { useJourney } from '../../../context/JourneyProvider';
 import { createStyles } from '../../../styles/Days/RespiracaoConfig';
-import GlassBox from '../../../components/GlassBox';
+
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import ButtonSecundary from '../../../components/ButtonSecundary';
 import ImgButton from '../../../components/ImgButton';
+
+import ExpBlock from '../../../../assets/icons/ExpBlock.png';
+import Checked from '../../../../assets/icons/Checked.png';
 
 export default function RespiracaoConfig({ onVoltar, onContinuar }) {
   const { theme } = useTheme();
@@ -16,10 +18,18 @@ export default function RespiracaoConfig({ onVoltar, onContinuar }) {
 
   const [atividadeIniciada, setAtividadeIniciada] = useState(false);
   const [respiracaoSelecionada, setRespiracaoSelecionada] = useState(null);
-  const [podeAvancar, setPodeAvancar] = useState(false);
+  const [podeAvancar, setPodeAvancar] = useState(true);
 
   const handleIniciarAtividade = () => {
-    setAtividadeIniciada(true);
+    const novoValor = !atividadeIniciada;
+    setAtividadeIniciada(novoValor);
+
+    if (!novoValor) {
+      setRespiracaoSelecionada(null);
+      setPodeAvancar(true);
+    } else {
+      setPodeAvancar(false);
+    }
   };
 
   const handleSelecionarRespiracao = async (tempo) => {
@@ -29,9 +39,7 @@ export default function RespiracaoConfig({ onVoltar, onContinuar }) {
   };
 
   const handleContinuar = () => {
-    if (podeAvancar) {
-      onContinuar();
-    }
+    if (podeAvancar) onContinuar();
   };
 
   return (
@@ -41,67 +49,59 @@ export default function RespiracaoConfig({ onVoltar, onContinuar }) {
     >
       <Text style={styles.title}>Respiração pré prática</Text>
 
-      <GlassBox>
-        <Text style={styles.description}>
-          <Text style={styles.highlight}>Antes de visualizar a meditação</Text>
-          {' — dê atenção à respiração e '}
-          <Text style={styles.highlight}>retorne para o estado corpo-mente.</Text>
-        </Text>
-      </GlassBox>
+      <Text style={styles.description}>
+        <Text style={styles.highlight}>Sugerimos</Text>
+        {' começar com '}
+        <Text style={styles.highlight}>o exercício de respiração</Text>
+        {' — ele prepara o corpo e a mente para '}
+        <Text style={styles.highlight}>meditar com mais leveza</Text>
+        {'.'}
+      </Text>
 
-      <View style={styles.buttonsContainer}>
-        {!atividadeIniciada ? (
-          <ButtonPrimary
-            title="Alterar"
-            onPress={handleIniciarAtividade}
-            height={40}
-            disabled={false}
-          />
+      <TouchableOpacity onPress={handleIniciarAtividade} style={styles.toggleBox}>
+        {atividadeIniciada ? (
+          <View style={styles.imagebox}>
+            <Text style={styles.toggleText}>Desativar</Text>
+            <Image source={Checked} style={[styles.image, styles.ativate]} resizeMode="cover" />
+
+          </View>
         ) : (
-          <>
-            <Text style={styles.sectionTitle}>Clique e escolha a intensidade</Text>
-
-            {respiracaoSelecionada !== 5 ? (
-              <ImgButton
-                title="Leve - 3 minutos"
-                img="ExpLuz"
-                onPress={() => handleSelecionarRespiracao(5)}
-              />
-            ) : (
-              <View style={styles.selectedContainer}>
-                <Text style={styles.selectedText}>✓ Leve - 3 minutos</Text>
-              </View>
-            )}
-
-            {respiracaoSelecionada !== 15 ? (
-              <ImgButton
-                title="Intenso - 15 minutos"
-                img="ExpSombra"
-                onPress={() => handleSelecionarRespiracao(15)}
-              />
-            ) : (
-              <View style={styles.selectedContainer}>
-                <Text style={styles.selectedText}>✓ Intenso - 15 minutos</Text>
-              </View>
-            )}
-          </>
+          <View style={styles.imagebox}>
+            <Image source={ExpBlock} style={[styles.image, styles.desativate]} resizeMode="cover" />
+            <Text style={styles.toggleText}>Ativar</Text>
+          </View>
         )}
+      </TouchableOpacity>
 
-        <View style={styles.navigationButtons}>
-          <ButtonSecundary
-            title="Voltar"
-            onPress={onVoltar}
-            height={40}
-          />
+      <Text style={styles.sectionTitle}>Clique e escolha a intensidade</Text>
 
-          <ButtonPrimary
-            title="Ir para prática"
-            onPress={handleContinuar}
-            disabled={!podeAvancar}
-            height={40}
-          />
-        </View>
+      <View style={styles.navigationButtons}>
+
+        <ImgButton
+          title="Leve - 3 minutos"
+          img={respiracaoSelecionada === 3 ? 'Checked' : 'ExpLuz'}
+          disabled={!atividadeIniciada}
+          onPress={() => handleSelecionarRespiracao(3)}
+        />
+        <ImgButton
+          title="Intenso - 15 minutos"
+          img={respiracaoSelecionada === 15 ? 'Checked' : 'ExpSombra'}
+          disabled={!atividadeIniciada}
+          onPress={() => handleSelecionarRespiracao(15)}
+        />
+        <ButtonPrimary
+          title="Ir para prática"
+          onPress={handleContinuar}
+          disabled={!podeAvancar}
+          height={40}
+        />
       </View>
+
+      <ButtonSecundary
+        title="Voltar"
+        onPress={onVoltar}
+        height={40}
+      />
     </ScrollView>
   );
 }
