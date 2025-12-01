@@ -13,28 +13,45 @@ export default function JourneyProvider({ children }) {
   const [meditacaoRespostas, setMeditacaoRespostas] = useState([]);
   const [tempoRespiracao, setTempoRespiracao] = useState(null);
   const [missoesConcluidas, setMissoesConcluidas] = useState([]);
+  const [configRespiracao, setConfigRespiracao] = useState({ ativado: false, tempo: null });
 
   // ============================================================================
   // CARREGAMENTO INICIAL
   // ============================================================================
-  
   useEffect(() => {
     async function carregar() {
-      const cenas = await getData('cenasRespostas');
-      const videos = await getData('videosAssistidos');
-      const tracking = await getData('trackingRespostas');
-      const perguntas = await getData('perguntasRespostas');
-      const meditacao = await getData('meditacaoRespostas');
-      const tempo = await getData('tempoRespiracao');
-      const missoes = await getData('missoesConcluidas');
+      try {
+        const [
+          cenas,
+          videos,
+          tracking,
+          perguntas,
+          meditacao,
+          tempo,
+          missoes,
+          config
+        ] = await Promise.all([
+          getData('cenasRespostas'),
+          getData('videosAssistidos'),
+          getData('trackingRespostas'),
+          getData('perguntasRespostas'),
+          getData('meditacaoRespostas'),
+          getData('tempoRespiracao'),
+          getData('missoesConcluidas'),
+          getData('configRespiracao')
+        ]);
 
-      if (cenas) setCenasRespostas(cenas);
-      if (videos) setVideosAssistidos(videos);
-      if (tracking) setTrackingRespostas(tracking);
-      if (perguntas) setPerguntasRespostas(perguntas);
-      if (meditacao) setMeditacaoRespostas(meditacao);
-      if (tempo) setTempoRespiracao(tempo);
-      if (missoes) setMissoesConcluidas(missoes);
+        if (cenas) setCenasRespostas(cenas);
+        if (videos) setVideosAssistidos(videos);
+        if (tracking) setTrackingRespostas(tracking);
+        if (perguntas) setPerguntasRespostas(perguntas);
+        if (meditacao) setMeditacaoRespostas(meditacao);
+        if (tempo !== undefined && tempo !== null) setTempoRespiracao(tempo);
+        if (missoes) setMissoesConcluidas(missoes);
+        if (config) setConfigRespiracao(config);
+      } catch (error) {
+        console.error('❌ Erro ao carregar dados iniciais:', error);
+      }
     }
     carregar();
   }, []);
@@ -189,6 +206,35 @@ export default function JourneyProvider({ children }) {
     }
   }, []);
 
+  // 6️⃣-B CONFIGURAÇÃO COMPLETA DE RESPIRAÇÃO (ativado + tempo)
+  const salvarConfigRespiracao = useCallback(async (config) => {
+    try {
+      // atualiza estado local
+      setConfigRespiracao(config || { ativado: false, tempo: null });
+      if (config && config.tempo) {
+        setTempoRespiracao(config.tempo);
+      } else if (!config || !config.tempo) {
+        setTempoRespiracao(null);
+      }
+
+      await storeData('configRespiracao', config);
+      return true;
+    } catch (error) {
+      console.error('❌ Erro ao salvar config respiração:', error);
+      return false;
+    }
+  }, []);
+
+  const buscarConfigRespiracao = useCallback(async () => {
+    try {
+      const config = await getData('configRespiracao');
+      return config || { ativado: false, tempo: null };
+    } catch (error) {
+      console.error('❌ Erro ao buscar config respiração:', error);
+      return { ativado: false, tempo: null };
+    }
+  }, []);
+
   // 7️⃣ MISSÕES
   const salvarMissaoConcluida = useCallback(async (semana, path, missaoData) => {
     try {
@@ -321,6 +367,7 @@ export default function JourneyProvider({ children }) {
       setMeditacaoRespostas([]);
       setTempoRespiracao(null);
       setMissoesConcluidas([]);
+      setConfigRespiracao({ ativado: false, tempo: null });
 
       await storeData('cenasRespostas', []);
       await storeData('videosAssistidos', []);
@@ -329,6 +376,7 @@ export default function JourneyProvider({ children }) {
       await storeData('meditacaoRespostas', []);
       await storeData('tempoRespiracao', null);
       await storeData('missoesConcluidas', []);
+      await storeData('configRespiracao', { ativado: false, tempo: null });
 
       return true;
     } catch (error) {
@@ -350,6 +398,7 @@ export default function JourneyProvider({ children }) {
     meditacaoRespostas,
     tempoRespiracao,
     missoesConcluidas,
+    configRespiracao,
 
     // 💾 SALVAMENTO
     salvarCenasRespostas,
@@ -358,6 +407,7 @@ export default function JourneyProvider({ children }) {
     salvarPerguntaResposta,
     salvarMeditacaoRespostas,
     salvarTempoRespiracao,
+    salvarConfigRespiracao,
     salvarMissaoConcluida,
 
     // 🔍 BUSCA
@@ -367,6 +417,7 @@ export default function JourneyProvider({ children }) {
     buscarPerguntaSemana,
     buscarMeditacaoSemana,
     buscarMissaoSemana,
+    buscarConfigRespiracao,
     verificarAtividadeConcluida,
     obterProgressoGeral,
 

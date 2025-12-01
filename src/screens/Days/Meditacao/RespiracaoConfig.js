@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { useTheme } from '../../../context/ThemeProvider';
 import { useJourney } from '../../../context/JourneyProvider';
@@ -14,19 +14,41 @@ import Checked from '../../../../assets/icons/Checked.png';
 export default function RespiracaoConfig({ onVoltar, onContinuar }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
-  const { salvarTempoRespiracao } = useJourney();
+  const { salvarConfigRespiracao, buscarConfigRespiracao } = useJourney();
 
   const [atividadeIniciada, setAtividadeIniciada] = useState(false);
   const [respiracaoSelecionada, setRespiracaoSelecionada] = useState(null);
   const [podeAvancar, setPodeAvancar] = useState(true);
+  const [carregando, setCarregando] = useState(true);
 
-  const handleIniciarAtividade = () => {
+  useEffect(() => {
+    const carregarConfig = async () => {
+      const config = await buscarConfigRespiracao();
+      
+      if (config.ativado && config.tempo) {
+        setAtividadeIniciada(true);
+        setRespiracaoSelecionada(config.tempo);
+        setPodeAvancar(true);
+      } else {
+        setAtividadeIniciada(false);
+        setRespiracaoSelecionada(null);
+        setPodeAvancar(true);
+      }
+      
+      setCarregando(false);
+    };
+
+    carregarConfig();
+  }, []);
+
+  const handleIniciarAtividade = async () => {
     const novoValor = !atividadeIniciada;
     setAtividadeIniciada(novoValor);
 
     if (!novoValor) {
       setRespiracaoSelecionada(null);
       setPodeAvancar(true);
+      await salvarConfigRespiracao({ ativado: false, tempo: null });
     } else {
       setPodeAvancar(false);
     }
@@ -34,13 +56,21 @@ export default function RespiracaoConfig({ onVoltar, onContinuar }) {
 
   const handleSelecionarRespiracao = async (tempo) => {
     setRespiracaoSelecionada(tempo);
-    await salvarTempoRespiracao(tempo);
+    await salvarConfigRespiracao({ ativado: true, tempo });
     setPodeAvancar(true);
   };
 
   const handleContinuar = () => {
     if (podeAvancar) onContinuar();
   };
+
+  if (carregando) {
+    return (
+      <View style={[styles.container, { justifyContent: 'center' }]}>
+        <Text style={styles.title}>Carregando...</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView
@@ -78,10 +108,10 @@ export default function RespiracaoConfig({ onVoltar, onContinuar }) {
       <View style={styles.navigationButtons}>
 
         <ImgButton
-          title="Leve - 3 minutos"
+          title="Leve - 5 minutos"
           img={respiracaoSelecionada === 3 ? 'Checked' : 'ExpLuz'}
           disabled={!atividadeIniciada}
-          onPress={() => handleSelecionarRespiracao(3)}
+          onPress={() => handleSelecionarRespiracao(5)}
         />
         <ImgButton
           title="Intenso - 15 minutos"
