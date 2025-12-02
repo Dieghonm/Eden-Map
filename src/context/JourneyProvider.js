@@ -1,11 +1,11 @@
-// src/context/JourneyProvider.js
+// src/context/JourneyProvider.js - VERSÃO CORRIGIDA
 import React, { createContext, useState, useCallback, useEffect } from 'react';
 import { storeData, getData } from '../utils/storage';
 
 export const JourneyContext = createContext();
 
 export default function JourneyProvider({ children }) {
-  // Estados para cada tipo de dado
+  // ✅ Estados organizados por tipo
   const [cenasRespostas, setCenasRespostas] = useState([]);
   const [videosAssistidos, setVideosAssistidos] = useState([]);
   const [trackingRespostas, setTrackingRespostas] = useState([]);
@@ -57,21 +57,33 @@ export default function JourneyProvider({ children }) {
   }, []);
 
   // ============================================================================
-  // FUNÇÕES DE SALVAMENTO
+  // ✅ 1️⃣ CENAS - CORRIGIDO PARA SUBSTITUIR
   // ============================================================================
-
-  // 1️⃣ CENAS
   const salvarCenasRespostas = useCallback(async (semana, path, respostas) => {
     try {
-      const novaEntrada = {
-        id: Date.now(),
+      console.log(`💾 Salvando cenas - Semana ${semana}, Path: ${path}`);
+      
+      // ✅ Cria cópia do array atual
+      const updatedData = [...cenasRespostas];
+      
+      // ✅ Índice é semana - 1 (semana 1 = índice 0)
+      const index = semana - 1;
+      
+      // ✅ Garante que o array tem tamanho suficiente
+      while (updatedData.length <= index) {
+        updatedData.push(null);
+      }
+      
+      // ✅ Sobrescreve a posição
+      updatedData[index] = {
         semana,
         path,
         timestamp: new Date().toISOString(),
         cenas: respostas
       };
-
-      const updatedData = [...cenasRespostas, novaEntrada];
+      
+      console.log(`✅ Cenas salvas no índice ${index}:`, updatedData[index]);
+      
       setCenasRespostas(updatedData);
       await storeData('cenasRespostas', updatedData);
       return true;
@@ -81,18 +93,29 @@ export default function JourneyProvider({ children }) {
     }
   }, [cenasRespostas]);
 
-  // 2️⃣ VÍDEOS
+  // ============================================================================
+  // ✅ 2️⃣ VÍDEOS - CORRIGIDO PARA SUBSTITUIR
+  // ============================================================================
   const salvarVideoAssistido = useCallback(async (semana, path, videoData) => {
     try {
-      const novaEntrada = {
-        id: Date.now(),
+      console.log(`💾 Salvando vídeo - Semana ${semana}, Path: ${path}`);
+      
+      const updatedData = [...videosAssistidos];
+      const index = semana - 1;
+      
+      while (updatedData.length <= index) {
+        updatedData.push(null);
+      }
+      
+      updatedData[index] = {
         semana,
         path,
         timestamp: new Date().toISOString(),
         ...videoData
       };
-
-      const updatedData = [...videosAssistidos, novaEntrada];
+      
+      console.log(`✅ Vídeo salvo no índice ${index}`);
+      
       setVideosAssistidos(updatedData);
       await storeData('videosAssistidos', updatedData);
       return true;
@@ -102,32 +125,33 @@ export default function JourneyProvider({ children }) {
     }
   }, [videosAssistidos]);
 
-  // 3️⃣ TRACKING (com sistema de soma)
+  // ============================================================================
+  // ✅ 3️⃣ TRACKING - SISTEMA DE SOMA MANTIDO
+  // ============================================================================
   const salvarTrackingResposta = useCallback(async (semana, path, resposta) => {
     try {
-      const entradaExistente = trackingRespostas.find(
-        entry => entry.semana === semana && entry.path === path
-      );
-
-      let updatedData;
-
-      if (entradaExistente) {
-        updatedData = trackingRespostas.map(entry => {
-          if (entry.semana === semana && entry.path === path) {
-            return {
-              ...entry,
-              valorTotal: entry.valorTotal + resposta.valor,
-              respostas: [...entry.respostas, {
-                timestamp: new Date().toISOString(),
-                ...resposta
-              }]
-            };
-          }
-          return entry;
-        });
+      console.log(`💾 Salvando tracking - Semana ${semana}, Valor: ${resposta.valor}`);
+      
+      const updatedData = [...trackingRespostas];
+      const index = semana - 1;
+      
+      while (updatedData.length <= index) {
+        updatedData.push(null);
+      }
+      
+      // ✅ Se já existe, soma o valor
+      if (updatedData[index]) {
+        updatedData[index] = {
+          ...updatedData[index],
+          valorTotal: updatedData[index].valorTotal + resposta.valor,
+          respostas: [...updatedData[index].respostas, {
+            timestamp: new Date().toISOString(),
+            ...resposta
+          }]
+        };
       } else {
-        const novaEntrada = {
-          id: Date.now(),
+        // ✅ Se não existe, cria novo
+        updatedData[index] = {
           semana,
           path,
           valorTotal: resposta.valor,
@@ -136,9 +160,10 @@ export default function JourneyProvider({ children }) {
             ...resposta
           }]
         };
-        updatedData = [...trackingRespostas, novaEntrada];
       }
-
+      
+      console.log(`✅ Tracking salvo - Valor total: ${updatedData[index].valorTotal}`);
+      
       setTrackingRespostas(updatedData);
       await storeData('trackingRespostas', updatedData);
       return true;
@@ -148,22 +173,29 @@ export default function JourneyProvider({ children }) {
     }
   }, [trackingRespostas]);
 
-  // 4️⃣ PERGUNTAS (substitui se mesma semana)
+  // ============================================================================
+  // ✅ 4️⃣ PERGUNTAS - CORRIGIDO PARA SUBSTITUIR
+  // ============================================================================
   const salvarPerguntaResposta = useCallback(async (semana, path, resposta) => {
     try {
-      const filtrado = perguntasRespostas.filter(
-        entry => !(entry.semana === semana && entry.path === path)
-      );
-
-      const novaEntrada = {
-        id: Date.now(),
+      console.log(`💾 Salvando pergunta - Semana ${semana}, Path: ${path}`);
+      
+      const updatedData = [...perguntasRespostas];
+      const index = semana - 1;
+      
+      while (updatedData.length <= index) {
+        updatedData.push(null);
+      }
+      
+      updatedData[index] = {
         semana,
         path,
         timestamp: new Date().toISOString(),
         ...resposta
       };
-
-      const updatedData = [...filtrado, novaEntrada];
+      
+      console.log(`✅ Pergunta salva no índice ${index}`);
+      
       setPerguntasRespostas(updatedData);
       await storeData('perguntasRespostas', updatedData);
       return true;
@@ -173,18 +205,29 @@ export default function JourneyProvider({ children }) {
     }
   }, [perguntasRespostas]);
 
-  // 5️⃣ MEDITAÇÃO
+  // ============================================================================
+  // ✅ 5️⃣ MEDITAÇÃO - CORRIGIDO PARA SUBSTITUIR
+  // ============================================================================
   const salvarMeditacaoRespostas = useCallback(async (semana, path, respostas) => {
     try {
-      const novaEntrada = {
-        id: Date.now(),
+      console.log(`💾 Salvando meditação - Semana ${semana}, Path: ${path}`);
+      
+      const updatedData = [...meditacaoRespostas];
+      const index = semana - 1;
+      
+      while (updatedData.length <= index) {
+        updatedData.push(null);
+      }
+      
+      updatedData[index] = {
         semana,
         path,
         timestamp: new Date().toISOString(),
         cenas: respostas
       };
-
-      const updatedData = [...meditacaoRespostas, novaEntrada];
+      
+      console.log(`✅ Meditação salva no índice ${index}`);
+      
       setMeditacaoRespostas(updatedData);
       await storeData('meditacaoRespostas', updatedData);
       return true;
@@ -194,10 +237,42 @@ export default function JourneyProvider({ children }) {
     }
   }, [meditacaoRespostas]);
 
-  // 6️⃣ TEMPO DE RESPIRAÇÃO
+  // ============================================================================
+  // ✅ 6️⃣ MISSÕES - CORRIGIDO PARA SUBSTITUIR
+  // ============================================================================
+  const salvarMissaoConcluida = useCallback(async (semana, path, missaoData) => {
+    try {
+      console.log(`💾 Salvando missão - Semana ${semana}, Path: ${path}`);
+      
+      const updatedData = [...missoesConcluidas];
+      const index = semana - 1;
+      
+      while (updatedData.length <= index) {
+        updatedData.push(null);
+      }
+      
+      updatedData[index] = {
+        semana,
+        path,
+        timestamp: new Date().toISOString(),
+        ...missaoData
+      };
+      
+      console.log(`✅ Missão salva no índice ${index}`);
+      
+      setMissoesConcluidas(updatedData);
+      await storeData('missoesConcluidas', updatedData);
+      return true;
+    } catch (error) {
+      console.error('❌ Erro ao salvar missão:', error);
+      return false;
+    }
+  }, [missoesConcluidas]);
+
+  // ============================================================================
+  // 7️⃣ TEMPO DE RESPIRAÇÃO
+  // ============================================================================
   const salvarTempoRespiracao = useCallback(async (tempo) => {
-    console.log(tempo);
-    
     try {
       setTempoRespiracao(tempo);
       await storeData('tempoRespiracao', tempo);
@@ -208,10 +283,11 @@ export default function JourneyProvider({ children }) {
     }
   }, []);
 
-  // 6️⃣-B CONFIGURAÇÃO COMPLETA DE RESPIRAÇÃO (ativado + tempo)
+  // ============================================================================
+  // 8️⃣ CONFIGURAÇÃO DE RESPIRAÇÃO
+  // ============================================================================
   const salvarConfigRespiracao = useCallback(async (config) => {
     try {
-      // atualiza estado local
       setConfigRespiracao(config || { ativado: false, tempo: null });
       if (config && config.tempo) {
         setTempoRespiracao(config.tempo);
@@ -237,74 +313,57 @@ export default function JourneyProvider({ children }) {
     }
   }, []);
 
-  // 7️⃣ MISSÕES
-  const salvarMissaoConcluida = useCallback(async (semana, path, missaoData) => {
-    try {
-      const novaEntrada = {
-        id: Date.now(),
-        semana,
-        path,
-        timestamp: new Date().toISOString(),
-        ...missaoData
-      };
-
-      const updatedData = [...missoesConcluidas, novaEntrada];
-      setMissoesConcluidas(updatedData);
-      await storeData('missoesConcluidas', updatedData);
-      return true;
-    } catch (error) {
-      console.error('❌ Erro ao salvar missão:', error);
-      return false;
-    }
-  }, [missoesConcluidas]);
-
   // ============================================================================
-  // FUNÇÕES DE BUSCA
+  // 🔍 FUNÇÕES DE BUSCA - CORRIGIDAS
   // ============================================================================
 
-  // 🔍 Buscar cenas de uma semana específica
   const buscarCenasSemana = useCallback((semana, path) => {
-    return cenasRespostas.find(
-      entry => entry.semana === semana && entry.path === path
-    );
+    const index = semana - 1;
+    const cena = cenasRespostas[index];
+    
+    // ✅ Verifica se existe e se o path bate
+    if (cena && cena.path === path) {
+      console.log(`🔍 Cena encontrada - Semana ${semana}:`, cena);
+      return cena;
+    }
+    
+    console.log(`⚠️ Nenhuma cena encontrada - Semana ${semana}`);
+    return null;
   }, [cenasRespostas]);
 
-  // 🔍 Buscar vídeo de uma semana
   const buscarVideoSemana = useCallback((semana, path) => {
-    return videosAssistidos.find(
-      entry => entry.semana === semana && entry.path === path
-    );
+    const index = semana - 1;
+    const video = videosAssistidos[index];
+    return (video && video.path === path) ? video : null;
   }, [videosAssistidos]);
 
-  // 🔍 Buscar tracking de uma semana
   const buscarTrackingSemana = useCallback((semana, path) => {
-    return trackingRespostas.find(
-      entry => entry.semana === semana && entry.path === path
-    );
+    const index = semana - 1;
+    const tracking = trackingRespostas[index];
+    return (tracking && tracking.path === path) ? tracking : null;
   }, [trackingRespostas]);
 
-  // 🔍 Buscar pergunta de uma semana
   const buscarPerguntaSemana = useCallback((semana, path) => {
-    return perguntasRespostas.find(
-      entry => entry.semana === semana && entry.path === path
-    );
+    const index = semana - 1;
+    const pergunta = perguntasRespostas[index];
+    return (pergunta && pergunta.path === path) ? pergunta : null;
   }, [perguntasRespostas]);
 
-  // 🔍 Buscar meditação de uma semana
   const buscarMeditacaoSemana = useCallback((semana, path) => {
-    return meditacaoRespostas.find(
-      entry => entry.semana === semana && entry.path === path
-    );
+    const index = semana - 1;
+    const meditacao = meditacaoRespostas[index];
+    return (meditacao && meditacao.path === path) ? meditacao : null;
   }, [meditacaoRespostas]);
 
-  // 🔍 Buscar missão de uma semana
   const buscarMissaoSemana = useCallback((semana, path) => {
-    return missoesConcluidas.find(
-      entry => entry.semana === semana && entry.path === path
-    );
+    const index = semana - 1;
+    const missao = missoesConcluidas[index];
+    return (missao && missao.path === path) ? missao : null;
   }, [missoesConcluidas]);
 
-  // 🔍 Verificar se atividade foi concluída
+  // ============================================================================
+  // 📊 VERIFICAÇÃO DE ATIVIDADES
+  // ============================================================================
   const verificarAtividadeConcluida = useCallback((tipo, semana, path) => {
     switch (tipo) {
       case 'DESCRICAOCENA':
@@ -331,21 +390,26 @@ export default function JourneyProvider({ children }) {
     buscarMeditacaoSemana
   ]);
 
-  // 🔍 Obter progresso geral
+  // ============================================================================
+  // 📈 PROGRESSO GERAL
+  // ============================================================================
   const obterProgressoGeral = useCallback(() => {
+    // ✅ Conta apenas posições não-nulas
+    const contarNaoNulos = (arr) => arr.filter(item => item !== null).length;
+    
     return {
-      cenas: cenasRespostas.length,
-      videos: videosAssistidos.length,
-      tracking: trackingRespostas.length,
-      perguntas: perguntasRespostas.length,
-      meditacoes: meditacaoRespostas.length,
-      missoes: missoesConcluidas.length,
-      total: cenasRespostas.length + 
-             videosAssistidos.length + 
-             trackingRespostas.length + 
-             perguntasRespostas.length +
-             meditacaoRespostas.length +
-             missoesConcluidas.length
+      cenas: contarNaoNulos(cenasRespostas),
+      videos: contarNaoNulos(videosAssistidos),
+      tracking: contarNaoNulos(trackingRespostas),
+      perguntas: contarNaoNulos(perguntasRespostas),
+      meditacoes: contarNaoNulos(meditacaoRespostas),
+      missoes: contarNaoNulos(missoesConcluidas),
+      total: contarNaoNulos(cenasRespostas) + 
+             contarNaoNulos(videosAssistidos) + 
+             contarNaoNulos(trackingRespostas) + 
+             contarNaoNulos(perguntasRespostas) +
+             contarNaoNulos(meditacaoRespostas) +
+             contarNaoNulos(missoesConcluidas)
     };
   }, [
     cenasRespostas,
@@ -357,9 +421,8 @@ export default function JourneyProvider({ children }) {
   ]);
 
   // ============================================================================
-  // FUNÇÕES DE RESET (útil para desenvolvimento)
+  // 🔄 RESET
   // ============================================================================
-
   const resetarTodosDados = useCallback(async () => {
     try {
       setCenasRespostas([]);
@@ -380,6 +443,7 @@ export default function JourneyProvider({ children }) {
       await storeData('missoesConcluidas', []);
       await storeData('configRespiracao', { ativado: false, tempo: null });
 
+      console.log('✅ Todos os dados foram resetados');
       return true;
     } catch (error) {
       console.error('❌ Erro ao resetar dados:', error);
@@ -390,7 +454,6 @@ export default function JourneyProvider({ children }) {
   // ============================================================================
   // PROVIDER VALUE
   // ============================================================================
-
   const value = {
     // 📊 DADOS
     cenasRespostas,

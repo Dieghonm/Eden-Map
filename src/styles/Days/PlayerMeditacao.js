@@ -1,74 +1,133 @@
 // src/styles/Days/PlayerMeditacao.js
 import { StyleSheet } from 'react-native';
 import { spacing, fontSize, fontFamily, borderRadius } from '../../theme/texts';
-import { horizontalScale } from '../../utils/responsive';
+import { horizontalScale, verticalScale } from '../../utils/responsive';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
+    // ========== CONTAINER ==========
     container: {
       flexGrow: 1,
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
-      paddingTop: spacing.xl,
-      justifyContent: 'space-between',
+      paddingTop: spacing.md,
+      paddingBottom: spacing.xl,
     },
-    title: {
-      fontSize: fontSize.xl,
+
+    // ========== HEADER ==========
+    header: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '100%',
+      marginBottom: spacing.xl,
+    },
+
+    headerButton: {
+      width: horizontalScale(40),
+      height: horizontalScale(40),
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+
+    headerIcon: {
+      width: horizontalScale(24),
+      height: horizontalScale(24),
+    },
+
+    logo: {
+      width: horizontalScale(50),
+      height: verticalScale(33),
+    },
+
+    // ========== TIMER CARD ==========
+    timerCard: {
+      width: '100%',
+      padding: spacing.md,
+      marginBottom: spacing.md,
+      alignItems: 'center',
+    },
+
+    timerTitle: {
+      fontSize: fontSize.lg,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
+      marginBottom: spacing.md,
       textAlign: 'center',
-      marginBottom: spacing.xl,
     },
-    playerContainer: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      flex: 1,
+
+    // ========== BARRA DE PROGRESSO ==========
+    progressBarContainer: {
+      width: '100%',
+      marginBottom: spacing.md,
     },
-    circleContainer: {
+
+    progressBarBackground: {
+      width: '100%',
+      height: verticalScale(10),
+      backgroundColor: theme.terciario,
+      borderRadius: borderRadius.circle,
       position: 'relative',
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginBottom: spacing.xl,
+      overflow: 'visible',
     },
-    timeContainer: {
+
+    progressBarFill: {
+      height: '100%',
+      backgroundColor: theme.button,
+      borderRadius: borderRadius.circle,
+    },
+
+    progressCircle: {
       position: 'absolute',
-      alignItems: 'center',
-      justifyContent: 'center',
+      top: verticalScale(-5),
+      left: 0,
+      width: horizontalScale(20),
+      height: horizontalScale(20),
+      borderRadius: borderRadius.circle,
+      backgroundColor: theme.button,
+      shadowColor: theme.button,
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.6,
+      shadowRadius: 4,
+      elevation: 5,
     },
-    timeText: {
+
+    // ========== CONTROLES DO TIMER ==========
+    timerControls: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      width: '100%',
+      paddingHorizontal: spacing.xs,
+    },
+
+    timerText: {
       fontSize: fontSize.header,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
     },
+
     playButton: {
-      width: horizontalScale(80),
-      height: horizontalScale(80),
+      width: horizontalScale(60),
+      height: horizontalScale(60),
       borderRadius: borderRadius.circle,
       backgroundColor: theme.button,
-      alignItems: 'center',
       justifyContent: 'center',
+      alignItems: 'center',
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 0.3,
       shadowRadius: 8,
       elevation: 8,
     },
-    playButtonText: {
-      fontSize: fontSize.header,
-      color: theme.buttonTextColor,
+
+    playIcon: {
+      width: horizontalScale(30),
+      height: horizontalScale(30),
+      tintColor: theme.buttonTextColor,
     },
-    phaseIndicator: {
-      flexDirection: 'row',
-      gap: spacing.xs,
-      marginVertical: spacing.xl,
-    },
-    phaseStep: {
-      width: horizontalScale(60),
-      height: horizontalScale(8),
-      backgroundColor: theme.terciario,
-      borderRadius: borderRadius.p,
-    },
-    phaseStepActive: {
-      backgroundColor: theme.success,
+
+    playIconDisabled: {
+      opacity: 0.3,
     },
   });

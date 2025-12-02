@@ -14,7 +14,6 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
   const [isPlaying, setIsPlaying] = useState(false);
   const progress = useRef(new Animated.Value(0)).current;
 
-  // 🔥 Aqui está a correção: suporta string (URL) ou objeto { uri }
   const player = useAudioPlayer(
     typeof source === 'string' ? { uri: source } : source
   );
