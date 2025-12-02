@@ -13,6 +13,8 @@ import ExpSombra from '../../assets/icons/ExpSombra.png';
 import ExpLuz from '../../assets/icons/ExpLuz.png';
 import ExpDescreva from '../../assets/icons/ExpDescreva.png';
 import ExpSentimentos from '../../assets/icons/ExpSentimentos.png';
+import Leve from '../../assets/icons/Leve.png';
+import Intenso from '../../assets/icons/Intenso.png';
 
 export default function ImgButton({ 
   title, 
@@ -26,6 +28,8 @@ export default function ImgButton({
   const styles = createStyles(theme, width, height);
 
   const imageSource = {
+    Leve,
+    Intenso,
     Checked,
     ExpBlock,
     VIDEOS: ExpVideos,

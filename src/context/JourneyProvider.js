@@ -196,6 +196,8 @@ export default function JourneyProvider({ children }) {
 
   // 6️⃣ TEMPO DE RESPIRAÇÃO
   const salvarTempoRespiracao = useCallback(async (tempo) => {
+    console.log(tempo);
+    
     try {
       setTempoRespiracao(tempo);
       await storeData('tempoRespiracao', tempo);

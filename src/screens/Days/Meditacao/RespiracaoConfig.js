@@ -23,19 +23,25 @@ export default function RespiracaoConfig({ onVoltar, onContinuar }) {
 
   useEffect(() => {
     const carregarConfig = async () => {
-      const config = await buscarConfigRespiracao();
-      
-      if (config.ativado && config.tempo) {
-        setAtividadeIniciada(true);
-        setRespiracaoSelecionada(config.tempo);
-        setPodeAvancar(true);
-      } else {
+      try {
+        const config = await buscarConfigRespiracao();
+        
+        if (config && config.ativado && config.tempo) {
+          setAtividadeIniciada(true);
+          setRespiracaoSelecionada(config.tempo);
+          setPodeAvancar(true);
+        } else {
+          setAtividadeIniciada(false);
+          setRespiracaoSelecionada(null);
+          setPodeAvancar(true);
+        }
+      } catch (error) {
         setAtividadeIniciada(false);
         setRespiracaoSelecionada(null);
         setPodeAvancar(true);
+      } finally {
+        setCarregando(false);
       }
-      
-      setCarregando(false);
     };
 
     carregarConfig();
@@ -49,6 +55,7 @@ export default function RespiracaoConfig({ onVoltar, onContinuar }) {
       setRespiracaoSelecionada(null);
       setPodeAvancar(true);
       await salvarConfigRespiracao({ ativado: false, tempo: null });
+      console.log('🔴 Atividade DESATIVADA - pode avançar sem respiração');
     } else {
       setPodeAvancar(false);
     }
@@ -61,7 +68,9 @@ export default function RespiracaoConfig({ onVoltar, onContinuar }) {
   };
 
   const handleContinuar = () => {
-    if (podeAvancar) onContinuar();
+    if (podeAvancar) {
+      onContinuar();
+    }
   };
 
   if (carregando) {
@@ -93,7 +102,6 @@ export default function RespiracaoConfig({ onVoltar, onContinuar }) {
           <View style={styles.imagebox}>
             <Text style={styles.toggleText}>Desativar</Text>
             <Image source={Checked} style={[styles.image, styles.ativate]} resizeMode="cover" />
-
           </View>
         ) : (
           <View style={styles.imagebox}>
@@ -106,16 +114,15 @@ export default function RespiracaoConfig({ onVoltar, onContinuar }) {
       <Text style={styles.sectionTitle}>Clique e escolha a intensidade</Text>
 
       <View style={styles.navigationButtons}>
-
         <ImgButton
           title="Leve - 5 minutos"
-          img={respiracaoSelecionada === 3 ? 'Checked' : 'ExpLuz'}
+          img={respiracaoSelecionada === 5 ? 'Checked' : 'Leve'}
           disabled={!atividadeIniciada}
           onPress={() => handleSelecionarRespiracao(5)}
         />
         <ImgButton
           title="Intenso - 15 minutos"
-          img={respiracaoSelecionada === 15 ? 'Checked' : 'ExpSombra'}
+          img={respiracaoSelecionada === 15 ? 'Checked' : 'Intenso'}
           disabled={!atividadeIniciada}
           onPress={() => handleSelecionarRespiracao(15)}
         />
