@@ -32,7 +32,7 @@ export default function VideoPlayer({
 const styles = StyleSheet.create({
   fixedContainer: {
     position: 'absolute',
-    top: 240,
+    top: 40,
     left: 0,
     right: 0,
     alignItems: 'center',

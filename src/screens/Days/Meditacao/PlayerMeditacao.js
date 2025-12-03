@@ -8,44 +8,49 @@ import GlassBox from '../../../components/GlassBox';
 import { useAudioPlayer } from 'expo-audio';
 
 function Timer({ initialSeconds, source }) {
+  const { theme } = useTheme();
+  const styles = createStyles(theme);
   const [time, setTime] = useState(initialSeconds);
   const [running, setRunning] = useState(false);
-
   const progress = useRef(new Animated.Value(0)).current;
 
   const player = useAudioPlayer(
-    source
-      ? typeof source === 'string'
-        ? { uri: source }
-        : source
-      : null
+    source ? (typeof source === 'string' ? { uri: source } : source) : null
   );
 
   useEffect(() => {
     setTime(initialSeconds);
     setRunning(false);
     progress.setValue(0);
-    if (player) player.stop();
+    if (player) {
+      try {
+        player.pause();
+        if (player.seekTo) player.seekTo(0);
+      } catch (e) {}
+    }
   }, [initialSeconds]);
 
   useEffect(() => {
     Animated.timing(progress, {
       toValue: 1 - time / initialSeconds,
       duration: 300,
-      useNativeDriver: false,
+      useNativeDriver: false
     }).start();
   }, [time, initialSeconds]);
 
   useEffect(() => {
     let interval = null;
     if (running && time > 0) {
-      interval = setInterval(() => {
-        setTime((t) => t - 1);
-      }, 1000);
+      interval = setInterval(() => setTime(t => t - 1), 1000);
     }
-    if (time === 0) {
+    if (running && time === 0) {
       setRunning(false);
-      if (player) player.stop();
+      if (player) {
+        try {
+          player.pause();
+          if (player.seekTo) player.seekTo(0);
+        } catch (e) {}
+      }
     }
     return () => clearInterval(interval);
   }, [running, time]);
@@ -54,88 +59,54 @@ function Timer({ initialSeconds, source }) {
     const next = !running;
     setRunning(next);
     if (!player) return;
-    if (next) player.play();
-    else player.pause();
+    try {
+      if (next) player.play();
+      else player.pause();
+    } catch (e) {}
   };
 
-  const format = (v) =>
+  useEffect(() => {
+    return () => {
+      try {
+        if (player) player.pause();
+      } catch (e) {}
+    };
+  }, []);
+
+  const format = v =>
     String(Math.floor(v / 60)).padStart(2, '0') +
     ':' +
     String(v % 60).padStart(2, '0');
 
   const knobTranslate = progress.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 260],
+    outputRange: [0, 260]
   });
 
   const barFillWidth = progress.interpolate({
     inputRange: [0, 1],
-    outputRange: ['0%', '100%'],
+    outputRange: ['0%', '100%']
   });
 
   return (
-    <View style={{ width: '100%' }}>
-      <View style={{ width: '100%', marginTop: 10 }}>
-        <View
-          style={{
-            width: '100%',
-            height: 4,
-            backgroundColor: 'white',
-            borderRadius: 4,
-            overflow: 'hidden',
-          }}
-        >
-          <Animated.View
-            style={{
-              height: 4,
-              width: barFillWidth,
-              backgroundColor: '#38C197',
-            }}
-          />
-        </View>
-
-        <Animated.View
-          style={{
-            width: 18,
-            height: 18,
-            borderRadius: 18,
-            backgroundColor: '#38C197',
-            position: 'absolute',
-            top: -7,
-            transform: [{ translateX: knobTranslate }],
-          }}
-        />
+    <View style={styles.timerBox}>
+      <View style={styles.progress}>
+        <Animated.View style={[styles.marcador, { width: barFillWidth }]} />
       </View>
 
-      <View
-        style={{
-          marginTop: 20,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <Text style={{ fontSize: 40, fontWeight: '700', color: 'white' }}>
-          {format(time)}
-        </Text>
+      <Animated.View style={[styles.icon, { transform: [{ translateX: knobTranslate }] }]} />
 
-        <TouchableOpacity
-          onPress={togglePlay}
-          style={{
-            width: 48,
-            height: 48,
-            borderRadius: 48,
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
+      <View style={styles.timerRow}>
+        <Text style={styles.timerText}>{format(time)}</Text>
+
+        <TouchableOpacity onPress={togglePlay} style={styles.playButton}>
           <Image
             source={
               running
                 ? require('../../../../assets/icons/Pause.png')
                 : require('../../../../assets/icons/Play.png')
             }
-            style={{ width: 50, height: 50 }}
+            style={styles.playIcon}
             resizeMode="contain"
           />
         </TouchableOpacity>
@@ -150,13 +121,18 @@ export default function PlayerMeditacao({ selectedPath, semanaAtual, onComplete 
 
   const [timeRespiracao, settimeRespiracao] = useState(0);
   const [timeMeditacao, settimeMeditacao] = useState(10);
+  const [respiracaoAtivada, setrespiracaoAtivada] = useState(false);
   const { buscarConfigRespiracao } = useJourney();
 
   useEffect(() => {
     const carregarConfig = async () => {
       const config = await buscarConfigRespiracao();
-      if (config && config.ativado && config.tempo) settimeRespiracao(config.tempo);
-      else settimeRespiracao(5);
+      if (config && config.ativado && config.tempo) {
+        settimeRespiracao(config.tempo);
+        setrespiracaoAtivada(config.ativado);
+      } else {
+        settimeRespiracao(5);
+      }
     };
     carregarConfig();
   }, []);
@@ -164,30 +140,25 @@ export default function PlayerMeditacao({ selectedPath, semanaAtual, onComplete 
   const [allComplete, setAllComplete] = useState(false);
 
   return (
-    <View>
-      <GlassBox>
-        <Text>Exercício de respiração</Text>
-        <Timer
-          initialSeconds={timeRespiracao * 60}
-          source={
-            'https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3'
-          }
-        />
-      </GlassBox>
+    <View style={styles.container}>
+      <View style={styles.spacerBox}>
+        {respiracaoAtivada ? (
+          <GlassBox>
+            <Text style={styles.text}>Exercício de respiração</Text>
+            <Timer
+              initialSeconds={timeRespiracao * 60}
+              source="https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
+            />
+          </GlassBox>
+        ) : null}
+      </View>
 
       <GlassBox>
-        <Text>Meditação</Text>
+        <Text style={styles.text}>Meditação</Text>
         <Timer
           initialSeconds={timeMeditacao * 60}
-          source={
-            'https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena3%20Tratado.mp3'
-          }
+          source="https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena3%20Tratado.mp3"
         />
-      </GlassBox>
-
-      <GlassBox>
-        <Text>Teste rápido</Text>
-        <Timer initialSeconds={10} />
       </GlassBox>
 
       <ButtonPrimary

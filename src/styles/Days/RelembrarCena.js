@@ -16,7 +16,6 @@ export const createStyles = (theme) =>
       marginBottom: spacing.xs,
       marginTop:spacing.xxl / 2,
       textAlign: 'left',
-      
     },
     highlight: {
       color: theme.alert,

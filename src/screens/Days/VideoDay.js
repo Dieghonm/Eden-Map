@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../../context/ThemeProvider';
 import { useApp } from '../../context/AppProvider';
@@ -16,23 +16,23 @@ export default function VideoDay({ onComplete }) {
   const { selectedPath, semanaAtual } = useApp();
   const { salvarVideoAssistido } = useJourney();
 
-  const [isPlaying, setIsPlaying] = useState(false);
   const [videoCompleto, setVideoCompleto] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Busca o vídeo da semana atual
   const videoData = VIDEOS[semanaAtual - 1];
 
   const handleVideoStateChange = (state) => {
     if (state === 'ended') {
-      setIsPlaying(false);
       setVideoCompleto(true);
     }
   };
 
-  const handleConcluir = async () => {
-    if (!videoCompleto) return;
+  const openYoutube = () => {
+    const url = `https://www.youtube.com/watch?v=${videoData.video}`;
+    Linking.openURL(url);
+  };
 
+  const handleConcluir = async () => {
     setIsLoading(true);
     const sucesso = await salvarVideoAssistido(semanaAtual, selectedPath, {
       videoId: videoData.id,
@@ -48,12 +48,12 @@ export default function VideoDay({ onComplete }) {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
-      <ScrollView 
+      <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
         <Text style={styles.videoTitle}>{videoData.topico}</Text>
-        
+
         <Text style={styles.videoDescription}>
           {videoData.sinopse[0]}
           <Text style={styles.highlight}>{videoData.sinopse[1]}</Text>
@@ -66,15 +66,15 @@ export default function VideoDay({ onComplete }) {
           <VideoPlayer
             videoId={videoData.video}
             height={220}
-            play={isPlaying}
+            play
             onChangeState={handleVideoStateChange}
           />
-          
+
           <Text style={styles.videoDuration}>Duração: 5 minutos</Text>
-          
+
           <ButtonPrimary
-            title={isPlaying ? "Pausar" : "Assistir"}
-            onPress={() => setIsPlaying(!isPlaying)}
+            title="Assistir no Youtube"
+            onPress={openYoutube}
             width={220}
           />
         </GlassBox>
@@ -82,7 +82,6 @@ export default function VideoDay({ onComplete }) {
         <ButtonPrimary
           title={isLoading ? "Salvando..." : "Concluir"}
           onPress={handleConcluir}
-          disabled={!videoCompleto || isLoading}
           height={40}
         />
       </ScrollView>

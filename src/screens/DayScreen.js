@@ -25,11 +25,12 @@ export default function DayScreen() {
   const DIA = CALENDAR[diaAtual - 1];
 
   const [currentScreen, setCurrentScreen] = useState('');
-  const [statusDiaAtual, setStatusDiaAtual] = useState({
-    exercicioConcluido: false,
-    meditacaoLiberada: false,
+  const initialStatus = {
+    exercicioConcluido: DIA.exercicio === '',
+    meditacaoLiberada: DIA.exercicio === '',
     meditacaoConcluida: false,
-  });
+  };
+  const [statusDiaAtual, setStatusDiaAtual] = useState(initialStatus);
 
   const buttonText = () => {
     switch (DIA.exercicio) {
@@ -71,6 +72,26 @@ export default function DayScreen() {
 
   const handleConcluirDia = async () => {
     await avancarDia();
+    setCurrentScreen('');
+
+    const candidateNext = CALENDAR[diaAtual] || null;
+    const candidateCurrent = CALENDAR[diaAtual - 1] || null;
+
+    let proximoDia = null;
+
+    if (candidateNext && candidateNext !== DIA) {
+      proximoDia = candidateNext;
+    } else if (candidateCurrent && candidateCurrent !== DIA) {
+      proximoDia = candidateCurrent;
+    } else {
+      proximoDia = candidateNext || candidateCurrent || DIA;
+    }
+
+    setStatusDiaAtual({
+      exercicioConcluido: proximoDia.exercicio === '',
+      meditacaoLiberada: proximoDia.exercicio === '',
+      meditacaoConcluida: false,
+    });
   };
 
   const diaCompleto = statusDiaAtual.exercicioConcluido && statusDiaAtual.meditacaoConcluida;

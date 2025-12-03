@@ -20,6 +20,7 @@ export const createStyles = (theme) =>
       marginTop: spacing.md,
       marginBottom: spacing.xs,
       textAlign: 'center',
+      width:330
     },
     videoDescription: {
       fontSize: fontSize.md,
@@ -32,12 +33,6 @@ export const createStyles = (theme) =>
     highlight: {
       color: theme.alert,
       fontFamily: fontFamily.b7,
-    },
-    videoCard: {
-      width: '100%',
-      padding: spacing.md,
-      marginBottom: spacing.md,
-      alignItems: 'center',
     },
     videoDuration: {
       fontSize: fontSize.lg,
