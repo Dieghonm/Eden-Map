@@ -8,7 +8,7 @@ import JourneyProvider from './src/context/JourneyProvider';
 import { ThemeProvider, useTheme } from './src/context/ThemeProvider';
 import { createStyles } from './src/styles/App';
 import { useOutfitFonts } from './src/theme/texts';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as NavigationBar from 'expo-navigation-bar';
 
 function AppContent() {
   const { theme } = useTheme();
@@ -16,7 +16,8 @@ function AppContent() {
   const fontsLoaded = useOutfitFonts();
 
   React.useEffect(() => {
-    AsyncStorage.clear();
+    NavigationBar.setVisibilityAsync('hidden');
+    NavigationBar.setBehaviorAsync('overlay-swipe');
   }, []);
 
   if (!fontsLoaded) return null;
@@ -25,8 +26,8 @@ function AppContent() {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      background: 'transparent',
-    },
+      background: 'transparent'
+    }
   };
 
   return (
@@ -36,7 +37,7 @@ function AppContent() {
       imageStyle={styles.image}
       resizeMode="cover"
     >
-      <View style={[styles.overlay]}>
+      <View style={styles.overlay}>
         <NavigationContainer theme={navTheme}>
           <AppNavigator />
         </NavigationContainer>
@@ -59,3 +60,4 @@ export default function App() {
     </SafeAreaProvider>
   );
 }
+
