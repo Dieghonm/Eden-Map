@@ -13,7 +13,7 @@ export const createStyles = (colors) =>
       flex: 1,
       width: '100%',
       height: '100%',
-      // REMOVIDO: resizeMode: 'cover'
+      position: 'absolute',
     },
     overlay: {
       flex: 1,

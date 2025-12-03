@@ -1,7 +1,7 @@
 // // src/navigation/AppNavigator.js - VERSÃO CORRIGIDA
 // import React, { useEffect, useState, useContext } from 'react';
 // import { View, ActivityIndicator } from 'react-native';
-// import { createStackNavigator } from '@react-navigation/stack';
+// import { createNativeStackNavigator } from '@react-navigation/native-stack';
 // import { AppContext } from '../context/AppProvider';
 // import { useTheme } from '../context/ThemeProvider';
 // import { api, tokenHelpers } from '../services/api';
@@ -16,7 +16,7 @@
 // import MeditacoesScreen from '../screens/Explorer/MeditacoesScreen';
 // import ReflexoesScreen from '../screens/Explorer/ReflexoesScreen';
 
-// const Stack = createStackNavigator();
+// const Stack = createNativeStackNavigator();
 
 // export default function AppNavigator() {
 //   const { user, setUser } = useContext(AppContext);
@@ -231,7 +231,7 @@
 // src/navigation/AppNavigator.js - VERSÃO COM BYPASS DE DEV
 import React, { useEffect, useState, useContext } from 'react';
 import { View, ActivityIndicator, TouchableOpacity, Text } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AppContext } from '../context/AppProvider';
 import { useTheme } from '../context/ThemeProvider';
 import { api, tokenHelpers } from '../services/api';
@@ -246,7 +246,7 @@ import MissoesScreen from '../screens/Explorer/MissoesScreen';
 import MeditacoesScreen from '../screens/Explorer/MeditacoesScreen';
 import ReflexoesScreen from '../screens/Explorer/ReflexoesScreen';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 // ============================================================================
 // 🔧 CONFIGURAÇÃO DE DESENVOLVIMENTO
@@ -254,7 +254,7 @@ const Stack = createStackNavigator();
 
 const DEV_CONFIG = {
   // ✅ Ative para pular o Starting automaticamente
-  BYPASS_STARTING: true,
+  BYPASS_STARTING: false,
   
   // ✅ Se true, mostra botão flutuante para toggle manual
   SHOW_DEV_BUTTON: false,
@@ -364,7 +364,6 @@ export default function AppNavigator() {
           setIsAuthenticated(true);
         }
       } else {
-        console.log('⚠️ Access token não encontrado, tentando renovar...');
         await attemptTokenRefresh();
       }
     } catch (error) {
@@ -379,7 +378,6 @@ export default function AppNavigator() {
     try {
       const refreshToken = await tokenHelpers.getRefresh();
       if (!refreshToken) {
-        console.log('❌ Nenhum refresh token encontrado');
         setIsAuthenticated(false);
         return;
       }
@@ -462,9 +460,10 @@ export default function AppNavigator() {
         initialRouteName={isAuthenticated ? 'Home' : 'Login'}
         screenOptions={{
           headerShown: false,
-          cardStyle: { backgroundColor: 'transparent' },
+          contentStyle: { backgroundColor: 'transparent' }
         }}
       >
+
         {isAuthenticated ? (
           <>
             <Stack.Screen name="Home">

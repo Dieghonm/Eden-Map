@@ -1,25 +1,33 @@
 import React from 'react';
-import { View, ImageBackground, StyleSheet } from 'react-native';
+import { View, ImageBackground, StyleSheet, StatusBar as RNStatusBar } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import AppNavigator from './src/navigation/AppNavigator';
 import AppProvider from './src/context/AppProvider';
 import JourneyProvider from './src/context/JourneyProvider';
 import { ThemeProvider, useTheme } from './src/context/ThemeProvider';
-import { StatusBar } from 'expo-status-bar';
 import { createStyles } from './src/styles/App';
 import { useOutfitFonts } from './src/theme/texts';
-
-// import ConnectionTester from './src/components/ConnectionTester';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function AppContent() {
   const { theme } = useTheme();
   const styles = createStyles(theme);
   const fontsLoaded = useOutfitFonts();
 
-  if (!fontsLoaded) {
-    return null;
-  }
+  React.useEffect(() => {
+    AsyncStorage.clear();
+  }, []);
+
+  if (!fontsLoaded) return null;
+
+  const navTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      background: 'transparent',
+    },
+  };
 
   return (
     <ImageBackground
@@ -28,11 +36,11 @@ function AppContent() {
       imageStyle={styles.image}
       resizeMode="cover"
     >
-      <View style={styles.overlay}>
-        <NavigationContainer>
+      <View style={[styles.overlay]}>
+        <NavigationContainer theme={navTheme}>
           <AppNavigator />
         </NavigationContainer>
-        <StatusBar style="auto" />
+        <RNStatusBar translucent backgroundColor="transparent" barStyle="light-content" />
       </View>
     </ImageBackground>
   );
@@ -45,8 +53,6 @@ export default function App() {
         <AppProvider>
           <JourneyProvider>
             <AppContent />
-
-            {/* {__DEV__ && <ConnectionTester />} */}
           </JourneyProvider>
         </AppProvider>
       </ThemeProvider>
