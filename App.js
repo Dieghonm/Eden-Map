@@ -10,6 +10,8 @@ import { StatusBar } from 'expo-status-bar';
 import { createStyles } from './src/styles/App';
 import { useOutfitFonts } from './src/theme/texts';
 
+// import ConnectionTester from './src/components/ConnectionTester';
+
 function AppContent() {
   const { theme } = useTheme();
   const styles = createStyles(theme);
@@ -43,6 +45,8 @@ export default function App() {
         <AppProvider>
           <JourneyProvider>
             <AppContent />
+
+            {/* {__DEV__ && <ConnectionTester />} */}
           </JourneyProvider>
         </AppProvider>
       </ThemeProvider>

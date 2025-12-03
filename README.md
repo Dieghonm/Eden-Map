@@ -257,10 +257,10 @@ const API_CONFIG = {
     web: 'http://localhost:8000',
     android: 'http://10.0.2.2:8000',
     ios: 'http://localhost:8000',
-    physical: 'http://SEU_IP:8000',  // ← Altere aqui
+    physical: 'http://192.168.0.6:8000'
   },
   production: {
-    url: 'https://seu-app.onrender.com'  // ← Altere aqui
+    url: 'https://back-eden-map.onrender.com'
   }
 };
 ```

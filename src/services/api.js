@@ -1,48 +1,100 @@
-// src/services/api.js
+// src/services/api.js - VERSÃO COMPLETA COM LOCAL + RENDER
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 
 // ============================================================================
-// CONFIGURAÇÃO DA API
+// 🔧 CONFIGURAÇÃO DE AMBIENTES
 // ============================================================================
 
 const API_CONFIG = {
+  // ✅ DESENVOLVIMENTO (Local)
   development: {
     web: 'http://localhost:8000',
     android: 'http://10.0.2.2:8000',
     ios: 'http://localhost:8000',
-    physical: 'http://192.168.1.101:8000',
+    physical: 'http://192.168.1.101:8000', // ← Altere para o IP da sua máquina
   },
+  
+  // ✅ PRODUÇÃO (Render)
   production: {
-    url: 'https://seu-app.onrender.com'
+    url: 'https://back-eden-map.onrender.com'
   }
 };
 
+// ============================================================================
+// 🎯 DETECÇÃO INTELIGENTE DE AMBIENTE
+// ============================================================================
+
+/**
+ * Retorna a URL base da API baseado no ambiente
+ * 
+ * Prioridade:
+ * 1. Variável de ambiente (se existir)
+ * 2. __DEV__ (desenvolvimento vs produção)
+ * 3. Platform.OS (web, android, ios, etc)
+ */
 const getBaseURL = () => {
+  // 🔍 1. Tenta ler de variável de ambiente (se você configurar)
+  // const envUrl = process.env.REACT_APP_API_URL || process.env.API_URL;
+  // if (envUrl) {
+  //   console.log('🌐 API URL (de .env):', envUrl);
+  //   return envUrl;
+  // }
+
+  // 🔍 2. Detecta ambiente (dev vs prod)
   const environment = __DEV__ ? 'development' : 'production';
   
+  // 🔍 3. Produção: sempre usa Render
   if (environment === 'production') {
-    return API_CONFIG.production.url;
+    const url = API_CONFIG.production.url;
+
+    return url;
   }
   
+  // 🔍 4. Desenvolvimento: usa servidor local baseado na plataforma
   const platform = Platform.OS;
+  let url;
   
   switch (platform) {
     case 'web':
-      return API_CONFIG.development.web;
+      url = API_CONFIG.development.web;
+      break;
     case 'android':
-      return API_CONFIG.development.android;
+      url = API_CONFIG.production.url;
+      break;
     case 'ios':
-      return API_CONFIG.development.ios;
+      url = API_CONFIG.production.url;
+      break;
     default:
-      return API_CONFIG.development.physical;
+      url = API_CONFIG.development.physical;
+
   }
+  
+  return url;
 };
 
 const BASE_URL = getBaseURL();
 
 // ============================================================================
-// GERENCIAMENTO DE TOKENS
+// 🔄 SISTEMA DE FALLBACK (tenta local, depois Render)
+// ============================================================================
+
+let usingFallback = false;
+
+/**
+ * Tenta usar Render como fallback se local falhar
+ */
+const getFallbackURL = () => {
+  if (!__DEV__ || usingFallback) {
+    return BASE_URL; // Já está usando fallback ou está em produção
+  }
+  
+  usingFallback = true;
+  return API_CONFIG.production.url;
+};
+
+// ============================================================================
+// 🔑 GERENCIAMENTO DE TOKENS
 // ============================================================================
 
 export const tokenHelpers = {
@@ -86,12 +138,14 @@ export const tokenHelpers = {
 };
 
 // ============================================================================
-// REQUISIÇÕES HTTP
+// 🌐 REQUISIÇÕES HTTP COM FALLBACK
 // ============================================================================
 
-const apiRequest = async (endpoint, options = {}) => {
+const apiRequest = async (endpoint, options = {}, retryWithFallback = true) => {
+  const currentUrl = usingFallback ? getFallbackURL() : BASE_URL;
+  
   try {
-    const url = `${BASE_URL}${endpoint}`;
+    const url = `${currentUrl}${endpoint}`;
     
     const config = {
       ...options,
@@ -100,7 +154,7 @@ const apiRequest = async (endpoint, options = {}) => {
         ...options.headers,
       },
     };
-
+    
     const response = await fetch(url, config);
     const data = await response.json();
 
@@ -116,19 +170,28 @@ const apiRequest = async (endpoint, options = {}) => {
 
   } catch (error) {
     console.error('❌ Network Error:', error);
-    
     if (error.status) {
       throw error;
     }
     
+    if (__DEV__ && !usingFallback && retryWithFallback) {
+      const fallbackUrl = getFallbackURL();
+      return apiRequest(endpoint, options, false); 
+    }
+    
     let helpMessage = 'Erro de conexão. ';
     
-    if (Platform.OS === 'web') {
-      helpMessage += 'Certifique-se de que o backend está rodando em http://localhost:8000';
-    } else if (Platform.OS === 'android') {
-      helpMessage += 'No emulador Android, use http://10.0.2.2:8000';
+    if (__DEV__) {
+      if (Platform.OS === 'web') {
+        helpMessage += 'Certifique-se de que o backend está rodando em http://localhost:8000';
+      } else if (Platform.OS === 'android') {
+        helpMessage += 'No emulador Android, use http://10.0.2.2:8000. ';
+        helpMessage += 'Em dispositivo físico, use o IP da sua máquina na mesma rede WiFi.';
+      } else {
+        helpMessage += 'Verifique se está na mesma rede WiFi e se o IP está correto.';
+      }
     } else {
-      helpMessage += 'Verifique se está na mesma rede WiFi e se o IP está correto.';
+      helpMessage += 'Verifique sua conexão com a internet.';
     }
     
     throw {
@@ -160,7 +223,7 @@ const authenticatedRequest = async (endpoint, options = {}) => {
 };
 
 // ============================================================================
-// EXPORTAÇÃO PRINCIPAL - API UNIFICADA
+// 📡 EXPORTAÇÃO PRINCIPAL - API UNIFICADA
 // ============================================================================
 
 export const api = {
@@ -168,11 +231,6 @@ export const api = {
   // AUTENTICAÇÃO
   // ===========================
   
-  /**
-   * Cadastro de novo usuário
-   * @param {Object} userData - { login, password, email, tag?, plan? }
-   * @returns {Object} { access_token, refresh_token, user }
-   */
   cadastro: async (userData) => {
     return apiRequest('/users/', {
       method: 'POST',
@@ -180,11 +238,6 @@ export const api = {
     });
   },
 
-  /**
-   * Login com credenciais
-   * @param {Object} credentials - { login, password }
-   * @returns {Object} { access_token, refresh_token, user }
-   */
   login: async (credentials) => {
     return apiRequest('/auth/login', {
       method: 'POST',
@@ -192,11 +245,6 @@ export const api = {
     });
   },
 
-  /**
-   * Renovar access token
-   * @param {string} refreshToken - Refresh token
-   * @returns {Object} { access_token, refresh_token, user }
-   */
   refresh: async (refreshToken) => {
     return apiRequest('/auth/refresh', {
       method: 'POST',
@@ -208,11 +256,6 @@ export const api = {
   // RECUPERAÇÃO DE SENHA
   // ===========================
   
-  /**
-   * Etapa 1: Solicitar código de recuperação
-   * @param {string} email - Email do usuário
-   * @returns {Object} { message, email }
-   */
   solicitarTempKey: async (email) => {
     return apiRequest('/auth/password-recovery/request', {
       method: 'POST',
@@ -220,12 +263,6 @@ export const api = {
     });
   },
 
-  /**
-   * Etapa 2: Verificar código
-   * @param {string} email - Email do usuário
-   * @param {string} code - Código de 4 dígitos
-   * @returns {Object} { message, email }
-   */
   validarTempKey: async (email, code) => {
     return apiRequest('/auth/password-recovery/verify', {
       method: 'POST',
@@ -233,13 +270,6 @@ export const api = {
     });
   },
 
-  /**
-   * Etapa 3: Redefinir senha
-   * @param {string} email - Email do usuário
-   * @param {string} code - Código de 4 dígitos
-   * @param {string} newPassword - Nova senha
-   * @returns {Object} { message, email }
-   */
   redefinirSenha: async (email, code, newPassword) => {
     return apiRequest('/auth/password-recovery/reset', {
       method: 'POST',
@@ -255,10 +285,6 @@ export const api = {
   // USUÁRIO - DADOS COMPLETOS
   // ===========================
   
-  /**
-   * @param {string} email - Email do usuário
-   * @returns {Object} { user_id, login, email, selected_path, test_results, progress }
-   */
   buscarDadosUsuario: async (email) => {
     return apiRequest('/users/data', {
       method: 'POST',
@@ -270,11 +296,6 @@ export const api = {
   // STARTING (ONBOARDING)
   // ===========================
   
-  /**
-   * @param {string} email - Email do usuário
-   * @param {string} selectedPath - Caminho selecionado (Ansiedade, Atenção Plena, etc)
-   * @returns {Object} Confirmação da atualização
-   */
   atualizarCaminho: async (email, selectedPath) => {
     return apiRequest('/users/selected-path', {
       method: 'PUT',
@@ -285,11 +306,6 @@ export const api = {
     });
   },
 
-  /**
-   * @param {string} email - Email do usuário
-   * @param {Object} testResults - Resultados do teste { Ansiedade: 20, Atenção_Plena: 20, ... }
-   * @returns {Object} Confirmação da atualização
-   */
   atualizarTestResults: async (email, testResults) => {
     return apiRequest('/users/test-results', {
       method: 'PUT',
@@ -300,10 +316,6 @@ export const api = {
     });
   },
 
-  /**
-   * @param {string} email - Email do usuário
-   * @returns {Object} Confirmação da atualização
-   */
   resetarTestResults: async (email) => {
     return apiRequest('/users/test-results/reset', {
       method: 'DELETE',
@@ -311,12 +323,6 @@ export const api = {
     });
   },
 
-  /**
-   * @param {string} email - Email do usuário
-   * @param {number} semana - Semana atual (1-12)
-   * @param {number} dia - Dia atual (1-7)
-   * @returns {Object} { message, user_id, email, progress, progress_updated_at }
-   */
   atualizarProgresso: async (email, semana, dia) => {
     return apiRequest('/users/progress', {
       method: 'PUT',
@@ -339,6 +345,56 @@ export const api = {
       method: 'GET',
     });
   },
+};
+
+// ============================================================================
+// 🛠️ UTILITÁRIOS DE DEBUG
+// ============================================================================
+
+/**
+ * Testa a conexão com a API
+ */
+export const testConnection = async () => {
+  console.log('\n🧪 TESTANDO CONEXÃO COM A API...\n');
+  
+  try {
+    const response = await api.health();
+    console.log('✅ CONEXÃO OK!');
+    console.log('📊 Resposta:', response);
+    return true;
+  } catch (error) {
+    console.error('❌ CONEXÃO FALHOU!');
+    console.error('📊 Erro:', error.message);
+    return false;
+  }
+};
+
+/**
+ * Força uso do Render (útil para testes)
+ */
+export const forceRenderMode = () => {
+  usingFallback = true;
+  console.log('🔄 FORÇADO: Usando Render em modo DEV');
+};
+
+/**
+ * Reseta para modo local
+ */
+export const resetToLocalMode = () => {
+  usingFallback = false;
+  console.log('🔄 RESET: Voltando para servidor local');
+};
+
+/**
+ * Retorna configuração atual
+ */
+export const getCurrentConfig = () => {
+  return {
+    baseUrl: usingFallback ? API_CONFIG.production.url : BASE_URL,
+    environment: __DEV__ ? 'development' : 'production',
+    platform: Platform.OS,
+    usingFallback
+  };
 };
 
 export { BASE_URL };
