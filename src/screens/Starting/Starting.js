@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Text, View, ActivityIndicator } from 'react-native';
 
 import { useTheme } from '../../context/ThemeProvider';
@@ -26,7 +26,8 @@ export default function Starting({ onComplete }) {
     desireName,
     desireDescription,
     selectedFeelings,
-    setSelectedPath 
+    setSelectedPath,
+    resetKey
   } = useContext(AppContext);
   const styles = createStyles(theme);
   
@@ -34,6 +35,13 @@ export default function Starting({ onComplete }) {
   const [questionResults, setQuestionResults] = useState(null);
   const [selectedPathName, setSelectedPathName] = useState(null);
   const [enviandoDados, setEnviandoDados] = useState(false);
+
+  useEffect(() => {
+    setCurrentStep('INTRO');
+    setQuestionResults(null);
+    setSelectedPathName(null);
+    setEnviandoDados(false);
+  }, [resetKey]);
 
   const handleQuestionComplete = (results) => {
     setQuestionResults(results);
@@ -52,10 +60,12 @@ export default function Starting({ onComplete }) {
 
   const handlePathConfirmation = async () => {
     setEnviandoDados(true);
+    
     try {
       await setSelectedPath(selectedPathName);
       await api.atualizarCaminho(user.email, selectedPathName);
       await api.atualizarProgresso(user.email, 1, 1);
+      
       setCurrentStep('CONFIRMATION');
 
     } catch (error) {
@@ -165,7 +175,6 @@ export default function Starting({ onComplete }) {
   };
 
   const BringBody = () => {
-    // ✨ LOADING STATE
     if (enviandoDados) {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -177,16 +186,24 @@ export default function Starting({ onComplete }) {
 
     switch (currentStep) {
       case 'INTRO':
-        return <Intro onStartGuide={() => setCurrentStep('DESIRE')} />;
+        return <Intro onStartGuide={() => {
+          setCurrentStep('DESIRE');
+        }} />;
 
       case 'DESIRE':
-        return <Desire onNext={() => setCurrentStep('FEELING')} />;
+        return <Desire onNext={() => {
+          setCurrentStep('FEELING');
+        }} />;
 
       case 'FEELING':
-        return <Feeling onNext={() => setCurrentStep('TRACK')} />;
+        return <Feeling onNext={() => {
+          setCurrentStep('TRACK');
+        }} />;
       
       case 'TRACK':
-        return <Track onNext={() => setCurrentStep('QUESTIONS')} />;
+        return <Track onNext={() => {
+          setCurrentStep('QUESTIONS');
+        }} />;
 
       case 'QUESTIONS':
         return <Questions onComplete={handleQuestionComplete} />;
@@ -205,7 +222,9 @@ export default function Starting({ onComplete }) {
           <PathDetail 
             selectedPathName={selectedPathName}
             onConfirm={handlePathConfirmation}
-            onBack={() => setCurrentStep('RESULT')}
+            onBack={() => {
+              setCurrentStep('RESULT');
+            }}
           />
         );
 

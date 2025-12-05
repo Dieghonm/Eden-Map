@@ -7,6 +7,7 @@ import { createStyles } from '../../styles/Starting/Result';
 import { CAMINHOS } from '../../../assets/json/Sentimentos';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { api } from '../../services/api';
+import ButtonSecundary from '../../components/ButtonSecundary';
 
 export default function Result({ results, onNext, onRetake }) {
   const { theme } = useTheme();
@@ -56,10 +57,8 @@ export default function Result({ results, onNext, onRetake }) {
   };
 
   const handlePathSelection = async (pathName) => {
-    // Salva os resultados do teste antes de prosseguir
     await enviarResultadosTeste();
     
-    // Continua para a próxima tela
     onNext(pathName);
   };
 
@@ -98,7 +97,7 @@ export default function Result({ results, onNext, onRetake }) {
         </View>
       )}
 
-      <ButtonPrimary
+      <ButtonSecundary // mudado para evitar confuzao!
         title="Refazer teste"
         onPress={onRetake}
         disabled={enviandoDados}

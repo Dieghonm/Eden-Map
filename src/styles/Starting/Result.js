@@ -4,7 +4,6 @@ import { spacing, fontSize, fontFamily, borderRadius } from '../../theme/texts';
 export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
-      flex: 1,
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
     },

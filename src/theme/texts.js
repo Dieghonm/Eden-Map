@@ -19,7 +19,7 @@ const scaleMinMax = (size) => {
 export const spacing = {
   xxs: scaleMinMax(5), // marginBottom logo
   xs: scaleMinMax(20), // paddingVertical checkbox
-  sm: scaleMinMax(0), 
+  sm: scaleMinMax(40), 
   md: scaleMinMax(30), //espaco entre componentes
   lg: scaleMinMax(50), //paddingHorizontal checkbox
   xl: scaleMinMax(90), // topo da tela
@@ -35,7 +35,7 @@ export const borderRadius = {
   p: horizontalScale(10),
   m: horizontalScale(15),
   x: horizontalScale(20),
-  circle: horizontalScale(50),
+  circle: horizontalScale(100),
 };
 
 // Fontes

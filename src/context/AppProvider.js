@@ -17,6 +17,8 @@ export default function AppProvider({ children }) {
   const [progressoAtualizadoEm, setProgressoAtualizadoEm] = useState(null);
   const [statusDias, setStatusDias] = useState({});
 
+  const [resetKey, setResetKey] = useState(0);
+
   useEffect(() => {
     initializeApp();
   }, []);
@@ -157,29 +159,49 @@ export default function AppProvider({ children }) {
   }, [semanaAtual, diaAtual, user]);
 
   const resetStarting = useCallback(async () => {
-    setDesireNameState('');
-    setDesireDescriptionState('');
-    setSelectedFeelingsState([]);
-    setSelectedPathState(null);
-    setSemanaAtual(1);
-    setDiaAtual(1);
-    
-    await storeData('desireName', '');
-    await storeData('desireDescription', '');
-    await storeData('selectedFeelings', []);
-    await storeData('selectedPath', null);
-    await storeData('semanaAtual', 1);
-    await storeData('diaAtual', 1);
-    
-    if (user && user.email) {
-      try {
-        await api.atualizarCaminho(user.email, null);
-        await api.atualizarProgresso(user.email, 1, 1);
-      } catch {}
+    try {
+
+      setDesireNameState('');
+      setDesireDescriptionState('');
+      setSelectedFeelingsState([]);
+      setSelectedPathState(null);
+      setSemanaAtual(1);
+      setDiaAtual(1);
+      setProgressoAtualizadoEm(null);
+
+      await storeData('desireName', '');
+      await storeData('desireDescription', '');
+      await storeData('selectedFeelings', []);
+      await storeData('selectedPath', null);
+      await storeData('semanaAtual', 1);
+      await storeData('diaAtual', 1);
+
+      await storeData('cenasRespostas', []);
+      await storeData('videosAssistidos', []);
+      await storeData('trackingRespostas', []);
+      await storeData('perguntasRespostas', []);
+      await storeData('meditacaoRespostas', []);
+      await storeData('tempoRespiracao', null);
+      await storeData('missoesConcluidas', []);
+      await storeData('configRespiracao', { ativado: false, tempo: null });
+      
+      if (user && user.email) {
+        try {
+          await api.atualizarCaminho(user.email, null);
+          await api.atualizarProgresso(user.email, 1, 1);
+        } catch (error) {
+          console.error('⚠️ Erro ao resetar no backend:', error);
+        }
+      }
+      setResetKey(prev => prev + 1);
+      
+      return true;
+      
+    } catch (error) {
+      console.error('❌ Erro durante reset:', error);
+      return false;
     }
-    
-    return true;
-  }, [user]);
+  }, [user, resetKey]);
 
   const resetUser = useCallback(async () => {
     setUserState(null);
@@ -213,6 +235,7 @@ export default function AppProvider({ children }) {
     sincronizarComBackend,
     sincronizarProgressoComBackend,
     initializeApp,
+    resetKey,
   };
 
   return (

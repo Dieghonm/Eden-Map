@@ -55,7 +55,6 @@ export default function RespiracaoConfig({ onVoltar, onContinuar }) {
       setRespiracaoSelecionada(null);
       setPodeAvancar(true);
       await salvarConfigRespiracao({ ativado: false, tempo: null });
-      console.log('🔴 Atividade DESATIVADA - pode avançar sem respiração');
     } else {
       setPodeAvancar(false);
     }

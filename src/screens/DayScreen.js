@@ -154,7 +154,7 @@ export default function DayScreen() {
             />
           )
       ) : (
-        <View />
+        <View style={styles.spacer} />
       )}
 
       {statusDiaAtual.meditacaoLiberada ? (

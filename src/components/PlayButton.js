@@ -13,6 +13,8 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
 
   const [isPlaying, setIsPlaying] = useState(false);
   const progress = useRef(new Animated.Value(0)).current;
+  const isMountedRef = useRef(true);
+  const animationRef = useRef(null);
 
   const player = useAudioPlayer(
     typeof source === 'string' ? { uri: source } : source
@@ -30,12 +32,15 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
   const startAnimation = () => {
     progress.setValue(0);
     
-    Animated.timing(progress, {
+    // Armazena referência da animação
+    animationRef.current = Animated.timing(progress, {
       toValue: 1,
       duration: duration * 1000,
       useNativeDriver: false,
-    }).start(({ finished }) => {
-      if (finished) {
+    });
+
+    animationRef.current.start(({ finished }) => {
+      if (finished && isMountedRef.current) {
         setIsPlaying(false);
         progress.setValue(0);
       }
@@ -43,7 +48,11 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
   };
 
   const stopAnimation = () => {
-    progress.stopAnimation();
+    // Para a animação se existir
+    if (animationRef.current) {
+      animationRef.current.stop();
+      animationRef.current = null;
+    }
     progress.setValue(0);
   };
 
@@ -59,18 +68,43 @@ export default function PlayButton({ text = 'Áudio', source, duration = 150 }) 
         stopAnimation();
       }
     } catch (error) {
-      console.log('Erro no player:', error);
+      console.log('⚠️ Erro no player (esperado durante cleanup):', error.message);
     }
   };
 
+  // ============================================================================
+  // 🧹 CLEANUP SEGURO
+  // ============================================================================
   useEffect(() => {
+    isMountedRef.current = true;
+
     return () => {
-      try {
-        progress.stopAnimation();
-        player.pause();
-      } catch (error) {
-        console.log('Cleanup error:', error);
+      isMountedRef.current = false;
+      
+      // Para animação primeiro
+      if (animationRef.current) {
+        try {
+          animationRef.current.stop();
+          animationRef.current = null;
+        } catch (error) {
+          // Ignora erros ao parar animação
+        }
       }
+
+      // Tenta pausar o player de forma segura
+      const pausePlayer = async () => {
+        try {
+          // Verifica se o player ainda está válido
+          if (player && typeof player.pause === 'function') {
+            await player.pause();
+          }
+        } catch (error) {
+          // Ignora erros de cleanup - player pode já estar liberado
+          // Isso é esperado e normal ao desmontar componentes
+        }
+      };
+
+      pausePlayer();
     };
   }, []);
 

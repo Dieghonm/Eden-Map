@@ -5,7 +5,7 @@ import { verticalScale } from '../../utils/responsive';
 export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
-      flex: 1,
+      // flex: 1,
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
     },

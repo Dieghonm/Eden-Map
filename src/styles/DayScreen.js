@@ -5,10 +5,10 @@ import { horizontalScale, verticalScale } from '../utils/responsive';
 export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
-      flex: 1,
+      // flex: 1,
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
-      gap: spacing.md,
+      gap: spacing.xs,
       marginTop: spacing.lg
 
     },
@@ -26,8 +26,8 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
       fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
-      height: spacing.md,
-      marginBottom: spacing.xs
+      height: spacing.lg,
+      marginBottom: spacing.xs / 2
     },
     highlight: {
       color: theme.alert,

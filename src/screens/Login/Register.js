@@ -64,7 +64,7 @@ export default function Register({ navigation, onChangeScreen }) {
     try {
       const userData = {
         login: formData.username.toLowerCase().trim(),
-        password: formData.password,  // ← Era "senha", agora "password"
+        password: formData.password,
         email: formData.email.toLowerCase().trim(),
         tag: 'cliente',
         plan: 'trial'

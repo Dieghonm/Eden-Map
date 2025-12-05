@@ -298,43 +298,49 @@ export const MISSAO = {
       "Titulo": "Vestindo o eu ideal.",
       "Missão": "Coloque uma roupa que faça você se sentir confiante.",
       "estrelas": 1,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 2, "Titulo": "Vestindo o eu ideal." },
+    { "id": 2 },
     { 
       "id": 3, 
       "Titulo": "Dança da Liberdade.",
       "Missão": "Durante essa semana coloque música que te eleve, e dance por 5 minutos, como se ninguém o estivesse observando.",
       "estrelas": 2,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 4, "Titulo": "Dança da Liberdade." },
+    { "id": 4 },
     { 
       "id": 5, 
       "Titulo": "Reflexo no Passado.",
       "Missão": "Veja suas fotos antigas e reflita sobre suas qualidades concretas — ex: organizado; esforçado.",
       "estrelas": 3,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 6, "Titulo": "Reflexo no Passado." },
+    { "id": 6 },
     { 
       "id": 7, 
       "Titulo": "Encarne o eu Ideal.",
       "Missão": "Por 10 minutos, se coloque no papel do seu eu ideal e internalize como ele pensa e age.",
       "estrelas": 4,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 8, "Titulo": "Encarne o eu Ideal." },
+    { "id": 8 },
     { 
       "id": 9, 
       "Titulo": "Voz do Cuidado.",
       "Missão": "Faça uma ligação para alguém que te traga paz e te lembre do que há de bom em você e na vida.",
       "estrelas": 5,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 10, "Titulo": "Voz do Cuidado." },
+    { "id": 10 },
     { 
       "id": 11, 
       "Titulo": "Espelho Honesto.",
       "Missão": "Pergunte às pessoas em quem confia o que você pode fazer para melhorar, procurando feedbacks honestos.",
       "estrelas": 5,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 12, "Titulo": "Espelho Honesto." }
+    { "id": 12 }
   ],
   "Atencao_Plena": [
     { 
@@ -342,43 +348,49 @@ export const MISSAO = {
       "Titulo": "Abraço da Natureza",
       "Missão": "Reservar um momento nesta semana para estar ao ar livre, em contato com a natureza.",
       "estrelas": 1,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 2, "Titulo": "Abraço da Natureza" },
+    { "id": 2 },
     { 
       "id": 3, 
       "Titulo": "Mãos Conscientes",
       "Missão": "Realize diariamente uma atividade manual de forma consciente — pintar, desenhar, tocar um instrumento.",
       "estrelas": 2,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 4, "Titulo": "Mãos Conscientes" },
+    { "id": 4 },
     { 
       "id": 5, 
       "Titulo": "Sabor Presente",
       "Missão": "Mergulhe na experiência de comer, sentindo sabor e sensações de forma consciente.",
       "estrelas": 3,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 6, "Titulo": "Sabor Presente" },
+    { "id": 6 },
     { 
       "id": 7, 
       "Titulo": "Caminho Inusitado",
       "Missão": "Quebre a rotina escolhendo um novo caminho para sua rotina, observando o ambiente ao redor.",
       "estrelas": 4,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 8, "Titulo": "Caminho Inusitado" },
+    { "id": 8 },
     { 
       "id": 9, 
       "Titulo": "Abrace o novo",
       "Missão": "Inscreva-se em uma aula de um hobbie que você sempre quis explorar.",
       "estrelas": 5,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 10, "Titulo": "Abrace o novo" },
+    { "id": 10 },
     { 
       "id": 11, 
       "Titulo": "Fugindo da distração",
       "Missão": "Evite atividades que te afastem do momento presente, como redes sociais.",
       "estrelas": 5,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 12, "Titulo": "Fugindo da distração" }
+    { "id": 12 }
   ],
   "Relacionamentos": [
     { 
@@ -386,43 +398,49 @@ export const MISSAO = {
       "Titulo": "Ritmo Sereno",
       "Missão": "Converse e se movimente de forma mais lenta que o normal. Isso mantém seu corpo relaxado.",
       "estrelas": 1,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 2, "Titulo": "Ritmo Sereno" },
+    { "id": 2 },
     { 
       "id": 3, 
       "Titulo": "Voz Positiva",
       "Missão": "Observe seu modo de falar e evite frases negativas. Priorize positividade.",
       "estrelas": 2,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 4, "Titulo": "Voz Positiva" },
+    { "id": 4 },
     { 
       "id": 5, 
       "Titulo": "Palavras de Luz",
       "Missão": "Elogie uma pessoa desconhecida, praticando espontaneidade e conexão.",
       "estrelas": 3,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 6, "Titulo": "Palavras de Luz" },
+    { "id": 6 },
     { 
       "id": 7, 
       "Titulo": "Voz da Gratidão",
       "Missão": "Faça uma ligação surpresa para alguém especial e compartilhe carinho ou gratidão.",
       "estrelas": 4,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 8, "Titulo": "Voz da Gratidão" },
+    { "id": 8 },
     { 
       "id": 9, 
       "Titulo": "Retorno Essencial",
       "Missão": "Reaproxime-se de alguém importante do passado.",
       "estrelas": 5,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 10, "Titulo": "Retorno Essencial" },
+    { "id": 10 },
     { 
       "id": 11, 
       "Titulo": "Laços de Perdão",
       "Missão": "Reflita sobre uma relação mal resolvida e dê o primeiro passo pedindo perdão.",
       "estrelas": 5,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 12, "Titulo": "Laços de Perdão" }
+    { "id": 12 }
   ],
   "Motivacao": [
     { 
@@ -430,38 +448,48 @@ export const MISSAO = {
       "Titulo": "Chama da Inspiração",
       "Missão": "Assista um filme que reacenda sua motivação para perseguir seus objetivos.",
       "estrelas": 1,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 2, "Titulo": "Chama da Inspiração" },
+    { "id": 2 },
     { 
       "id": 3, 
       "Titulo": "Silêncio Sábio",
       "Missão": "Evite contar seus planos para quem não apoia sua jornada.",
       "estrelas": 2,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 4, "Titulo": "Silêncio Sábio" },
+    { "id": 4 },
     { 
       "id": 5, 
       "Titulo": "Recompensa Interior",
       "Missão": "Crie um sistema de recompensas para cada passo dado em direção ao seu desejo.",
       "estrelas": 3,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 6, "Titulo": "Recompensa Interior" },
-    { "id": 7, "Titulo": "" },
-    { "id": 8, "Titulo": "" },
+    { "id": 6 },
+    { 
+      "id": 7,
+      "Titulo": "",
+      "estrelas": 3,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
+    },
+    { "id": 8 },
     { 
       "id": 9, 
       "Titulo": "Quebra de Corrente",
       "Missão": "Diga não a um hábito confortável e repetitivo que drena sua energia.",
       "estrelas": 5,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 10, "Titulo": "Quebra de Corrente" },
+    { "id": 10 },
     { 
       "id": 11, 
       "Titulo": "Centelha Viva",
       "Missão": "Seja fonte de entusiasmo e motivação para os outros.",
       "estrelas": 5,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 12, "Titulo": "Centelha Viva" },
+    { "id": 12 }
   ],
   "Ansiedade": [
     { 
@@ -469,44 +497,50 @@ export const MISSAO = {
       "Titulo": "Centelha Viva",
       "Missão": "Seja a fonte de entusiasmo e motivação para as pessoas com quem convive.",
       "estrelas": 1,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 2, "Titulo": "Centelha Viva" },
+    { "id": 2 },
     { 
       "id": 3, 
       "Titulo": "Arte que Acolhe",
       "Missão": "Busque músicas e filmes que acalmem você e tragam coragem.",
       "estrelas": 2,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 4, "Titulo": "Arte que Acolhe" },
+    { "id": 4 },
     { 
       "id": 5, 
       "Titulo": "Âncora da Respiração",
       "Missão": "Ao notar pensamentos negativos, redirecione a atenção para a respiração.",
       "estrelas": 3,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 6, "Titulo": "Âncora da Respiração" },
+    { "id": 6 },
     { 
       "id": 7, 
       "Titulo": "Descrevendo a paz",
       "Missão": "Escreva como seria sua vida hoje se a ansiedade não existisse.",
       "estrelas": 4,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 8, "Titulo": "Descrevendo a paz" },
+    { "id": 8 },
     { 
       "id": 9, 
       "Titulo": "Retorno à Essência",
       "Missão": "Reconecte-se com uma atividade da sua infância.",
       "estrelas": 5,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 10, "Titulo": "Retorno à Essência" },
+    { "id": 10 },
     { 
       "id": 11, 
       "Titulo": "Morada da Calma",
       "Missão": "Visite um lugar que te traz paz e leveza.",
       "estrelas": 5,
+      "img": "https://i.imgur.com/prP0XUs.jpeg"
     },
-    { "id": 12, "Titulo": "Morada da Calma" }
-  ],
+    { "id": 12 }
+  ]
 }
 
 export const TRACKING = {

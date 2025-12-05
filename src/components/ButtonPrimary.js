@@ -5,7 +5,7 @@ import { useTheme } from '../context/ThemeProvider';
 import { createStyles } from '../styles/components/ButtonPrimary';
 
 export default function ButtonPrimary({ 
-  title, 
+  title = '', 
   onPress, 
   disabled,
   width = 290,

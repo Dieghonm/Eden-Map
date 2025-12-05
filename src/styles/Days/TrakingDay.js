@@ -1,100 +1,80 @@
 import { StyleSheet } from 'react-native';
 import { spacing, fontSize, fontFamily, borderRadius } from '../../theme/texts';
-import { horizontalScale, verticalScale } from '../../utils/responsive';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: 'transparent',
-    },
-    scrollContent: {
-      flexGrow: 1,
       paddingHorizontal: spacing.lg,
       alignItems: 'center',
+      marginTop: spacing.xl
     },
-    headerContainer: {
-      alignItems: 'center',
-      marginTop: spacing.md,
-      marginBottom: spacing.xs,
+
+    gif: {
+      width: spacing.xxxl,
+      height: spacing.xxxl,
+      borderRadius: borderRadius.circle,
+      marginBottom: spacing.lg,
     },
-    title: {
-      fontSize: fontSize.xxl,
+
+    texto: {
+      fontSize: fontSize.xl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      marginBottom: spacing.xxs,
+      textAlign: 'left',
+      width: spacing.giant,
+      marginBottom: spacing.md
     },
-    subtitle: {
+
+    quest: {
       fontSize: fontSize.md,
-      fontFamily: fontFamily.r4,
-      color: theme.fontColor,
-      textAlign: 'center',
-    },
-    highlight: {
-      color: theme.alert,
       fontFamily: fontFamily.b7,
-    },
-    semanaImage: {
-      width: horizontalScale(290),
-      height: verticalScale(200),
-      borderRadius: borderRadius.m,
-      marginBottom: spacing.md,
-    },
-    perguntaCard: {
-      width: '100%',
-      padding: spacing.md,
-      marginBottom: spacing.md,
-    },
-    perguntaTexto: {
-      fontSize: fontSize.lg,
-      fontFamily: fontFamily.r4,
       color: theme.fontColor,
-      lineHeight: spacing.xs,
       textAlign: 'center',
+      marginBottom: spacing.xs
     },
+
     respostasContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       width: '100%',
+      paddingHorizontal: spacing.xs,
       marginBottom: spacing.md,
       gap: spacing.xs,
     },
-    respostaButton: {
-      flex: 1,
-      backgroundColor: theme.secondary,
-      paddingVertical: spacing.md,
-      borderRadius: borderRadius.m,
+
+    iconeWrapper: {
+      padding: spacing.xxs,
+      borderRadius: borderRadius.p,
+      width: spacing.lg + spacing.xxs,
+      height: spacing.lg + spacing.xxs,
       alignItems: 'center',
-      borderWidth: 3,
-      borderColor: 'transparent',
+      shadowColor: '#000000ff',
+      shadowOffset: { width: 0, height: 3 },
+      shadowOpacity: 0.4,
+      shadowRadius: 6,
+      justifyContent: 'center',
+      elevation: 6, // Android
     },
-    respostaSelecionada: {
-      borderColor: theme.accent,
-      transform: [{ scale: 1.05 }],
+
+    iconeFeliz: {
+      width: spacing.xs * 2,
+      height: spacing.lg / 2,
     },
-    respostaNegativa: {
-      // Opcional: adicionar cor específica
+
+    iconeNeutro: {
+      width: spacing.md,
+      alignSelf: 'center'
     },
-    respostaNeutra: {
-      // Opcional: adicionar cor específica
+
+    iconeTriste: {
+      width: spacing.xs * 2,
+      height: spacing.xs * 2,
     },
-    respostaPositiva: {
-      // Opcional: adicionar cor específica
-    },
-    respostaEmoji: {
-      fontSize: fontSize.header,
-      marginBottom: spacing.xxs,
-    },
-    respostaLabel: {
-      fontSize: fontSize.sm,
-      fontFamily: fontFamily.b7,
-      color: theme.fontColor,
-    },
-    errorText: {
-      fontSize: fontSize.lg,
-      fontFamily: fontFamily.r4,
-      color: theme.warning,
-      textAlign: 'center',
-      marginTop: spacing.xl,
+
+    borderSelected: {
+      borderWidth: 2,
+      borderColor: "yellow",
+      borderRadius: 8,
     },
   });

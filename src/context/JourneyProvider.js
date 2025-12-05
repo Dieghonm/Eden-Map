@@ -61,29 +61,18 @@ export default function JourneyProvider({ children }) {
   // ============================================================================
   const salvarCenasRespostas = useCallback(async (semana, path, respostas) => {
     try {
-      console.log(`💾 Salvando cenas - Semana ${semana}, Path: ${path}`);
-      
-      // ✅ Cria cópia do array atual
       const updatedData = [...cenasRespostas];
-      
-      // ✅ Índice é semana - 1 (semana 1 = índice 0)
       const index = semana - 1;
-      
-      // ✅ Garante que o array tem tamanho suficiente
       while (updatedData.length <= index) {
         updatedData.push(null);
       }
-      
-      // ✅ Sobrescreve a posição
       updatedData[index] = {
         semana,
         path,
         timestamp: new Date().toISOString(),
         cenas: respostas
       };
-      
-      console.log(`✅ Cenas salvas no índice ${index}:`, updatedData[index]);
-      
+
       setCenasRespostas(updatedData);
       await storeData('cenasRespostas', updatedData);
       return true;
@@ -93,13 +82,8 @@ export default function JourneyProvider({ children }) {
     }
   }, [cenasRespostas]);
 
-  // ============================================================================
-  // ✅ 2️⃣ VÍDEOS - CORRIGIDO PARA SUBSTITUIR
-  // ============================================================================
   const salvarVideoAssistido = useCallback(async (semana, path, videoData) => {
     try {
-      console.log(`💾 Salvando vídeo - Semana ${semana}, Path: ${path}`);
-      
       const updatedData = [...videosAssistidos];
       const index = semana - 1;
       
@@ -113,9 +97,7 @@ export default function JourneyProvider({ children }) {
         timestamp: new Date().toISOString(),
         ...videoData
       };
-      
-      console.log(`✅ Vídeo salvo no índice ${index}`);
-      
+
       setVideosAssistidos(updatedData);
       await storeData('videosAssistidos', updatedData);
       return true;
@@ -128,58 +110,33 @@ export default function JourneyProvider({ children }) {
   // ============================================================================
   // ✅ 3️⃣ TRACKING - SISTEMA DE SOMA MANTIDO
   // ============================================================================
-  const salvarTrackingResposta = useCallback(async (semana, path, resposta) => {
+
+  const salvarTrackingResposta = async (tipo) => {
     try {
-      console.log(`💾 Salvando tracking - Semana ${semana}, Valor: ${resposta.valor}`);
-      
-      const updatedData = [...trackingRespostas];
-      const index = semana - 1;
-      
-      while (updatedData.length <= index) {
-        updatedData.push(null);
-      }
-      
-      // ✅ Se já existe, soma o valor
-      if (updatedData[index]) {
-        updatedData[index] = {
-          ...updatedData[index],
-          valorTotal: updatedData[index].valorTotal + resposta.valor,
-          respostas: [...updatedData[index].respostas, {
-            timestamp: new Date().toISOString(),
-            ...resposta
-          }]
-        };
-      } else {
-        // ✅ Se não existe, cria novo
-        updatedData[index] = {
-          semana,
-          path,
-          valorTotal: resposta.valor,
-          respostas: [{
-            timestamp: new Date().toISOString(),
-            ...resposta
-          }]
-        };
-      }
-      
-      console.log(`✅ Tracking salvo - Valor total: ${updatedData[index].valorTotal}`);
-      
-      setTrackingRespostas(updatedData);
-      await storeData('trackingRespostas', updatedData);
-      return true;
+      // Busca o que já existe
+      const data = await getData("tracking_respostas");
+
+      // Se não existir nada, cria com tudo zerado
+      const atual = data || { feliz: 0, neutro: 0, triste: 0 };
+
+      // Soma +1 no item selecionado
+      atual[tipo] = (atual[tipo] || 0) + 1;
+
+      // Salva de volta
+      await storeData("tracking_respostas", atual);
+
+      console.log("Tracking atualizado:", atual);
+
     } catch (error) {
-      console.error('❌ Erro ao salvar tracking:', error);
-      return false;
+      console.log("Erro ao salvar tracking:", error);
     }
-  }, [trackingRespostas]);
+  };
 
   // ============================================================================
   // ✅ 4️⃣ PERGUNTAS - CORRIGIDO PARA SUBSTITUIR
   // ============================================================================
   const salvarPerguntaResposta = useCallback(async (semana, path, resposta) => {
     try {
-      console.log(`💾 Salvando pergunta - Semana ${semana}, Path: ${path}`);
-      
       const updatedData = [...perguntasRespostas];
       const index = semana - 1;
       
@@ -193,9 +150,7 @@ export default function JourneyProvider({ children }) {
         timestamp: new Date().toISOString(),
         ...resposta
       };
-      
-      console.log(`✅ Pergunta salva no índice ${index}`);
-      
+
       setPerguntasRespostas(updatedData);
       await storeData('perguntasRespostas', updatedData);
       return true;
@@ -210,8 +165,6 @@ export default function JourneyProvider({ children }) {
   // ============================================================================
   const salvarMeditacaoRespostas = useCallback(async (semana, path, respostas) => {
     try {
-      console.log(`💾 Salvando meditação - Semana ${semana}, Path: ${path}`);
-      
       const updatedData = [...meditacaoRespostas];
       const index = semana - 1;
       
@@ -225,9 +178,7 @@ export default function JourneyProvider({ children }) {
         timestamp: new Date().toISOString(),
         cenas: respostas
       };
-      
-      console.log(`✅ Meditação salva no índice ${index}`);
-      
+
       setMeditacaoRespostas(updatedData);
       await storeData('meditacaoRespostas', updatedData);
       return true;
@@ -242,8 +193,7 @@ export default function JourneyProvider({ children }) {
   // ============================================================================
   const salvarMissaoConcluida = useCallback(async (semana, path, missaoData) => {
     try {
-      console.log(`💾 Salvando missão - Semana ${semana}, Path: ${path}`);
-      
+
       const updatedData = [...missoesConcluidas];
       const index = semana - 1;
       
@@ -257,9 +207,7 @@ export default function JourneyProvider({ children }) {
         timestamp: new Date().toISOString(),
         ...missaoData
       };
-      
-      console.log(`✅ Missão salva no índice ${index}`);
-      
+
       setMissoesConcluidas(updatedData);
       await storeData('missoesConcluidas', updatedData);
       return true;
@@ -320,14 +268,12 @@ export default function JourneyProvider({ children }) {
   const buscarCenasSemana = useCallback((semana, path) => {
     const index = semana - 1;
     const cena = cenasRespostas[index];
-    
-    // ✅ Verifica se existe e se o path bate
+
     if (cena && cena.path === path) {
       console.log(`🔍 Cena encontrada - Semana ${semana}:`, cena);
       return cena;
     }
-    
-    console.log(`⚠️ Nenhuma cena encontrada - Semana ${semana}`);
+
     return null;
   }, [cenasRespostas]);
 
@@ -394,7 +340,6 @@ export default function JourneyProvider({ children }) {
   // 📈 PROGRESSO GERAL
   // ============================================================================
   const obterProgressoGeral = useCallback(() => {
-    // ✅ Conta apenas posições não-nulas
     const contarNaoNulos = (arr) => arr.filter(item => item !== null).length;
     
     return {

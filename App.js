@@ -16,8 +16,8 @@ function AppContent() {
   const fontsLoaded = useOutfitFonts();
 
   React.useEffect(() => {
+    // Apenas esconder a navigation bar (sem setBehaviorAsync)
     NavigationBar.setVisibilityAsync('hidden');
-    NavigationBar.setBehaviorAsync('overlay-swipe');
   }, []);
 
   if (!fontsLoaded) return null;
@@ -41,7 +41,12 @@ function AppContent() {
         <NavigationContainer theme={navTheme}>
           <AppNavigator />
         </NavigationContainer>
-        <RNStatusBar translucent backgroundColor="transparent" barStyle="light-content" />
+
+        <RNStatusBar
+          translucent
+          backgroundColor="transparent"
+          barStyle="light-content"
+        />
       </View>
     </ImageBackground>
   );
@@ -60,4 +65,3 @@ export default function App() {
     </SafeAreaProvider>
   );
 }
-
