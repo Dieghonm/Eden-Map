@@ -22,7 +22,7 @@ export default function Home({ onEditFeeling, navigation }) {
   } = useContext(AppContext);
 
   const handleEdit = () => {
-    setModalVisible(!modalVisible);
+    // setModalVisible(!modalVisible);
   };
 
   const handlebutton = (screen) => {
