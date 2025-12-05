@@ -26,7 +26,7 @@ export default function PerguntasDay({ onComplete }) {
     setIsLoading(true);
     await salvarPerguntaResposta(selectedPath, semanaAtual, resposta);
     setIsLoading(false);
-    if (onComplete) onComplete();
+    if (onComplete) onComplete(true);
   };
 
   return (

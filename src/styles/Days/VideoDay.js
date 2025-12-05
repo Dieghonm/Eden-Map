@@ -7,20 +7,27 @@ export const createStyles = (theme) =>
     container: {
       flex: 1,
       backgroundColor: 'transparent',
+      marginTop: spacing.xxl,
     },
     scrollContent: {
       flexGrow: 1,
       paddingHorizontal: spacing.lg,
       alignItems: 'center',
     },
-    videoTitle: {
-      fontSize: fontSize.xxl,
+    sinopse:{
+      fontSize: fontSize.xl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      marginTop: spacing.md,
-      marginBottom: spacing.xs,
-      textAlign: 'center',
-      width:330
+      marginBottom: spacing.xs / 2,
+      alignSelf: 'flex-start',
+    },
+    videoTitle: {
+      fontSize: fontSize.xl,
+      fontFamily: fontFamily.b7,
+      color: theme.fontColor,
+      marginVertical: spacing.xs / 2,
+      textAlign: 'left',
+      alignSelf: 'flex-start',
     },
     videoDescription: {
       fontSize: fontSize.md,
@@ -28,7 +35,6 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
       lineHeight: spacing.xs,
       marginBottom: spacing.md,
-      textAlign: 'center',
     },
     highlight: {
       color: theme.alert,
@@ -37,7 +43,15 @@ export const createStyles = (theme) =>
     videoDuration: {
       fontSize: fontSize.lg,
       fontFamily: fontFamily.b7,
-      color: theme.alert,
-      marginVertical: spacing.xs,
+      color: theme.fontColor,
+      marginBottom: spacing.xs,
+      textAlign: 'left',
+      alignSelf: 'flex-start',
     },
+    spacer: {
+      height: 2,
+      width: spacing.giant,
+      backgroundColor: theme.alert,
+      marginBottom: spacing.md,
+    }
   });

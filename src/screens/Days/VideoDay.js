@@ -9,6 +9,7 @@ import { createStyles } from '../../styles/Days/VideoDay';
 import GlassBox from '../../components/GlassBox';
 import VideoPlayer from '../../components/VideoPlayer';
 import ButtonPrimary from '../../components/ButtonPrimary';
+import ButtonSecundary from '../../components/ButtonSecundary';
 
 export default function VideoDay({ onComplete }) {
   const { theme } = useTheme();
@@ -52,7 +53,7 @@ export default function VideoDay({ onComplete }) {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        <Text style={styles.videoTitle}>{videoData.topico}</Text>
+        <Text style={styles.sinopse}>Sinopse do vídeo: </Text>
 
         <Text style={styles.videoDescription}>
           {videoData.sinopse[0]}
@@ -61,16 +62,16 @@ export default function VideoDay({ onComplete }) {
           <Text style={styles.highlight}>{videoData.sinopse[3]}</Text>
           {videoData.sinopse[4]}
         </Text>
-
+        <Text style={styles.videoDuration}>Duração: 5 minutos</Text>
+        <View  style={styles.spacer}/>
         <GlassBox style={styles.videoCard}>
+          <Text style={styles.videoTitle}>{videoData.topico}</Text>
           <VideoPlayer
             videoId={videoData.video}
-            height={220}
+            height={200}
             play
             onChangeState={handleVideoStateChange}
           />
-
-          <Text style={styles.videoDuration}>Duração: 5 minutos</Text>
 
           <ButtonPrimary
             title="Assistir no Youtube"
@@ -79,7 +80,7 @@ export default function VideoDay({ onComplete }) {
           />
         </GlassBox>
 
-        <ButtonPrimary
+        <ButtonSecundary
           title={isLoading ? "Salvando..." : "Concluir"}
           onPress={handleConcluir}
           height={40}
