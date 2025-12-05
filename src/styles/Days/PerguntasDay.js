@@ -4,83 +4,45 @@ import { verticalScale } from '../../utils/responsive';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: 'transparent',
-    },
-    scrollContent: {
-      flexGrow: 1,
-      paddingHorizontal: spacing.lg,
-    },
-    headerContainer: {
-      alignItems: 'center',
-      marginTop: spacing.md,
-      marginBottom: spacing.xs,
-    },
-    title: {
-      fontSize: fontSize.xxl,
+    perguntaTexto: {
+      fontSize: fontSize.xl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      marginBottom: spacing.xxs,
-      textAlign: 'center',
-    },
-    subtitle: {
-      fontSize: fontSize.md,
-      fontFamily: fontFamily.r4,
-      color: theme.fontColor,
-      textAlign: 'center',
+      marginTop: spacing.xxl,
+      marginBottom: spacing.md,
+      alignSelf: 'flex-start',
+      width: '100%'
     },
     highlight: {
       color: theme.alert,
       fontFamily: fontFamily.b7,
     },
-    perguntaCard: {
-      width: '100%',
-      padding: spacing.md,
-      marginBottom: spacing.md,
-    },
-    perguntaTexto: {
-      fontSize: fontSize.lg,
-      fontFamily: fontFamily.b7,
-      color: theme.fontColor,
-      lineHeight: spacing.xs + spacing.xxs,
-      textAlign: 'center',
-    },
-    respostaCard: {
-      width: '100%',
-      padding: spacing.md,
-      marginBottom: spacing.md,
-    },
     labelResposta: {
       fontSize: fontSize.md,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      marginBottom: spacing.xs,
+      marginBottom: spacing.xs / 2,
+      textAlign: 'left',
+      alignSelf: 'flex-start',
+      paddingHorizontal: spacing.xxs
     },
     input: {
-      minHeight: verticalScale(200),
-      maxHeight: verticalScale(300),
+      height: spacing.giant,
+      width: spacing.xxxl + spacing.lg,
       backgroundColor: theme.terciario,
       color: theme.fontColor,
-      fontSize: fontSize.md,
+      fontSize: fontSize.ms,
       fontFamily: fontFamily.r4,
-      padding: spacing.xs,
-      borderRadius: borderRadius.p,
-      marginBottom: spacing.xs,
+      padding: spacing.xs / 2,
       textAlignVertical: 'top',
+      marginBottom: spacing.xxs
     },
     helperText: {
-      fontSize: fontSize.sm,
+      fontSize: fontSize.xs,
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
       opacity: 0.7,
       textAlign: 'center',
-    },
-    errorText: {
-      fontSize: fontSize.lg,
-      fontFamily: fontFamily.r4,
-      color: theme.warning,
-      textAlign: 'center',
-      marginTop: spacing.xl,
+      marginBottom: spacing.xxs
     },
   });

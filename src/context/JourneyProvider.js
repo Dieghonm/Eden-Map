@@ -139,16 +139,16 @@ export default function JourneyProvider({ children }) {
     try {
       const updatedData = [...perguntasRespostas];
       const index = semana - 1;
-      
+
       while (updatedData.length <= index) {
         updatedData.push(null);
       }
-      
+
       updatedData[index] = {
         semana,
         path,
         timestamp: new Date().toISOString(),
-        ...resposta
+        resposta
       };
 
       setPerguntasRespostas(updatedData);
@@ -159,6 +159,7 @@ export default function JourneyProvider({ children }) {
       return false;
     }
   }, [perguntasRespostas]);
+
 
   // ============================================================================
   // ✅ 5️⃣ MEDITAÇÃO - CORRIGIDO PARA SUBSTITUIR

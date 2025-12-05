@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, ScrollView, Platform } from 'react';
+import { useState } from 'react';
+import { SafeAreaView, Platform, Text, TextInput, ScrollView } from 'react-native-web';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../../context/ThemeProvider';
+import { createStyles } from '../../styles/Days/PerguntasDay';
 import { useApp } from '../../context/AppProvider';
 import { useJourney } from '../../context/JourneyProvider';
 import { PERGUNTAS } from '../../../assets/json/Semanas';
-import { createStyles } from '../../styles/Days/PerguntasDay';
 import { spacing } from '../../theme/texts';
 import GlassBox from '../../components/GlassBox';
 import ButtonPrimary from '../../components/ButtonPrimary';
@@ -14,45 +13,20 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 export default function PerguntasDay({ onComplete }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
-  const { selectedPath, semanaAtual, diaAtual } = useApp();
+  const { selectedPath, semanaAtual } = useApp();
   const { salvarPerguntaResposta } = useJourney();
 
   const [resposta, setResposta] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  // Busca pergunta da semana atual
-  const pathKey = selectedPath === 'Atenção Plena' ? 'AtencaoPlena' : selectedPath;
-  const perguntaData = PERGUNTAS[pathKey]?.[semanaAtual - 1];
-
-  if (!perguntaData) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.errorText}>Pergunta não encontrada</Text>
-      </SafeAreaView>
-    );
-  }
-
-  const isFormValid = resposta.trim().length > 0;
+  const data = PERGUNTAS[selectedPath][semanaAtual - 1];
 
   const handleConcluir = async () => {
-    if (!isFormValid) return;
-
+    if (!resposta.trim()) return;
     setIsLoading(true);
-    const sucesso = await salvarPerguntaResposta(
-      semanaAtual,
-      selectedPath,
-      {
-        tipo: perguntaData.Tipo,
-        pergunta: perguntaData.Pergunta,
-        resposta: resposta.trim(),
-        diaAtual: diaAtual
-      }
-    );
-    
+    await salvarPerguntaResposta(selectedPath, semanaAtual, resposta);
     setIsLoading(false);
-    if (sucesso && onComplete) {
-      onComplete(true);
-    }
+    if (onComplete) onComplete();
   };
 
   return (
@@ -66,24 +40,15 @@ export default function PerguntasDay({ onComplete }) {
         keyboardShouldPersistTaps="handled"
       >
         <ScrollView
-          contentContainerStyle={styles.scrollContent}
+          contentContainerStyle={{
+            flexGrow: 1,
+            paddingHorizontal: spacing.lg,
+          }}
           keyboardShouldPersistTaps="handled"
         >
-          <View style={styles.headerContainer}>
-            <Text style={styles.title}>
-              Pergunta: <Text style={styles.highlight}>{perguntaData.Tipo}</Text>
-            </Text>
-            <Text style={styles.subtitle}>
-              Reflita profundamente e responda com sinceridade
-            </Text>
-          </View>
-
-          <GlassBox style={styles.perguntaCard}>
-            <Text style={styles.perguntaTexto}>{perguntaData.Pergunta}</Text>
-          </GlassBox>
-
-          <GlassBox style={styles.respostaCard}>
-            <Text style={styles.labelResposta}>Sua resposta:</Text>
+          <Text style={styles.perguntaTexto}>{data.Pergunta}</Text>
+          <GlassBox>
+            <Text style={styles.labelResposta}>Reflita sobre e responda.</Text>
             <TextInput
               style={styles.input}
               placeholder="Escreva sua reflexão aqui..."
@@ -98,13 +63,13 @@ export default function PerguntasDay({ onComplete }) {
               Não há respostas certas ou erradas. Seja honesto consigo mesmo.
             </Text>
           </GlassBox>
-
-          <ButtonPrimary
-            title={isLoading ? "Salvando..." : "Concluir"}
+          <ButtonPrimary 
+            title="Concluir" 
+            disabled={!resposta.trim() || isLoading} 
             onPress={handleConcluir}
-            disabled={!isFormValid || isLoading}
             height={40}
           />
+
         </ScrollView>
       </KeyboardAwareScrollView>
     </SafeAreaView>

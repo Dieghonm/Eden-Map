@@ -8,6 +8,7 @@ import Img from '../components/Img';
 import Register from './Login/Register';
 import SignIn from './Login/SignIn';
 import ForgotPassword from './Login/ForgotPassword';
+import { LOGINGIF } from '../../assets/json/Imagens';
 
 export default function LoginScreen({ navigation }) {
   const { theme } = useTheme();
@@ -38,7 +39,7 @@ export default function LoginScreen({ navigation }) {
       {!screensWithoutGif.includes(currentScreen) && (
         <View style={styles.content}>
           <Img
-            source={require('../../assets/42.png')}
+            source={{ uri: LOGINGIF }} 
             size={220}
           />
         </View>

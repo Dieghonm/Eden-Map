@@ -34,7 +34,7 @@ export default function TrakingDay({ onComplete }) {
 
     salvarTrackingResposta(respostaFinal);
     setSelected(null);
-    if (onComplete) onComplete();
+    if (onComplete) onComplete(true);
   }
 
   return (

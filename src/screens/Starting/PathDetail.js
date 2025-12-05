@@ -8,6 +8,7 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import ButtonSecundary from '../../components/ButtonSecundary';
 import Img from '../../components/Img';
 import { api } from '../../services/api';
+import { LOGINGIF } from '../../../assets/json/Imagens';
 
 export default function PathDetail({ selectedPathName, onConfirm, onBack }) {
   const { theme } = useTheme();
@@ -54,7 +55,7 @@ export default function PathDetail({ selectedPathName, onConfirm, onBack }) {
 
       <View style={styles.mediaContainer}>
         <Img 
-          source={require('../../../assets/42.png')}
+          source={{ uri: LOGINGIF }} 
           size={220}
         />
       </View>

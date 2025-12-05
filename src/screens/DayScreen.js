@@ -43,7 +43,7 @@ export default function DayScreen() {
       case 'TRACKING':
         return 'Reflexões';
       case 'PERGUNTAS':
-        return [5, 6, 7, 8].includes(diaAtual) ? 'Pergunta: Sombra' : 'Pergunta: Luz';
+        return [5, 6, 7, 8].includes(semanaAtual) ? 'Pergunta: Sombra' : 'Pergunta: Luz';
       default:
         return '';
     }
@@ -148,7 +148,7 @@ export default function DayScreen() {
               title={buttonText()}
               onPress={() => setCurrentScreen(DIA.exercicio)}
               img={DIA.exercicio === 'PERGUNTAS' 
-                ? ([5, 6, 7, 8].includes(diaAtual) ? 'ExpSombra' : 'ExpLuz')
+                ? ([5, 6, 7, 8].includes(semanaAtual) ? 'ExpSombra' : 'ExpLuz')
                 : DIA.exercicio
               }
             />
