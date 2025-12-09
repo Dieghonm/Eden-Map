@@ -57,7 +57,7 @@ export default function ExplorerScreen({ navigation }) {
         <ImgButton 
           title="Reflexões"
           onPress={() => handlePress('Reflexões')} 
-          img="ExpReflexoes"
+          img="TRACKING"
         />          
       </View>
 

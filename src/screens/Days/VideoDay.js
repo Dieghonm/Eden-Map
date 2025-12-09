@@ -62,7 +62,6 @@ export default function VideoDay({ onComplete }) {
           <Text style={styles.highlight}>{videoData.sinopse[3]}</Text>
           {videoData.sinopse[4]}
         </Text>
-        <Text style={styles.videoDuration}>Duração: 5 minutos</Text>
         <View  style={styles.spacer}/>
         <GlassBox style={styles.videoCard}>
           <Text style={styles.videoTitle}>{videoData.topico}</Text>
@@ -72,6 +71,7 @@ export default function VideoDay({ onComplete }) {
             play
             onChangeState={handleVideoStateChange}
           />
+          <Text style={styles.videoDuration}>Duração: 5 minutos</Text>
 
           <ButtonPrimary
             title="Assistir no Youtube"

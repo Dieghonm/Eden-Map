@@ -13,7 +13,7 @@ export default function VideoPlayer({
 }) {
   return (
     <>
-      <View style={{ height: height - 30 }} />
+      <View style={{ height: height - 45 }} />
       <View style={[styles.fixedContainer, { height }]}>
         <View style={[styles.playerWrapper, { height, width }]}>
           <YoutubeIframe

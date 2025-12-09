@@ -6,17 +6,18 @@ export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      marginTop: spacing.lg,
       alignItems: 'center',
+      width: spacing.giant,
+      marginHorizontal: spacing.md * 2,
+      marginTop: spacing.xl + spacing.xs,
     },
     videoTitle: {
-      fontSize: fontSize.xxl,
+      fontSize: fontSize.xl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      marginTop: spacing.xs,
       textAlign: 'left',
       alignSelf: 'flex-start',
-      height: spacing.xxl/2,
+      height: spacing.sm,
     },
     videoDescription: {
       fontSize: fontSize.lg,

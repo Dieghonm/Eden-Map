@@ -45,8 +45,8 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
       marginBottom: spacing.xs,
-      textAlign: 'left',
-      alignSelf: 'flex-start',
+      // textAlign: 'left',
+      // alignSelf: 'flex-start',
     },
     spacer: {
       height: 2,
