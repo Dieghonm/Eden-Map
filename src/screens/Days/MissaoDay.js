@@ -16,6 +16,7 @@ export default function MissaoDay({ onComplete }) {
   const { selectedPath, semanaAtual } = useApp();
   const { salvarMissaoConcluida } = useJourney();
   
+  // const [tela, setTela] = useState('TIMER'); // 'TIMER', 'CONCLUIDA', 'INSIGHT'
   const [tela, setTela] = useState('TIMER'); // 'TIMER', 'CONCLUIDA', 'INSIGHT'
   const [insightText, setInsightText] = useState('');
 
@@ -27,12 +28,13 @@ export default function MissaoDay({ onComplete }) {
   const missaoObj = MISSAO[pathKey]?.[index];
   const totalEstrelas = missaoObj?.estrelas ?? 0;
 
-
+  const teste = false
 
   // ============================================================================
   // TELA ÍMPAR - APRESENTAÇÃO (NÃO MEXER)
   // ============================================================================
-  if (Number(semanaAtual) % 2 !== 0) {
+  // if (Number(semanaAtual) % 2 !== 0) {
+  if (teste) {
     return (
       <SafeAreaView style={styles.container}>
         <GlassBox>
@@ -82,44 +84,47 @@ export default function MissaoDay({ onComplete }) {
   // ============================================================================
   if (tela === 'TIMER') {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container, styles.timerSize]}>
+        {/* <Text style={styles.timer}>00:00:00</Text> */}
+        
+        {/* <View style={styles.progressBar}>
+          <View style={[styles.progressFill, { width: '50%' }]} />
+        </View> */}
         <GlassBox>
-          {/* <Text style={styles.timer}>00:00:00</Text> */}
-          
-          {/* <View style={styles.progressBar}>
-            <View style={[styles.progressFill, { width: '50%' }]} />
-          </View> */}
-          
           <View style={styles.starsView}>
             {Array.from({ length: 5 }).map((_, index) => (
               <Image
-                key={index}
-                source={
-                  index < totalEstrelas
-                    ? require("../../../assets/StarOn.png")
-                    : require("../../../assets/StarOff.png")
-                }
-                style={styles.stars}
+              key={index}
+              source={
+                index < totalEstrelas
+                ? require("../../../assets/StarOn.png")
+                : require("../../../assets/StarOff.png")
+              }
+              style={styles.stars}
               />
             ))}
           </View>
-          
-          <Text style={styles.subtitle}>{missaoObj?.["Titulo"]}</Text>
-          <Text style={styles.textoDescricao}>{missaoObj?.["Missão"]}</Text>
+            
+          <View style={styles.box}>
+            <Text style={styles.subtitle}>{missaoObj?.["Titulo"]}</Text>
+            <Text style={styles.textoDescricao}>{missaoObj?.["Missão"]}</Text>
+          </View>
         </GlassBox>
 
         <ImgButton 
           title='Concluí a missão'
           onPress={() => setTela('CONCLUIDA')}
           img={'Checked'}
-          
         />
-        
-        <ImgButton 
-          title='Falhei na missão'
-          onPress={() => setTela('INSIGHT')}
-          img={''}
-        />
+        <View style={styles.imgButton}>
+
+          <ImgButton 
+            title='Falhei na missão'
+            onPress={() => setTela('INSIGHT')}
+            
+            img={''}
+          />
+        </View>
         
         <ButtonPrimary 
           title='Voltar'
@@ -134,9 +139,12 @@ export default function MissaoDay({ onComplete }) {
   // ============================================================================
   if (tela === 'CONCLUIDA') {
     return (
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.textoTopo}>Missão concluída</Text>
-        
+      <SafeAreaView style={[styles.container, styles.conclSize]}>
+        <Text style={styles.parabens}>Parabéns!</Text>
+        <Text style={styles.textoParabens}>
+          Parabéns! Você desbloqueou o emblema da missão.
+        </Text>
+
         <View style={styles.imageContainer}>
           {missaoObj?.img && (
             <Image 
@@ -145,17 +153,6 @@ export default function MissaoDay({ onComplete }) {
               resizeMode="cover"
             />
           )}
-        </View>
-
-        <GlassBox style={styles.glassConcluida}>
-          <Text style={styles.parabens}>Parabéns!</Text>
-          <Text style={styles.textoParabens}>
-            Parabéns! Você desbloqueou o emblema da missão.
-          </Text>
-        </GlassBox>
-
-        <View style={styles.dimensoesBox}>
-          <Text style={styles.dimensoesText}>290 x 40</Text>
         </View>
 
         <ButtonPrimary 
@@ -176,24 +173,21 @@ export default function MissaoDay({ onComplete }) {
   // ============================================================================
   if (tela === 'INSIGHT') {
     return (
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.textoTopo}>Insight da missão</Text>
-        
+      <SafeAreaView style={[styles.container, styles.insightSize]}>
         <GlassBox>
           <Text style={styles.pergunta}>Como foi sua experiência com a missão?</Text>
           
           <TextInput
             style={styles.input}
-            placeholder="Descreva as 3 experiências"
+            placeholder="Máximo 360 caracteres"
             placeholderTextColor={theme.fontColor}
             value={insightText}
             onChangeText={setInsightText}
             multiline
-            numberOfLines={6}
             textAlignVertical="top"
+            maxLength={360}
           />
         </GlassBox>
-
         <ButtonPrimary 
           title='Concluir'
           onPress={async () => {

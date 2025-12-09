@@ -17,16 +17,16 @@ const scaleMinMax = (size) => {
 
 // Espaçamento — baseado na largura da tela
 export const spacing = {
-  xxs: scaleMinMax(5), // marginBottom logo
-  xs: scaleMinMax(20), // paddingVertical checkbox
+  xxs: scaleMinMax(5), 
+  xs: scaleMinMax(20), 
   sm: scaleMinMax(40), 
-  md: scaleMinMax(30), //espaco entre componentes
-  lg: scaleMinMax(50), //paddingHorizontal checkbox
-  xl: scaleMinMax(90), // topo da tela
+  md: scaleMinMax(30), 
+  lg: scaleMinMax(50), 
+  xl: scaleMinMax(90), 
   xxl: scaleMinMax(130),
   xxxl: scaleMinMax(200),
-  huge: horizontalScale(220), // imagem circular
-  giant: horizontalScale(290), // gradientButton
+  huge: horizontalScale(220), 
+  giant: horizontalScale(290), 
 };
 
 

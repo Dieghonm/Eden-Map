@@ -12,7 +12,6 @@ export const createStyles = (theme) =>
       flex: 1,
       paddingHorizontal: spacing.lg,
       alignItems: 'center',
-      paddingTop: spacing.xxl,
     },
 
     // ============================================================================
@@ -27,6 +26,7 @@ export const createStyles = (theme) =>
       width: spacing.md, 
       height: spacing.md, 
       marginRight: spacing.xxs * 2,
+      marginTop: 10
     },
     title: {
       fontSize: fontSize.xl,
@@ -59,6 +59,10 @@ export const createStyles = (theme) =>
     // ============================================================================
     // TELA 1 - TIMER
     // ============================================================================
+    timerSize:{
+      marginTop:spacing.xxxl - spacing.xs
+    },
+    
     // textoTopo: {
     //   fontSize: fontSize.xl,
     //   fontFamily: fontFamily.b7,
@@ -87,32 +91,41 @@ export const createStyles = (theme) =>
     //   backgroundColor: theme.success,
     //   borderRadius: borderRadius.p,
     // },
+    box:{
+      height:150
+    },
     subtitle: {
       fontSize: fontSize.xl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      textAlign: 'left',
-      alignSelf: 'flex-start',
-      marginBottom: spacing.xxs,
+      // textAlign: 'left',
+      // alignSelf: 'flex-start',
+      marginBottom: spacing.xs,
     },
     textoDescricao: {
       fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
       lineHeight: spacing.xs,
-      marginBottom: spacing.xs,
+      marginBottom: spacing.md,
+    },
+    imgButton:{
+      marginVertical:spacing.md
     },
 
     // ============================================================================
     // TELA 2 - MISSÃO CONCLUÍDA
     // ============================================================================
+    conclSize:{
+      marginTop:spacing.xxl - spacing.xxs
+    },
     imageContainer: {
-      marginBottom: spacing.md,
+      margin: spacing.md,
     },
     imageConcluida: {
-      width: horizontalScale(220),
-      height: verticalScale(220),
-      borderRadius: borderRadius.m,
+      width: spacing.giant,
+      height: spacing.giant,
+      borderRadius: borderRadius.p,
     },
     glassConcluida: {
       alignItems: 'center',
@@ -123,51 +136,39 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
       marginBottom: spacing.xxs,
+      alignSelf: 'flex-start',
+      marginLeft: spacing.lg
     },
     textoParabens: {
+      width:220,
       fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
-      textAlign: 'center',
+      alignSelf: 'flex-start',
       lineHeight: spacing.xs,
+      marginLeft: spacing.lg
     },
-    dimensoesBox: {
-      width: horizontalScale(290),
-      height: verticalScale(40),
-      backgroundColor: theme.secondary,
-      borderRadius: borderRadius.m,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginBottom: spacing.md,
-      borderWidth: 2,
-      borderColor: theme.button,
-      borderStyle: 'dashed',
-    },
-    dimensoesText: {
-      fontSize: fontSize.md,
-      fontFamily: fontFamily.b7,
-      color: theme.fontColor,
-    },
-
     // ============================================================================
     // TELA 3 - INSIGHT
     // ============================================================================
+    insightSize: {
+      marginTop: spacing.xxxl - spacing.sm
+    },
     pergunta: {
       fontSize: fontSize.lg,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      textAlign: 'center',
-      marginBottom: spacing.md,
+      marginBottom: spacing.xxs,
+      padding: spacing.xxs
     },
     input: {
       width: '100%',
-      minHeight: verticalScale(150),
+      minHeight: spacing.giant - spacing.xs,
       backgroundColor: theme.terciario,
       color: theme.fontColor,
       fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
       padding: spacing.xs,
-      borderRadius: borderRadius.p,
       textAlignVertical: 'top',
       marginBottom: spacing.xs,
     },
