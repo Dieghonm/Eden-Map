@@ -2,64 +2,65 @@ export const SEMANAS = [
   {
     id: 1,
     nome: "A entrada",
-    img: "https://i.imgur.com/1CbUzFS.jpeg",
+    img: "https://i.imgur.com/1RuqmZo.jpeg",
   },
   {
     id: 2,
-    nome: 'O campo',
-    img: 'https://i.imgur.com/MHVXFS1.jpeg',
+    nome: "O campo",
+    img: "https://i.imgur.com/C5pS9gA.jpeg",
   },
   {
     id: 3,
-    nome: 'O lago',
-    img: 'https://i.imgur.com/fPtZAvz.jpeg',
+    nome: "O lago",
+    img: "https://i.imgur.com/yc058oq.jpeg",
   },
   {
     id: 4,
-    nome: 'O deserto',
-    img: 'https://i.imgur.com/4vnVbsn.jpeg',
+    nome: "O deserto",
+    img: "https://i.imgur.com/rNV1tAL.jpeg",
   },
   {
     id: 5,
-    nome: 'O pântano',
-    img: 'https://i.imgur.com/Ptoczae.jpeg',
+    nome: "O pântano",
+    img: "https://i.imgur.com/wAmb2y0.jpeg",
   },
   {
     id: 6,
-    nome: 'A floresta',
-    img: 'https://i.imgur.com/mxbJEw7.jpeg',
+    nome: "A floresta",
+    img: "https://i.imgur.com/gTgrf35.jpeg",
   },
   {
     id: 7,
-    nome: 'A subida',
-    img: 'https://i.imgur.com/ZylYl9r.jpeg',
+    nome: "A subida",
+    img: "https://i.imgur.com/usA6071.jpeg",
   },
   {
     id: 8,
-    nome: 'A colina',
-    img: 'https://i.imgur.com/DZxkQ34.jpeg',
+    nome: "A colina",
+    img: "https://i.imgur.com/kQkajvD.jpeg",
   },
   {
     id: 9,
-    nome: 'O jardim',
-    img: 'https://i.imgur.com/MjfjsUN.jpeg',
+    nome: "O jardim",
+    img: "https://i.imgur.com/ty2AYcu.jpeg",
   },
   {
     id: 10,
-    nome: 'O bosque',
-    img: 'https://i.imgur.com/dYI3ztz.jpeg',
+    nome: "O bosque",
+    img: "https://i.imgur.com/Fr0IVpX.jpeg",
   },
   {
     id: 11,
-    nome: 'A praia',
-    img: 'https://i.imgur.com/Ith8HA7.png',
+    nome: "A praia",
+    img: "https://i.imgur.com/VncLsBt.jpeg",
   },
   {
     id: 12,
-    nome: 'O pico',
-    img: 'https://i.imgur.com/duAnW3g.png',
+    nome: "O pico",
+    img: "https://i.imgur.com/25kMpba.jpeg",
   }
 ];
+
 
 export const CALENDAR = [
   {id: 1, exercicio: "DESCRICAOCENA"},
@@ -298,7 +299,7 @@ export const MISSAO = {
       "Titulo": "Vestindo o eu ideal.",
       "Missão": "Coloque uma roupa que faça você se sentir confiante.",
       "estrelas": 1,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/lKMFfK4.jpeg"
     },
     { "id": 2 },
     { 
@@ -306,7 +307,7 @@ export const MISSAO = {
       "Titulo": "Dança da Liberdade.",
       "Missão": "Durante essa semana coloque música que te eleve, e dance por 5 minutos, como se ninguém o estivesse observando.",
       "estrelas": 2,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/QTF8kTx.jpeg"
     },
     { "id": 4 },
     { 
@@ -314,7 +315,7 @@ export const MISSAO = {
       "Titulo": "Reflexo no Passado.",
       "Missão": "Veja suas fotos antigas e reflita sobre suas qualidades concretas — ex: organizado; esforçado.",
       "estrelas": 3,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/tjnGrfl.jpeg"
     },
     { "id": 6 },
     { 
@@ -322,7 +323,7 @@ export const MISSAO = {
       "Titulo": "Encarne o eu Ideal.",
       "Missão": "Por 10 minutos, se coloque no papel do seu eu ideal e internalize como ele pensa e age.",
       "estrelas": 4,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/TJPKG8d.jpeg"
     },
     { "id": 8 },
     { 
@@ -330,7 +331,7 @@ export const MISSAO = {
       "Titulo": "Voz do Cuidado.",
       "Missão": "Faça uma ligação para alguém que te traga paz e te lembre do que há de bom em você e na vida.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/RXnc6BH.jpeg"
     },
     { "id": 10 },
     { 
@@ -338,17 +339,18 @@ export const MISSAO = {
       "Titulo": "Espelho Honesto.",
       "Missão": "Pergunte às pessoas em quem confia o que você pode fazer para melhorar, procurando feedbacks honestos.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/igyrYtG.jpeg"
     },
     { "id": 12 }
   ],
+
   "Atencao_Plena": [
     { 
       "id": 1, 
       "Titulo": "Abraço da Natureza",
       "Missão": "Reservar um momento nesta semana para estar ao ar livre, em contato com a natureza.",
       "estrelas": 1,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/f9cSA1A.jpeg"
     },
     { "id": 2 },
     { 
@@ -356,7 +358,7 @@ export const MISSAO = {
       "Titulo": "Mãos Conscientes",
       "Missão": "Realize diariamente uma atividade manual de forma consciente — pintar, desenhar, tocar um instrumento.",
       "estrelas": 2,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/gprH3wr.jpeg"
     },
     { "id": 4 },
     { 
@@ -364,7 +366,7 @@ export const MISSAO = {
       "Titulo": "Sabor Presente",
       "Missão": "Mergulhe na experiência de comer, sentindo sabor e sensações de forma consciente.",
       "estrelas": 3,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/oGsQnfQ.jpeg"
     },
     { "id": 6 },
     { 
@@ -372,7 +374,7 @@ export const MISSAO = {
       "Titulo": "Caminho Inusitado",
       "Missão": "Quebre a rotina escolhendo um novo caminho para sua rotina, observando o ambiente ao redor.",
       "estrelas": 4,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/Q1Uj3wd.jpeg"
     },
     { "id": 8 },
     { 
@@ -380,7 +382,7 @@ export const MISSAO = {
       "Titulo": "Abrace o novo",
       "Missão": "Inscreva-se em uma aula de um hobbie que você sempre quis explorar.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/cGLXWf9.jpeg"
     },
     { "id": 10 },
     { 
@@ -388,17 +390,18 @@ export const MISSAO = {
       "Titulo": "Fugindo da distração",
       "Missão": "Evite atividades que te afastem do momento presente, como redes sociais.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/pH71XeP.jpeg"
     },
     { "id": 12 }
   ],
+
   "Relacionamentos": [
     { 
       "id": 1, 
       "Titulo": "Ritmo Sereno",
       "Missão": "Converse e se movimente de forma mais lenta que o normal. Isso mantém seu corpo relaxado.",
       "estrelas": 1,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/kXCESky.jpeg"
     },
     { "id": 2 },
     { 
@@ -406,7 +409,7 @@ export const MISSAO = {
       "Titulo": "Voz Positiva",
       "Missão": "Observe seu modo de falar e evite frases negativas. Priorize positividade.",
       "estrelas": 2,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/0a5Zv27.jpeg"
     },
     { "id": 4 },
     { 
@@ -414,7 +417,7 @@ export const MISSAO = {
       "Titulo": "Palavras de Luz",
       "Missão": "Elogie uma pessoa desconhecida, praticando espontaneidade e conexão.",
       "estrelas": 3,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/YGpReeV.jpeg"
     },
     { "id": 6 },
     { 
@@ -422,7 +425,7 @@ export const MISSAO = {
       "Titulo": "Voz da Gratidão",
       "Missão": "Faça uma ligação surpresa para alguém especial e compartilhe carinho ou gratidão.",
       "estrelas": 4,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/lz1taSL.jpeg"
     },
     { "id": 8 },
     { 
@@ -430,7 +433,7 @@ export const MISSAO = {
       "Titulo": "Retorno Essencial",
       "Missão": "Reaproxime-se de alguém importante do passado.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/K3op4Aw.jpeg"
     },
     { "id": 10 },
     { 
@@ -438,17 +441,18 @@ export const MISSAO = {
       "Titulo": "Laços de Perdão",
       "Missão": "Reflita sobre uma relação mal resolvida e dê o primeiro passo pedindo perdão.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/A3x92jV.jpeg"
     },
     { "id": 12 }
   ],
+
   "Motivacao": [
     { 
       "id": 1, 
       "Titulo": "Chama da Inspiração",
       "Missão": "Assista um filme que reacenda sua motivação para perseguir seus objetivos.",
       "estrelas": 1,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/BZ9VoOG.jpeg"
     },
     { "id": 2 },
     { 
@@ -456,7 +460,7 @@ export const MISSAO = {
       "Titulo": "Silêncio Sábio",
       "Missão": "Evite contar seus planos para quem não apoia sua jornada.",
       "estrelas": 2,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/s5LZdNe.jpeg"
     },
     { "id": 4 },
     { 
@@ -464,14 +468,14 @@ export const MISSAO = {
       "Titulo": "Recompensa Interior",
       "Missão": "Crie um sistema de recompensas para cada passo dado em direção ao seu desejo.",
       "estrelas": 3,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/tR8LCF0.jpeg"
     },
     { "id": 6 },
     { 
       "id": 7,
       "Titulo": "",
       "estrelas": 3,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/wETst10.jpeg"
     },
     { "id": 8 },
     { 
@@ -479,7 +483,7 @@ export const MISSAO = {
       "Titulo": "Quebra de Corrente",
       "Missão": "Diga não a um hábito confortável e repetitivo que drena sua energia.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/724YmKy.jpeg"
     },
     { "id": 10 },
     { 
@@ -487,17 +491,18 @@ export const MISSAO = {
       "Titulo": "Centelha Viva",
       "Missão": "Seja fonte de entusiasmo e motivação para os outros.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/U1kF4fy.jpeg"
     },
     { "id": 12 }
   ],
+
   "Ansiedade": [
     { 
       "id": 1, 
       "Titulo": "Centelha Viva",
       "Missão": "Seja a fonte de entusiasmo e motivação para as pessoas com quem convive.",
       "estrelas": 1,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/lKMFfK4.jpeg"
     },
     { "id": 2 },
     { 
@@ -505,7 +510,7 @@ export const MISSAO = {
       "Titulo": "Arte que Acolhe",
       "Missão": "Busque músicas e filmes que acalmem você e tragam coragem.",
       "estrelas": 2,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/QTF8kTx.jpeg"
     },
     { "id": 4 },
     { 
@@ -513,15 +518,15 @@ export const MISSAO = {
       "Titulo": "Âncora da Respiração",
       "Missão": "Ao notar pensamentos negativos, redirecione a atenção para a respiração.",
       "estrelas": 3,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/tjnGrfl.jpeg"
     },
     { "id": 6 },
     { 
-      "id": 7, 
+      "id": 7,
       "Titulo": "Descrevendo a paz",
       "Missão": "Escreva como seria sua vida hoje se a ansiedade não existisse.",
       "estrelas": 4,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/TJPKG8d.jpeg"
     },
     { "id": 8 },
     { 
@@ -529,7 +534,7 @@ export const MISSAO = {
       "Titulo": "Retorno à Essência",
       "Missão": "Reconecte-se com uma atividade da sua infância.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/RXnc6BH.jpeg"
     },
     { "id": 10 },
     { 
@@ -537,11 +542,12 @@ export const MISSAO = {
       "Titulo": "Morada da Calma",
       "Missão": "Visite um lugar que te traz paz e leveza.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/prP0XUs.jpeg"
+      "img": "https://i.imgur.com/igyrYtG.jpeg"
     },
     { "id": 12 }
   ]
-}
+};
+
 
 export const TRACKING = {
   "Autoimagem": [

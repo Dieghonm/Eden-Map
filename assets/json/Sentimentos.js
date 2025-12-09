@@ -14,6 +14,7 @@ export const CAMINHOS = [
     id: 1, 
     nome: 'Ansiedade', 
     color: '#FFAA2E',
+    img: 'https://i.imgur.com/fYXfXUD.jpeg',
     descricao: [
       "Atraia seu ",
       "desejo",
@@ -29,6 +30,7 @@ export const CAMINHOS = [
     id: 2, 
     nome: 'Autoimagem', 
     color: '#38C197',
+    img: 'https://i.imgur.com/vr6SVFZ.jpeg',
     descricao: [
       "Atraia seu ",
       "desejo",
@@ -44,6 +46,7 @@ export const CAMINHOS = [
     id: 3, 
     nome: 'Atenção Plena', 
     color: '#0A84FF',
+    img: 'https://i.imgur.com/vweaCIx.jpeg',
     descricao: [
       "Atraia seu ",
       "desejo",
@@ -59,6 +62,7 @@ export const CAMINHOS = [
     id: 4, 
     nome: 'Motivação', 
     color: '#EA5959',
+    img: 'https://i.imgur.com/M996wcw.jpeg',
     descricao: [
       "Atraia seu ",
       "desejo",
@@ -74,6 +78,7 @@ export const CAMINHOS = [
     id: 5, 
     nome: 'Relacionamentos', 
     color: '#8A4AED',
+    img: 'https://i.imgur.com/nwxgcAX.jpeg',
     descricao: [
       "Atraia seu ",
       "desejo",

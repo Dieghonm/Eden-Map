@@ -1,14 +1,12 @@
 import React, { useContext } from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator, Image } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Starting/PathDetail';
 import { CAMINHOS } from '../../../assets/json/Sentimentos';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import ButtonSecundary from '../../components/ButtonSecundary';
-import Img from '../../components/Img';
 import { api } from '../../services/api';
-import { LOGINGIF } from '../../../assets/json/Imagens';
 
 export default function PathDetail({ selectedPathName, onConfirm, onBack }) {
   const { theme } = useTheme();
@@ -52,11 +50,12 @@ export default function PathDetail({ selectedPathName, onConfirm, onBack }) {
           {pathData.descricao[6]}     
         </Text>
       </View>
-
+      {console.log(pathData)      }
       <View style={styles.mediaContainer}>
-        <Img 
-          source={{ uri: LOGINGIF }} 
-          size={220}
+        <Image
+          source={{ uri: pathData.img }} 
+          style={styles.image}
+          resizeMode="cover"
         />
       </View>
 

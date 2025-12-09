@@ -38,4 +38,8 @@ export const createStyles = (theme) =>
       borderRadius: borderRadius.m,
       marginBottom: spacing.md,
     },
+    image:{
+      height:290,
+      width:290,
+    }
   });
