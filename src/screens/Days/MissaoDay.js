@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Image, SafeAreaView, Text, View, TextInput } from "react-native";
+import React, { useState, useRef, useEffect } from "react";
+import { Image, SafeAreaView, Text, View, TextInput, Animated, StyleSheet } from "react-native";
 import { useTheme } from "../../context/ThemeProvider";
 import { createStyles } from "../../styles/Days/MissaoDay";
 import { useApp } from '../../context/AppProvider';
@@ -16,44 +16,50 @@ export default function MissaoDay({ onComplete }) {
   const { selectedPath, semanaAtual } = useApp();
   const { salvarMissaoConcluida } = useJourney();
   
-  // const [tela, setTela] = useState('TIMER'); // 'TIMER', 'CONCLUIDA', 'INSIGHT'
-  const [tela, setTela] = useState('TIMER'); // 'TIMER', 'CONCLUIDA', 'INSIGHT'
+  const [tela, setTela] = useState('TIMER');
   const [insightText, setInsightText] = useState('');
+  const [missaoConcluida, setMissaoConcluida] = useState(null);
 
-  // ============================================================================
-  // DADOS DA MISSÃO
-  // ============================================================================
+  const lockOpacity = useRef(new Animated.Value(1)).current;
+  const imageOverlayOpacity = useRef(new Animated.Value(0.5)).current;
+
   const pathKey = selectedPath === 'Atenção Plena' ? 'Atencao_Plena' : selectedPath;
-  const index = Math.floor((Number(semanaAtual) - 1) / 2);
+  const index = Math.floor((Number(semanaAtual) - 1) / 2) * 2;
   const missaoObj = MISSAO[pathKey]?.[index];
   const totalEstrelas = missaoObj?.estrelas ?? 0;
 
-  const teste = false
+  const animarConclusao = () => {
+    Animated.sequence([
+      Animated.delay(1000),
+      Animated.parallel([
+        Animated.timing(lockOpacity, { toValue: 0, duration: 1000, useNativeDriver: true }),
+        Animated.timing(imageOverlayOpacity, { toValue: 1, duration: 1000, useNativeDriver: true })
+      ])
+    ]).start();
+  };
 
-  // ============================================================================
-  // TELA ÍMPAR - APRESENTAÇÃO (NÃO MEXER)
-  // ============================================================================
-  // if (Number(semanaAtual) % 2 !== 0) {
-  if (teste) {
+  useEffect(() => {
+    if (tela === 'CONCLUIDA') {
+      lockOpacity.setValue(1);
+      imageOverlayOpacity.setValue(0.5);
+      animarConclusao();
+    }
+  }, [tela]);
+
+  if (Number(semanaAtual) % 2 !== 0) {
     return (
       <SafeAreaView style={styles.container}>
         <GlassBox>
           <View style={styles.starsView}>
-            {Array.from({ length: 5 }).map((_, index) => (
+            {Array.from({ length: 5 }).map((_, idx) => (
               <Image
-                key={index}
-                source={
-                  index < totalEstrelas
-                    ? require("../../../assets/StarOn.png")
-                    : require("../../../assets/StarOff.png")
-                }
+                key={idx}
+                source={idx < totalEstrelas ? require("../../../assets/StarOn.png") : require("../../../assets/StarOff.png")}
                 style={styles.stars}
               />
             ))}
           </View>
-          
           <Text style={styles.title}>{missaoObj?.Titulo}</Text>
-          
           <View style={{ position: 'relative' }}>
             {missaoObj?.img && (
               <Image 
@@ -67,10 +73,8 @@ export default function MissaoDay({ onComplete }) {
               source={require("../../../assets/Lock.png")} 
             />
           </View>
-          
           <Text style={styles.missaoTexto}>{missaoObj?.["Missão"]}</Text>
         </GlassBox>
-        
         <ButtonPrimary 
           title='Desligue para conectar'
           onPress={() => onComplete && onComplete(true)}
@@ -79,32 +83,19 @@ export default function MissaoDay({ onComplete }) {
     );
   }
 
-  // ============================================================================
-  // TELA 1 - TIMER (INSIGHT SOBRE A MISSÃO)
-  // ============================================================================
   if (tela === 'TIMER') {
     return (
       <SafeAreaView style={[styles.container, styles.timerSize]}>
-        {/* <Text style={styles.timer}>00:00:00</Text> */}
-        
-        {/* <View style={styles.progressBar}>
-          <View style={[styles.progressFill, { width: '50%' }]} />
-        </View> */}
         <GlassBox>
           <View style={styles.starsView}>
-            {Array.from({ length: 5 }).map((_, index) => (
+            {Array.from({ length: 5 }).map((_, idx) => (
               <Image
-              key={index}
-              source={
-                index < totalEstrelas
-                ? require("../../../assets/StarOn.png")
-                : require("../../../assets/StarOff.png")
-              }
-              style={styles.stars}
+                key={idx}
+                source={idx < totalEstrelas ? require("../../../assets/StarOn.png") : require("../../../assets/StarOff.png")}
+                style={styles.stars}
               />
             ))}
           </View>
-            
           <View style={styles.box}>
             <Text style={styles.subtitle}>{missaoObj?.["Titulo"]}</Text>
             <Text style={styles.textoDescricao}>{missaoObj?.["Missão"]}</Text>
@@ -113,19 +104,24 @@ export default function MissaoDay({ onComplete }) {
 
         <ImgButton 
           title='Concluí a missão'
-          onPress={() => setTela('CONCLUIDA')}
+          onPress={() => {
+            setMissaoConcluida(true);
+            setTela('CONCLUIDA');
+          }}
           img={'Checked'}
         />
-        <View style={styles.imgButton}>
 
+        <View style={styles.imgButton}>
           <ImgButton 
             title='Falhei na missão'
-            onPress={() => setTela('INSIGHT')}
-            
+            onPress={() => {
+              setMissaoConcluida(false);
+              setTela('INSIGHT');
+            }}
             img={''}
           />
         </View>
-        
+
         <ButtonPrimary 
           title='Voltar'
           onPress={() => onComplete(false)}
@@ -134,25 +130,27 @@ export default function MissaoDay({ onComplete }) {
     );
   }
 
-  // ============================================================================
-  // TELA 2 - MISSÃO CONCLUÍDA
-  // ============================================================================
   if (tela === 'CONCLUIDA') {
     return (
       <SafeAreaView style={[styles.container, styles.conclSize]}>
         <Text style={styles.parabens}>Parabéns!</Text>
-        <Text style={styles.textoParabens}>
-          Parabéns! Você desbloqueou o emblema da missão.
-        </Text>
+        <Text style={styles.textoParabens}>Parabéns! Você desbloqueou o emblema da missão.</Text>
 
         <View style={styles.imageContainer}>
           {missaoObj?.img && (
-            <Image 
-              source={{ uri: missaoObj.img }} 
-              style={styles.imageConcluida}
-              resizeMode="cover"
-            />
+            <View style={styles.imageWrapper}>
+              <Animated.Image 
+                source={{ uri: missaoObj.img }} 
+                style={[styles.imageConcluida, { opacity: imageOverlayOpacity }]}
+                resizeMode="cover"
+              />
+            </View>
           )}
+
+          <Animated.Image 
+            source={require("../../../assets/Lock.png")}
+            style={[styles.lockImage, { opacity: lockOpacity }]}
+          />
         </View>
 
         <ButtonPrimary 
@@ -168,9 +166,6 @@ export default function MissaoDay({ onComplete }) {
     );
   }
 
-  // ============================================================================
-  // TELA 3 - INSIGHT DA MISSÃO
-  // ============================================================================
   if (tela === 'INSIGHT') {
     return (
       <SafeAreaView style={[styles.container, styles.insightSize]}>
@@ -188,6 +183,7 @@ export default function MissaoDay({ onComplete }) {
             maxLength={360}
           />
         </GlassBox>
+
         <ButtonPrimary 
           title='Concluir'
           onPress={async () => {
@@ -195,13 +191,14 @@ export default function MissaoDay({ onComplete }) {
               missaoId: missaoObj?.id || `${pathKey}_${index}`,
               titulo: missaoObj?.Titulo,
               estrelas: totalEstrelas,
+              concluida: missaoConcluida,
               insight: insightText,
               concluidaEm: new Date().toISOString()
             });
             onComplete(true);
           }}
         />
-        
+
         <ButtonSecundary 
           title='Voltar'
           onPress={() => setTela('CONCLUIDA')}
@@ -209,4 +206,6 @@ export default function MissaoDay({ onComplete }) {
       </SafeAreaView>
     );
   }
+
+  return null;
 }

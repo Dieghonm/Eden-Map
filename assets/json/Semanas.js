@@ -548,7 +548,6 @@ export const MISSAO = {
   ]
 };
 
-
 export const TRACKING = {
   "Autoimagem": [
     { "id": 1, "Tipo": "Luz", "texto": "Eu sinto que tudo ao meu redor está conspirando a favor da concretização do meu desejo." },
