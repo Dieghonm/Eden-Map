@@ -101,7 +101,6 @@ export default function VideosScreen({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        {/* Voltar */}
         <ButtonSecundary
           title="Voltar"
           onPress={() => navigation.goBack()}
