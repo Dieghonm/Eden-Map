@@ -34,7 +34,7 @@ export const createStyles = (theme) =>
     },    
     highlight: {
       color: theme.alert,
-      fontFamily: fontFamily.b7,
+      fontFamily: fontFamily.r4,
     },
     navigation: {
       flexDirection: 'row',

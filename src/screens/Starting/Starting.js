@@ -23,9 +23,6 @@ export default function Starting({ onComplete }) {
   const { theme } = useTheme();
   const { 
     user,
-    desireName,
-    desireDescription,
-    selectedFeelings,
     setSelectedPath,
     resetKey
   } = useContext(AppContext);

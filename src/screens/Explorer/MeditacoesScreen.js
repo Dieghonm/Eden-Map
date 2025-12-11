@@ -1,186 +1,150 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../../context/ThemeProvider';
 import { createStyles } from '../../styles/Explorer/MeditacoesScreen';
+import ButtonSecundary from '../../components/ButtonSecundary';
+import { CAMINHOS } from '../../../assets/json/Sentimentos';
 import ButtonPrimary from '../../components/ButtonPrimary';
+import { MISSAO } from '../../../assets/json/Semanas';
 import GlassBox from '../../components/GlassBox';
 
-export default function MeditacoesScreen({ navigation }) {
+export default function MissoesScreen({ navigation }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
+  const [selectedPath, setSelectedPath] = useState(null);
+  const [selectedMedit, setselectedMedit] = useState(null); 
 
-  const [selectedPath, setSelectedPath] = useState('Atenção Plena');
-  const [currentMeditationIndex, setCurrentMeditationIndex] = useState(0);
-
-  // Mock de meditações
-  const meditationsByPath = {
-    'Atenção Plena': [
-      {
-        id: 1,
-        title: 'Escolha qualquer meditação da biblioteca',
-        subtitle: 'Mais de 30 opções disponíveis.',
-        category: 'Atenção Plena',
-        placeholder: 'Caminho: Atenção Plena'
-      }
-    ],
-    'Ansiedade': [
-      {
-        id: 2,
-        title: 'Respiração para ansiedade',
-        subtitle: 'Técnicas de respiração para acalmar a mente.',
-        category: 'Ansiedade',
-        placeholder: 'Caminho: Ansiedade'
-      }
-    ],
-    'Autoimagem': [
-      {
-        id: 3,
-        title: 'Amor próprio',
-        subtitle: 'Cultive uma relação saudável consigo mesmo.',
-        category: 'Autoimagem',
-        placeholder: 'Caminho: Autoimagem'
-      }
-    ],
-    'Motivação': [
-      {
-        id: 4,
-        title: 'Energia interior',
-        subtitle: 'Desperte sua motivação e propósito.',
-        category: 'Motivação',
-        placeholder: 'Caminho: Motivação'
-      }
-    ],
-    'Relacionamentos': [
-      {
-        id: 5,
-        title: 'Conexões verdadeiras',
-        subtitle: 'Fortaleça seus relacionamentos.',
-        category: 'Relacionamentos',
-        placeholder: 'Caminho: Relacionamentos'
-      }
-    ]
+  const keyMap = {
+    "Atenção Plena": "Atencao_Plena",
+    "Motivação": "Motivacao"
   };
 
-  const paths = Object.keys(meditationsByPath);
-  const currentMeditations = meditationsByPath[selectedPath];
-  const currentMeditation = currentMeditations[currentMeditationIndex];
-  const totalMeditations = currentMeditations.length;
+  const chave = keyMap[selectedPath?.nome] || selectedPath?.nome;
+  const lista = selectedPath ? (MISSAO[chave] || []) : [];
 
-  const handleNext = () => {
-    if (currentMeditationIndex < totalMeditations - 1) {
-      setCurrentMeditationIndex(currentMeditationIndex + 1);
-    }
-  };
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const total = lista.length / 2;
+  const current = lista[currentIndex * 2];
 
-  const handlePrevious = () => {
-    if (currentMeditationIndex > 0) {
-      setCurrentMeditationIndex(currentMeditationIndex - 1);
-    }
-  };
+  function handlePrevious() {
+    if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
+  }
 
-  const handlePathChange = (path) => {
-    setSelectedPath(path);
-    setCurrentMeditationIndex(0);
-  };
+  function handleNext() {
+    if (currentIndex < total - 1) setCurrentIndex(currentIndex + 1);
+  }
 
-  return (
-    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
-      <ScrollView 
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-      >
-        <Text style={styles.title}>Meditações livres - escolha caminho</Text>
+  if (!selectedPath) {
+    return (
+      <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+        <Text style={styles.title}>Escolha qualquer meditação da biblioteca</Text>
+        <Text style={styles.text}>Mais de 35 opções disponíveis.</Text>
 
-        {/* Seletor de caminhos */}
-        <ScrollView 
-          horizontal 
-          showsHorizontalScrollIndicator={false}
-          style={styles.pathScroll}
-          contentContainerStyle={styles.pathContent}
+        {CAMINHOS.map((path) => (
+          <TouchableOpacity
+            key={path.nome}
+            style={[styles.pathButton, { borderColor: path.color, borderWidth: 2 }]}
+            activeOpacity={0.8}
+            onPress={() => {
+              setSelectedPath(path)
+              setCurrentIndex(0)
+            }}
+          >
+            <Text style={styles.pathText}>{path.nome}</Text>
+          </TouchableOpacity>
+        ))}
+
+        <TouchableOpacity
+          style={[styles.pathButton, { borderColor: '#EFFB3E', borderWidth: 2 }]}
+          activeOpacity={0.8}
+          onPress={() => {
+            setSelectedPath({ nome: 'Outros', color: '#EFFB3E' })
+            setCurrentIndex(0)
+          }}
         >
-          {paths.map((path) => (
-            <TouchableOpacity
-              key={path}
-              style={[
-                styles.pathChip,
-                selectedPath === path && styles.pathChipActive
-              ]}
-              onPress={() => handlePathChange(path)}
-              activeOpacity={0.7}
-            >
-              <Text style={[
-                styles.pathText,
-                selectedPath === path && styles.pathTextActive
-              ]}>
-                {path}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+          <Text style={styles.pathText}>Extras</Text>
+        </TouchableOpacity>
 
-        {/* Card da meditação */}
-        <GlassBox style={styles.meditationCard}>
-          <Text style={styles.meditationTitle}>{currentMeditation.title}</Text>
-          <Text style={styles.meditationSubtitle}>{currentMeditation.subtitle}</Text>
+        <ButtonSecundary 
+          title={'Voltar'} 
+          onPress={() => navigation.goBack()} 
+        />
+      </SafeAreaView>
+    );
+  }
 
-          {/* Placeholder da meditação */}
-          <View style={styles.meditationPlaceholder}>
-            <Text style={styles.placeholderTitle}>
-              {currentMeditation.placeholder}
-            </Text>
-            <View style={styles.buttonRow}>
-              <TouchableOpacity style={styles.navButtonSmall}>
-                <Text style={styles.navIconSmall}>◀</Text>
-              </TouchableOpacity>
-              <Text style={styles.counterSmall}>4/6</Text>
-              <TouchableOpacity style={styles.navButtonSmall}>
-                <Text style={styles.navIconSmall}>▶</Text>
-              </TouchableOpacity>
+  if(!selectedMedit){
+
+    return (
+      <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+      <View style={styles.spacing}/>
+      <Text style={[styles.title, { color: selectedPath.color }]}>
+        {selectedPath.nome}
+      </Text>
+        <GlassBox>
+          <Text style={styles.tema}>
+            {current ? `Tema: ${current.Titulo}` : "Sem itens disponíveis"}
+          </Text>
+          {current && current.img && (
+            <View style={styles.imageContainer}>
+              <Image 
+                source={{ uri: current.img }} 
+                style={styles.imageConcluida}
+                resizeMode="cover"
+              />
             </View>
-          </View>
-
-          <ButtonPrimary
-            title="Escolher e avançar"
-            onPress={() => console.log('🧘 Escolhida:', currentMeditation.title)}
-            width={220}
-          />
+          )}
+  
         </GlassBox>
-
-        {/* Navegação entre meditações */}
+  
         <View style={styles.navigation}>
           <TouchableOpacity 
             style={styles.navButton}
             onPress={handlePrevious}
-            disabled={currentMeditationIndex === 0}
+            disabled={currentIndex === 0}
           >
             <Text style={[
               styles.navIcon,
-              currentMeditationIndex === 0 && styles.navIconDisabled
+              currentIndex === 0 && styles.navIconDisabled
             ]}>◀</Text>
           </TouchableOpacity>
-
+  
           <Text style={styles.counter}>
-            {currentMeditationIndex + 1}/{totalMeditations}
+            {total > 0 ? `${currentIndex + 1}/${total}` : "0/0"}
           </Text>
-
+  
           <TouchableOpacity 
             style={styles.navButton}
             onPress={handleNext}
-            disabled={currentMeditationIndex === totalMeditations - 1}
+            disabled={currentIndex === total - 1}
           >
             <Text style={[
               styles.navIcon,
-              currentMeditationIndex === totalMeditations - 1 && styles.navIconDisabled
+              currentIndex === total - 1 && styles.navIconDisabled
             ]}>▶</Text>
           </TouchableOpacity>
         </View>
-
-        <ButtonPrimary
-          title="Voltar"
-          onPress={() => navigation.goBack()}
+  
+        <ButtonPrimary 
+          title={'Escolher e avançar'} 
+          onPress={() => setselectedMedit(!selectedMedit)} 
         />
-      </ScrollView>
+  
+        <ButtonSecundary 
+          title={'Voltar'} 
+          onPress={() => setSelectedPath(null)} 
+        />
+      </SafeAreaView>
+    );
+  }
+
+  return(
+    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+      {console.log(selectedPath)      }
+
+
+
     </SafeAreaView>
-  );
+  )
 }

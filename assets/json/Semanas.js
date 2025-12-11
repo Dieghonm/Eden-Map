@@ -298,7 +298,8 @@ export const MISSAO = {
       "Titulo": "Vestindo o eu ideal.",
       "Missão": "Coloque uma roupa que faça você se sentir confiante.",
       "estrelas": 1,
-      "img": "https://i.imgur.com/lKMFfK4.jpeg"
+      "img": "https://i.imgur.com/lKMFfK4.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 2 },
     { 
@@ -306,7 +307,8 @@ export const MISSAO = {
       "Titulo": "Dança da Liberdade.",
       "Missão": "Durante essa semana coloque música que te eleve, e dance por 5 minutos, como se ninguém o estivesse observando.",
       "estrelas": 2,
-      "img": "https://i.imgur.com/QTF8kTx.jpeg"
+      "img": "https://i.imgur.com/QTF8kTx.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 4 },
     { 
@@ -314,7 +316,8 @@ export const MISSAO = {
       "Titulo": "Reflexo no Passado.",
       "Missão": "Veja suas fotos antigas e reflita sobre suas qualidades concretas — ex: organizado; esforçado.",
       "estrelas": 3,
-      "img": "https://i.imgur.com/tjnGrfl.jpeg"
+      "img": "https://i.imgur.com/tjnGrfl.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 6 },
     { 
@@ -322,7 +325,8 @@ export const MISSAO = {
       "Titulo": "Encarne o eu Ideal.",
       "Missão": "Por 10 minutos, se coloque no papel do seu eu ideal e internalize como ele pensa e age.",
       "estrelas": 4,
-      "img": "https://i.imgur.com/TJPKG8d.jpeg"
+      "img": "https://i.imgur.com/TJPKG8d.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 8 },
     { 
@@ -330,7 +334,8 @@ export const MISSAO = {
       "Titulo": "Voz do Cuidado.",
       "Missão": "Faça uma ligação para alguém que te traga paz e te lembre do que há de bom em você e na vida.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/RXnc6BH.jpeg"
+      "img": "https://i.imgur.com/RXnc6BH.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 10 },
     { 
@@ -338,7 +343,8 @@ export const MISSAO = {
       "Titulo": "Espelho Honesto.",
       "Missão": "Pergunte às pessoas em quem confia o que você pode fazer para melhorar, procurando feedbacks honestos.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/igyrYtG.jpeg"
+      "img": "https://i.imgur.com/igyrYtG.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 12 }
   ],
@@ -349,7 +355,8 @@ export const MISSAO = {
       "Titulo": "Abraço da Natureza",
       "Missão": "Reservar um momento nesta semana para estar ao ar livre, em contato com a natureza.",
       "estrelas": 1,
-      "img": "https://i.imgur.com/f9cSA1A.jpeg"
+      "img": "https://i.imgur.com/f9cSA1A.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 2 },
     { 
@@ -357,7 +364,8 @@ export const MISSAO = {
       "Titulo": "Mãos Conscientes",
       "Missão": "Realize diariamente uma atividade manual de forma consciente — pintar, desenhar, tocar um instrumento.",
       "estrelas": 2,
-      "img": "https://i.imgur.com/gprH3wr.jpeg"
+      "img": "https://i.imgur.com/gprH3wr.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 4 },
     { 
@@ -365,7 +373,8 @@ export const MISSAO = {
       "Titulo": "Sabor Presente",
       "Missão": "Mergulhe na experiência de comer, sentindo sabor e sensações de forma consciente.",
       "estrelas": 3,
-      "img": "https://i.imgur.com/oGsQnfQ.jpeg"
+      "img": "https://i.imgur.com/oGsQnfQ.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 6 },
     { 
@@ -373,7 +382,8 @@ export const MISSAO = {
       "Titulo": "Caminho Inusitado",
       "Missão": "Quebre a rotina escolhendo um novo caminho para sua rotina, observando o ambiente ao redor.",
       "estrelas": 4,
-      "img": "https://i.imgur.com/Q1Uj3wd.jpeg"
+      "img": "https://i.imgur.com/Q1Uj3wd.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 8 },
     { 
@@ -381,7 +391,8 @@ export const MISSAO = {
       "Titulo": "Abrace o novo",
       "Missão": "Inscreva-se em uma aula de um hobbie que você sempre quis explorar.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/cGLXWf9.jpeg"
+      "img": "https://i.imgur.com/cGLXWf9.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 10 },
     { 
@@ -389,7 +400,8 @@ export const MISSAO = {
       "Titulo": "Fugindo da distração",
       "Missão": "Evite atividades que te afastem do momento presente, como redes sociais.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/pH71XeP.jpeg"
+      "img": "https://i.imgur.com/pH71XeP.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 12 }
   ],
@@ -400,7 +412,8 @@ export const MISSAO = {
       "Titulo": "Ritmo Sereno",
       "Missão": "Converse e se movimente de forma mais lenta que o normal. Isso mantém seu corpo relaxado.",
       "estrelas": 1,
-      "img": "https://i.imgur.com/kXCESky.jpeg"
+      "img": "https://i.imgur.com/kXCESky.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 2 },
     { 
@@ -408,7 +421,8 @@ export const MISSAO = {
       "Titulo": "Voz Positiva",
       "Missão": "Observe seu modo de falar e evite frases negativas. Priorize positividade.",
       "estrelas": 2,
-      "img": "https://i.imgur.com/0a5Zv27.jpeg"
+      "img": "https://i.imgur.com/0a5Zv27.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 4 },
     { 
@@ -416,7 +430,8 @@ export const MISSAO = {
       "Titulo": "Palavras de Luz",
       "Missão": "Elogie uma pessoa desconhecida, praticando espontaneidade e conexão.",
       "estrelas": 3,
-      "img": "https://i.imgur.com/YGpReeV.jpeg"
+      "img": "https://i.imgur.com/YGpReeV.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 6 },
     { 
@@ -424,7 +439,8 @@ export const MISSAO = {
       "Titulo": "Voz da Gratidão",
       "Missão": "Faça uma ligação surpresa para alguém especial e compartilhe carinho ou gratidão.",
       "estrelas": 4,
-      "img": "https://i.imgur.com/lz1taSL.jpeg"
+      "img": "https://i.imgur.com/lz1taSL.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 8 },
     { 
@@ -432,7 +448,8 @@ export const MISSAO = {
       "Titulo": "Retorno Essencial",
       "Missão": "Reaproxime-se de alguém importante do passado.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/K3op4Aw.jpeg"
+      "img": "https://i.imgur.com/K3op4Aw.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 10 },
     { 
@@ -440,7 +457,8 @@ export const MISSAO = {
       "Titulo": "Laços de Perdão",
       "Missão": "Reflita sobre uma relação mal resolvida e dê o primeiro passo pedindo perdão.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/A3x92jV.jpeg"
+      "img": "https://i.imgur.com/A3x92jV.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 12 }
   ],
@@ -451,7 +469,8 @@ export const MISSAO = {
       "Titulo": "Chama da Inspiração",
       "Missão": "Assista um filme que reacenda sua motivação para perseguir seus objetivos.",
       "estrelas": 1,
-      "img": "https://i.imgur.com/BZ9VoOG.jpeg"
+      "img": "https://i.imgur.com/BZ9VoOG.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 2 },
     { 
@@ -459,7 +478,8 @@ export const MISSAO = {
       "Titulo": "Silêncio Sábio",
       "Missão": "Evite contar seus planos para quem não apoia sua jornada.",
       "estrelas": 2,
-      "img": "https://i.imgur.com/s5LZdNe.jpeg"
+      "img": "https://i.imgur.com/s5LZdNe.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 4 },
     { 
@@ -467,14 +487,16 @@ export const MISSAO = {
       "Titulo": "Recompensa Interior",
       "Missão": "Crie um sistema de recompensas para cada passo dado em direção ao seu desejo.",
       "estrelas": 3,
-      "img": "https://i.imgur.com/tR8LCF0.jpeg"
+      "img": "https://i.imgur.com/tR8LCF0.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 6 },
     { 
       "id": 7,
       "Titulo": "",
       "estrelas": 3,
-      "img": "https://i.imgur.com/wETst10.jpeg"
+      "img": "https://i.imgur.com/wETst10.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 8 },
     { 
@@ -482,7 +504,8 @@ export const MISSAO = {
       "Titulo": "Quebra de Corrente",
       "Missão": "Diga não a um hábito confortável e repetitivo que drena sua energia.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/724YmKy.jpeg"
+      "img": "https://i.imgur.com/724YmKy.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 10 },
     { 
@@ -490,7 +513,8 @@ export const MISSAO = {
       "Titulo": "Centelha Viva",
       "Missão": "Seja fonte de entusiasmo e motivação para os outros.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/U1kF4fy.jpeg"
+      "img": "https://i.imgur.com/U1kF4fy.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 12 }
   ],
@@ -501,7 +525,8 @@ export const MISSAO = {
       "Titulo": "Centelha Viva",
       "Missão": "Seja a fonte de entusiasmo e motivação para as pessoas com quem convive.",
       "estrelas": 1,
-      "img": "https://i.imgur.com/gKh24ZI.png"
+      "img": "https://i.imgur.com/gKh24ZI.png",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 2 },
     { 
@@ -509,7 +534,8 @@ export const MISSAO = {
       "Titulo": "Arte que Acolhe",
       "Missão": "Busque músicas e filmes que acalmem você e tragam coragem.",
       "estrelas": 2,
-      "img": "https://i.imgur.com/EVKjVb8.jpeg"
+      "img": "https://i.imgur.com/EVKjVb8.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 4 },
     { 
@@ -517,7 +543,8 @@ export const MISSAO = {
       "Titulo": "Âncora da Respiração",
       "Missão": "Ao notar pensamentos negativos, redirecione a atenção para a respiração.",
       "estrelas": 3,
-      "img": "https://i.imgur.com/FJJI9Az.jpeg"
+      "img": "https://i.imgur.com/FJJI9Az.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 6 },
     { 
@@ -525,7 +552,8 @@ export const MISSAO = {
       "Titulo": "Descrevendo a paz",
       "Missão": "Escreva como seria sua vida hoje se a ansiedade não existisse.",
       "estrelas": 4,
-      "img": "https://i.imgur.com/1XJpJ4C.jpeg"
+      "img": "https://i.imgur.com/1XJpJ4C.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 8 },
     { 
@@ -533,7 +561,8 @@ export const MISSAO = {
       "Titulo": "Retorno à Essência",
       "Missão": "Reconecte-se com uma atividade da sua infância.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/vyBJaQE.jpeg"
+      "img": "https://i.imgur.com/vyBJaQE.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 10 },
     { 
@@ -541,7 +570,8 @@ export const MISSAO = {
       "Titulo": "Morada da Calma",
       "Missão": "Visite um lugar que te traz paz e leveza.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/nDcid5S.jpeg"
+      "img": "https://i.imgur.com/nDcid5S.jpeg",
+      "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 12 }
   ]
