@@ -61,7 +61,6 @@ export const SEMANAS = [
   }
 ];
 
-
 export const CALENDAR = [
   {id: 1, exercicio: "DESCRICAOCENA"},
   {id: 2, exercicio: "VIDEOS"},
@@ -502,7 +501,7 @@ export const MISSAO = {
       "Titulo": "Centelha Viva",
       "Missão": "Seja a fonte de entusiasmo e motivação para as pessoas com quem convive.",
       "estrelas": 1,
-      "img": "https://i.imgur.com/lKMFfK4.jpeg"
+      "img": "https://i.imgur.com/gKh24ZI.png"
     },
     { "id": 2 },
     { 
@@ -510,7 +509,7 @@ export const MISSAO = {
       "Titulo": "Arte que Acolhe",
       "Missão": "Busque músicas e filmes que acalmem você e tragam coragem.",
       "estrelas": 2,
-      "img": "https://i.imgur.com/QTF8kTx.jpeg"
+      "img": "https://i.imgur.com/EVKjVb8.jpeg"
     },
     { "id": 4 },
     { 
@@ -518,7 +517,7 @@ export const MISSAO = {
       "Titulo": "Âncora da Respiração",
       "Missão": "Ao notar pensamentos negativos, redirecione a atenção para a respiração.",
       "estrelas": 3,
-      "img": "https://i.imgur.com/tjnGrfl.jpeg"
+      "img": "https://i.imgur.com/FJJI9Az.jpeg"
     },
     { "id": 6 },
     { 
@@ -526,7 +525,7 @@ export const MISSAO = {
       "Titulo": "Descrevendo a paz",
       "Missão": "Escreva como seria sua vida hoje se a ansiedade não existisse.",
       "estrelas": 4,
-      "img": "https://i.imgur.com/TJPKG8d.jpeg"
+      "img": "https://i.imgur.com/1XJpJ4C.jpeg"
     },
     { "id": 8 },
     { 
@@ -534,7 +533,7 @@ export const MISSAO = {
       "Titulo": "Retorno à Essência",
       "Missão": "Reconecte-se com uma atividade da sua infância.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/RXnc6BH.jpeg"
+      "img": "https://i.imgur.com/vyBJaQE.jpeg"
     },
     { "id": 10 },
     { 
@@ -542,7 +541,7 @@ export const MISSAO = {
       "Titulo": "Morada da Calma",
       "Missão": "Visite um lugar que te traz paz e leveza.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/igyrYtG.jpeg"
+      "img": "https://i.imgur.com/nDcid5S.jpeg"
     },
     { "id": 12 }
   ]

@@ -9,10 +9,7 @@ import { spacing } from '../../theme/texts';
 
 export default function Header({ onHomePress, onResetStarting }) {
   const { theme, currentTheme, toggleTheme } = useTheme();
-  const { 
-    setUser,
-    resetStarting 
-  } = useContext(AppContext);
+  const { setUser, resetStarting } = useContext(AppContext);
   const [menuVisible, setMenuVisible] = useState(false);
   const styles = createStyles(theme);
 
@@ -23,10 +20,8 @@ export default function Header({ onHomePress, onResetStarting }) {
 
   const handleResetStarting = async () => {
     setMenuVisible(false);
-    
     try {
       await resetStarting();
-      
       if (onResetStarting) {
         onResetStarting();
       }
@@ -85,8 +80,6 @@ export default function Header({ onHomePress, onResetStarting }) {
         <Pressable 
           style={styles.modalOverlay}
           onPress={() => setMenuVisible(false)}
-          accessible={false}
-          importantForAccessibility="no-hide-descendants"
         >
           <View
             style={styles.menuDropdown}

@@ -12,28 +12,20 @@ import { MISSAO } from '../../../assets/json/Semanas';
 export default function MissoesScreen({ navigation }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
-
   const [selectedTab, setSelectedTab] = useState('app');
- 
   const appData = useApp();
-  const {
-    user,
-    selectedPath,
-    semanaAtual,
-    diaAtual,
-  } = appData;
+  const { selectedPath } = appData;
 
   const journeyData = useJourney();
-  const {
-    cenasRespostas,
-    videosAssistidos,
-    trackingRespostas,
-    perguntasRespostas,
-    meditacaoRespostas,
-    missoesConcluidas,
-  } = journeyData;
-  
-  // console.log(MISSAO[selectedPath]);
+  const { missoesConcluidas } = journeyData;
+
+  const nomesBonitos = {
+    Autoimagem: "Autoimagem",
+    Atencao_Plena: "Atenção Plena",
+    Relacionamentos: "Relacionamentos",
+    Motivacao: "Motivação",
+    Ansiedade: "Ansiedade"
+  };
 
   const caminhos = Object.keys(MISSAO);
   const caminhosOrdenados = [
@@ -46,17 +38,19 @@ export default function MissoesScreen({ navigation }) {
       .filter(m => m.Titulo)
       .map(m => ({ caminho: c, ...m }))
   );
-
+  
   const [currentIndex, setCurrentIndex] = useState(0);
   const total = listaCompleta.length;
   const current = listaCompleta[currentIndex];
 
-  const totalEstrelas =
-    missoesConcluidas && missoesConcluidas[current.caminho]
-      ? missoesConcluidas[current.caminho]
-      : 1;
-  console.log(missoesConcluidas.concluida);
-  
+  const totalEstrelas = current.estrelas;
+
+  const filtrado = missoesConcluidas.find(
+    item => item && item.titulo === current.Titulo
+  );
+
+  const concluida = filtrado?.concluida === true;
+
   function handlePrevious() {
     if (currentIndex > 0) setCurrentIndex(currentIndex - 1);
   }
@@ -67,8 +61,8 @@ export default function MissoesScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
-
       <GlassBox>
+
         <View style={styles.starsView}>
           {Array.from({ length: 5 }).map((_, index) => (
             <Image
@@ -83,17 +77,26 @@ export default function MissoesScreen({ navigation }) {
           ))}
         </View>
 
-        <Text style={styles.caminho}>{current.caminho}</Text>
         <Text style={styles.titulo}>{current.Titulo}</Text>
 
         {current.img && (
           <View style={styles.imageContainer}>
             <Image 
               source={{ uri: current.img }} 
-              style={styles.imageConcluida}
+              style={[
+                styles.imageConcluida,
+                { opacity: concluida ? 1 : 0.3 }
+              ]}
               resizeMode="cover"
             />
           </View>
+        )}
+
+        {!concluida && (
+          <Image 
+            style={styles.lockImage} 
+            source={require("../../../assets/Lock.png")} 
+          />
         )}
 
         <Text style={styles.missao}>{current.Missão}</Text>

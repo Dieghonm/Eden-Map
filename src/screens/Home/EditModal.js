@@ -232,8 +232,6 @@ export default function EditModal({ visible, onClose, onSave }) {
         style={styles.modalOverlay}
         activeOpacity={1}
         onPress={handleClose}
-        accessible={false}
-        importantForAccessibility="no-hide-descendants"
       >
         <View
           style={styles.modalBox}
