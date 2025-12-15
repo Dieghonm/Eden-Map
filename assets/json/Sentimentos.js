@@ -83,7 +83,7 @@ export const CAMINHOS = [
       "Atraia seu ",
       "desejo",
       " curando padrões nos relacionamentos, ",
-      "comunicando com clareza",
+      "comunicando-se com clareza",
       " e criando ",
       "conexões mais leves e ",
       "verdadeiras."

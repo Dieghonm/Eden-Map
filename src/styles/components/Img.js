@@ -8,12 +8,24 @@ export const createStyles = (theme, size) => {
     container: {
       width: scaledSize,
       height: scaledSize,
-      borderRadius: scaledSize / 2,
-      overflow: 'hidden',
+      borderRadius: 50,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    borderGlow: {
+      position: 'absolute',
+      width: scaledSize,
+      height: scaledSize,
+      borderRadius: 50,
+      borderWidth: 20,
+      // borderColor: '#0759b6ff',
+      borderColor: theme.accent,
+      opacity: 0.6
     },
     image: {
-      width: '100%',
-      height: '100%',
-    },
+      width: scaledSize,
+      height: scaledSize,
+      borderRadius: 50
+    }
   });
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ImageBackground, StyleSheet, StatusBar as RNStatusBar } from 'react-native';
+import { View, ImageBackground, StyleSheet, StatusBar as RNStatusBar, Text, TextInput } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import AppNavigator from './src/navigation/AppNavigator';
@@ -10,13 +10,18 @@ import { createStyles } from './src/styles/App';
 import { useOutfitFonts } from './src/theme/texts';
 import * as NavigationBar from 'expo-navigation-bar';
 
+Text.defaultProps = Text.defaultProps || {};
+Text.defaultProps.allowFontScaling = false;
+
+TextInput.defaultProps = TextInput.defaultProps || {};
+TextInput.defaultProps.allowFontScaling = false;
+
 function AppContent() {
   const { theme } = useTheme();
   const styles = createStyles(theme);
   const fontsLoaded = useOutfitFonts();
 
   React.useEffect(() => {
-    // Apenas esconder a navigation bar (sem setBehaviorAsync)
     NavigationBar.setVisibilityAsync('hidden');
   }, []);
 

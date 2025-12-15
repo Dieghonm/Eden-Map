@@ -12,7 +12,7 @@ export const darkTheme = {
   buttonTextColor: '#FFFFFF',
   secundaryButton: '#FFFFFF',
   secundaryButtonText: '#0A84FF',
-  accent: '#DCA2FF',
+  accent: '#a768ceff',
   glassGradient: [
     'rgba(76, 76, 76, 0.2)',
     'rgba(150, 148, 148, 0.4)',
