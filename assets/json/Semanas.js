@@ -78,8 +78,8 @@ export const DESCRICAOCENA = {
     { "id": 3, "Cena 1": "Em que momento da sua vida você se sentiu mais autêntico?", "Cena 2": "Qual é um ambiente em que você se sente totalmente você mesmo?" },
     { "id": 4, "Cena 1": "Qual momento recente vem à mente em que você sentiu gratidão sincera?", "Cena 2": "Como é a cena do seu desejo realizado, com você sentindo gratidão por isso?" },
     { "id": 5, "Cena 1": "Qual momento vem à mente em que você se sentiu inseguro ou insatisfeito?" },
-    { "id": 6 },
-    { "id": 7 },
+    { "id": 6, "Cena 1": "Descreva um dia comum após realizar seu desejo: onde está, quem está com você e como é esse novo contexto." },
+    { "id": 7, "Cena 1": "Em qual momento da sua semana você se percebe mais distante do seu eu ideal?", "Cena 2": "Qual é o momento do seu cotidiano em que você se sente mais próximo do seu eu ideal?" },
     { "id": 8, "Cena 1": "Qual cena o medo te paralisa e tudo parece dar errado ao tentar realizar seu desejo?" },
     { "id": 9, "Cena 1": "Imagine uma cena do seu eu ideal vivendo o dia a dia.", "Cena 2": "Qual cena mostra você dando um passo importante em direção ao seu desejo realizado?" },
     { "id": 10, "Cena 1": "Como seria o momento exato em que o seu desejo acabou de se realizar?" },
@@ -92,12 +92,12 @@ export const DESCRICAOCENA = {
     { "id": 3, "Cena 1": "Qual momento simples, futuro, você gostaria de viver com total foco e presença?", "Cena 2": "Imagine-se em um contexto ou local em que você se sente calmo e presente." },
     { "id": 4, "Cena 1": "Qual momento recente vem à mente em que você sentiu gratidão sincera?", "Cena 2": "Como é a cena do seu desejo realizado, com você sentindo gratidão por isso?" },
     { "id": 5, "Cena 1": "Qual lembrança mostra você distraído, perdendo o foco e se sentindo desconectado?" },
-    { "id": 6 },
+    { "id": 6, "Cena 1": "Descreva um dia comum após realizar seu desejo: onde está, quem está com você e como é esse novo contexto."},
     { "id": 7, "Cena 1": "Qual lembrança de tédio ou distração mostra você fugindo do presente?" },
     { "id": 8, "Cena 1": "Qual cena o medo te paralisa e tudo parece dar errado ao tentar realizar seu desejo?" },
-    { "id": 9 },
+    { "id": 9, "Cena 1": "Em que momento cotidiano você sente sua energia sendo drenada e você se vê no piloto automático." , "Cena 2": "Descreva uma cena em que você se sentiu vivo, atento e plenamente conectado ao agora, com energia e clareza." },
     { "id": 10, "Cena 1": "Como seria o momento exato em que o seu desejo acabou de se realizar?" },
-    { "id": 11 },
+    { "id": 11, "Cena 1": "Descreva um local seguro com pessoas queridas, onde você se sente vivo, presente e totalmente imerso.","Cena 2": "Descreva um evento futuro importante que você deseja viver com clareza e presença absoluta, incluindo lugar e contexto." },
     { "id": 12, "Cena 1": "Como você se imagina no instante em que seu desejo finalmente se realiza?" }
   ],
   "Relacionamentos": [
@@ -106,7 +106,7 @@ export const DESCRICAOCENA = {
     { "id": 3, "Cena 1": "Qual momento fez você se sentir em sintonia com alguém, com leveza e compreensão?", "Cena 2": "Qual lembrança mostra quando você confiou em alguém e pôde ser autêntico, sem máscaras?" },
     { "id": 4, "Cena 1": "Qual momento recente vem à mente em que você sentiu gratidão sincera?", "Cena 2": "Como é a cena do seu desejo realizado, com você sentindo gratidão por isso?" },
     { "id": 5, "Cena 1": "Qual lembrança traz a sensação de ter sido julgado, mal interpretado ou isolado?" },
-    { "id": 6 },
+    { "id": 6, "Cena 1": "Descreva um dia comum após realizar seu desejo: onde está, quem está com você e como é esse novo contexto."},
     { "id": 7, "Cena 1": "Qual é uma lembrança em que você julgou ou se fechou para alguém?" },
     { "id": 8, "Cena 1": "Qual cena o medo te paralisa e tudo parece dar errado ao tentar realizar seu desejo?" },
     { "id": 9, "Cena 1": "Com quem do passado você gostaria de se reconectar, e qual cena vem à mente?", "Cena 2": "Como seria um encontro com alguém que apoia seu desejo, trazendo confiança e sintonia?" },
@@ -120,12 +120,12 @@ export const DESCRICAOCENA = {
     { "id": 3, "Cena 1": "Qual lembrança da sua rotina fez você se sentir mais vivo, motivado e cheio de energia?", "Cena 2": "Como seria uma cena simples do seu dia vivida com foco, confiança e motivação?" },
     { "id": 4, "Cena 1": "Qual momento recente vem à mente em que você sentiu gratidão sincera?", "Cena 2": "Como é a cena do seu desejo realizado, com você sentindo gratidão por isso?" },
     { "id": 5, "Cena 1": "Qual lembrança traz a sensação de cansaço, falta de energia ou motivação para agir?" },
-    { "id": 6 },
+    { "id": 6, "Cena 1": "Descreva um dia comum após realizar seu desejo: onde está, quem está com você e como é esse novo contexto." },
     { "id": 7, "Cena 1": "Qual lembrança mostra você perdendo motivação e começando a duvidar do desejo?" },
     { "id": 8, "Cena 1": "Qual cena o medo te paralisa e tudo parece dar errado ao tentar realizar seu desejo?" },
     { "id": 9, "Cena 1": "Veja-se em um momento futuro cheio de confiança, presença e energia, prestes a realizar o desejo." },
     { "id": 10, "Cena 1": "Como seria o momento exato em que o seu desejo acabou de se realizar?" },
-    { "id": 11 },
+    { "id": 11, "Cena 1": "Descreva uma cena futura em que seu desejo já é realidade.", "Cena 2": "Imagine uma cena da sua rotina em um futuro onde seu desejo já foi realizado." },
     { "id": 12, "Cena 1": "Como você se imagina no instante em que seu desejo finalmente se realiza?" }
   ],
   "Ansiedade": [
@@ -133,13 +133,13 @@ export const DESCRICAOCENA = {
     { "id": 2, "Cena 1": "Qual momento recente fez você sentir uma gratidão verdadeira e simples?", "Cena 2": "Que lembrança antiga desperta em você um sentimento profundo de gratidão?" },
     { "id": 3, "Cena 1": "Lembre-se de um momento da sua rotina em que você se sentia calmo, seguro e presente.", "Cena 2": "Reviva uma experiência marcante em que a ansiedade desapareceu e tudo parecia em paz." },
     { "id": 4, "Cena 1": "Qual momento recente vem à mente em que você sentiu gratidão sincera?", "Cena 2": "Como é a cena do seu desejo realizado, com você sentindo gratidão por isso?" },
-    { "id": 5 },
-    { "id": 6 },
+    { "id": 5, "Cena 1": "Descreva um memória antiga, conectada de alguma forma ao desejo, que gerou medo, tensão ou insegurança.", "Cena 2": "Descreva uma cena futura essencial para realizar o seu desejo, mas que ainda desperta tensão, dúvida ou ansiedade." },
+    { "id": 6, "Cena 1": "Descreva um dia comum após realizar seu desejo: onde está, quem está com você e como é esse novo contexto." },
     { "id": 7, "Cena 1": "Qual lembrança do passado ainda pesa e parece justificar sua ansiedade hoje?" },
     { "id": 8, "Cena 1": "Qual cena o medo te paralisa e tudo parece dar errado ao tentar realizar seu desejo?" },
     { "id": 9, "Cena 1": "Qual lembrança mostra você enfrentando algo difícil com coragem, mesmo sem certeza?" },
     { "id": 10, "Cena 1": "Como seria o momento exato em que o seu desejo acabou de se realizar?" },
-    { "id": 11 },
+    { "id": 11, "Cena 1": "Descreva uma situação do passado que já te causou ansiedade, mas hoje parece pequena e sem importância.", "Cena 2": "Descreva algo que hoje te gera ansiedade, mas que provavelmente não tenha relevância real no futuro." },
     { "id": 12, "Cena 1": "Como você se imagina no instante em que seu desejo finalmente se realiza?" }
   ]
 }
@@ -172,7 +172,7 @@ export const VIDEOS = [
   { 
     id: 3, 
     video: 'RylLBe8yAwc', 
-    topico: 'O momento perfeito?',
+    topico: 'Existe um momento perfeito?',
     sinopse: [
       'Este vídeo revela como o ',
       'perfeccionismo',
@@ -322,8 +322,8 @@ export const MISSAO = {
     { "id": 6 },
     { 
       "id": 7, 
-      "Titulo": "Encarne o eu Ideal.",
-      "Missão": "Por 10 minutos, se coloque no papel do seu eu ideal e internalize como ele pensa e age.",
+      "Titulo": "O teatro do futuro.",
+      "Missão": "Por 10 minutos, interprete seu eu ideal, agindo e pensado como ele.",
       "estrelas": 4,
       "img": "https://i.imgur.com/Q1Uj3wd.png",
       "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
@@ -352,53 +352,53 @@ export const MISSAO = {
   "Atencao_Plena": [
     { 
       "id": 1, 
-      "Titulo": "Abraço da Natureza",
-      "Missão": "Reservar um momento nesta semana para estar ao ar livre, em contato com a natureza.",
+      "Titulo": "Sabor Presente",
+      "Missão": "Essa semana mergulhe na experiência de comer, sentindo o sabor e sensação de forma consciente",
       "estrelas": 1,
-      "img": "https://i.imgur.com/tR8LCF0.png",
+      "img": "https://i.imgur.com/BZ9VoOG.jpeg",
       "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 2 },
     { 
       "id": 3, 
-      "Titulo": "Mãos Conscientes",
-      "Missão": "Realize diariamente uma atividade manual de forma consciente — pintar, desenhar, tocar um instrumento.",
+      "Titulo": "Caminho Inusitado",
+      "Missão": "Essa semana quebre a rotina escolhendo um novo caminhpara sua rotina, percebendo o ambiente ao seu redor.",
       "estrelas": 2,
-      "img": "https://i.imgur.com/724YmKy.png",
+      "img": "https://i.imgur.com/s5LZdNe.png",
       "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 4 },
     { 
       "id": 5, 
-      "Titulo": "Sabor Presente",
-      "Missão": "Mergulhe na experiência de comer, sentindo sabor e sensações de forma consciente.",
+      "Titulo": "Abraço da Natureza",
+      "Missão": "Reservar um momento nesta semana para estar ao ar livre, em contato com a natureza.",
       "estrelas": 3,
-      "img": "https://i.imgur.com/BZ9VoOG.jpeg",
+      "img": "https://i.imgur.com/tR8LCF0.png",
       "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 6 },
     { 
       "id": 7, 
-      "Titulo": "Caminho Inusitado",
-      "Missão": "Quebre a rotina escolhendo um novo caminho para sua rotina, observando o ambiente ao redor.",
+      "Titulo": "Pausa Consciente",
+      "Missão": "Quando algo te tirar do presente, como redes sociais, recupere a atenção com 3 minutos de alongamento.",
       "estrelas": 4,
-      "img": "https://i.imgur.com/s5LZdNe.png",
+      "img": "https://i.imgur.com/wETst10.png",
       "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 8 },
     { 
       "id": 9, 
-      "Titulo": "Abrace o novo",
-      "Missão": "Inscreva-se em uma aula de um hobbie que você sempre quis explorar.",
+      "Titulo": "Mãos Conscientes",
+      "Missão": "Essa semana realize diariamente uma atividade manual de forma consciente — ex: pintar, desenhar, tocar um instrumento.",
       "estrelas": 5,
-      "img": "https://i.imgur.com/wETst10.png",
+      "img": "https://i.imgur.com/724YmKy.png",
       "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
     },
     { "id": 10 },
     { 
       "id": 11, 
       "Titulo": "Fugindo da distração",
-      "Missão": "Evite atividades que te afastem do momento presente, como redes sociais.",
+      "Missão": "Nesta semana, evite ao máximo atividades que te afastem do momento presente, como redes sociais.",
       "estrelas": 5,
       "img": "https://i.imgur.com/U1kF4fy.png",
       "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
@@ -475,8 +475,8 @@ export const MISSAO = {
     { "id": 2 },
     { 
       "id": 3, 
-      "Titulo": "Silêncio Sábio",
-      "Missão": "Evite contar seus planos para quem não apoia sua jornada.",
+      "Titulo": "A Musica Motivadora",
+      "Missão": "Escolha uma música para escutar diariamente, que pense no desejo enquanto escuta.",
       "estrelas": 2,
       "img": "https://i.imgur.com/0a5Zv27.png",
       "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
@@ -484,8 +484,8 @@ export const MISSAO = {
     { "id": 4 },
     { 
       "id": 5, 
-      "Titulo": "Recompensa Interior",
-      "Missão": "Crie um sistema de recompensas para cada passo dado em direção ao seu desejo.",
+      "Titulo": "Silêncio Sábio",
+      "Missão": "Evite contar seus planos para quem não te inspira e apoia sua jornada.",
       "estrelas": 3,
       "img": "https://i.imgur.com/YGpReeV.png",
       "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
@@ -493,7 +493,8 @@ export const MISSAO = {
     { "id": 6 },
     { 
       "id": 7,
-      "Titulo": "",
+      "Titulo": "Recompensa Interior",
+      "Missâo": "Essa semana, crie um pequeno sistema de recompensas para toda vez que der um passo em direção ao seu desejo.",
       "estrelas": 3,
       "img": "https://i.imgur.com/lz1taSL.jpeg",
       "audioMeditacao": "https://dccnvoncldisnxpvijco.supabase.co/storage/v1/object/public/Eden%20Map%20Audios/AtencaoPlena1%20Tratado.mp3"
@@ -597,7 +598,7 @@ export const TRACKING = {
     { "id": 1, "Tipo": "Luz", "texto": "Eu sinto que tudo ao meu redor está conspirando a favor da concretização do meu desejo." },
     { "id": 2, "Tipo": "Luz", "texto": "Eu estou me tornando cada vez mais conectado e imerso no momento presente." },
     { "id": 3, "Tipo": "Luz", "texto": "Sou grato pelo meu passado, pelo meu presente e pelo que ainda está por vir." },
-    { "id": 4, "Tipo": "Luz", "texto": "" },
+    { "id": 4, "Tipo": "Luz", "texto": "Tenho evitado me distrair mesmo diante do tédio." },
     { "id": 5, "Tipo": "Sombra", "texto": "Não me sinto capaz de criar a mudança que desejo na minha vida." },
     { "id": 6, "Tipo": "Sombra", "texto": "Ao focar no presente, sinto às vezes vazio ou tédio, como se algo faltasse." },
     { "id": 7, "Tipo": "Sombra", "texto": "Não acredito que meu desejo realmente vá se concretizar." },
@@ -663,8 +664,8 @@ export const PERGUNTAS = {
     { "id": 5, "Tipo": "Sombra", "Pergunta": "Liste 3 consequências difíceis de não agir em prol do seu desejo. Transforme esse medo em movimento." },
     { "id": 6, "Tipo": "Sombra", "Pergunta": "Em que período da sua vida você mais se afastou do seu eu ideal? O que contribuiu para isso?" },
     { "id": 7, "Tipo": "Sombra", "Pergunta": "Quais atitudes ou traços seus existem apenas para buscar aceitação e pertencimento?" },
-    { "id": 8, "Tipo": "Sombra", "Pergunta": "Em quais áreas você mais diminui o próprio valor?" },
-    { "id": 9, "Tipo": "Luz", "Pergunta": "" },
+    { "id": 8, "Tipo": "Sombra", "Pergunta": "Em quais áreas você mais diminui o próprio valor? ex: emocional, financeira, física " },
+    { "id": 9, "Tipo": "Luz", "Pergunta": "Pense em 3 caminhos/ atitudes, que te levarão até o seu desejo." },
     { "id": 10, "Tipo": "Luz", "Pergunta": "Qual personagem — real ou fictício — melhor reflete o que você enxerga como seu eu ideal?" },
     { "id": 11, "Tipo": "Luz", "Pergunta": "Qual valor ou princípio você nunca abriria mão por causa da opinião dos outros?" },
     { "id": 12, "Tipo": "Luz", "Pergunta": "Qual elogio te faria se sentir incrível?" }
@@ -679,7 +680,7 @@ export const PERGUNTAS = {
     { "id": 6, "Tipo": "Sombra", "Pergunta": "Quais distrações do dia a dia tomam sua atenção a ponto de você se perder nelas?" },
     { "id": 7, "Tipo": "Sombra", "Pergunta": "Qual gatilho físico ou emocional te traz de volta ao presente?" },
     { "id": 8, "Tipo": "Sombra", "Pergunta": "Será que distrações e devaneios te afastam do que importa? Que pensamento você evita?" },
-    { "id": 9, "Tipo": "Luz", "Pergunta": "" },
+    { "id": 9, "Tipo": "Luz", "Pergunta": "Pense em 3 caminhos/ atitudes, que te levarão até o seu desejo." },
     { "id": 10, "Tipo": "Luz", "Pergunta": "Com quem você se sente tão conectado que o tempo parece parar e você fica totalmente presente?" },
     { "id": 11, "Tipo": "Luz", "Pergunta": "Ao estar completamente presente, como seu corpo se sente: calor, respiração, tensão..." },
     { "id": 12, "Tipo": "Luz", "Pergunta": "Em que momento do seu dia você se sente totalmente presente, sem nenhuma distração?" }
@@ -694,7 +695,7 @@ export const PERGUNTAS = {
     { "id": 6, "Tipo": "Sombra", "Pergunta": "Será que ao julgar os outros como inferiores você se coloca acima e impede vínculos verdadeiros?" },
     { "id": 7, "Tipo": "Sombra", "Pergunta": "Alguma experiência passada ainda te impede de se expressar livre e plenamente?" },
     { "id": 8, "Tipo": "Sombra", "Pergunta": "Qual foi a última vez que você se sentiu fora de sintonia com um grupo e o que causou essa desconexão?" },
-    { "id": 9, "Tipo": "Luz", "Pergunta": "" },
+    { "id": 9, "Tipo": "Luz", "Pergunta": "Pense em 3 caminhos/ atitudes, que te levarão até o seu desejo." },
     { "id": 10, "Tipo": "Luz", "Pergunta": "Em quais momentos o silêncio expressa mais sobre você do que qualquer palavra?" },
     { "id": 11, "Tipo": "Luz", "Pergunta": "Quais são as formas não verbais que você usa para expressar carinho ou amor?" },
     { "id": 12, "Tipo": "Luz", "Pergunta": "De quem você mais se sente grato por estar ao seu lado e o que faz essa pessoa única?" }
@@ -709,10 +710,10 @@ export const PERGUNTAS = {
     { "id": 6, "Tipo": "Sombra", "Pergunta": "Após qual atividade do dia você costuma sentir maior cansaço ou fadiga?" },
     { "id": 7, "Tipo": "Sombra", "Pergunta": "Existe alguém que diminui sua motivação de buscar o que você realmente deseja?" },
     { "id": 8, "Tipo": "Sombra", "Pergunta": "O que antes recarregava sua motivação mas hoje já não provoca o mesmo efeito?" },
-    { "id": 9, "Tipo": "Luz", "Pergunta": "" },
+    { "id": 9, "Tipo": "Luz", "Pergunta": "Pense em 3 caminhos/ atitudes, que te levarão até o seu desejo." },
     { "id": 10, "Tipo": "Luz", "Pergunta": "Em que lugar você se sente mais vivo e cheio de energia?" },
     { "id": 11, "Tipo": "Luz", "Pergunta": "Existe alguma lembrança que reacenda sua motivação?" },
-    { "id": 12, "Tipo": "Luz", "Pergunta": "Que interesse da sua infância ainda te inspira até hoje?" }
+    { "id": 12, "Tipo": "Luz", "Pergunta": "xiste um tema de conversa ou interesse da infância que continua te inspirando até hoje?" }
   ],
 
   "Ansiedade": [
@@ -724,9 +725,9 @@ export const PERGUNTAS = {
     { "id": 6, "Tipo": "Sombra", "Pergunta": "Há situações sociais ou pessoas que ativam sentimentos de insegurança?" },
     { "id": 7, "Tipo": "Sombra", "Pergunta": "Sua ansiedade surge mais por fatores externos ou internos?" },
     { "id": 8, "Tipo": "Sombra", "Pergunta": "Como a ansiedade interfere na forma como você expressa seus talentos?" },
-    { "id": 9, "Tipo": "Luz", "Pergunta": "" },
+    { "id": 9, "Tipo": "Luz", "Pergunta": "Pense em 3 caminhos/ atitudes, que te levarão até o seu desejo." },
     { "id": 10, "Tipo": "Luz", "Pergunta": "Como estaria sua vida em 1 ano se você agisse hoje sem medo?" },
-    { "id": 11, "Tipo": "Luz", "Pergunta": "Se você imaginasse um futuro em paz, quem estaria ao seu lado?" },
+    { "id": 11, "Tipo": "Luz", "Pergunta": " Se você pudesse imaginar um futuro em paz e confiança, quem estaria ao seu lado nesse cenário?" },
     { "id": 12, "Tipo": "Luz", "Pergunta": "Quem são as pessoas que mais te inspiram a ser corajoso?" }
   ]
 }
