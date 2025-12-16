@@ -42,24 +42,28 @@ export default function ImgButton({
     ExpSentimentos
   }[img] || ExpBlock;
 
+  const buttonStyle = [
+    styles.buttonBox,
+    disabled && styles.buttonDisabledBox,
+    disabled && { pointerEvents: 'none' }
+  ];
+
+  const iconStyle = [
+    styles.buttonIcon,
+    disabled && styles.buttonDisabledIcon
+  ];
+
   return (
     <TouchableOpacity 
-      style={[
-        styles.buttonBox,
-        disabled && styles.buttonDisabledBox
-      ]}
+      style={buttonStyle}
       onPress={onPress}
       disabled={disabled}
       activeOpacity={0.7}
     >
       <Text style={styles.buttonText}>{title}</Text>
-
       <Image
         source={imageSource}
-        style={[
-          styles.buttonIcon,
-          disabled && styles.buttonDisabledIcon
-        ]}
+        style={iconStyle}
         resizeMode="contain"
       />
     </TouchableOpacity>

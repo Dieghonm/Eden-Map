@@ -1,3 +1,4 @@
+// src/components/GlassBox.js - CORRIGIDO
 import React from 'react';
 import { View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -8,8 +9,15 @@ export default function GlassBox({ children, style, disabled = false }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
+  const containerStyle = [
+    styles.container, 
+    disabled && styles.containerDisabled,
+    disabled && { pointerEvents: 'none' },
+    style
+  ];
+
   return (
-    <View style={[styles.container, disabled && styles.containerDisabled, style]}>
+    <View style={containerStyle}>
       <LinearGradient
         colors={theme.glassGradient}
         start={{ x: 0.7, y: 0.3 }}

@@ -1,5 +1,6 @@
+// src/screens/Explorer/VideosScreen.js - REFATORADO
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Linking } from 'react-native';
+import { View, Text, ScrollView, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { useTheme } from '../../context/ThemeProvider';
@@ -9,6 +10,7 @@ import GlassBox from '../../components/GlassBox';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import ButtonSecundary from '../../components/ButtonSecundary';
 import VideoPlayer from '../../components/VideoPlayer';
+import NavigationControls from '../../components/NavigationControls';
 
 import { createStyles } from '../../styles/Explorer/VideosScreen';
 
@@ -17,7 +19,6 @@ export default function VideosScreen({ navigation }) {
   const styles = createStyles(theme);
 
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
 
   const currentVideo = VIDEOS[currentVideoIndex];
   const totalVideos = VIDEOS.length;
@@ -25,19 +26,17 @@ export default function VideosScreen({ navigation }) {
   const handleNext = () => {
     if (currentVideoIndex < totalVideos - 1) {
       setCurrentVideoIndex(prev => prev + 1);
-      setIsPlaying(false);
     }
   };
 
   const handlePrevious = () => {
     if (currentVideoIndex > 0) {
       setCurrentVideoIndex(prev => prev - 1);
-      setIsPlaying(false);
     }
   };
 
   const openYoutube = () => {
-    const url = `https://www.youtube.com/watch?v=${videoData.video}`;
+    const url = `https://www.youtube.com/watch?v=${currentVideo.video}`;
     Linking.openURL(url);
   };
 
@@ -47,8 +46,6 @@ export default function VideosScreen({ navigation }) {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-        
-
         <Text style={styles.videoDescription}>
           {currentVideo.sinopse[0]}
           <Text style={styles.highlight}>{currentVideo.sinopse[1]}</Text>
@@ -58,8 +55,7 @@ export default function VideosScreen({ navigation }) {
         </Text>
 
         <GlassBox>
-
-        <Text style={styles.videoTitle}>{currentVideo.topico}</Text>
+          <Text style={styles.videoTitle}>{currentVideo.topico}</Text>
           <VideoPlayer
             key={currentVideo.video}
             videoId={currentVideo.video}
@@ -73,41 +69,18 @@ export default function VideosScreen({ navigation }) {
           />
         </GlassBox>
 
-        <View style={styles.navigation}>
-          <TouchableOpacity 
-            style={styles.navButton}
-            onPress={handlePrevious}
-            disabled={currentVideoIndex === 0}
-          >
-            <Text style={[
-              styles.navIcon,
-              currentVideoIndex === 0 && styles.navIconDisabled
-            ]}>◀</Text>
-          </TouchableOpacity>
-
-          <Text style={styles.counter}>
-            {currentVideoIndex + 1}/{totalVideos}
-          </Text>
-
-          <TouchableOpacity 
-            style={styles.navButton}
-            onPress={handleNext}
-            disabled={currentVideoIndex === totalVideos - 1}
-          >
-            <Text style={[
-              styles.navIcon,
-              currentVideoIndex === totalVideos - 1 && styles.navIconDisabled
-            ]}>▶</Text>
-          </TouchableOpacity>
-        </View>
+        <NavigationControls
+          currentIndex={currentVideoIndex}
+          total={totalVideos}
+          onPrevious={handlePrevious}
+          onNext={handleNext}
+        />
 
         <ButtonSecundary
           title="Voltar"
           onPress={() => navigation.goBack()}
         />
-
       </ScrollView>
     </SafeAreaView>
   );
 }
-

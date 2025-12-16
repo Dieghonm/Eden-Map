@@ -1,3 +1,4 @@
+// src/screens/Header/Header.js - CORRIGIDO
 import React, { useState, useContext } from 'react';
 import { View, TouchableOpacity, Modal, Text, Image, Pressable } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
@@ -74,8 +75,6 @@ export default function Header({ onHomePress, onResetStarting }) {
         animationType="fade"
         onRequestClose={() => setMenuVisible(false)}
         statusBarTranslucent
-        accessible={true}
-        accessibilityViewIsModal={true}
       >
         <Pressable 
           style={styles.modalOverlay}
@@ -83,9 +82,6 @@ export default function Header({ onHomePress, onResetStarting }) {
         >
           <View
             style={styles.menuDropdown}
-            accessible={true}
-            accessibilityRole="menu"
-            accessibilityLabel="Menu de configurações"
             onStartShouldSetResponder={() => true}
           >
             <View style={styles.themeSelector}>
@@ -96,8 +92,6 @@ export default function Header({ onHomePress, onResetStarting }) {
                   currentTheme === 'light' && styles.activeButton
                 ]}
                 onPress={() => toggleTheme('light')}
-                accessibilityLabel="Tema claro"
-                accessibilityRole="button"
               >
                 <Text style={[
                   styles.themeButtonText,
@@ -112,8 +106,6 @@ export default function Header({ onHomePress, onResetStarting }) {
                   currentTheme === 'pink' && styles.activeButton
                 ]}
                 onPress={() => toggleTheme('pink')}
-                accessibilityLabel="Tema rosa"
-                accessibilityRole="button"
               >
                 <Text style={[
                   styles.themeButtonText,
@@ -128,8 +120,6 @@ export default function Header({ onHomePress, onResetStarting }) {
                   currentTheme === 'dark' && styles.activeButton
                 ]}
                 onPress={() => toggleTheme('dark')}
-                accessibilityLabel="Tema escuro"
-                accessibilityRole="button"
               >
                 <Text style={[
                   styles.themeButtonText,
@@ -142,8 +132,6 @@ export default function Header({ onHomePress, onResetStarting }) {
               style={styles.resetButton}
               onPress={handleResetStarting}
               activeOpacity={0.7}
-              accessibilityLabel="Reiniciar jornada"
-              accessibilityRole="button"
             >
               <Text style={styles.resetButtonText}>🔄 Reiniciar Jornada</Text>
             </TouchableOpacity>
@@ -152,8 +140,6 @@ export default function Header({ onHomePress, onResetStarting }) {
               style={styles.logoutButton}
               onPress={handleLogout}
               activeOpacity={0.7}
-              accessibilityLabel="Sair da conta"
-              accessibilityRole="button"
             >
               <Text style={styles.logoutButtonText}>🚪 Sair</Text>
             </TouchableOpacity>

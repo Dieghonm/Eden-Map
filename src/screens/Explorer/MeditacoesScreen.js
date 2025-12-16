@@ -1,4 +1,4 @@
-// src/screens/Explorer/MeditacoesScreen.js - VERSÃO COMPLETA
+// src/screens/Explorer/MeditacoesScreen.js - REFATORADO
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TouchableOpacity, Image, Animated } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,12 +7,13 @@ import { useTheme } from '../../context/ThemeProvider';
 import { createStyles } from '../../styles/Explorer/MeditacoesScreen';
 import ButtonSecundary from '../../components/ButtonSecundary';
 import ButtonPrimary from '../../components/ButtonPrimary';
+import NavigationControls from '../../components/NavigationControls';
 import { CAMINHOS } from '../../../assets/json/Sentimentos';
 import { MISSAO } from '../../../assets/json/Semanas';
 import GlassBox from '../../components/GlassBox';
 
 // ============================================================================
-// 🎵 COMPONENTE TIMER (igual ao PlayerMeditacao)
+// 🎵 COMPONENTE TIMER
 // ============================================================================
 function Timer({ initialSeconds, source }) {
   const { theme } = useTheme();
@@ -129,7 +130,6 @@ export default function MeditacoesScreen({ navigation }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
   
-  // Estados para navegação entre caminhos e meditações
   const [selectedPath, setSelectedPath] = useState(null);
   const [selectedMedit, setSelectedMedit] = useState(null); 
 
@@ -222,33 +222,12 @@ export default function MeditacoesScreen({ navigation }) {
           )}
         </GlassBox>
 
-        <View style={styles.navigation}>
-          <TouchableOpacity 
-            style={styles.navButton}
-            onPress={handlePrevious}
-            disabled={currentIndex === 0}
-          >
-            <Text style={[
-              styles.navIcon,
-              currentIndex === 0 && styles.navIconDisabled
-            ]}>◀</Text>
-          </TouchableOpacity>
-
-          <Text style={styles.counter}>
-            {total > 0 ? `${currentIndex + 1}/${total}` : "0/0"}
-          </Text>
-
-          <TouchableOpacity 
-            style={styles.navButton}
-            onPress={handleNext}
-            disabled={currentIndex === total - 1}
-          >
-            <Text style={[
-              styles.navIcon,
-              currentIndex === total - 1 && styles.navIconDisabled
-            ]}>▶</Text>
-          </TouchableOpacity>
-        </View>
+        <NavigationControls
+          currentIndex={currentIndex}
+          total={total}
+          onPrevious={handlePrevious}
+          onNext={handleNext}
+        />
 
         <ButtonPrimary 
           title={'Escolher e avançar'} 
@@ -264,7 +243,7 @@ export default function MeditacoesScreen({ navigation }) {
   }
 
   // ============================================================================
-  // 📱 TELA 3: PLAYER DE MEDITAÇÃO (baseado em PlayerMeditacao)
+  // 📱 TELA 3: PLAYER DE MEDITAÇÃO
   // ============================================================================
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
@@ -275,7 +254,7 @@ export default function MeditacoesScreen({ navigation }) {
           Meditação: {selectedMedit.Titulo}
         </Text>
         <Timer
-          initialSeconds={10 * 60} // 10 minutos de meditação
+          initialSeconds={10 * 60}
           source={selectedMedit.audioMeditacao}
         />
       </GlassBox>
@@ -283,7 +262,6 @@ export default function MeditacoesScreen({ navigation }) {
       <ButtonPrimary
         title="Concluir"
         onPress={() => {
-          // Reseta para o início
           setSelectedMedit(null);
           setSelectedPath(null);
         }}

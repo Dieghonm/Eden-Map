@@ -1,3 +1,4 @@
+// src/screens/Starting/Track.js - CORRIGIDO
 import { View, Text, TouchableOpacity, Modal } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
 import { createStyles } from '../../styles/Starting/Track';
@@ -34,7 +35,13 @@ export default function Track({ onNext }) {
         onPress={onNext}
       />
 
-      <Modal transparent visible={!!selectedPath} animationType="fade">
+      <Modal 
+        transparent 
+        visible={!!selectedPath} 
+        animationType="fade"
+        onRequestClose={() => setSelectedPath(null)}
+        statusBarTranslucent
+      >
         <TouchableOpacity
           style={styles.modalOverlay}
           activeOpacity={1}
@@ -45,6 +52,7 @@ export default function Track({ onNext }) {
               styles.modalBox,
               selectedPath && { borderColor: selectedPath.color, borderWidth: 2 }
             ]}
+            onStartShouldSetResponder={() => true}
           >
             <Text style={styles.modalTitle}>{selectedPath?.nome}</Text>
 

@@ -1,6 +1,7 @@
+// src/styles/Explorer/MissoesScreen.js - LIMPO
 import { StyleSheet } from 'react-native';
-import { spacing, fontSize, fontFamily, borderRadius } from '../../theme/texts';
-import { horizontalScale, verticalScale } from '../../utils/responsive';
+import { spacing, fontSize, fontFamily } from '../../theme/texts';
+import { horizontalScale } from '../../utils/responsive';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
@@ -21,12 +22,6 @@ export const createStyles = (theme) =>
       height: spacing.md, 
       marginRight: spacing.xxs * 2,
       marginTop: spacing.xxs * 2
-    },
-    caminho: {
-      fontSize: fontSize.xxl,
-      fontFamily: fontFamily.b7,
-      color: theme.fontColor,
-      alignItems: 'center',
     },
     titulo: {
       fontSize: fontSize.xl,
@@ -53,36 +48,4 @@ export const createStyles = (theme) =>
       height: spacing.huge + spacing.md,
       width: spacing.huge + spacing.md,
     },
-    navigation: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: spacing.md,
-      marginBottom: spacing.xs,
-      backgroundColor: theme.secondary,
-      borderRadius: borderRadius.circle,
-      paddingHorizontal: spacing.xs
-    },
-    navButton: {
-      width: horizontalScale(50),
-      height: horizontalScale(50),
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginBottom: spacing.xxs
-    },
-    counter:{
-      fontSize: fontSize.xxl,
-      fontFamily: fontFamily.b7,
-      color: theme.fontColor,
-      alignItems: 'center',
-      marginHorizontal: spacing.xs
-    },
-    navIcon: {
-      fontSize: fontSize.header,
-      color: theme.fontColor,
-    },
-    navIconDisabled: {
-      opacity: 0.3,
-    },
-
   });

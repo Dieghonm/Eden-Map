@@ -14,9 +14,14 @@ export default function ButtonPrimary({
   const { theme } = useTheme();
   const styles = createStyles(theme, width, height);
 
+  const buttonStyle = [
+    disabled && styles.buttonDisabled,
+    disabled && { pointerEvents: 'none' }
+  ];
+
   return (
     <TouchableOpacity
-      style={disabled && styles.buttonDisabled}
+      style={buttonStyle}
       onPress={onPress}
       activeOpacity={0.8}
       disabled={disabled}

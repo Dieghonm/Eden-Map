@@ -1,3 +1,4 @@
+// src/styles/Explorer/ReflexoesScreen.js - LIMPO
 import { StyleSheet } from 'react-native';
 import { spacing, fontSize, fontFamily, borderRadius } from '../../theme/texts';
 import { horizontalScale, verticalScale } from '../../utils/responsive';
@@ -36,8 +37,11 @@ export const createStyles = (theme) =>
     },
     spacer:{
       rowGap: 20
-
     },
+    
+    // ============================================================================
+    // GRÁFICO DE BARRAS
+    // ============================================================================
     chartContainer: {
       alignItems: 'center',
       width: '100%',
@@ -74,7 +78,6 @@ export const createStyles = (theme) =>
       borderRadius: borderRadius.m,
       alignItems: 'center',
       justifyContent: 'center',
-      
     },
     labelsRow: {
       flexDirection: 'row',
@@ -89,28 +92,9 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
     },
 
-    navigation: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: spacing.md,
-      marginBottom: spacing.md,
-      backgroundColor: theme.secondary,
-      borderRadius: borderRadius.circle,
-    },
-    navButton: {
-      width: horizontalScale(50),
-      height: horizontalScale(50),
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    navIcon: {
-      fontSize: fontSize.header,
-      color: theme.fontColor,
-    },
-    navIconDisabled: {
-      opacity: 0.3,
-    },
+    // ============================================================================
+    // TELA DE CENAS
+    // ============================================================================
     data:{
       textAlign: 'center',
       fontSize: fontSize.lg,
@@ -142,11 +126,7 @@ export const createStyles = (theme) =>
       paddingHorizontal: spacing.xxs * 2,
       marginBottom: spacing.xs,
     },
-
     acao:{
       height: spacing.xxl,
-    },
-    data5:{
-
     },
   });

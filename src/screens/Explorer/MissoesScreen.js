@@ -1,5 +1,6 @@
+// src/screens/Explorer/MissoesScreen.js - REFATORADO
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../../context/ThemeProvider';
 import { useApp } from '../../context/AppProvider';
@@ -7,25 +8,14 @@ import { useJourney } from '../../context/JourneyProvider';
 import { createStyles } from '../../styles/Explorer/MissoesScreen';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GlassBox from '../../components/GlassBox';
+import NavigationControls from '../../components/NavigationControls';
 import { MISSAO } from '../../../assets/json/Semanas';
 
 export default function MissoesScreen({ navigation }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
-  const [selectedTab, setSelectedTab] = useState('app');
-  const appData = useApp();
-  const { selectedPath } = appData;
-
-  const journeyData = useJourney();
-  const { missoesConcluidas } = journeyData;
-
-  const nomesBonitos = {
-    Autoimagem: "Autoimagem",
-    Atencao_Plena: "Atenção Plena",
-    Relacionamentos: "Relacionamentos",
-    Motivacao: "Motivação",
-    Ansiedade: "Ansiedade"
-  };
+  const { selectedPath } = useApp();
+  const { missoesConcluidas } = useJourney();
 
   const caminhos = Object.keys(MISSAO);
   const caminhosOrdenados = [
@@ -62,7 +52,6 @@ export default function MissoesScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <GlassBox>
-
         <View style={styles.starsView}>
           {Array.from({ length: 5 }).map((_, index) => (
             <Image
@@ -102,33 +91,12 @@ export default function MissoesScreen({ navigation }) {
         <Text style={styles.missao}>{current.Missão}</Text>
       </GlassBox>
 
-      <View style={styles.navigation}>
-        <TouchableOpacity 
-          style={styles.navButton}
-          onPress={handlePrevious}
-          disabled={currentIndex === 0}
-        >
-          <Text style={[
-            styles.navIcon,
-            currentIndex === 0 && styles.navIconDisabled
-          ]}>◀</Text>
-        </TouchableOpacity>
-
-        <Text style={styles.counter}>
-          {currentIndex + 1}/{total}
-        </Text>
-
-        <TouchableOpacity 
-          style={styles.navButton}
-          onPress={handleNext}
-          disabled={currentIndex === total - 1}
-        >
-          <Text style={[
-            styles.navIcon,
-            currentIndex === total - 1 && styles.navIconDisabled
-          ]}>▶</Text>
-        </TouchableOpacity>
-      </View>
+      <NavigationControls
+        currentIndex={currentIndex}
+        total={total}
+        onPrevious={handlePrevious}
+        onNext={handleNext}
+      />
 
       <ButtonPrimary
         title="Voltar"

@@ -1,3 +1,4 @@
+// src/screens/Home/EditModal.js - CORRIGIDO
 import React, { useState, useContext } from 'react';
 import { View, Text, Modal, TouchableOpacity, TextInput as RNTextInput, Platform, Image } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -225,8 +226,6 @@ export default function EditModal({ visible, onClose, onSave }) {
       animationType="fade"
       onRequestClose={handleClose}
       statusBarTranslucent
-      accessible={true}
-      accessibilityViewIsModal={true}
     >
       <TouchableOpacity
         style={styles.modalOverlay}
@@ -235,9 +234,6 @@ export default function EditModal({ visible, onClose, onSave }) {
       >
         <View
           style={styles.modalBox}
-          accessible={true}
-          accessibilityRole="dialog"
-          accessibilityLabel="Editar informações"
           onStartShouldSetResponder={() => true}
         >
           {editMode === null && renderInitialView()}

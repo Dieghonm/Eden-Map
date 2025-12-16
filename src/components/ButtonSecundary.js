@@ -13,9 +13,15 @@ export default function ButtonSecundary({
   const { theme } = useTheme();
   const styles = createStyles(theme, width, height);
 
+  const buttonStyle = [
+    styles.button, 
+    disabled && styles.buttonDisabled,
+    disabled && { pointerEvents: 'none' }
+  ];
+
   return (
     <TouchableOpacity
-      style={[styles.button, disabled && styles.buttonDisabled]}
+      style={buttonStyle}
       onPress={onPress}
       activeOpacity={0.8}
       disabled={disabled}

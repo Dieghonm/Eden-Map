@@ -1,5 +1,6 @@
+// src/screens/Explorer/ReflexoesScreen.js - REFATORADO
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../../context/ThemeProvider';
 import { useJourney } from '../../context/JourneyProvider';
@@ -7,6 +8,7 @@ import { createStyles } from '../../styles/Explorer/ReflexoesScreen';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GlassBox from '../../components/GlassBox';
 import ImgButton from '../../components/ImgButton';
+import NavigationControls from '../../components/NavigationControls';
 
 export default function ReflexoesScreen({ navigation }) {
   const { theme } = useTheme();
@@ -71,6 +73,9 @@ export default function ReflexoesScreen({ navigation }) {
   const totalBars = values.reduce((a, b) => a + b, 0) || 1;
   const maxBarHeight = 100;
 
+  // ============================================================================
+  // TELA: RESPOSTAS (placeholder)
+  // ============================================================================
   if (respostasScreen === 'respostas') {
     return (
       <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
@@ -86,6 +91,9 @@ export default function ReflexoesScreen({ navigation }) {
     );
   }
 
+  // ============================================================================
+  // TELA: CENAS
+  // ============================================================================
   if (respostasScreen === 'cenas') {
     return (
       <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
@@ -105,33 +113,12 @@ export default function ReflexoesScreen({ navigation }) {
             </>
           )}
 
-          <View style={styles.navigation}>
-            <TouchableOpacity
-              style={styles.navButton}
-              onPress={handlePrevious}
-              disabled={currentIndex === 0}
-            >
-              <Text style={[
-                styles.navIcon,
-                currentIndex === 0 && styles.navIconDisabled
-              ]}>◀</Text>
-            </TouchableOpacity>
-
-            <Text style={styles.counter}>
-              {currentIndex + 1}/{cenasList.length}
-            </Text>
-
-            <TouchableOpacity
-              style={styles.navButton}
-              onPress={handleNext}
-              disabled={currentIndex === cenasList.length - 1}
-            >
-              <Text style={[
-                styles.navIcon,
-                currentIndex === cenasList.length - 1 && styles.navIconDisabled
-              ]}>▶</Text>
-            </TouchableOpacity>
-          </View>
+          <NavigationControls
+            currentIndex={currentIndex}
+            total={cenasList.length}
+            onPrevious={handlePrevious}
+            onNext={handleNext}
+          />
 
           <ButtonPrimary
             title="Voltar"
@@ -142,6 +129,9 @@ export default function ReflexoesScreen({ navigation }) {
     );
   }
 
+  // ============================================================================
+  // TELA: PRINCIPAL (GRÁFICO)
+  // ============================================================================
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>

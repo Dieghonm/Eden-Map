@@ -1,6 +1,7 @@
+// src/styles/Explorer/VideosScreen.js - LIMPO
 import { StyleSheet } from 'react-native';
-import { spacing, fontSize, fontFamily, borderRadius } from '../../theme/texts';
-import { horizontalScale, verticalScale } from '../../utils/responsive';
+import { spacing, fontSize, fontFamily } from '../../theme/texts';
+import { horizontalScale } from '../../utils/responsive';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
@@ -35,35 +36,5 @@ export const createStyles = (theme) =>
     highlight: {
       color: theme.alert,
       fontFamily: fontFamily.r4,
-    },
-    navigation: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: spacing.md,
-      marginBottom: spacing.md,
-      backgroundColor: theme.secondary,
-      borderRadius: borderRadius.circle,
-    },
-    navButton: {
-      width: horizontalScale(50),
-      height: horizontalScale(50),
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    navIcon: {
-      fontSize: fontSize.header,
-      color: theme.fontColor,
-    },
-    navIconDisabled: {
-      opacity: 0.3,
-    },
-    counter: {
-      fontSize: fontSize.lg,
-      fontFamily: fontFamily.b7,
-      color: theme.fontColor,
-      minWidth: horizontalScale(60),
-      textAlign: 'center',
-      marginHorizontal: spacing.md
     },
   });
