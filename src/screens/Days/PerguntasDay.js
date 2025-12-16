@@ -1,5 +1,6 @@
+// src/screens/Days/PerguntasDay.js - VERSÃO CORRIGIDA
 import { useState } from 'react';
-import { SafeAreaView, Platform, Text, TextInput, ScrollView } from 'react-native-web';
+import { SafeAreaView, Platform, Text, TextInput, ScrollView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTheme } from '../../context/ThemeProvider';
 import { createStyles } from '../../styles/Days/PerguntasDay';
@@ -24,9 +25,25 @@ export default function PerguntasDay({ onComplete }) {
   const handleConcluir = async () => {
     if (!resposta.trim()) return;
     setIsLoading(true);
-    await salvarPerguntaResposta(selectedPath, semanaAtual, resposta);
+    
+    // ✅ CORREÇÃO: Ordem correta dos parâmetros (SEMANA, PATH, RESPOSTA)
+    const sucesso = await salvarPerguntaResposta(semanaAtual, selectedPath, resposta);
+    
     setIsLoading(false);
-    if (onComplete) onComplete(true);
+    
+    // 📊 Log para debug
+    if (__DEV__) {
+      console.log('✅ Pergunta salva:', {
+        semana: semanaAtual,
+        path: selectedPath,
+        resposta: resposta.substring(0, 50) + '...',
+        sucesso
+      });
+    }
+    
+    if (sucesso && onComplete) {
+      onComplete(true);
+    }
   };
 
   return (
@@ -64,12 +81,11 @@ export default function PerguntasDay({ onComplete }) {
             </Text>
           </GlassBox>
           <ButtonPrimary 
-            title="Concluir" 
+            title={isLoading ? "Salvando..." : "Concluir"}
             disabled={!resposta.trim() || isLoading} 
             onPress={handleConcluir}
             height={40}
           />
-
         </ScrollView>
       </KeyboardAwareScrollView>
     </SafeAreaView>

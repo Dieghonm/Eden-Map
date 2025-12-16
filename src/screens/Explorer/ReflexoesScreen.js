@@ -80,8 +80,15 @@ export default function ReflexoesScreen({ navigation }) {
     return (
       <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
         <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-          <GlassBox />
-
+          <GlassBox>
+            {console.log(perguntasRespostas)}
+          </GlassBox>
+          <NavigationControls
+            currentIndex={currentIndex}
+            total={cenasList.length}
+            onPrevious={handlePrevious}
+            onNext={handleNext}
+          />
           <ButtonPrimary
             title="Voltar"
             onPress={() => setRespostasScreen(false)}
