@@ -24,7 +24,7 @@ export default function JourneyProvider({ children }) {
         const [
           cenas,
           videos,
-          tracking, // ✅ Agora carrega corretamente
+          tracking,
           perguntas,
           meditacao,
           tempo,
@@ -33,7 +33,7 @@ export default function JourneyProvider({ children }) {
         ] = await Promise.all([
           getData('cenasRespostas'),
           getData('videosAssistidos'),
-          getData('trackingRespostas'), // ✅ Chave sem underscore
+          getData('trackingRespostas'),
           getData('perguntasRespostas'),
           getData('meditacaoRespostas'),
           getData('tempoRespiracao'),
@@ -43,7 +43,7 @@ export default function JourneyProvider({ children }) {
 
         if (cenas) setCenasRespostas(cenas);
         if (videos) setVideosAssistidos(videos);
-        if (tracking) setTrackingRespostas(tracking); // ✅ Carrega o objeto com contadores
+        if (tracking) setTrackingRespostas(tracking);
         if (perguntas) setPerguntasRespostas(perguntas);
         if (meditacao) setMeditacaoRespostas(meditacao);
         if (tempo !== undefined && tempo !== null) setTempoRespiracao(tempo);
@@ -81,7 +81,7 @@ export default function JourneyProvider({ children }) {
       console.error('❌ Erro ao salvar tracking:', error);
       return false;
     }
-  }, [trackingRespostas]); // ✅ Depende do estado atual
+  }, [trackingRespostas]);
 
   // ============================================================================
   // OUTRAS FUNÇÕES (mantidas igual)

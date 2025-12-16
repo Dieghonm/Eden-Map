@@ -88,4 +88,65 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
     },
+
+    navigation: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: spacing.md,
+      marginBottom: spacing.md,
+      backgroundColor: theme.secondary,
+      borderRadius: borderRadius.circle,
+    },
+    navButton: {
+      width: horizontalScale(50),
+      height: horizontalScale(50),
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    navIcon: {
+      fontSize: fontSize.header,
+      color: theme.fontColor,
+    },
+    navIconDisabled: {
+      opacity: 0.3,
+    },
+    data:{
+      textAlign: 'center',
+      fontSize: fontSize.lg,
+      fontFamily: fontFamily.b7,
+      color: theme.fontColor,
+    },
+    cena:{
+      fontSize: fontSize.lg,
+      fontFamily: fontFamily.b7,
+      color: theme.fontColor,
+      minHeight:spacing.huge / 2
+    },
+    pergunta:{
+      fontSize: fontSize.md,
+      fontFamily: fontFamily.b7,
+      color: theme.fontColor,
+      alignSelf: 'flex-start',
+      marginBottom: spacing.xxs,
+      paddingHorizontal: spacing.xxs,
+    },
+    resposta: {
+      fontSize: fontSize.sm,
+      fontFamily: fontFamily.r4,
+      color: theme.fontColor,
+      backgroundColor: theme.terciario,
+      width: spacing.huge + spacing.md,
+      height: spacing.sm,
+      paddingVertical: spacing.xxs * 2,
+      paddingHorizontal: spacing.xxs * 2,
+      marginBottom: spacing.xs,
+    },
+
+    acao:{
+      height: spacing.xxl,
+    },
+    data5:{
+
+    },
   });
