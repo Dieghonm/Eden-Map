@@ -1,4 +1,4 @@
-// src/context/JourneyProvider.js - VERSÃO CORRIGIDA
+// src/context/JourneyProvider.js - TRACKING CORRIGIDO
 import React, { createContext, useState, useCallback, useEffect } from 'react';
 import { storeData, getData } from '../utils/storage';
 
@@ -8,7 +8,7 @@ export default function JourneyProvider({ children }) {
   // ✅ Estados organizados por tipo
   const [cenasRespostas, setCenasRespostas] = useState([]);
   const [videosAssistidos, setVideosAssistidos] = useState([]);
-  const [trackingRespostas, setTrackingRespostas] = useState([]);
+  const [trackingRespostas, setTrackingRespostas] = useState({ feliz: 0, neutro: 0, triste: 0 }); // ✅ FORMATO CORRETO
   const [perguntasRespostas, setPerguntasRespostas] = useState([]);
   const [meditacaoRespostas, setMeditacaoRespostas] = useState([]);
   const [tempoRespiracao, setTempoRespiracao] = useState(null);
@@ -24,7 +24,7 @@ export default function JourneyProvider({ children }) {
         const [
           cenas,
           videos,
-          tracking,
+          tracking, // ✅ Agora carrega corretamente
           perguntas,
           meditacao,
           tempo,
@@ -33,7 +33,7 @@ export default function JourneyProvider({ children }) {
         ] = await Promise.all([
           getData('cenasRespostas'),
           getData('videosAssistidos'),
-          getData('trackingRespostas'),
+          getData('trackingRespostas'), // ✅ Chave sem underscore
           getData('perguntasRespostas'),
           getData('meditacaoRespostas'),
           getData('tempoRespiracao'),
@@ -43,12 +43,14 @@ export default function JourneyProvider({ children }) {
 
         if (cenas) setCenasRespostas(cenas);
         if (videos) setVideosAssistidos(videos);
-        if (tracking) setTrackingRespostas(tracking);
+        if (tracking) setTrackingRespostas(tracking); // ✅ Carrega o objeto com contadores
         if (perguntas) setPerguntasRespostas(perguntas);
         if (meditacao) setMeditacaoRespostas(meditacao);
         if (tempo !== undefined && tempo !== null) setTempoRespiracao(tempo);
         if (missoes) setMissoesConcluidas(missoes);
         if (config) setConfigRespiracao(config);
+
+        console.log('✅ Tracking carregado:', tracking);
       } catch (error) {
         console.error('❌ Erro ao carregar dados iniciais:', error);
       }
@@ -57,7 +59,32 @@ export default function JourneyProvider({ children }) {
   }, []);
 
   // ============================================================================
-  // ✅ 1️⃣ CENAS - CORRIGIDO PARA SUBSTITUIR
+  // ✅ TRACKING - SISTEMA DE SOMA ACUMULADA
+  // ============================================================================
+  const salvarTrackingResposta = useCallback(async (tipo) => {
+    try {
+      // Busca o estado atual (não do AsyncStorage, do estado React)
+      const atual = { ...trackingRespostas };
+
+      // Soma +1 no item selecionado
+      atual[tipo] = (atual[tipo] || 0) + 1;
+
+      // Atualiza o estado React
+      setTrackingRespostas(atual);
+
+      // Salva no AsyncStorage (chave SEM underscore)
+      await storeData('trackingRespostas', atual);
+
+      console.log('✅ Tracking atualizado:', atual);
+      return true;
+    } catch (error) {
+      console.error('❌ Erro ao salvar tracking:', error);
+      return false;
+    }
+  }, [trackingRespostas]); // ✅ Depende do estado atual
+
+  // ============================================================================
+  // OUTRAS FUNÇÕES (mantidas igual)
   // ============================================================================
   const salvarCenasRespostas = useCallback(async (semana, path, respostas) => {
     try {
@@ -107,34 +134,6 @@ export default function JourneyProvider({ children }) {
     }
   }, [videosAssistidos]);
 
-  // ============================================================================
-  // ✅ 3️⃣ TRACKING - SISTEMA DE SOMA MANTIDO
-  // ============================================================================
-
-  const salvarTrackingResposta = async (tipo) => {
-    try {
-      // Busca o que já existe
-      const data = await getData("tracking_respostas");
-
-      // Se não existir nada, cria com tudo zerado
-      const atual = data || { feliz: 0, neutro: 0, triste: 0 };
-
-      // Soma +1 no item selecionado
-      atual[tipo] = (atual[tipo] || 0) + 1;
-
-      // Salva de volta
-      await storeData("tracking_respostas", atual);
-
-      console.log("Tracking atualizado:", atual);
-
-    } catch (error) {
-      console.log("Erro ao salvar tracking:", error);
-    }
-  };
-
-  // ============================================================================
-  // ✅ 4️⃣ PERGUNTAS - CORRIGIDO PARA SUBSTITUIR
-  // ============================================================================
   const salvarPerguntaResposta = useCallback(async (semana, path, resposta) => {
     try {
       const updatedData = [...perguntasRespostas];
@@ -160,10 +159,6 @@ export default function JourneyProvider({ children }) {
     }
   }, [perguntasRespostas]);
 
-
-  // ============================================================================
-  // ✅ 5️⃣ MEDITAÇÃO - CORRIGIDO PARA SUBSTITUIR
-  // ============================================================================
   const salvarMeditacaoRespostas = useCallback(async (semana, path, respostas) => {
     try {
       const updatedData = [...meditacaoRespostas];
@@ -189,12 +184,8 @@ export default function JourneyProvider({ children }) {
     }
   }, [meditacaoRespostas]);
 
-  // ============================================================================
-  // ✅ 6️⃣ MISSÕES - CORRIGIDO PARA SUBSTITUIR
-  // ============================================================================
   const salvarMissaoConcluida = useCallback(async (semana, path, missaoData) => {
     try {
-
       const updatedData = [...missoesConcluidas];
       const index = semana - 1;
       
@@ -218,9 +209,6 @@ export default function JourneyProvider({ children }) {
     }
   }, [missoesConcluidas]);
 
-  // ============================================================================
-  // 7️⃣ TEMPO DE RESPIRAÇÃO
-  // ============================================================================
   const salvarTempoRespiracao = useCallback(async (tempo) => {
     try {
       setTempoRespiracao(tempo);
@@ -232,9 +220,6 @@ export default function JourneyProvider({ children }) {
     }
   }, []);
 
-  // ============================================================================
-  // 8️⃣ CONFIGURAÇÃO DE RESPIRAÇÃO
-  // ============================================================================
   const salvarConfigRespiracao = useCallback(async (config) => {
     try {
       setConfigRespiracao(config || { ativado: false, tempo: null });
@@ -263,19 +248,12 @@ export default function JourneyProvider({ children }) {
   }, []);
 
   // ============================================================================
-  // 🔍 FUNÇÕES DE BUSCA - CORRIGIDAS
+  // 🔍 FUNÇÕES DE BUSCA
   // ============================================================================
-
   const buscarCenasSemana = useCallback((semana, path) => {
     const index = semana - 1;
     const cena = cenasRespostas[index];
-
-    if (cena && cena.path === path) {
-      console.log(`🔍 Cena encontrada - Semana ${semana}:`, cena);
-      return cena;
-    }
-
-    return null;
+    return (cena && cena.path === path) ? cena : null;
   }, [cenasRespostas]);
 
   const buscarVideoSemana = useCallback((semana, path) => {
@@ -283,12 +261,6 @@ export default function JourneyProvider({ children }) {
     const video = videosAssistidos[index];
     return (video && video.path === path) ? video : null;
   }, [videosAssistidos]);
-
-  const buscarTrackingSemana = useCallback((semana, path) => {
-    const index = semana - 1;
-    const tracking = trackingRespostas[index];
-    return (tracking && tracking.path === path) ? tracking : null;
-  }, [trackingRespostas]);
 
   const buscarPerguntaSemana = useCallback((semana, path) => {
     const index = semana - 1;
@@ -308,6 +280,10 @@ export default function JourneyProvider({ children }) {
     return (missao && missao.path === path) ? missao : null;
   }, [missoesConcluidas]);
 
+  const buscarTrackingRespostas = useCallback(() => {
+    return trackingRespostas;
+  }, [trackingRespostas]);
+
   // ============================================================================
   // 📊 VERIFICAÇÃO DE ATIVIDADES
   // ============================================================================
@@ -318,7 +294,7 @@ export default function JourneyProvider({ children }) {
       case 'VIDEOS':
         return !!buscarVideoSemana(semana, path);
       case 'TRACKING':
-        return !!buscarTrackingSemana(semana, path);
+        return Object.values(trackingRespostas).some(v => v > 0);
       case 'PERGUNTAS':
         return !!buscarPerguntaSemana(semana, path);
       case 'MISSAO':
@@ -331,10 +307,10 @@ export default function JourneyProvider({ children }) {
   }, [
     buscarCenasSemana,
     buscarVideoSemana,
-    buscarTrackingSemana,
     buscarPerguntaSemana,
     buscarMissaoSemana,
-    buscarMeditacaoSemana
+    buscarMeditacaoSemana,
+    trackingRespostas
   ]);
 
   // ============================================================================
@@ -342,17 +318,18 @@ export default function JourneyProvider({ children }) {
   // ============================================================================
   const obterProgressoGeral = useCallback(() => {
     const contarNaoNulos = (arr) => arr.filter(item => item !== null).length;
+    const trackingTotal = Object.values(trackingRespostas).reduce((a, b) => a + b, 0);
     
     return {
       cenas: contarNaoNulos(cenasRespostas),
       videos: contarNaoNulos(videosAssistidos),
-      tracking: contarNaoNulos(trackingRespostas),
+      tracking: trackingTotal,
       perguntas: contarNaoNulos(perguntasRespostas),
       meditacoes: contarNaoNulos(meditacaoRespostas),
       missoes: contarNaoNulos(missoesConcluidas),
       total: contarNaoNulos(cenasRespostas) + 
              contarNaoNulos(videosAssistidos) + 
-             contarNaoNulos(trackingRespostas) + 
+             (trackingTotal > 0 ? 1 : 0) + 
              contarNaoNulos(perguntasRespostas) +
              contarNaoNulos(meditacaoRespostas) +
              contarNaoNulos(missoesConcluidas)
@@ -373,7 +350,7 @@ export default function JourneyProvider({ children }) {
     try {
       setCenasRespostas([]);
       setVideosAssistidos([]);
-      setTrackingRespostas([]);
+      setTrackingRespostas({ feliz: 0, neutro: 0, triste: 0 });
       setPerguntasRespostas([]);
       setMeditacaoRespostas([]);
       setTempoRespiracao(null);
@@ -382,7 +359,7 @@ export default function JourneyProvider({ children }) {
 
       await storeData('cenasRespostas', []);
       await storeData('videosAssistidos', []);
-      await storeData('trackingRespostas', []);
+      await storeData('trackingRespostas', { feliz: 0, neutro: 0, triste: 0 }); 
       await storeData('perguntasRespostas', []);
       await storeData('meditacaoRespostas', []);
       await storeData('tempoRespiracao', null);
@@ -424,7 +401,7 @@ export default function JourneyProvider({ children }) {
     // 🔍 BUSCA
     buscarCenasSemana,
     buscarVideoSemana,
-    buscarTrackingSemana,
+    buscarTrackingRespostas,
     buscarPerguntaSemana,
     buscarMeditacaoSemana,
     buscarMissaoSemana,
