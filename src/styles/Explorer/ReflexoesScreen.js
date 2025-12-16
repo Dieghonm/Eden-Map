@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { spacing, fontSize, fontFamily, borderRadius } from '../../theme/texts';
+import { horizontalScale, verticalScale } from '../../utils/responsive';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
@@ -10,57 +11,77 @@ export const createStyles = (theme) =>
     scrollContent: {
       alignItems: 'center',
       paddingBottom: spacing.md,
+      marginTop: spacing.xxl,
     },
     title: {
-      fontSize: fontSize.lg,
+      fontSize: fontSize.xxl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      marginVertical: spacing.md,
+      marginBottom: spacing.md,
       alignSelf: 'flex-start',
+      width: spacing.giant,
     },
     subtitle: {
       fontSize: fontSize.md,
-      fontFamily: fontFamily.b4,
+      fontFamily: fontFamily.r4,
       color: theme.fontColor,
-      marginVertical: spacing.md,
+      marginBottom: spacing.md,
+      textAlign: 'center',
+      lineHeight: spacing.xs,
+      width: spacing.giant,
     },
     highlight: {
       color: theme.alert,
       fontFamily: fontFamily.b7,
     },
     chartContainer: {
-      marginBottom: spacing.md,
+      alignItems: 'center',
+      width: '100%',
     },
     barsRow: {
       flexDirection: 'row',
       alignItems: 'flex-end',
-      marginHorizontal: 5,
-      height:100
+      justifyContent: 'center',
+      height: verticalScale(100),
     },
     barWrapper: {
-      width: 50,
-      marginRight: 10,
+      width: horizontalScale(80),
       alignItems: 'center',
+      justifyContent: 'flex-end',
     },
     bar: {
-      width: 40,
-      borderRadius: borderRadius.sm,
+      width: horizontalScale(50),
     },
     separator: {
+      width: spacing.huge + spacing.xs,
       height: 5,
-      backgroundColor: '#FFFFFF',
-      marginRight: 10,
-      marginBottom: 5
+      backgroundColor: theme.fontColor,
+      marginBottom: spacing.xs,
+    },
+    iconsRow: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      marginBottom: spacing.xs / 2,
+      gap: spacing.xxs,
+    },
+    iconBox: {
+      width: horizontalScale(75),
+      height: verticalScale(60),
+      borderRadius: borderRadius.m,
+      alignItems: 'center',
+      justifyContent: 'center',
+      
     },
     labelsRow: {
       flexDirection: 'row',
-      marginLeft:10
+      justifyContent: 'center',
+      marginBottom: spacing.md,
     },
     barLabel: {
-      width: 50,
-      marginRight: 10,
+      width: horizontalScale(80),
       textAlign: 'center',
-      fontSize: fontSize.xs,
+      fontSize: fontSize.lg,
+      fontFamily: fontFamily.b7,
       color: theme.fontColor,
     },
   });

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../../context/ThemeProvider';
@@ -6,19 +6,26 @@ import { useJourney } from '../../context/JourneyProvider';
 import { createStyles } from '../../styles/Explorer/ReflexoesScreen';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import GlassBox from '../../components/GlassBox';
+import ButtonSecundary from '../../components/ButtonSecundary';
+import ImgButton from '../../components/ImgButton';
 
 export default function ReflexoesScreen({ navigation }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
   const { trackingRespostas = {} } = useJourney();
+  const [respostasScreen, setrespostasScreen] = useState (false);
 
   const values = [
-    trackingRespostas.triste ?? 0,
-    trackingRespostas.neutro ?? 0,
-    trackingRespostas.feliz ?? 0,
+    trackingRespostas.triste ?? 0.01,
+    trackingRespostas.neutro ?? 0.01,
+    trackingRespostas.feliz ?? 0.01
   ];
 
+  const changeScreen =(screen) => {
+    console.log(screen);
+    
+  }
   
   const barColors = [
     theme.warning,
@@ -29,9 +36,35 @@ export default function ReflexoesScreen({ navigation }) {
   const total = values.reduce((a, b) => a + b, 0) || 1;
   const maxBarHeight = 100;
 
-  useEffect(() => {
-    console.log('📊 Tracking Respostas:', JSON.stringify(trackingRespostas, null, 2));
-  }, [trackingRespostas]);
+  if (respostasScreen) {
+    return(
+      <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          <Text style={styles.title}>Revise suas respostas.</Text>
+          <Text style={styles.subtitle}>
+            <Text style={styles.highlight}>Selecione o segmento</Text>
+             desejado, e retorne às 
+            <Text style={styles.highlight}>respostas já registradas</Text>
+             em sua jornada.
+          </Text>
+
+          <ImgButton title={'Descrição de cena'} img={'DESCRICAOCENA'} onPress={()=>changeScreen('cena')}/>
+          <ImgButton title={'Pergunta: Luz'} img={'ExpLuz'} onPress={()=>changeScreen('luz')}/>
+          <ImgButton title={'Pergunta: Sombra'} img={'ExpSombra'} onPress={()=>changeScreen('sombra')}/>
+
+          <ButtonPrimary 
+            title="Voltar"
+            onPress={() => setrespostasScreen(!respostasScreen)}
+          />
+
+        </ScrollView>
+      </SafeAreaView>
+      
+    )
+  }
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
@@ -66,11 +99,29 @@ export default function ReflexoesScreen({ navigation }) {
             </View>
 
             <View style={styles.separator} />
-
-            <Image source={require("../../../assets/icons/Triste.png")} />
-            <Image source={require("../../../assets/icons/Neutro.png")} />
-            <Image source={require("../../../assets/icons/Feliz.png")} />
-
+            <View style={styles.iconsRow}>
+              <View style={styles.iconBox}>
+                <Image 
+                  source={require("../../../assets/icons/Triste.png")} 
+                  style={styles.icon}
+                  resizeMode="contain"
+                />
+              </View>
+              <View style={styles.iconBox}>
+                <Image 
+                  source={require("../../../assets/icons/Neutro.png")} 
+                  style={styles.icon}
+                  resizeMode="contain"
+                />
+              </View>
+              <View style={styles.iconBox}>
+                <Image 
+                  source={require("../../../assets/icons/Feliz.png")} 
+                  style={styles.icon}
+                  resizeMode="contain"
+                />
+              </View>
+            </View>
             <View style={styles.labelsRow}>
               {values.map((value, index) => {
                 const percentage = Math.round((value / total) * 100);
@@ -93,6 +144,11 @@ export default function ReflexoesScreen({ navigation }) {
         </Text>
 
         <ButtonPrimary
+          title="Respostas"
+          onPress={() => setrespostasScreen(!respostasScreen)}
+        />
+
+        <ButtonSecundary
           title="Voltar"
           onPress={() => navigation.goBack()}
         />
@@ -100,4 +156,3 @@ export default function ReflexoesScreen({ navigation }) {
     </SafeAreaView>
   );
 }
-
