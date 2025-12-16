@@ -419,7 +419,6 @@ export default function AppNavigator() {
       await setDesireDescription(DEV_CONFIG.MOCK_STARTING_DATA.desireDescription);
       await setSelectedFeelings(DEV_CONFIG.MOCK_STARTING_DATA.selectedFeelings);
       await setSelectedPath(DEV_CONFIG.MOCK_STARTING_DATA.selectedPath);
-      console.log('✅ Dados mock aplicados com sucesso');
     } catch (error) {
       console.error('❌ Erro ao aplicar dados mock:', error);
     }

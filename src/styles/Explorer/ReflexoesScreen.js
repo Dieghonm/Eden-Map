@@ -14,6 +14,11 @@ export const createStyles = (theme) =>
       paddingBottom: spacing.md,
       marginTop: spacing.lg,
     },
+    scrollContentResposta: {
+      alignItems: 'center',
+      paddingBottom: spacing.md,
+      marginTop: spacing.xxl,
+    },
     title: {
       fontSize: fontSize.xxl,
       fontFamily: fontFamily.b7,
@@ -37,6 +42,15 @@ export const createStyles = (theme) =>
     },
     spacer:{
       rowGap: 20
+    },
+    respostaData:{
+      fontSize: fontSize.sm,
+      fontFamily: fontFamily.r4,
+      color: theme.fontColor,
+      marginVertical: 10,
+    },
+    respostaAcao:{
+      height: spacing.xxxl,
     },
     
     // ============================================================================
@@ -62,7 +76,7 @@ export const createStyles = (theme) =>
     },
     separator: {
       width: spacing.huge + spacing.xs,
-      height: 5,
+      height: spacing.xxs,
       backgroundColor: theme.fontColor,
       marginBottom: spacing.xs,
     },
@@ -111,7 +125,7 @@ export const createStyles = (theme) =>
       fontSize: fontSize.md,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      alignSelf: 'flex-start',
+      // alignSelf: 'flex-start',
       marginBottom: spacing.xxs,
       paddingHorizontal: spacing.xxs,
     },

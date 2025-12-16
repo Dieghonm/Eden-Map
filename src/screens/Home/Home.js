@@ -67,7 +67,6 @@ export default function Home({ onEditFeeling, navigation }) {
       </GlassBox>
 
       <ButtonPrimary
-        // title='Entrada do Eden'
         title='Iniciar Jornada'
         onPress={() => handlebutton('Day')}
       />

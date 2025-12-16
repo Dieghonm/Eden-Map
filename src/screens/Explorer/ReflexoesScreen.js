@@ -1,4 +1,3 @@
-// src/screens/Explorer/ReflexoesScreen.js - REFATORADO
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -9,16 +8,20 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import GlassBox from '../../components/GlassBox';
 import ImgButton from '../../components/ImgButton';
 import NavigationControls from '../../components/NavigationControls';
+import { PERGUNTAS } from '../../../assets/json/Semanas';
 
 export default function ReflexoesScreen({ navigation }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
-  const { trackingRespostas = {}, perguntasRespostas, cenasRespostas } = useJourney();
+  const { trackingRespostas = {}, perguntasRespostas = [], cenasRespostas = [] } = useJourney();
 
   const [respostasScreen, setRespostasScreen] = useState(false);
+
   const [cenasList, setCenasList] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentCenaIndex, setCurrentCenaIndex] = useState(0);
+
+  const [respostaIndex, setRespostaIndex] = useState(0);
 
   const values = [
     trackingRespostas.triste ?? 0.01,
@@ -47,22 +50,18 @@ export default function ReflexoesScreen({ navigation }) {
     });
 
     setCenasList(lista);
-    setCurrentIndex(0);
+    setCurrentCenaIndex(0);
   }, [cenasRespostas]);
 
-  const handleNext = () => {
-    if (currentIndex < cenasList.length - 1) {
-      setCurrentIndex(prev => prev + 1);
-    }
-  };
+  const respostasList = perguntasRespostas
+    .map((item, index) => item ? { ...item, originalIndex: index + 1 } : null)
+    .filter(Boolean);
 
-  const handlePrevious = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(prev => prev - 1);
-    }
-  };
+  const cenaAtual = cenasList[currentCenaIndex];
+  const respostaAtual = respostasList[respostaIndex];
 
-  const cenaAtual = cenasList[currentIndex];
+  const totalBars = values.reduce((a, b) => a + b, 0) || 1;
+  const maxBarHeight = 100;
 
   const barColors = [
     theme.warning,
@@ -70,29 +69,49 @@ export default function ReflexoesScreen({ navigation }) {
     theme.success,
   ];
 
-  const totalBars = values.reduce((a, b) => a + b, 0) || 1;
-  const maxBarHeight = 100;
+  const tipoResposta = respostaAtual && [5, 6, 7, 8].includes(respostaAtual.semana)
+    ? 'Sombra'
+    : 'Luz';
 
   // ============================================================================
-  // TELA: RESPOSTAS (placeholder)
+  // TELA: RESPOSTAS
   // ============================================================================
   if (respostasScreen === 'respostas') {
     return (
       <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
-        <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-          <GlassBox>
-            {console.log(perguntasRespostas)}
-          </GlassBox>
-          <NavigationControls
-            currentIndex={currentIndex}
-            total={cenasList.length}
-            onPrevious={handlePrevious}
-            onNext={handleNext}
-          />
-          <ButtonPrimary
-            title="Voltar"
-            onPress={() => setRespostasScreen(false)}
-          />
+        <ScrollView contentContainerStyle={styles.scrollContentResposta} showsVerticalScrollIndicator={false}>
+          {tipoResposta == 'Sombra'?
+           <ImgButton title={'Pergunta: Sombra'} img={'ExpSombra'}/> : 
+           <ImgButton title={'Pergunta: Luz'} img={'ExpLuz'}/>
+          }
+       
+          {respostasList.length === 0 ? (
+            <GlassBox>
+              <Text style={styles.cena}>Nenhuma resposta registrada ainda.</Text>
+            </GlassBox>
+          ) : (
+            <>
+              <Text style={styles.respostaData}>
+                Respondido em:{' '}
+                {new Date(respostaAtual.timestamp).toLocaleDateString('pt-BR')}
+              </Text>
+              <GlassBox>
+                <Text style={styles.pergunta}>{PERGUNTAS[respostaAtual.path ][respostaAtual.semana].Pergunta}</Text>
+                <Text style={[styles.resposta, styles.respostaAcao]}>
+                  {respostaAtual.resposta}
+                </Text>
+              </GlassBox>
+
+              <NavigationControls
+                currentIndex={respostaIndex}
+                total={respostasList.length}
+                onPrevious={() => setRespostaIndex(i => Math.max(i - 1, 0))}
+                onNext={() => setRespostaIndex(i => Math.min(i + 1, respostasList.length - 1))}
+              />
+            </>
+          )}
+
+          <ButtonPrimary title="Voltar" onPress={() => setRespostasScreen(false)} />
         </ScrollView>
       </SafeAreaView>
     );
@@ -107,37 +126,42 @@ export default function ReflexoesScreen({ navigation }) {
         <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
           {cenaAtual && (
             <>
-              <Text style={styles.data}>{cenaAtual.data}  -  Cena: {cenaAtual.cena}</Text>
+              <Text style={styles.data}>
+                {cenaAtual.data}  -  Cena: {cenaAtual.cena}
+              </Text>
+
               <GlassBox>
-                  <Text style={styles.cena}>{cenaAtual.pergunta}</Text>
-                  <Text style={styles.pergunta}>Onde se passa sua cena?</Text>
-                  <Text style={styles.resposta}>{cenaAtual.onde}</Text>
-                  <Text style={styles.pergunta}>Quem estava ao seu redor?</Text>
-                  <Text style={styles.resposta}>{cenaAtual.quem}</Text>
-                  <Text style={styles.pergunta}>Qual era o contexto ou ação?</Text>
-                  <Text style={[styles.resposta, styles.acao]}>{cenaAtual.acao}</Text>
+                <Text style={styles.cena}>{cenaAtual.pergunta}</Text>
+
+                <Text style={styles.pergunta}>Onde se passa sua cena?</Text>
+                <Text style={styles.resposta}>{cenaAtual.onde}</Text>
+
+                <Text style={styles.pergunta}>Quem estava ao seu redor?</Text>
+                <Text style={styles.resposta}>{cenaAtual.quem}</Text>
+
+                <Text style={styles.pergunta}>Qual era o contexto ou ação?</Text>
+                <Text style={[styles.resposta, styles.acao]}>
+                  {cenaAtual.acao}
+                </Text>
               </GlassBox>
             </>
           )}
 
           <NavigationControls
-            currentIndex={currentIndex}
+            currentIndex={currentCenaIndex}
             total={cenasList.length}
-            onPrevious={handlePrevious}
-            onNext={handleNext}
+            onPrevious={() => setCurrentCenaIndex(i => Math.max(i - 1, 0))}
+            onNext={() => setCurrentCenaIndex(i => Math.min(i + 1, cenasList.length - 1))}
           />
 
-          <ButtonPrimary
-            title="Voltar"
-            onPress={() => setRespostasScreen(false)}
-          />
+          <ButtonPrimary title="Voltar" onPress={() => setRespostasScreen(false)} />
         </ScrollView>
       </SafeAreaView>
     );
   }
 
   // ============================================================================
-  // TELA: PRINCIPAL (GRÁFICO)
+  // TELA: PRINCIPAL
   // ============================================================================
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
@@ -154,15 +178,7 @@ export default function ReflexoesScreen({ navigation }) {
 
                 return (
                   <View key={index} style={styles.barWrapper}>
-                    <View
-                      style={[
-                        styles.bar,
-                        {
-                          height,
-                          backgroundColor: barColors[index],
-                        },
-                      ]}
-                    />
+                    <View style={[styles.bar, { height, backgroundColor: barColors[index] }]} />
                   </View>
                 );
               })}
@@ -172,26 +188,22 @@ export default function ReflexoesScreen({ navigation }) {
 
             <View style={styles.iconsRow}>
               <View style={styles.iconBox}>
-                <Image source={require("../../../assets/icons/Triste.png")} style={styles.icon} resizeMode="contain" />
+                <Image source={require('../../../assets/icons/Triste.png')} style={styles.icon} />
               </View>
               <View style={styles.iconBox}>
-                <Image source={require("../../../assets/icons/Neutro.png")} style={styles.icon} resizeMode="contain" />
+                <Image source={require('../../../assets/icons/Neutro.png')} style={styles.icon} />
               </View>
               <View style={styles.iconBox}>
-                <Image source={require("../../../assets/icons/Feliz.png")} style={styles.icon} resizeMode="contain" />
+                <Image source={require('../../../assets/icons/Feliz.png')} style={styles.icon} />
               </View>
             </View>
 
             <View style={styles.labelsRow}>
-              {values.map((value, index) => {
-                const percentage = Math.round((value / totalBars) * 100);
-
-                return (
-                  <Text key={index} style={styles.barLabel}>
-                    {percentage}%
-                  </Text>
-                );
-              })}
+              {values.map((value, index) => (
+                <Text key={index} style={styles.barLabel}>
+                  {Math.round((value / totalBars) * 100)}%
+                </Text>
+              ))}
             </View>
           </View>
         </GlassBox>

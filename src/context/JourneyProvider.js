@@ -49,8 +49,6 @@ export default function JourneyProvider({ children }) {
         if (tempo !== undefined && tempo !== null) setTempoRespiracao(tempo);
         if (missoes) setMissoesConcluidas(missoes);
         if (config) setConfigRespiracao(config);
-
-        console.log('✅ Tracking carregado:', tracking);
       } catch (error) {
         console.error('❌ Erro ao carregar dados iniciais:', error);
       }
@@ -63,19 +61,14 @@ export default function JourneyProvider({ children }) {
   // ============================================================================
   const salvarTrackingResposta = useCallback(async (tipo) => {
     try {
-      // Busca o estado atual (não do AsyncStorage, do estado React)
       const atual = { ...trackingRespostas };
 
-      // Soma +1 no item selecionado
       atual[tipo] = (atual[tipo] || 0) + 1;
 
-      // Atualiza o estado React
       setTrackingRespostas(atual);
 
-      // Salva no AsyncStorage (chave SEM underscore)
       await storeData('trackingRespostas', atual);
 
-      console.log('✅ Tracking atualizado:', atual);
       return true;
     } catch (error) {
       console.error('❌ Erro ao salvar tracking:', error);
@@ -365,8 +358,6 @@ export default function JourneyProvider({ children }) {
       await storeData('tempoRespiracao', null);
       await storeData('missoesConcluidas', []);
       await storeData('configRespiracao', { ativado: false, tempo: null });
-
-      console.log('✅ Todos os dados foram resetados');
       return true;
     } catch (error) {
       console.error('❌ Erro ao resetar dados:', error);
