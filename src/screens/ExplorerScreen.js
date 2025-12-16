@@ -39,6 +39,7 @@ export default function ExplorerScreen({ navigation }) {
       </View>
 
       <View style={styles.buttonsContainer}>
+
         <ImgButton 
           title="Vídeos"
           onPress={() => handlePress('Vídeos')}

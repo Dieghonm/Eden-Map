@@ -36,24 +36,42 @@ export default function ReflexoesScreen({ navigation }) {
   const total = values.reduce((a, b) => a + b, 0) || 1;
   const maxBarHeight = 100;
 
-  if (respostasScreen) {
+  if (respostasScreen == 'respostas') {
     return(
       <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
         <ScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
-          <Text style={styles.title}>Revise suas respostas.</Text>
-          <Text style={styles.subtitle}>
-            <Text style={styles.highlight}>Selecione o segmento</Text>
-             desejado, e retorne às 
-            <Text style={styles.highlight}>respostas já registradas</Text>
-             em sua jornada.
-          </Text>
 
-          <ImgButton title={'Descrição de cena'} img={'DESCRICAOCENA'} onPress={()=>changeScreen('cena')}/>
-          <ImgButton title={'Pergunta: Luz'} img={'ExpLuz'} onPress={()=>changeScreen('luz')}/>
-          <ImgButton title={'Pergunta: Sombra'} img={'ExpSombra'} onPress={()=>changeScreen('sombra')}/>
+          <GlassBox>
+            
+          </GlassBox>
+
+
+          <ButtonPrimary 
+            title="Voltar"
+            onPress={() => setrespostasScreen(!respostasScreen)}
+          />
+
+        </ScrollView>
+      </SafeAreaView>
+      
+    )
+  }
+
+  if (respostasScreen == 'cenas') {
+    return(
+      <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+        <ScrollView
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+
+          <GlassBox>
+            
+          </GlassBox>
+
 
           <ButtonPrimary 
             title="Voltar"
@@ -142,16 +160,14 @@ export default function ReflexoesScreen({ navigation }) {
           for esse balanço, mais fácil se torna,
           <Text style={styles.highlight}> atrair seu desejo</Text>.
         </Text>
-
-        <ButtonPrimary
-          title="Respostas"
-          onPress={() => setrespostasScreen(!respostasScreen)}
-        />
-
-        <ButtonSecundary
-          title="Voltar"
-          onPress={() => navigation.goBack()}
-        />
+        <View style={styles.spacer}>
+          <ImgButton title={'Descrição de cena'} img={'DESCRICAOCENA'} onPress={()=>setrespostasScreen('cenas')}/>
+          <ImgButton title={'Suas respostas'} img={'ExpLuz'} onPress={()=>setrespostasScreen('respostas')}/>
+          <ButtonPrimary
+            title="Voltar"
+            onPress={() => navigation.goBack()}
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

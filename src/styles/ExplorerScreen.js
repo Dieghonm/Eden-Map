@@ -27,7 +27,7 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.r4,
     },
     buttonsContainer: {
-      height: spacing.giant +(spacing.md*2),
+      height: spacing.giant + (spacing.md*2),
       gap: spacing.md,
       margin: spacing.md,
     },

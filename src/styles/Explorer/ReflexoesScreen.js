@@ -11,7 +11,7 @@ export const createStyles = (theme) =>
     scrollContent: {
       alignItems: 'center',
       paddingBottom: spacing.md,
-      marginTop: spacing.xxl,
+      marginTop: spacing.lg,
     },
     title: {
       fontSize: fontSize.xxl,
@@ -25,7 +25,7 @@ export const createStyles = (theme) =>
       fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
-      marginBottom: spacing.md,
+      marginBottom: spacing.xs,
       textAlign: 'center',
       lineHeight: spacing.xs,
       width: spacing.giant,
@@ -33,6 +33,10 @@ export const createStyles = (theme) =>
     highlight: {
       color: theme.alert,
       fontFamily: fontFamily.b7,
+    },
+    spacer:{
+      rowGap: 20
+
     },
     chartContainer: {
       alignItems: 'center',
