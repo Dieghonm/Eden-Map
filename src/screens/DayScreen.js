@@ -1,4 +1,4 @@
-// src/screens/DayScreen.js
+// src/screens/DayScreen.js - TELA DE ENTRADA ESTILIZADA
 import React, { useState } from 'react';
 import { View, Text, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -119,6 +119,55 @@ export default function DayScreen({ navigation }) {
   );
 
   // ========================================================================
+  // 🎨 LÓGICA DA FASE
+  // ========================================================================
+  const getFaseInfo = () => {
+    if (semanaAtual >= 1 && semanaAtual <= 4) {
+      return {
+        numero: 1,
+        tipo: 'Exercícios de luz',
+        descricao: [
+          'Aqui, a ',
+          'gratidão abre a porta da mudança.',
+          ' Ela atrai sentimentos ',
+          'elevados',
+          ' e te ensina a ',
+          'abraçar o presente',
+          ' com leveza.'
+        ]
+      };
+    } else if (semanaAtual >= 5 && semanaAtual <= 8) {
+      return {
+        numero: 2,
+        tipo: 'Exercícios de sombra',
+        descricao: [
+          'Aqui você vai ',
+          'entender os seus medos',
+          ' e ',
+          'reprogramar ',
+          'a forma como a ',
+          'mente',
+          ' os interpreta.'
+        ]
+      };
+    } else {
+      return {
+        numero: 3,
+        tipo: 'Exercícios de luz',
+        descricao: [
+          'Aqui a',
+          ' mente',
+          ' se torna espelho do que você quer ',
+          'viver',
+          '. A ',
+          'visualização revela o caminho',
+          ' do desejo à realidade.'
+        ]
+      };
+    }
+  };
+
+  // ========================================================================
   // TELAS DINÂMICAS
   // ========================================================================
   switch (currentScreen) {
@@ -139,51 +188,70 @@ export default function DayScreen({ navigation }) {
   }
 
   // ========================================================================
-  // TELA DE ENTRADA
+  // 🎨 TELA DE ENTRADA ESTILIZADA
   // ========================================================================
   if (!entradaScreen) {
     const concluidos = 7 * (semanaAtual - 1) + diaAtual - 1;
     const total = 84;
     const porcentagem = Math.round((concluidos / total) * 100);
+    const faseInfo = getFaseInfo();
+
     return (
-      <SafeAreaView style={styles.container}>
-
-        <Text >Dia {diaAtual} - Semana {semanaAtual}</Text>
-        <Text >Caminho da {selectedPath}</Text>
-
-        {true? <View>
-          <Text>Fase 2 - Exercícios de sombra</Text>
-          <Text style={styles.Text}>
-            Aqui você vai 
-            <Text style={styles.highlight}> entender os seus medos </Text>
-             e reprogramar a forma como a 
-            <Text style={styles.highlight}> mente </Text>
-              os interpreta.
+      <SafeAreaView style={styles.entradaContainer}>
+        {/* CABEÇALHO */}
+        <View style={styles.headerEntrada}>
+          <Text style={styles.diaText}>Dia {diaAtual} - Semana {semanaAtual}</Text>
+          
+          <Text style={styles.faseTitle}>Fase {faseInfo.numero} - {faseInfo.tipo}</Text>
+          
+          <Text style={styles.faseDescricao}>
+            {faseInfo.descricao[0]}
+            <Text style={styles.highlight}>{faseInfo.descricao[1]}</Text>
+            {faseInfo.descricao[2]}
+            <Text style={styles.highlight}>{faseInfo.descricao[3]}</Text>
+            {faseInfo.descricao[4]}
+            {faseInfo.descricao[5] && <Text style={styles.highlight}>{faseInfo.descricao[5]}</Text>}
+            {faseInfo.descricao[6] || ''}
           </Text>
-        </View>:
-        <View>
+        </View>
 
-        </View> }
-        <Image
-          source={{ uri: SEMANA.img }}
-          style={{
-            width: horizontalScale(290),
-            height: verticalScale(290),
-          }}
-        />
-        
+        {/* IMAGEM */}
+        <View style={styles.imageContainer}>
+          <Image
+            source={{ uri: SEMANA.img }}
+            style={styles.semanaImage}
+            resizeMode="cover"
+          />
+        </View>
 
-          <Text>{porcentagem}</Text>
+        {/* BARRA DE PROGRESSO */}
+        <View style={styles.progressSection}>
+          <Text style={styles.progressPercentage}>{porcentagem}%</Text>
+          
+          <View style={styles.progressBarContainer}>
+            <View style={styles.progressBarBackground}>
+              <View 
+                style={[
+                  styles.progressBarFill, 
+                  { width: `${porcentagem}%` }
+                ]} 
+              />
+            </View>
+          </View>
+        </View>
 
-        <ButtonPrimary
-          title="Exercícios do dia"
-          onPress={() => setEntradaScreen(true)}
-        />
+        {/* BOTÕES */}
+        <View style={styles.buttonsContainer}>
+          <ButtonPrimary
+            title="Entrar no Eden"
+            onPress={() => setEntradaScreen(true)}
+          />
 
-        <ButtonSecundary
-          title="Voltar"
-          onPress={() => navigation.goBack()}
-        />
+          <ButtonSecundary
+            title="Voltar"
+            onPress={() => navigation.goBack()}
+          />
+        </View>
       </SafeAreaView>
     );
   }
@@ -208,6 +276,7 @@ export default function DayScreen({ navigation }) {
             width: horizontalScale(290),
             height: verticalScale(290),
           }}
+          resizeMode="cover"
         />
       </View>
 
