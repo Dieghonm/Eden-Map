@@ -7,7 +7,7 @@ export const createStyles = (theme) =>
     container: {
       flex: 1,
       backgroundColor: 'transparent',
-      marginTop: spacing.xxl,
+      marginTop: spacing.xl,
     },
     scrollContent: {
       flexGrow: 1,
@@ -45,8 +45,8 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
       marginBottom: spacing.xs,
-      // textAlign: 'left',
-      // alignSelf: 'flex-start',
+      textAlign: 'left',
+      alignSelf: 'flex-start',
     },
     spacer: {
       height: 2,

@@ -10,31 +10,40 @@ export const createStyles = (theme) =>
       alignItems: 'center',
       width: spacing.giant,
       marginHorizontal: spacing.md * 2,
-      marginTop: spacing.xl + spacing.xs,
+      marginTop: spacing.lg,
     },
     videoTitle: {
-      fontSize: fontSize.xl,
+      fontSize: fontSize.xxl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
       textAlign: 'left',
       alignSelf: 'flex-start',
-      height: spacing.sm,
+      height: spacing.sm * 2,
+      paddingVertical: spacing.xxs * 2
     },
     videoDescription: {
-      fontSize: fontSize.lg,
+      fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
       lineHeight: spacing.xs,
       height: spacing.xs * 5
     },
-    videoDuration: {
-      fontSize: fontSize.xl,
-      fontFamily: fontFamily.b7,
-      color: theme.alert,
-      marginBottom: spacing.xs,
-    },    
     highlight: {
       color: theme.alert,
       fontFamily: fontFamily.r4,
     },
+    videoDuration: {
+      fontSize: fontSize.xl,
+      fontFamily: fontFamily.b7,
+      color: theme.fontColor,
+      marginBottom: spacing.xs,
+      textAlign: 'left',
+      alignSelf: 'flex-start',
+    },
+    linha:{
+      backgroundColor: theme.alert,
+      width:260,
+      height:2
+
+    } 
   });

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, Linking } from 'react-native';
+import { View, Text, ScrollView} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../../context/ThemeProvider';
 import { useApp } from '../../context/AppProvider';
@@ -8,7 +8,6 @@ import { VIDEOS } from '../../../assets/json/Semanas';
 import { createStyles } from '../../styles/Days/VideoDay';
 import GlassBox from '../../components/GlassBox';
 import VideoPlayer from '../../components/VideoPlayer';
-import ButtonPrimary from '../../components/ButtonPrimary';
 import ButtonSecundary from '../../components/ButtonSecundary';
 
 export default function VideoDay({ onComplete }) {
@@ -26,11 +25,6 @@ export default function VideoDay({ onComplete }) {
     if (state === 'ended') {
       setVideoCompleto(true);
     }
-  };
-
-  const openYoutube = () => {
-    const url = `https://www.youtube.com/watch?v=${videoData.video}`;
-    Linking.openURL(url);
   };
 
   const handleConcluir = async () => {
@@ -62,22 +56,17 @@ export default function VideoDay({ onComplete }) {
           <Text style={styles.highlight}>{videoData.sinopse[3]}</Text>
           {videoData.sinopse[4]}
         </Text>
+          <Text style={styles.videoDuration}>Duração: 5 minutos</Text>
         <View  style={styles.spacer}/>
         <GlassBox style={styles.videoCard}>
           <Text style={styles.videoTitle}>{videoData.topico}</Text>
-          <VideoPlayer
-            videoId={videoData.video}
-            height={200}
-            play
-            onChangeState={handleVideoStateChange}
-          />
-          <Text style={styles.videoDuration}>Duração: 5 minutos</Text>
-
-          <ButtonPrimary
-            title="Assistir no Youtube"
-            onPress={openYoutube}
-            width={220}
-          />
+          <View>
+            <VideoPlayer
+              videoId={videoData.video}
+              play
+              onChangeState={handleVideoStateChange}
+            />
+          </View>
         </GlassBox>
 
         <ButtonSecundary
