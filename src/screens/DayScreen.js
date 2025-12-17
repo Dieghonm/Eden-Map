@@ -1,3 +1,4 @@
+// src/screens/DayScreen.js
 import React, { useState } from 'react';
 import { View, Text, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -5,6 +6,7 @@ import ConfettiCannon from 'react-native-confetti-cannon';
 
 import { useTheme } from '../context/ThemeProvider';
 import { useApp } from '../context/AppProvider';
+
 import { createStyles } from '../styles/DayScreen';
 import { SEMANAS, CALENDAR } from '../../assets/json/Semanas';
 
@@ -21,11 +23,19 @@ import TrakingDay from './Days/TrakingDay';
 import PerguntasDay from './Days/PerguntasDay';
 import MeditacaoScreen from './Days/MeditacaoScreen';
 
+// ============================================================================
+// 🎬 COMPONENTE PRINCIPAL
+// ============================================================================
 export default function DayScreen({ navigation }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
 
-  const { semanaAtual, diaAtual, avancarDia } = useApp();
+  const {
+    semanaAtual,
+    diaAtual,
+    selectedPath,
+    avancarDia,
+  } = useApp();
 
   const SEMANA = SEMANAS[semanaAtual - 1];
   const DIA = CALENDAR[diaAtual - 1];
@@ -34,13 +44,11 @@ export default function DayScreen({ navigation }) {
   const [entradaScreen, setEntradaScreen] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
 
-  const initialStatus = {
+  const [statusDiaAtual, setStatusDiaAtual] = useState({
     exercicioConcluido: DIA.exercicio === '',
     meditacaoLiberada: DIA.exercicio === '',
     meditacaoConcluida: false,
-  };
-
-  const [statusDiaAtual, setStatusDiaAtual] = useState(initialStatus);
+  });
 
   const buttonText = () => {
     switch (DIA.exercicio) {
@@ -61,7 +69,7 @@ export default function DayScreen({ navigation }) {
     }
   };
 
-  const handleExercicioComplete = (sucesso) => {
+  const handleExercicioComplete = sucesso => {
     if (!sucesso) return;
 
     setCurrentScreen('');
@@ -72,7 +80,7 @@ export default function DayScreen({ navigation }) {
     }));
   };
 
-  const handleMeditacaoComplete = (sucesso) => {
+  const handleMeditacaoComplete = sucesso => {
     if (!sucesso) return;
 
     setCurrentScreen('');
@@ -110,6 +118,9 @@ export default function DayScreen({ navigation }) {
     <ImgButton title="Finalizado" img="Checked" onPress={() => {}} />
   );
 
+  // ========================================================================
+  // TELAS DINÂMICAS
+  // ========================================================================
   switch (currentScreen) {
     case 'DESCRICAOCENA':
       return <CenaDay onComplete={handleExercicioComplete} />;
@@ -127,14 +138,48 @@ export default function DayScreen({ navigation }) {
       break;
   }
 
+  // ========================================================================
+  // TELA DE ENTRADA
+  // ========================================================================
   if (!entradaScreen) {
+    const concluidos = 7 * (semanaAtual - 1) + diaAtual - 1;
+    const total = 84;
+    const porcentagem = Math.round((concluidos / total) * 100);
     return (
       <SafeAreaView style={styles.container}>
+
+        <Text >Dia {diaAtual} - Semana {semanaAtual}</Text>
+        <Text >Caminho da {selectedPath}</Text>
+
+        {true? <View>
+          <Text>Fase 2 - Exercícios de sombra</Text>
+          <Text style={styles.Text}>
+            Aqui você vai 
+            <Text style={styles.highlight}> entender os seus medos </Text>
+             e reprogramar a forma como a 
+            <Text style={styles.highlight}> mente </Text>
+              os interpreta.
+          </Text>
+        </View>:
+        <View>
+
+        </View> }
+        <Image
+          source={{ uri: SEMANA.img }}
+          style={{
+            width: horizontalScale(290),
+            height: verticalScale(290),
+          }}
+        />
+        
+
+          <Text>{porcentagem}</Text>
 
         <ButtonPrimary
           title="Exercícios do dia"
           onPress={() => setEntradaScreen(true)}
         />
+
         <ButtonSecundary
           title="Voltar"
           onPress={() => navigation.goBack()}
@@ -143,6 +188,9 @@ export default function DayScreen({ navigation }) {
     );
   }
 
+  // ========================================================================
+  // TELA PRINCIPAL DO DIA
+  // ========================================================================
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.TextContainer}>

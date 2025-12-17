@@ -8,7 +8,6 @@ export const createStyles = (theme) =>
       // flex: 1,
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
-      gap: spacing.xs,
       marginTop: spacing.lg
 
     },
