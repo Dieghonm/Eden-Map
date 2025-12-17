@@ -1,18 +1,21 @@
+// src/styles/Starting/PathDetail.js - COMPLETO
 import { StyleSheet } from 'react-native';
 import { spacing, fontSize, fontFamily, borderRadius } from '../../theme/texts';
-import { verticalScale } from '../../utils/responsive';
+import { verticalScale, horizontalScale } from '../../utils/responsive';
 
 export const createStyles = (theme) =>
   StyleSheet.create({
+    // ========================================================================
+    // TELA 1: DETAIL (já existente)
+    // ========================================================================
     container: {
-      // flex: 1,
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
+      paddingTop: spacing.xl,
     },
     headerContainer: {
       alignItems: 'flex-start',
       width: spacing.giant,
-      marginTop: spacing.xl,
       marginBottom: spacing.md,
     },
     title: {
@@ -25,7 +28,7 @@ export const createStyles = (theme) =>
       fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
-      lineHeight: spacing.xs + (spacing.xxs / 2),
+      lineHeight: spacing.xs,
     },
     highlight: {
       color: theme.alert,
@@ -38,8 +41,108 @@ export const createStyles = (theme) =>
       borderRadius: borderRadius.m,
       marginBottom: spacing.md,
     },
-    image:{
-      height:290,
-      width:290,
-    }
+    image: {
+      height: spacing.giant,
+      width: spacing.giant,
+    },
+
+    // ========================================================================
+    // TELA 2: JORNADA (nova)
+    // ========================================================================
+    jornadaTitle: {
+      fontSize: fontSize.xxl,
+      fontFamily: fontFamily.b7,
+      color: theme.fontColor,
+      marginBottom: spacing.xxs,
+      textAlign: 'left',
+      width: spacing.giant,
+    },
+    jornadaSubtitle: {
+      fontSize: fontSize.xl,
+      fontFamily: fontFamily.b7,
+      color: theme.fontColor,
+      lineHeight: spacing.xs,
+      marginBottom: spacing.xs,
+      width: spacing.giant,
+    },
+    text:{
+      fontSize: fontSize.md,
+      fontFamily: fontFamily.r4,
+      color: theme.fontColor,
+      lineHeight: spacing.xs,
+      marginBottom: spacing.xs,
+      width: spacing.giant,
+    },
+    
+    featuresContainer: {
+      width: spacing.giant,
+      paddingHorizontal: spacing.md,
+      paddingVertical: spacing.xxs * 2
+    },
+    featureRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: spacing.xs,
+      marginBottom: spacing.xs,
+    },
+    checkIcon: {
+      width: horizontalScale(20),
+      height: horizontalScale(20),
+      borderRadius: borderRadius.circle,
+      backgroundColor: theme.success,
+    },
+    featureText: {
+      fontSize: fontSize.md,
+      fontFamily: fontFamily.r4,
+      color: theme.fontColor,
+    },
+
+    // ========================================================================
+    // TELA 3: INTRODUÇÃO (nova)
+    // ========================================================================
+    introducaoTitle: {
+      fontSize: fontSize.xl,
+      fontFamily: fontFamily.b7,
+      color: theme.fontColor,
+      marginBottom: spacing.xxs,
+      textAlign: 'left',
+      width: spacing.giant,
+    },
+    introducaoDescription: {
+      fontSize: fontSize.md,
+      fontFamily: fontFamily.r4,
+      color: theme.fontColor,
+      lineHeight: spacing.xs,
+      marginBottom: spacing.md,
+      width: spacing.giant,
+    },
+    
+    // Linha separadora amarela
+    separator: {
+      height: 2,
+      width: spacing.giant,
+      backgroundColor: theme.alert,
+      marginBottom: spacing.xs,
+    },
+    
+    // Container do vídeo
+    videoSection: {
+      width: spacing.giant,
+      marginBottom: spacing.md,
+    },
+    time: {
+      fontSize: fontSize.lg,
+      fontFamily: fontFamily.b7,
+      color: theme.fontColor,
+      marginBottom: spacing.xs,
+      textAlign: 'left',
+      alignSelf: 'flex-start',
+    },
+    videoLabel: {
+      fontSize: fontSize.lg,
+      fontFamily: fontFamily.b7,
+      color: theme.fontColor,
+      textAlign: 'left',
+      alignSelf: 'flex-start',
+    },
   });

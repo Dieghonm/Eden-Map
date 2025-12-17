@@ -18,8 +18,8 @@ export const createStyles = (theme, size) => {
       height: scaledSize,
       borderRadius: 50,
       borderWidth: 20,
-      // borderColor: '#0759b6ff',
-      borderColor: theme.accent,
+      borderColor: '#433646ff',
+      // borderColor: theme.accent,
       opacity: 0.6
     },
     image: {

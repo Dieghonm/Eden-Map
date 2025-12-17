@@ -1,17 +1,15 @@
-import React, { useContext, useState, useMemo, useRef, useEffect } from 'react';
-import { View, Text, ActivityIndicator, Image, Animated, Dimensions } from 'react-native';
+// src/screens/Starting/PathDetail.js - COMPLETO
+import React, { useContext, useState, useMemo } from 'react';
+import { View, Text, ActivityIndicator, Image, ScrollView } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
 import { AppContext } from '../../context/AppProvider';
 import { createStyles } from '../../styles/Starting/PathDetail';
 import { CAMINHOS } from '../../../assets/json/Sentimentos';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import ButtonSecundary from '../../components/ButtonSecundary';
-import { api } from '../../services/api';
 import GlassBox from '../../components/GlassBox';
-import ImgButton from '../../components/ImgButton';
 import VideoPlayer from '../../components/VideoPlayer';
-
-const { width } = Dimensions.get('window');
+import { api } from '../../services/api';
 
 const SCREENS = {
   DETAIL: 'detail',
@@ -32,29 +30,11 @@ export default function PathDetail({ selectedPathName, onConfirm, onBack }) {
     [selectedPathName]
   );
 
-  const translateX = useRef(new Animated.Value(width)).current;
-  const opacity = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    translateX.setValue(width);
-    opacity.setValue(0);
-
-    Animated.parallel([
-      Animated.timing(translateX, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true
-      }),
-      Animated.timing(opacity, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true
-      })
-    ]).start();
-  }, [screen]);
-
   if (!pathData) return null;
-  
+
+  // ========================================================================
+  // HANDLER: Confirmar caminho e salvar progresso
+  // ========================================================================
   const handleConfirmPath = async () => {
     setSalvandoProgresso(true);
 
@@ -70,6 +50,9 @@ export default function PathDetail({ selectedPathName, onConfirm, onBack }) {
     }
   };
 
+  // ========================================================================
+  // HELPER: Renderizar descrição com highlights
+  // ========================================================================
   const renderDescricao = () => (
     <Text style={styles.subtitle}>
       {pathData.descricao.map((item, index) =>
@@ -82,8 +65,14 @@ export default function PathDetail({ selectedPathName, onConfirm, onBack }) {
     </Text>
   );
 
+  // ========================================================================
+  // TELA 1: DETAIL - Descrição do caminho
+  // ========================================================================
   const renderDetail = () => (
-    <View style={styles.container}>
+    <ScrollView 
+      contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}
+    >
       <View style={styles.headerContainer}>
         <Text style={styles.title}>{pathData.nome}</Text>
         {renderDescricao()}
@@ -104,72 +93,151 @@ export default function PathDetail({ selectedPathName, onConfirm, onBack }) {
         </View>
       ) : (
         <>
-          <ButtonPrimary title="Seguir esse caminho" onPress={handleConfirmPath} />
-          <ButtonSecundary title="Escolher outro tema" onPress={onBack} />
+          <ButtonPrimary 
+            title="Seguir esse caminho" 
+            onPress={handleConfirmPath} 
+          />
+          <ButtonSecundary 
+            title="Escolher outro tema" 
+            onPress={onBack} 
+          />
         </>
       )}
-    </View>
+    </ScrollView>
   );
 
+  // ========================================================================
+  // TELA 2: JORNADA - Recursos do app
+  // ========================================================================
   const renderJornada = () => (
-    <View>
-      <Text>Guia Eden Map</Text>
-      <Text>
-        Nossa jornada imersiva o coloca em um mundo virtual onde, diariamente,
-        algo novo se apresenta para você.
+    <ScrollView 
+      contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}
+    >
+      <Text style={styles.jornadaTitle}>Guia Eden Map</Text>
+      
+      <Text style={styles.text}>
+        Nossa <Text style={styles.highlight}>jornada imersiva</Text> o coloca em um mundo virtual onde, {' '}
+        <Text style={styles.highlight}>diariamente</Text>, algo <Text style={styles.highlight}>novo</Text> se apresenta para você.
       </Text>
 
+      <Text style={styles.jornadaSubtitle}>
+        Transforme seu subconsciente através dos nossos:
+      </Text>
       <GlassBox>
-        <Text>Vídeos e aulas</Text>
-        <Text>Meditações e visualizações</Text>
-        <Text>Perguntas reflexivas</Text>
-        <Text>Missões e conquistas</Text>
-        <Text>Track de emoções</Text>
-        <Text>Ressignifique seus medos</Text>
-        <Text>Exercícios de gratidão</Text>
-      </GlassBox>
+        <View style={styles.featuresContainer}>
+          <View style={styles.featureRow}>
+            <Image
+              source={require('../../../assets/icons/Checked.png')}
+              style={styles.checkIcon}
+            />
+            <Text style={styles.featureText}>Vídeos e aulas</Text>
+          </View>
 
-      <ImgButton />
+          <View style={styles.featureRow}>
+            <Image
+              source={require('../../../assets/icons/Checked.png')}
+              style={styles.checkIcon}
+            />
+            <Text style={styles.featureText}>Meditações e visualizações</Text>
+          </View>
+
+          <View style={styles.featureRow}>
+            <Image
+              source={require('../../../assets/icons/Checked.png')}
+              style={styles.checkIcon}
+            />
+            <Text style={styles.featureText}>Perguntas reflexivas</Text>
+          </View>
+
+          <View style={styles.featureRow}>
+            <Image
+              source={require('../../../assets/icons/Checked.png')}
+              style={styles.checkIcon}
+            />
+            <Text style={styles.featureText}>Missões e conquistas</Text>
+          </View>
+
+          <View style={styles.featureRow}>
+            <Image
+              source={require('../../../assets/icons/Checked.png')}
+              style={styles.checkIcon}
+            />
+            <Text style={styles.featureText}>Track de emoções</Text>
+          </View>
+
+          <View style={styles.featureRow}>
+            <Image
+              source={require('../../../assets/icons/Checked.png')}
+              style={styles.checkIcon}
+            />
+            <Text style={styles.featureText}>Ressignifique seus medos</Text>
+          </View>
+
+          <View style={styles.featureRow}>
+            <Image
+              source={require('../../../assets/icons/Checked.png')}
+              style={styles.checkIcon}
+            />
+            <Text style={styles.featureText}>Exercícios de gratidão</Text>
+          </View>
+        </View>
+      </GlassBox>
 
       <ButtonPrimary
         title="Continuar"
         onPress={() => setScreen(SCREENS.INTRODUCAO)}
       />
-    </View>
+    </ScrollView>
   );
 
+  // ========================================================================
+  // TELA 3: INTRODUÇÃO - Vídeo tutorial
+  // ========================================================================
   const renderIntroducao = () => (
-    <View>
-      <Text>Guia Eden Map</Text>
-      <Text>
-        Nossa jornada imersiva o coloca em um mundo virtual onde, diariamente,
-        algo novo se apresenta para você.
+    <ScrollView 
+      contentContainerStyle={styles.container}
+      showsVerticalScrollIndicator={false}
+    >
+
+      <Text style={styles.jornadaTitle}>Guia Eden Map</Text>
+      
+      <Text style={styles.text}>
+        Nossa <Text style={styles.highlight}>jornada imersiva</Text> o coloca em um mundo virtual onde, {' '}
+        <Text style={styles.highlight}>diariamente</Text>, algo <Text style={styles.highlight}>novo</Text> se apresenta para você.
+      </Text>
+      <Text style={styles.introducaoTitle}>
+        Transforme seu subconsciente.{'\n'}
+        Descubra como:
       </Text>
 
-      <GlassBox>
-        <Text>Introdução ao App</Text>
-        <VideoPlayer />
+      <View style={styles.separator} />
+      <Text style={styles.time}>Duração: 5 minutos</Text>
+      <View style={styles.separator} />
+
+      <GlassBox style={styles.videoSection}>
+        <Text style={styles.videoLabel}>Introdução ao App</Text>
+        <View>
+
+          <VideoPlayer
+            videoId="dQw4w9WgXcQ"
+            height={165}
+            width={260}
+          />
+        </View>
       </GlassBox>
 
-      <ButtonPrimary title="Continuar" onPress={onConfirm} />
-    </View>
+      <ButtonPrimary 
+        title="Ir para home" 
+        onPress={onConfirm} 
+      />
+    </ScrollView>
   );
 
-  const renderContent = () => {
-    if (screen === SCREENS.JORNADA) return renderJornada();
-    if (screen === SCREENS.INTRODUCAO) return renderIntroducao();
-    return renderDetail();
-  };
-
-  return (
-    <Animated.View
-      style={{
-        flex: 1,
-        transform: [{ translateX }],
-        opacity
-      }}
-    >
-      {renderContent()}
-    </Animated.View>
-  );
+  // ========================================================================
+  // RENDERIZAÇÃO CONDICIONAL
+  // ========================================================================
+  if (screen === SCREENS.JORNADA) return renderJornada();
+  if (screen === SCREENS.INTRODUCAO) return renderIntroducao();
+  return renderDetail();
 }

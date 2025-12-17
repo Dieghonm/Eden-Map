@@ -11,8 +11,8 @@ export default function Img({ source, size = 120 }) {
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
-        Animated.timing(scale, { toValue: 1.04, duration: 600, useNativeDriver: true }),
-        Animated.timing(scale, { toValue: 1, duration: 0, useNativeDriver: true })
+        Animated.timing(scale, { toValue: 1.06, duration: 600, useNativeDriver: true }),
+        Animated.timing(scale, { toValue: 1, duration: 600, useNativeDriver: true })
       ])
     ).start();
   }, []);

@@ -41,4 +41,7 @@ export const createStyles = (theme) =>
     spacer: {
       height:spacing.xs
     },
+    playIcon:{
+      height: spacing.sm
+    }
   });
