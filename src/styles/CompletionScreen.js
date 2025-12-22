@@ -12,7 +12,7 @@ export const createStyles = (theme) =>
       flexGrow: 1,
       paddingHorizontal: spacing.lg,
       paddingTop: spacing.xl,
-      paddingBottom: spacing.md,
+      paddingBottom: spacing.sm,
       alignItems: 'center',
     },
 
@@ -21,7 +21,7 @@ export const createStyles = (theme) =>
     // ========================================================================
     header: {
       alignItems: 'center',
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
     },
     congratsTitle: {
       fontSize: fontSize.header,
@@ -44,7 +44,7 @@ export const createStyles = (theme) =>
     imageContainer: {
       width: horizontalScale(290),
       height: verticalScale(290),
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
       borderRadius: borderRadius.m,
       overflow: 'hidden',
     },
@@ -119,7 +119,7 @@ export const createStyles = (theme) =>
     emotionBar: {
       flexDirection: 'row',
       width: '100%',
-      height: spacing.md,
+      height: spacing.sm,
       borderRadius: borderRadius.m,
       overflow: 'hidden',
       marginBottom: spacing.xs,
@@ -161,7 +161,7 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
       textAlign: 'center',
-      marginTop: spacing.md,
+      marginTop: spacing.sm,
       opacity: 0.7,
     },
   });

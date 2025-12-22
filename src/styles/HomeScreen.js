@@ -32,7 +32,7 @@ export const createStyles = (theme) =>
     //   fontWeight: fontWeight.bold,
     //   color: theme.fontColor,
     //   fontFamily: fontFamily.b7,
-    //   marginBottom: spacing.md,
+    //   marginBottom: spacing.sm,
     // },
     // welcomeText: {
     //   fontSize: fontSize.lg,

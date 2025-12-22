@@ -69,7 +69,7 @@ export default function CompletionScreen({ navigation }) {
   const trackingPercent = calcularPercentualTracking();
 
   return (
-    <View style={styles.container} edges={['top', 'left', 'right']}>
+    <View style={styles.container} >
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}

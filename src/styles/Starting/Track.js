@@ -4,7 +4,7 @@ import { spacing, fontSize, fontFamily, borderRadius } from '../../theme/texts';
 export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
-      paddingHorizontal: spacing.md,
+      paddingHorizontal: spacing.sm,
       alignItems: 'center',
     },
     sectionTitle: {
@@ -12,13 +12,13 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
       textAlign: 'left',
-      marginBottom: spacing.md
+      marginBottom: spacing.sm
     },
     pathButton: {
       backgroundColor: theme.secondary,
       borderRadius: borderRadius.m,
       marginBottom: spacing.xs,
-      height: spacing.lg + spacing.md / 2,
+      height: spacing.lg + spacing.sm / 2,
       width: spacing.giant,
       alignItems: 'center',
       justifyContent: 'center',

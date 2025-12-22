@@ -6,7 +6,7 @@ export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
       alignItems: 'center',
-      paddingHorizontal: spacing.md,
+      paddingHorizontal: spacing.sm,
     },
     feelingButton: {
       flexDirection: 'row',
@@ -16,7 +16,7 @@ export const createStyles = (theme) =>
     feelingRow:{
       flexDirection: 'row',
       backgroundColor: theme.fontColor,
-      width: spacing.xxl + spacing.md,
+      width: spacing.xxl + spacing.sm,
       height: spacing.xs *2,
       borderRadius: borderRadius.circle,
       padding: spacing.xxs *1.5,
@@ -39,9 +39,9 @@ export const createStyles = (theme) =>
       alignItems: 'center',
     },
     spacer: {
-      height:spacing.md / 2
+      height:spacing.sm / 2
     },
     playIcon:{
-      height: spacing.sm
+      height: spacing.md
     }
   });

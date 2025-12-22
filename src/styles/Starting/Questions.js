@@ -20,7 +20,7 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.b7,
       marginBottom: spacing.xs / 2,
       marginTop: spacing.xs,
-      height:spacing.md
+      height:spacing.sm
       
     },
     highlight: {
@@ -34,7 +34,7 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.b7,
       marginBottom: spacing.xs,
       paddingRight: spacing.xxxl,
-      height:spacing.md - (spacing.xxs *1.5)
+      height:spacing.sm - (spacing.xxs *1.5)
     },
     progressContainer: {
       flexDirection: 'row',
@@ -60,7 +60,7 @@ export const createStyles = (theme) =>
 
     },
     viewOptions: {
-      marginBottom: spacing.md
+      marginBottom: spacing.sm
     },
     optionButton: {
       flexDirection: 'row',

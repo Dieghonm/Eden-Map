@@ -57,7 +57,7 @@ export default function MeditacaoScreen({ onComplete }) {
   };
 
   return (
-    <View style={{ flex: 1 }} edges={['top', 'left', 'right']}>
+    <View style={{ flex: 1 }} >
       <View style={{ flex: 1 }}>
         {renderStep()}
       </View>

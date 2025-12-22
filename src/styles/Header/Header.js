@@ -7,7 +7,7 @@ export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
       marginTop: spacing.xs / 2,
-      paddingHorizontal: spacing.md,
+      paddingHorizontal: spacing.sm,
       flexDirection: 'row',
       justifyContent: 'space-between',
       width: spacing.xxl * 3,
@@ -19,20 +19,20 @@ export const createStyles = (theme) =>
       gap: spacing.xs, 
     },
     iconButton: {
-      width: spacing.md,
-      height: spacing.md,
+      width: spacing.sm,
+      height: spacing.sm,
       justifyContent: 'center',
       alignItems: 'center',
     },
     
     icon: {
-      width: spacing.md,
-      height: spacing.md,
+      width: spacing.sm,
+      height: spacing.sm,
     },
     
     iconHome: {
-      width: spacing.md,
-      height: spacing.md,
+      width: spacing.sm,
+      height: spacing.sm,
     },
     
     modalOverlay: {
@@ -50,8 +50,8 @@ export const createStyles = (theme) =>
     },
     themeSelector: {
       flexDirection: 'row',
-      gap: spacing.sm,
-      marginBottom: spacing.md,
+      gap: spacing.md,
+      marginBottom: spacing.sm,
       justifyContent: 'center',
     },
     themeButton: {
@@ -83,7 +83,7 @@ export const createStyles = (theme) =>
     resetButton: {
       backgroundColor: theme.alert,
       paddingVertical: spacing.xs,
-      paddingHorizontal: spacing.md,
+      paddingHorizontal: spacing.sm,
       borderRadius: borderRadius.m,
       alignItems: 'center',
       marginBottom: spacing.xs,
@@ -97,7 +97,7 @@ export const createStyles = (theme) =>
     logoutButton: {
       backgroundColor: theme.warning,
       paddingVertical: spacing.xs,
-      paddingHorizontal: spacing.md,
+      paddingHorizontal: spacing.sm,
       borderRadius: borderRadius.m,
       alignItems: 'center',
     },

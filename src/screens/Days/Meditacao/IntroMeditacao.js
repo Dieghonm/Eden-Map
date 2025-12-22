@@ -9,6 +9,7 @@ import ButtonPrimary from '../../../components/ButtonPrimary';
 import ButtonSecundary from '../../../components/ButtonSecundary';
 import GlassBox from '../../../components/GlassBox';
 import { LOGINGIF } from '../../../../assets/json/Imagens';
+import HeaderAjuster from '../../../components/HeaderAjuster';
 
 export default function IntroMeditacao({ selectedPath, semanaAtual, onRelembrar, onRespiracao }) {
   const { theme } = useTheme();
@@ -24,6 +25,7 @@ export default function IntroMeditacao({ selectedPath, semanaAtual, onRelembrar,
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >
+      <HeaderAjuster />
       <View style={styles.imageContainer}>
         <Img
           source={{ uri: LOGINGIF }} 

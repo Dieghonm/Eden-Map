@@ -36,7 +36,7 @@ export default function Header({ onHomePress, onResetStarting }) {
   return (
     <>
       <SafeAreaView edges={['top']} style={styles.container}>
-        <Logo width={spacing.lg} height={spacing.md} />
+        <Logo width={spacing.lg} height={spacing.sm} />
 
         <View style={styles.buttonsContainer}>
           <TouchableOpacity

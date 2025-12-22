@@ -158,7 +158,7 @@ export default function MeditacoesScreen({ navigation }) {
   // ============================================================================
   if (!selectedPath) {
     return (
-      <View style={styles.container} edges={['top', 'left', 'right']}>
+      <View style={styles.container} >
         <Text style={styles.title}>Escolha qualquer meditação da biblioteca</Text>
         <Text style={styles.text}>Mais de 35 opções disponíveis.</Text>
 
@@ -200,7 +200,7 @@ export default function MeditacoesScreen({ navigation }) {
   // ============================================================================
   if (!selectedMedit) {
     return (
-      <View style={styles.container} edges={['top', 'left', 'right']}>
+      <View style={styles.container} >
         <View style={styles.spacing}/>
         
         <Text style={[styles.title, { color: selectedPath.color }]}>
@@ -246,7 +246,7 @@ export default function MeditacoesScreen({ navigation }) {
   // 📱 TELA 3: PLAYER DE MEDITAÇÃO
   // ============================================================================
   return (
-    <View style={styles.container} edges={['top', 'left', 'right']}>
+    <View style={styles.container} >
       <View style={styles.spacerBox} />
 
       <GlassBox>

@@ -34,7 +34,7 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
       lineHeight: spacing.xs,
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
     },
     highlight: {
       color: theme.alert,
@@ -52,6 +52,6 @@ export const createStyles = (theme) =>
       height: 2,
       width: spacing.giant,
       backgroundColor: theme.alert,
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
     }
   });

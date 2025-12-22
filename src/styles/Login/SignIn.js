@@ -21,7 +21,7 @@ export const createStyles = (theme) =>
     loadingContainer: {
       alignItems: 'center',
       justifyContent: 'center',
-      paddingVertical: spacing.md,
+      paddingVertical: spacing.sm,
     },
     loadingText: {
       color: theme.fontColor,

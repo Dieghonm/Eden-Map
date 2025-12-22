@@ -10,7 +10,7 @@ export const createStyles = (theme) =>
       borderRadius: borderRadius.m,
       flexDirection: 'row',
       alignItems: 'center',
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
       paddingHorizontal: spacing.lg - 2*spacing.xxs,
       paddingVertical: spacing.xs
     },

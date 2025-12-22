@@ -19,8 +19,8 @@ const scaleMinMax = (size) => {
 export const spacing = {
   xxs: scaleMinMax(5), 
   xs: scaleMinMax(20), 
-  sm: scaleMinMax(40), 
-  md: scaleMinMax(30), 
+  sm: scaleMinMax(30), 
+  md: scaleMinMax(40), 
   lg: scaleMinMax(50), 
   xl: scaleMinMax(90), 
   xxl: scaleMinMax(130),

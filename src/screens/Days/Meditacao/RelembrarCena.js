@@ -8,6 +8,7 @@ import { createStyles } from '../../../styles/Days/RelembrarCena';
 import GlassBox from '../../../components/GlassBox';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import ButtonSecundary from '../../../components/ButtonSecundary';
+import HeaderAjuster from '../../../components/HeaderAjuster';
 
 export default function RelembrarCena({ selectedPath, semanaAtual, onVoltar, onContinuar }) {
   const { theme } = useTheme();
@@ -66,6 +67,7 @@ export default function RelembrarCena({ selectedPath, semanaAtual, onVoltar, onC
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >
+      <HeaderAjuster />
       <Text style={styles.cenaCount}>
         Cena <Text style={styles.highlight}>{currentCena}</Text>/{totalCenas}
       </Text>

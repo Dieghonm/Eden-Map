@@ -9,7 +9,7 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
       marginTop: spacing.xxl,
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
       alignSelf: 'flex-start',
       width: '100%'
     },

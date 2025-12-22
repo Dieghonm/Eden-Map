@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, ActivityIndicator, TouchableOpacity, Text } from 'react-native';
+import { View, ActivityIndicator, TouchableOpacity, Text, Platform } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AppContext } from '../context/AppProvider';
 import { useTheme } from '../context/ThemeProvider';
@@ -44,7 +44,7 @@ function DevControls({ onBypassToggle, isBypassed }) {
         right: 20,
         backgroundColor: isBypassed ? theme.success : theme.warning,
         padding: 15,
-        borderRadius: 30,
+        borderRadius: 30
       }}
       onPress={onBypassToggle}
       activeOpacity={0.8}
@@ -95,15 +95,12 @@ export default function AppNavigator() {
       while (!serverOnline && Date.now() - startTime < MAX_TIME) {
         try {
           const response = await testConnection();
-          console.log('🔎 Retorno testConnection:', response);
-
           if (response) {
             serverOnline = true;
             break;
           }
-
           await new Promise(resolve => setTimeout(resolve, INTERVAL));
-        } catch (error) {
+        } catch {
           await new Promise(resolve => setTimeout(resolve, INTERVAL));
         }
       }
@@ -124,14 +121,14 @@ export default function AppNavigator() {
             login: userData.login,
             email: userData.email,
             tag: userData.tag,
-            plan: userData.plan,
+            plan: userData.plan
           });
         }
         setIsAuthenticated(true);
       } else {
         await attemptTokenRefresh();
       }
-    } catch (error) {
+    } catch {
       setIsAuthenticated(false);
     } finally {
       setIsLoading(false);
@@ -150,11 +147,11 @@ export default function AppNavigator() {
           login: response.user.login,
           email: response.user.email,
           tag: response.user.tag,
-          plan: response.user.plan,
+          plan: response.user.plan
         });
         setIsAuthenticated(true);
       }
-    } catch (error) {
+    } catch {
       await tokenHelpers.remove();
       setUser(null);
       setIsAuthenticated(false);
@@ -173,19 +170,12 @@ export default function AppNavigator() {
   };
 
   if (!isServerReady) {
-    return <ServerLoadingScreen texto={isServerReady}/>;
+    return <ServerLoadingScreen texto={isServerReady} />;
   }
 
   if (isLoading) {
     return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: theme.background,
-        }}
-      >
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.background }}>
         <ActivityIndicator size="large" color={theme.button} />
       </View>
     );
@@ -194,8 +184,13 @@ export default function AppNavigator() {
   return (
     <>
       <Stack.Navigator
+        key={isAuthenticated ? 'auth' : 'guest'}
         initialRouteName={isAuthenticated ? 'Home' : 'Login'}
-        screenOptions={{ headerShown: false }}
+        screenOptions={{
+          headerShown: false,
+          animation: isAuthenticated ? 'slide_from_right' : 'fade',
+          animationDuration: 250
+        }}
       >
         {isAuthenticated ? (
           <>
@@ -208,7 +203,10 @@ export default function AppNavigator() {
               )}
             </Stack.Screen>
 
-            <Stack.Screen name="Day">
+            <Stack.Screen
+              name="Day"
+              options={{ animation: 'slide_from_bottom' }}
+            >
               {(props) => (
                 <View style={{ flex: 1 }}>
                   <Header onHomePress={() => props.navigation.navigate('Home')} />
@@ -218,11 +216,11 @@ export default function AppNavigator() {
             </Stack.Screen>
 
             <Stack.Screen name="Explorer" component={ExplorerScreen} />
-            <Stack.Screen name="Videos" component={VideosScreen} />
-            <Stack.Screen name="Missoes" component={MissoesScreen} />
-            <Stack.Screen name="Meditacoes" component={MeditacoesScreen} />
-            <Stack.Screen name="Reflexoes" component={ReflexoesScreen} />
-            <Stack.Screen name="Completion" component={CompletionScreen} />
+            <Stack.Screen name="Videos" component={VideosScreen} options={{ animation: 'slide_from_bottom' }} />
+            <Stack.Screen name="Missoes" component={MissoesScreen} options={{ animation: 'slide_from_bottom' }} />
+            <Stack.Screen name="Meditacoes" component={MeditacoesScreen} options={{ animation: 'slide_from_bottom' }} />
+            <Stack.Screen name="Reflexoes" component={ReflexoesScreen} options={{ animation: 'slide_from_bottom' }} />
+            <Stack.Screen name="Completion" component={CompletionScreen} options={{ animation: 'fade' }} />
           </>
         ) : (
           <Stack.Screen name="Login" component={LoginScreen} />

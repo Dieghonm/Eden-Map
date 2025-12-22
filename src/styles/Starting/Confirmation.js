@@ -7,13 +7,13 @@ export const createStyles = (theme) =>
     container: {
       flex: 1,
       alignItems: 'center',
-      paddingHorizontal: spacing.md,
+      paddingHorizontal: spacing.sm,
     },
     headerContainer: {
       alignItems: 'flex-start',
       width: spacing.giant,
       marginTop: spacing.xl,
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
     },
     title: {
       fontSize: fontSize.xxl,
@@ -25,7 +25,7 @@ export const createStyles = (theme) =>
       fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
-      lineHeight: spacing.md,
+      lineHeight: spacing.sm,
     },
     highlight: {
       color: theme.alert,
@@ -35,7 +35,7 @@ export const createStyles = (theme) =>
       fontSize: fontSize.lg,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
       width: spacing.giant,
       textAlign: 'left',
     },
@@ -43,9 +43,9 @@ export const createStyles = (theme) =>
       width: spacing.giant,
       backgroundColor: theme.secondary,
       borderRadius: borderRadius.m,
-      padding: spacing.md,
+      padding: spacing.sm,
       gap: spacing.xs,
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
     },
     featureRow: {
       flexDirection: 'row',

@@ -11,7 +11,7 @@ export const createStyles = (theme) =>
     },
     description: {
       marginTop: spacing.xxs,
-      paddingTop: spacing.md,
+      paddingTop: spacing.sm,
       borderTopWidth: 3,
       borderTopColor: theme.fontColor,
       fontSize: fontSize.xxl,
@@ -19,7 +19,7 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
       // textAlign: 'center',
       // lineHeight: verticalScale(22),
-      marginBottom: spacing.md, 
+      marginBottom: spacing.sm, 
       width: spacing.giant,
     },
     highlight: {
@@ -33,7 +33,7 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
       textAlign: 'center',
       lineHeight: verticalScale(22),
-      marginTop: spacing.md,
+      marginTop: spacing.sm,
       marginBottom: spacing.xs,
       width: spacing.giant,
     },

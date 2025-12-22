@@ -8,6 +8,7 @@ export const createStyles = (theme) =>
       fontSize: fontSize.xl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
+      marginTop: spacing.xs,
       marginBottom: spacing.xs,
       textAlign: 'left',
     },
@@ -17,7 +18,7 @@ export const createStyles = (theme) =>
 
     inputGroup: {
       width: '100%',
-      marginBottom: spacing.md / 2,
+      marginBottom: spacing.sm / 2,
     },
 
     cenaTitle: {

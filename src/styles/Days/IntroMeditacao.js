@@ -8,10 +8,10 @@ export const createStyles = (theme) =>
       flexGrow: 1,
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
-      paddingTop: spacing.lg * 3,
+      paddingTop: spacing.xl + spacing.xxs * 2,
     },
     imageContainer: {
-      marginBottom: spacing.md * 2,
+      marginBottom: spacing.sm * 2,
     },
     title: {
       fontSize: fontSize.xxl,

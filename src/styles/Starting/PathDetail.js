@@ -16,7 +16,7 @@ export const createStyles = (theme) =>
     headerContainer: {
       alignItems: 'flex-start',
       width: spacing.giant,
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
     },
     title: {
       fontSize: fontSize.xxl,
@@ -39,7 +39,7 @@ export const createStyles = (theme) =>
       height: spacing.giant,
       alignItems: 'center',
       borderRadius: borderRadius.m,
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
     },
     image: {
       height: spacing.giant,
@@ -76,7 +76,7 @@ export const createStyles = (theme) =>
     
     featuresContainer: {
       width: spacing.giant,
-      paddingHorizontal: spacing.md,
+      paddingHorizontal: spacing.sm,
       paddingVertical: spacing.xxs * 2
     },
     featureRow: {
@@ -113,7 +113,7 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
       lineHeight: spacing.xs,
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
       width: spacing.giant,
     },
     
@@ -128,7 +128,7 @@ export const createStyles = (theme) =>
     // Container do vídeo
     videoSection: {
       width: spacing.giant,
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
     },
     time: {
       fontSize: fontSize.lg,

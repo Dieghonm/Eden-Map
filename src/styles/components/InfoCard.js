@@ -21,7 +21,7 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
     },
     content: {
-      // gap: spacing.sm,
+      // gap: spacing.md,
       paddingHorizontal: spacing.xs,
     },
     item: {

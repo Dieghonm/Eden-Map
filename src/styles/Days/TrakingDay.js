@@ -23,7 +23,7 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
       textAlign: 'left',
       width: spacing.giant,
-      marginBottom: spacing.md
+      marginBottom: spacing.sm
     },
 
     quest: {
@@ -39,7 +39,7 @@ export const createStyles = (theme) =>
       justifyContent: 'space-between',
       width: '100%',
       paddingHorizontal: spacing.xs,
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
       gap: spacing.xs,
     },
 
@@ -63,7 +63,7 @@ export const createStyles = (theme) =>
     },
 
     iconeNeutro: {
-      width: spacing.md,
+      width: spacing.sm,
       alignSelf: 'center'
     },
 

@@ -17,7 +17,7 @@ export const createStyles = (theme) =>
 
     // Container do InfoCard
     infoCardContainer: {
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
     },
 
     TextView: {
@@ -52,14 +52,14 @@ export const createStyles = (theme) =>
     loadingContainer: {
       alignItems: 'center',
       justifyContent: 'center',
-      paddingVertical: spacing.md,
+      paddingVertical: spacing.sm,
     },
 
     loadingText: {
       color: theme.fontColor,
       fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
-      marginTop: spacing.sm,
+      marginTop: spacing.md,
     },
 
     // === ESTILOS DO CÓDIGO (4 DÍGITOS) ===

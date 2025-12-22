@@ -47,7 +47,7 @@ export default function PerguntasDay({ onComplete }) {
   };
 
   return (
-    <View edges={['top', 'left', 'right']}>
+    <View >
       <KeyboardAwareScrollView
         enableOnAndroid
         enableAutomaticScroll

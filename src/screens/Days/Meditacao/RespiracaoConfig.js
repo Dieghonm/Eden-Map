@@ -10,6 +10,7 @@ import ImgButton from '../../../components/ImgButton';
 
 import ExpBlock from '../../../../assets/icons/ExpBlock.png';
 import Checked from '../../../../assets/icons/Checked.png';
+import HeaderAjuster from '../../../components/HeaderAjuster';
 
 export default function RespiracaoConfig({ onVoltar, onContinuar }) {
   const { theme } = useTheme();
@@ -85,6 +86,7 @@ export default function RespiracaoConfig({ onVoltar, onContinuar }) {
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >
+      <HeaderAjuster />
       <Text style={styles.title}>Respiração pré prática</Text>
 
       <Text style={styles.description}>

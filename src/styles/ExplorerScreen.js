@@ -8,7 +8,7 @@ export const createStyles = (theme) =>
       flex: 1,
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
-      marginTop: spacing.xxl
+      marginTop: spacing.huge + spacing.sm
     },
     title: {
       fontSize: fontSize.xxl,
@@ -27,8 +27,8 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.r4,
     },
     buttonsContainer: {
-      height: spacing.giant + (spacing.md*2),
-      gap: spacing.md,
-      margin: spacing.md,
+      height: spacing.giant + (spacing.sm*2),
+      gap: spacing.sm,
+      margin: spacing.sm,
     },
   });

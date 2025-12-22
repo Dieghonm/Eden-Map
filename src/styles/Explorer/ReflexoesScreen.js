@@ -11,19 +11,19 @@ export const createStyles = (theme) =>
     },
     scrollContent: {
       alignItems: 'center',
-      paddingBottom: spacing.md,
+      paddingBottom: spacing.sm,
       marginTop: spacing.lg,
     },
     scrollContentResposta: {
       alignItems: 'center',
-      paddingBottom: spacing.md,
+      paddingBottom: spacing.sm,
       marginTop: spacing.xxl,
     },
     title: {
       fontSize: fontSize.xxl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
       alignSelf: 'flex-start',
       width: spacing.giant,
     },
@@ -96,7 +96,7 @@ export const createStyles = (theme) =>
     labelsRow: {
       flexDirection: 'row',
       justifyContent: 'center',
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
     },
     barLabel: {
       width: horizontalScale(80),
@@ -134,8 +134,8 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
       backgroundColor: theme.terciario,
-      width: spacing.huge + spacing.md,
-      height: spacing.sm,
+      width: spacing.huge + spacing.sm,
+      height: spacing.md,
       paddingVertical: spacing.xxs * 2,
       paddingHorizontal: spacing.xxs * 2,
       marginBottom: spacing.xs,

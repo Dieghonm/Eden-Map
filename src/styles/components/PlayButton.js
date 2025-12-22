@@ -11,7 +11,7 @@ export const createStyles = (theme) =>
       width: spacing.giant,
       height: spacing.lg + spacing.xxs * 3,
       borderRadius: borderRadius.circle,
-      paddingLeft: spacing.md,
+      paddingLeft: spacing.sm,
       padding: spacing.xxs * 2,
       marginVertical: spacing.xxs,
     },

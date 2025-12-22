@@ -12,8 +12,8 @@ export const createStyles = (theme) =>
       flex: 1,
       paddingHorizontal: spacing.lg,
       alignItems: 'center',
-      paddingBottom: spacing.md,
-      marginTop: spacing.sm
+      paddingBottom: spacing.sm,
+      marginTop: spacing.md
     },
 
     // ============================================================================
@@ -37,7 +37,7 @@ export const createStyles = (theme) =>
       backgroundColor: theme.secondary,
       borderRadius: borderRadius.m,
       marginBottom: spacing.xs,
-      height: spacing.lg + spacing.md / 2,
+      height: spacing.lg + spacing.sm / 2,
       width: spacing.giant,
       alignItems: 'center',
       justifyContent: 'center',
@@ -62,12 +62,12 @@ export const createStyles = (theme) =>
       marginTop: spacing.xxs
     },
     imageContainer: {
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
       alignItems: 'center'
     },
     imageConcluida: {
-      width: spacing.huge + spacing.md,
-      height: spacing.huge + spacing.md,
+      width: spacing.huge + spacing.sm,
+      height: spacing.huge + spacing.sm,
       borderRadius: borderRadius.m
     },
 
@@ -75,14 +75,14 @@ export const createStyles = (theme) =>
     // TELA 3 - PLAYER DE MEDITAÇÃO
     // ============================================================================
     spacerBox: {
-      marginTop: spacing.huge + spacing.md,
+      marginTop: spacing.huge + spacing.sm,
       height: spacing.xxl
     },
     playerText: {
       fontSize: fontSize.xl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
       textAlign: 'left'
     },
     timerBox: {

@@ -7,7 +7,7 @@ export const createStyles = (theme) =>
     headerContainer: {
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
-      paddingTop: spacing.sm * 3,
+      paddingTop: spacing.md * 3,
     },
     introText: {
       paddingTop: spacing.xxs,
@@ -29,7 +29,7 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
       fontFamily: fontFamily.r4,
       fontSize: fontSize.md,
-      height: spacing.md * 2
+      height: spacing.sm * 2
     },
     highlight: {
       color: theme.alert,

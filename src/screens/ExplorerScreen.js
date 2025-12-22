@@ -29,7 +29,7 @@ export default function ExplorerScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container} edges={['top', 'left', 'right']}>      
+    <View style={styles.container} >      
       <View style={styles.textContainer}>
         <Text style={styles.title}>Explore livremente o Eden</Text>
         <Text style={styles.subtitle}>

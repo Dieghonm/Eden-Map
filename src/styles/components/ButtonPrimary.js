@@ -9,7 +9,7 @@ export const createStyles = (theme, width = 220, height = 40) =>
       justifyContent: 'center',
       width: width ? horizontalScale(width) : spacing.giant,
       height: height ? verticalScale(height) : (spacing.lg - spacing.xxs),
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
     },
     buttonDisabled: {
       opacity: 0.5,

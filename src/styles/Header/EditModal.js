@@ -12,7 +12,7 @@ export const createStyles = (theme) =>
     modalBox: {
       marginTop: spacing.xs * 6,
       backgroundColor: theme.background,
-      paddingTop: spacing.md,
+      paddingTop: spacing.sm,
       borderRadius: borderRadius.p,
       width: spacing.giant,
       alignItems: 'center',
@@ -34,7 +34,7 @@ export const createStyles = (theme) =>
       borderRadius: borderRadius.p,
       justifyContent: 'center',
       alignItems: 'center',
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
       borderWidth: 2,
       paddingVertical: 20
     },
@@ -47,7 +47,7 @@ export const createStyles = (theme) =>
 
     // Inputs do desejo
     inputContainer: {
-      width: spacing.huge + spacing.md,
+      width: spacing.huge + spacing.sm,
     },
     label: {
       fontSize: fontSize.md,
@@ -80,7 +80,7 @@ export const createStyles = (theme) =>
     feelingRow: {
       flexDirection: 'row',
       backgroundColor: theme.fontColor,
-      width: spacing.xxl + spacing.md,
+      width: spacing.xxl + spacing.sm,
       height: spacing.xs * 2,
       borderRadius: borderRadius.circle,
       padding: spacing.xxs * 1.5,

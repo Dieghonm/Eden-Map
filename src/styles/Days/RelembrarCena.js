@@ -14,7 +14,7 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
       marginBottom: spacing.xs,
-      marginTop:spacing.xxl / 2,
+      marginTop:spacing.xs,
       textAlign: 'left',
     },
     highlight: {
@@ -23,7 +23,7 @@ export const createStyles = (theme) =>
 
     inputGroup: {
       width: '100%',
-      marginBottom: spacing.md / 2,
+      marginBottom: spacing.sm / 2,
     },
 
     cenaTitle: {

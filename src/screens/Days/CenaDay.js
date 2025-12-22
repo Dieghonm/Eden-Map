@@ -66,7 +66,7 @@ export default function CenaDay({ onComplete }) {
   };
 
   return (
-    <View edges={['top', 'left', 'right']}>
+    <View >
       <KeyboardAwareScrollView
         enableOnAndroid
         enableAutomaticScroll

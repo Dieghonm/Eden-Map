@@ -10,6 +10,6 @@ export const createStyles = (theme) =>
       // marginTop: spacing.lg,
     },
     content:{
-      marginBottom: spacing.md
+      marginBottom: spacing.sm
     },
   });

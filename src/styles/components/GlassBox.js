@@ -6,7 +6,7 @@ export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
       width: spacing.giant,
-      marginBottom:  spacing.md
+      marginBottom:  spacing.sm
     },
     containerDisabled: {
       opacity: 0.5,

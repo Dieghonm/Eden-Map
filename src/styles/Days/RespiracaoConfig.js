@@ -8,7 +8,7 @@ export const createStyles = (theme) =>
       flexGrow: 1,
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
-      paddingTop: spacing.xl,
+      paddingTop: spacing.lg + spacing.xxs * 2,
     },
     title: {
       fontSize: fontSize.xxl,
@@ -23,7 +23,7 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
       textAlign: 'left',
       lineHeight: spacing.xs,
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
     },
     highlight: {
       color: theme.alert,
@@ -36,12 +36,12 @@ export const createStyles = (theme) =>
       flexDirection: 'row',
       alignItems: 'center',
       borderRadius: borderRadius.p,
-      marginBottom: spacing.md
+      marginBottom: spacing.sm
     },
     image:{
       height:50,
       width:50,
-      margin: spacing.md / 4,
+      margin: spacing.sm / 4,
       borderRadius: borderRadius.p
     },
     ativate: {
@@ -61,9 +61,9 @@ export const createStyles = (theme) =>
       fontSize: fontSize.xl,
       fontFamily: fontFamily.b7,
       color: theme.buttonTextColor,
-      marginBottom: spacing.md
+      marginBottom: spacing.sm
     },
     navigationButtons: {
-      gap: spacing.md,
+      gap: spacing.sm,
     },
   });

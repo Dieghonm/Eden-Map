@@ -4,19 +4,18 @@ import { spacing, fontSize, fontFamily, borderRadius } from '../../theme/texts';
 export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
-      alignItems: 'center',
+      flex: 1,
       paddingHorizontal: spacing.lg,
+      paddingBottom: spacing.sm
     },
-    spacerBox: {
-      marginTop: spacing.huge + spacing.md,
-      height: spacing.xxxl
+    topSpacer: {
+      flex: 1
     },
     text: {
       fontSize: fontSize.xl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      marginBottom: spacing.md,
-      textAlign: 'left'
+      marginBottom: spacing.sm
     },
     timerBox: {
       width: '100%'
@@ -31,14 +30,6 @@ export const createStyles = (theme) =>
     marcador: {
       height: spacing.xxs,
       backgroundColor: theme.success
-    },
-    icon: {
-      width: spacing.xs,
-      height: spacing.xs,
-      borderRadius: borderRadius.m,
-      backgroundColor: theme.success,
-      position: 'absolute',
-      top: -7
     },
     timerRow: {
       marginVertical: spacing.xs,
@@ -60,6 +51,6 @@ export const createStyles = (theme) =>
     },
     playIcon: {
       width: spacing.lg,
-      height: spacing.lg,
+      height: spacing.lg
     }
   });

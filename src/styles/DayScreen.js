@@ -11,6 +11,7 @@ export const createStyles = (theme) =>
     container: {
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
+      marginTop: spacing.xs,
     },
     gap:{
       gap: spacing.xs,
@@ -19,6 +20,7 @@ export const createStyles = (theme) =>
     TextContainer: {
       alignItems: 'flex-start',
       gap: spacing.xxs,
+
     },
     Title: {
       color: theme.fontColor,
@@ -47,6 +49,7 @@ export const createStyles = (theme) =>
       flex: 1,
       paddingHorizontal: spacing.lg,
       alignItems: 'center',
+      marginTop: spacing.sm,
     },
 
     // CABEÇALHO
@@ -88,7 +91,7 @@ export const createStyles = (theme) =>
     // BARRA DE PROGRESSO
     progressSection: {
       width: '100%',
-      marginBottom: spacing.md,
+      marginBottom: spacing.xs,
     },
     progressPercentage: {
       fontSize: fontSize.md,

@@ -12,7 +12,7 @@ export const createStyles = (theme) =>
       borderWidth: horizontalScale(1),
       borderColor: theme.terciario,
       justifyContent: 'center',
-      paddingHorizontal: spacing.md,
+      paddingHorizontal: spacing.sm,
     },
     containerDisabled: {
       opacity: 0.5,
@@ -31,6 +31,6 @@ export const createStyles = (theme) =>
     arrow: {
       fontSize: fontSize.sm,
       color: theme.fontColor,
-      marginLeft: spacing.sm,
+      marginLeft: spacing.md,
     },
   });

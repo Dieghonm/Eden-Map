@@ -9,7 +9,7 @@ export const createStyles = (theme) =>
       flex: 1,
       alignItems: 'center',
       width: spacing.giant,
-      marginHorizontal: spacing.md * 2,
+      marginHorizontal: spacing.sm * 2,
       marginTop: spacing.lg,
     },
     videoTitle: {
@@ -18,7 +18,7 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
       textAlign: 'left',
       alignSelf: 'flex-start',
-      height: spacing.sm * 2,
+      height: spacing.md * 2,
       paddingVertical: spacing.xxs * 2
     },
     videoDescription: {

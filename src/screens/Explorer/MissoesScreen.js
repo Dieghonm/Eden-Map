@@ -50,7 +50,7 @@ export default function MissoesScreen({ navigation }) {
   }
 
   return (
-    <View style={styles.container} edges={['top', 'left', 'right']}>
+    <View style={styles.container} >
       <GlassBox>
         <View style={styles.starsView}>
           {Array.from({ length: 5 }).map((_, index) => (

@@ -42,7 +42,7 @@ export default function VideoDay({ onComplete }) {
   };
 
   return (
-    <View style={styles.container} edges={['top', 'left', 'right']}>
+    <View style={styles.container} >
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}

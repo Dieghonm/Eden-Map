@@ -78,7 +78,7 @@ export default function ReflexoesScreen({ navigation }) {
   // ============================================================================
   if (respostasScreen === 'respostas') {
     return (
-      <View style={styles.container} edges={['top', 'left', 'right']}>
+      <View style={styles.container} >
         <ScrollView contentContainerStyle={styles.scrollContentResposta} showsVerticalScrollIndicator={false}>
           {tipoResposta == 'Sombra'?
            <ImgButton title={'Pergunta: Sombra'} img={'ExpSombra'}/> : 
@@ -122,7 +122,7 @@ export default function ReflexoesScreen({ navigation }) {
   // ============================================================================
   if (respostasScreen === 'cenas') {
     return (
-      <View style={styles.container} edges={['top', 'left', 'right']}>
+      <View style={styles.container} >
         <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
           {cenaAtual && (
             <>
@@ -164,7 +164,7 @@ export default function ReflexoesScreen({ navigation }) {
   // TELA: PRINCIPAL
   // ============================================================================
   return (
-    <View style={styles.container} edges={['top', 'left', 'right']}>
+    <View style={styles.container} >
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>
           Como você se sentiu durante a sua jornada?

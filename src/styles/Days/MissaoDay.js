@@ -23,8 +23,8 @@ export const createStyles = (theme) =>
       justifyContent: 'center',
     },
     stars: {
-      width: spacing.md, 
-      height: spacing.md, 
+      width: spacing.sm, 
+      height: spacing.sm, 
       marginRight: spacing.xxs * 2,
       marginTop: 10
     },
@@ -53,7 +53,7 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
       textAlign: 'center',
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
     },
 
     // ============================================================================
@@ -67,7 +67,7 @@ export const createStyles = (theme) =>
     //   fontSize: fontSize.xl,
     //   fontFamily: fontFamily.b7,
     //   color: theme.fontColor,
-    //   marginBottom: spacing.md,
+    //   marginBottom: spacing.sm,
     //   textAlign: 'left',
     //   width: spacing.giant,
     // },
@@ -83,7 +83,7 @@ export const createStyles = (theme) =>
     //   height: verticalScale(8),
     //   backgroundColor: theme.terciario,
     //   borderRadius: borderRadius.p,
-    //   marginBottom: spacing.md,
+    //   marginBottom: spacing.sm,
     //   overflow: 'hidden',
     // },
     // progressFill: {
@@ -107,10 +107,10 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
       lineHeight: spacing.xs,
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
     },
     imgButton:{
-      marginVertical:spacing.md
+      marginVertical:spacing.sm
     },
 
     // ============================================================================
@@ -120,7 +120,7 @@ export const createStyles = (theme) =>
       marginTop:spacing.xxl - spacing.xxs
     },
     imageContainer: {
-      margin: spacing.md,
+      margin: spacing.sm,
     },
     imageConcluida: {
       width: spacing.giant,
@@ -152,7 +152,7 @@ export const createStyles = (theme) =>
     // TELA 3 - INSIGHT
     // ============================================================================
     insightSize: {
-      marginTop: spacing.xxxl - spacing.sm
+      marginTop: spacing.xxxl - spacing.md
     },
     pergunta: {
       fontSize: fontSize.lg,

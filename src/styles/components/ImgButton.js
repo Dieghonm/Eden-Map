@@ -10,7 +10,7 @@ export const createStyles = (theme, width, height ) =>
       justifyContent: 'space-between',
       backgroundColor: theme.secondary,
       borderRadius: borderRadius.circle,
-      paddingLeft: spacing.md,
+      paddingLeft: spacing.sm,
       paddingRight: spacing.xs / 3,
       padding: spacing.xxs,
       width: width ? horizontalScale(width) : spacing.giant,

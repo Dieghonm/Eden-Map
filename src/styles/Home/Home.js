@@ -6,8 +6,8 @@ export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
       alignItems: 'center',
-      marginTop: spacing.lg + spacing.xs,
-      paddingHorizontal: spacing.md,
+      marginTop: spacing.lg + spacing.xxs * 2,
+      paddingHorizontal: spacing.sm,
       // paddingTop: spacing.xs,
     },
     title: {
@@ -24,7 +24,7 @@ export const createStyles = (theme) =>
       color: theme.alert,
     },
     desireCard: {
-      paddingTop: spacing.md,
+      paddingTop: spacing.sm,
     },
     cardTitle: {
       fontSize: fontSize.xl,
@@ -32,7 +32,7 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
       textAlign: 'left',
       marginBottom: spacing.xs,
-      paddingHorizontal: spacing.md,
+      paddingHorizontal: spacing.sm,
     },
     line:{
       height:2,
@@ -42,7 +42,7 @@ export const createStyles = (theme) =>
     },
     feelingsContainer: {
       gap: spacing.xs,
-      marginBottom: spacing.md,
+      marginBottom: spacing.sm,
       paddingHorizontal: spacing.xs,
     },
     feelingChip: {
@@ -72,7 +72,7 @@ export const createStyles = (theme) =>
       backgroundColor: theme.terciario,
       alignItems: 'center',
       justifyContent: 'center',
-      marginBottom: spacing.md
+      marginBottom: spacing.sm
 
     },
     editButtonText: {

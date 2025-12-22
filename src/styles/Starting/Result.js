@@ -8,7 +8,7 @@ export const createStyles = (theme) =>
       paddingHorizontal: spacing.lg,
     },
     headerContainer: {
-      marginTop: spacing.md * 2,
+      marginTop: spacing.sm * 2,
       marginBottom: spacing.xs,
     },
     title: {
@@ -39,11 +39,11 @@ export const createStyles = (theme) =>
       alignItems: 'center',
       backgroundColor: theme.secondary,
       width: spacing.giant,
-      height: spacing.lg + spacing.md / 2,
+      height: spacing.lg + spacing.sm / 2,
       borderRadius: borderRadius.p,
       borderWidth: 2,
       paddingHorizontal: spacing.xs,
-      marginBottom: spacing.md
+      marginBottom: spacing.sm
     },
     percentage: {
       fontSize: fontSize.xl,

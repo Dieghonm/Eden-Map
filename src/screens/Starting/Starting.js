@@ -131,7 +131,7 @@ export default function Starting({ onComplete }) {
       return (
         <View style={styles.headerContainer}>
           <HeaderAjuster />
-          <Logo width={spacing.lg} height={spacing.md} />
+          <Logo width={spacing.lg} height={spacing.sm} />
           <View style={styles.introText}>
             <WelcomeText
               title={config.title}

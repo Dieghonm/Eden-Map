@@ -89,7 +89,7 @@ export default function SignIn({ navigation, onChangeScreen }) {
       keyboardShouldPersistTaps="handled"
     >
       <View style={styles.container}>
-        <Logo width={spacing.lg} height={spacing.md + spacing.xxs} />
+        <Logo width={spacing.lg} height={spacing.sm + spacing.xxs} />
 
         {/* <WelcomeText title="Login" /> */}
 

@@ -9,7 +9,7 @@ export const createStyles = (theme) =>
       flex: 1,
       paddingHorizontal: spacing.lg,
       alignItems: 'center',
-      paddingBottom: spacing.md,
+      paddingBottom: spacing.sm,
       marginTop: spacing.xl - spacing.xs,
     },
     starsView: {
@@ -18,8 +18,8 @@ export const createStyles = (theme) =>
       justifyContent: 'center',
     },
     stars: {
-      width: spacing.md, 
-      height: spacing.md, 
+      width: spacing.sm, 
+      height: spacing.sm, 
       marginRight: spacing.xxs * 2,
       marginTop: spacing.xxs * 2
     },
@@ -45,7 +45,7 @@ export const createStyles = (theme) =>
       height: spacing.xs * 4
     },
     imageConcluida:{
-      height: spacing.huge + spacing.md,
-      width: spacing.huge + spacing.md,
+      height: spacing.huge + spacing.sm,
+      width: spacing.huge + spacing.sm,
     },
   });
