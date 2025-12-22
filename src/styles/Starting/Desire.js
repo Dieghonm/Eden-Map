@@ -30,7 +30,7 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
       paddingHorizontal: spacing.xs,
-      paddingVertical: spacing.xxs,
+      paddingVertical: spacing.xs / 2,
     },
     textArea: {
       minHeight: verticalScale(200),

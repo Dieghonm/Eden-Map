@@ -7,7 +7,7 @@ export const createStyles = (theme) =>
     headerContainer: {
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
-      paddingTop: spacing.xl *2,
+      paddingTop: spacing.sm * 3,
     },
     introText: {
       paddingTop: spacing.xxs,
@@ -39,7 +39,7 @@ export const createStyles = (theme) =>
     progressContainer: {
       flexDirection: 'row',
       gap: spacing.xs,
-      marginVertical: spacing.md,
+      marginVertical: spacing.xs + spacing.xxs,
       width: spacing.giant,
       justifyContent: 'center',
     },

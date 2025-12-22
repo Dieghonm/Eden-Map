@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, Image } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { useTheme } from '../../context/ThemeProvider';
 import { useJourney } from '../../context/JourneyProvider';
 import { createStyles } from '../../styles/Explorer/ReflexoesScreen';
@@ -78,7 +78,7 @@ export default function ReflexoesScreen({ navigation }) {
   // ============================================================================
   if (respostasScreen === 'respostas') {
     return (
-      <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+      <View style={styles.container} edges={['top', 'left', 'right']}>
         <ScrollView contentContainerStyle={styles.scrollContentResposta} showsVerticalScrollIndicator={false}>
           {tipoResposta == 'Sombra'?
            <ImgButton title={'Pergunta: Sombra'} img={'ExpSombra'}/> : 
@@ -113,7 +113,7 @@ export default function ReflexoesScreen({ navigation }) {
 
           <ButtonPrimary title="Voltar" onPress={() => setRespostasScreen(false)} />
         </ScrollView>
-      </SafeAreaView>
+      </View>
     );
   }
 
@@ -122,7 +122,7 @@ export default function ReflexoesScreen({ navigation }) {
   // ============================================================================
   if (respostasScreen === 'cenas') {
     return (
-      <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+      <View style={styles.container} edges={['top', 'left', 'right']}>
         <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
           {cenaAtual && (
             <>
@@ -156,7 +156,7 @@ export default function ReflexoesScreen({ navigation }) {
 
           <ButtonPrimary title="Voltar" onPress={() => setRespostasScreen(false)} />
         </ScrollView>
-      </SafeAreaView>
+      </View>
     );
   }
 
@@ -164,7 +164,7 @@ export default function ReflexoesScreen({ navigation }) {
   // TELA: PRINCIPAL
   // ============================================================================
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+    <View style={styles.container} edges={['top', 'left', 'right']}>
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>
           Como você se sentiu durante a sua jornada?
@@ -221,6 +221,6 @@ export default function ReflexoesScreen({ navigation }) {
           <ButtonPrimary title="Voltar" onPress={() => navigation.goBack()} />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

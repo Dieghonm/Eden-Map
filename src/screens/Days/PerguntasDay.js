@@ -1,6 +1,6 @@
 // src/screens/Days/PerguntasDay.js - VERSÃO CORRIGIDA
 import { useState } from 'react';
-import { SafeAreaView, Platform, Text, TextInput, ScrollView } from 'react-native';
+import { View, Platform, Text, TextInput, ScrollView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useTheme } from '../../context/ThemeProvider';
 import { createStyles } from '../../styles/Days/PerguntasDay';
@@ -47,7 +47,7 @@ export default function PerguntasDay({ onComplete }) {
   };
 
   return (
-    <SafeAreaView edges={['top', 'left', 'right']}>
+    <View edges={['top', 'left', 'right']}>
       <KeyboardAwareScrollView
         enableOnAndroid
         enableAutomaticScroll
@@ -88,6 +88,6 @@ export default function PerguntasDay({ onComplete }) {
           />
         </ScrollView>
       </KeyboardAwareScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

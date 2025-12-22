@@ -11,7 +11,7 @@ export const createStyles = (theme) =>
     container: {
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
-      paddingTop: spacing.xl,
+      paddingTop: spacing.xs + spacing.lg,
     },
     headerContainer: {
       alignItems: 'flex-start',
@@ -53,7 +53,7 @@ export const createStyles = (theme) =>
       fontSize: fontSize.xxl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      marginBottom: spacing.xxs,
+      marginBottom: spacing.xs,
       textAlign: 'left',
       width: spacing.giant,
     },
@@ -122,7 +122,7 @@ export const createStyles = (theme) =>
       height: 2,
       width: spacing.giant,
       backgroundColor: theme.alert,
-      marginBottom: spacing.xs,
+      marginBottom: spacing.xs / 2,
     },
     
     // Container do vídeo
@@ -134,7 +134,7 @@ export const createStyles = (theme) =>
       fontSize: fontSize.lg,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      marginBottom: spacing.xs,
+      marginBottom: spacing.xs / 2,
       textAlign: 'left',
       alignSelf: 'flex-start',
     },

@@ -1,4 +1,3 @@
-// src/screens/Header/Header.js - CORRIGIDO
 import React, { useState, useContext } from 'react';
 import { View, TouchableOpacity, Modal, Text, Image, Pressable } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
@@ -7,6 +6,7 @@ import { createStyles } from '../../styles/Header/Header';
 import { logout } from '../../utils/authHelper';
 import Logo from '../../components/Logo';
 import { spacing } from '../../theme/texts';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Header({ onHomePress, onResetStarting }) {
   const { theme, currentTheme, toggleTheme } = useTheme();
@@ -23,51 +23,47 @@ export default function Header({ onHomePress, onResetStarting }) {
     setMenuVisible(false);
     try {
       await resetStarting();
-      if (onResetStarting) {
-        onResetStarting();
-      }
+      if (onResetStarting) onResetStarting();
     } catch (error) {
       console.error('❌ Erro ao resetar jornada:', error);
     }
   };
 
   const handleHomePress = () => {
-    if (onHomePress) {
-      onHomePress();
-    }
+    if (onHomePress) onHomePress();
   };
 
   return (
     <>
-      <View style={styles.container}>
+      <SafeAreaView edges={['top']} style={styles.container}>
         <Logo width={spacing.lg} height={spacing.md} />
 
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.iconButton}
             onPress={handleHomePress}
             activeOpacity={0.7}
           >
-            <Image 
-              source={require('../../../assets/icons/Home.png')} 
+            <Image
+              source={require('../../../assets/icons/Home.png')}
               style={styles.icon}
               tintColor={theme.secundaryButton}
             />
           </TouchableOpacity>
 
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.iconButton}
             onPress={() => setMenuVisible(!menuVisible)}
             activeOpacity={0.7}
           >
-            <Image 
-              source={require('../../../assets/icons/Config.png')} 
+            <Image
+              source={require('../../../assets/icons/Config.png')}
               style={styles.icon}
               tintColor={menuVisible ? theme.alert : theme.secundaryButton}
             />
           </TouchableOpacity>
         </View>
-      </View>
+      </SafeAreaView>
 
       <Modal
         visible={menuVisible}
@@ -76,7 +72,7 @@ export default function Header({ onHomePress, onResetStarting }) {
         onRequestClose={() => setMenuVisible(false)}
         statusBarTranslucent
       >
-        <Pressable 
+        <Pressable
           style={styles.modalOverlay}
           onPress={() => setMenuVisible(false)}
         >

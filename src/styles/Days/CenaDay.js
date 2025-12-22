@@ -9,7 +9,6 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
       marginBottom: spacing.xs,
-      marginTop:spacing.xxl / 2,
       textAlign: 'left',
     },
     highlight: {

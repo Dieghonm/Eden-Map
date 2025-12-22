@@ -19,6 +19,7 @@ export const createStyles = (theme) =>
       fontSize: fontSize.xxl,
       fontFamily: fontFamily.b7,
       marginBottom: spacing.xs / 2,
+      marginTop: spacing.xs,
       height:spacing.md
       
     },

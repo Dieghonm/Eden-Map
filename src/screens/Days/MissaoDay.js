@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Image, SafeAreaView, Text, View, TextInput, Animated, StyleSheet } from "react-native";
+import { Image, View, Text, TextInput, Animated, StyleSheet } from "react-native";
 import { useTheme } from "../../context/ThemeProvider";
 import { createStyles } from "../../styles/Days/MissaoDay";
 import { useApp } from '../../context/AppProvider';
@@ -48,7 +48,7 @@ export default function MissaoDay({ onComplete }) {
 
   if (Number(semanaAtual) % 2 !== 0) {
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <GlassBox>
           <View style={styles.starsView}>
             {Array.from({ length: 5 }).map((_, idx) => (
@@ -79,13 +79,13 @@ export default function MissaoDay({ onComplete }) {
           title='Desligue para conectar'
           onPress={() => onComplete && onComplete(true)}
         />
-      </SafeAreaView>
+      </View>
     );
   }
 
   if (tela === 'TIMER') {
     return (
-      <SafeAreaView style={[styles.container, styles.timerSize]}>
+      <View style={[styles.container, styles.timerSize]}>
         <GlassBox>
           <View style={styles.starsView}>
             {Array.from({ length: 5 }).map((_, idx) => (
@@ -126,13 +126,13 @@ export default function MissaoDay({ onComplete }) {
           title='Voltar'
           onPress={() => onComplete(false)}
         />
-      </SafeAreaView>
+      </View>
     );
   }
 
   if (tela === 'CONCLUIDA') {
     return (
-      <SafeAreaView style={[styles.container, styles.conclSize]}>
+      <View style={[styles.container, styles.conclSize]}>
         <Text style={styles.parabens}>Parabéns!</Text>
         <Text style={styles.textoParabens}>Parabéns! Você desbloqueou o emblema da missão.</Text>
 
@@ -162,13 +162,13 @@ export default function MissaoDay({ onComplete }) {
           title='Voltar'
           onPress={() => setTela('TIMER')}
         />
-      </SafeAreaView>
+      </View>
     );
   }
 
   if (tela === 'INSIGHT') {
     return (
-      <SafeAreaView style={[styles.container, styles.insightSize]}>
+      <View style={[styles.container, styles.insightSize]}>
         <GlassBox>
           <Text style={styles.pergunta}>Como foi sua experiência com a missão?</Text>
           
@@ -203,7 +203,7 @@ export default function MissaoDay({ onComplete }) {
           title='Voltar'
           onPress={() => setTela('CONCLUIDA')}
         />
-      </SafeAreaView>
+      </View>
     );
   }
 

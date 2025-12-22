@@ -1,7 +1,7 @@
 // src/screens/Explorer/MissoesScreen.js - REFATORADO
 import React, { useState } from 'react';
 import { View, Text, Image } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { useTheme } from '../../context/ThemeProvider';
 import { useApp } from '../../context/AppProvider';
 import { useJourney } from '../../context/JourneyProvider';
@@ -50,7 +50,7 @@ export default function MissoesScreen({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+    <View style={styles.container} edges={['top', 'left', 'right']}>
       <GlassBox>
         <View style={styles.starsView}>
           {Array.from({ length: 5 }).map((_, index) => (
@@ -102,6 +102,6 @@ export default function MissoesScreen({ navigation }) {
         title="Voltar"
         onPress={() => navigation.goBack()}
       />
-    </SafeAreaView>
+    </View>
   );
 }

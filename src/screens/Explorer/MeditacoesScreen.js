@@ -1,7 +1,7 @@
 // src/screens/Explorer/MeditacoesScreen.js - REFATORADO
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TouchableOpacity, Image, Animated } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { useAudioPlayer } from 'expo-audio';
 import { useTheme } from '../../context/ThemeProvider';
 import { createStyles } from '../../styles/Explorer/MeditacoesScreen';
@@ -158,7 +158,7 @@ export default function MeditacoesScreen({ navigation }) {
   // ============================================================================
   if (!selectedPath) {
     return (
-      <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+      <View style={styles.container} edges={['top', 'left', 'right']}>
         <Text style={styles.title}>Escolha qualquer meditação da biblioteca</Text>
         <Text style={styles.text}>Mais de 35 opções disponíveis.</Text>
 
@@ -191,7 +191,7 @@ export default function MeditacoesScreen({ navigation }) {
           title={'Voltar'} 
           onPress={() => navigation.goBack()} 
         />
-      </SafeAreaView>
+      </View>
     );
   }
 
@@ -200,7 +200,7 @@ export default function MeditacoesScreen({ navigation }) {
   // ============================================================================
   if (!selectedMedit) {
     return (
-      <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+      <View style={styles.container} edges={['top', 'left', 'right']}>
         <View style={styles.spacing}/>
         
         <Text style={[styles.title, { color: selectedPath.color }]}>
@@ -238,7 +238,7 @@ export default function MeditacoesScreen({ navigation }) {
           title={'Voltar'} 
           onPress={() => setSelectedPath(null)} 
         />
-      </SafeAreaView>
+      </View>
     );
   }
 
@@ -246,7 +246,7 @@ export default function MeditacoesScreen({ navigation }) {
   // 📱 TELA 3: PLAYER DE MEDITAÇÃO
   // ============================================================================
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+    <View style={styles.container} edges={['top', 'left', 'right']}>
       <View style={styles.spacerBox} />
 
       <GlassBox>
@@ -273,6 +273,6 @@ export default function MeditacoesScreen({ navigation }) {
         onPress={() => setSelectedMedit(null)}
         height={40}
       />
-    </SafeAreaView>
+    </View>
   );
 }

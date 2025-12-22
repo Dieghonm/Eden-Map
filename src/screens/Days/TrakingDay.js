@@ -3,7 +3,7 @@ import { createStyles } from '../../styles/Days/TrakingDay';
 import { useApp } from '../../context/AppProvider';
 import { useJourney } from '../../context/JourneyProvider';
 import { TRACKING } from '../../../assets/json/Semanas';
-import { Image, SafeAreaView, Text, Pressable, View } from "react-native";
+import { Image, View, Text, Pressable } from "react-native";
 import GlassBox from "../../components/GlassBox";
 import { LOGINGIF } from "../../../assets/json/Imagens";
 import ButtonPrimary from "../../components/ButtonPrimary";
@@ -38,7 +38,7 @@ export default function TrakingDay({ onComplete }) {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Image 
         source={{ uri: LOGINGIF }} 
         style={styles.gif}
@@ -84,6 +84,6 @@ export default function TrakingDay({ onComplete }) {
         disabled={!selected}
       />
 
-    </SafeAreaView>
+    </View>
   );
 }

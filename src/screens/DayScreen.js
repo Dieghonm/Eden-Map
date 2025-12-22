@@ -1,7 +1,7 @@
 // src/screens/DayScreen.js - TELA DE ENTRADA ESTILIZADA
 import React, { useState } from 'react';
 import { View, Text, Image } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 import ConfettiCannon from 'react-native-confetti-cannon';
 
 import { useTheme } from '../context/ThemeProvider';
@@ -22,6 +22,7 @@ import MissaoDay from './Days/MissaoDay';
 import TrakingDay from './Days/TrakingDay';
 import PerguntasDay from './Days/PerguntasDay';
 import MeditacaoScreen from './Days/MeditacaoScreen';
+import HeaderAjuster from '../components/HeaderAjuster';
 
 // ============================================================================
 // 🎬 COMPONENTE PRINCIPAL
@@ -197,8 +198,7 @@ export default function DayScreen({ navigation }) {
     const faseInfo = getFaseInfo();
 
     return (
-      <SafeAreaView style={styles.entradaContainer}>
-        {/* CABEÇALHO */}
+      <View style={styles.entradaContainer}>
         <View style={styles.headerEntrada}>
           <Text style={styles.diaText}>Dia {diaAtual} - Semana {semanaAtual}</Text>
           
@@ -241,7 +241,7 @@ export default function DayScreen({ navigation }) {
         </View>
 
         {/* BOTÕES */}
-        <View style={styles.buttonsContainer}>
+        <View >
           <ButtonPrimary
             title="Entrar no Eden"
             onPress={() => setEntradaScreen(true)}
@@ -252,7 +252,7 @@ export default function DayScreen({ navigation }) {
             onPress={() => navigation.goBack()}
           />
         </View>
-      </SafeAreaView>
+      </View>
     );
   }
 
@@ -260,77 +260,81 @@ export default function DayScreen({ navigation }) {
   // TELA PRINCIPAL DO DIA
   // ========================================================================
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.TextContainer}>
-        <Text style={styles.Title}>{SEMANA.nome}</Text>
-        <Text style={styles.Text}>
-          <Text style={styles.highlight}>Conclua</Text>
-          {' as atividades e '}
-          <Text style={styles.highlight}>avance</Text>
-          {' para o próximo dia'}
-        </Text>
+    <View style={styles.container}>
+      <HeaderAjuster />
+      <View style={styles.gap}>
 
-        <Image
-          source={{ uri: SEMANA.img }}
-          style={{
-            width: horizontalScale(290),
-            height: verticalScale(290),
-          }}
-          resizeMode="cover"
+        <View style={styles.TextContainer}>
+          <Text style={styles.Title}>{SEMANA.nome}</Text>
+          <Text style={styles.Text}>
+            <Text style={styles.highlight}>Conclua</Text>
+            {' as atividades e '}
+            <Text style={styles.highlight}>avance</Text>
+            {' para o próximo dia'}
+          </Text>
+
+          <Image
+            source={{ uri: SEMANA.img }}
+            style={{
+              width: horizontalScale(290),
+              height: verticalScale(290),
+            }}
+            resizeMode="cover"
+          />
+        </View>
+
+        {DIA.exercicio !== '' ? (
+          statusDiaAtual.exercicioConcluido
+            ? renderCompletedButton()
+            : (
+              <ImgButton
+                title={buttonText()}
+                onPress={() => setCurrentScreen(DIA.exercicio)}
+                img={
+                  DIA.exercicio === 'PERGUNTAS'
+                    ? ([5, 6, 7, 8].includes(semanaAtual)
+                      ? 'ExpSombra'
+                      : 'ExpLuz')
+                    : DIA.exercicio
+                }
+              />
+            )
+        ) : (
+          <View style={styles.spacer} />
+        )}
+
+        {statusDiaAtual.meditacaoLiberada ? (
+          statusDiaAtual.meditacaoConcluida
+            ? renderCompletedButton()
+            : (
+              <ImgButton
+                title="Meditação"
+                onPress={() => setCurrentScreen('MEDITACAO')}
+                img="ExpMeditacoes"
+              />
+            )
+        ) : (
+          <ImgButton title="Bloqueado" img="ExpBlock" />
+        )}
+
+        <ButtonPrimary
+          title="Concluir o dia"
+          onPress={handleConcluirDia}
+          disabled={!diaCompleto}
+          height={40}
         />
+
       </View>
-
-      {DIA.exercicio !== '' ? (
-        statusDiaAtual.exercicioConcluido
-          ? renderCompletedButton()
-          : (
-            <ImgButton
-              title={buttonText()}
-              onPress={() => setCurrentScreen(DIA.exercicio)}
-              img={
-                DIA.exercicio === 'PERGUNTAS'
-                  ? ([5, 6, 7, 8].includes(semanaAtual)
-                    ? 'ExpSombra'
-                    : 'ExpLuz')
-                  : DIA.exercicio
-              }
-            />
-          )
-      ) : (
-        <View style={styles.spacer} />
-      )}
-
-      {statusDiaAtual.meditacaoLiberada ? (
-        statusDiaAtual.meditacaoConcluida
-          ? renderCompletedButton()
-          : (
-            <ImgButton
-              title="Meditação"
-              onPress={() => setCurrentScreen('MEDITACAO')}
-              img="ExpMeditacoes"
-            />
-          )
-      ) : (
-        <ImgButton title="Bloqueado" img="ExpBlock" />
-      )}
-
-      <ButtonPrimary
-        title="Concluir o dia"
-        onPress={handleConcluirDia}
-        disabled={!diaCompleto}
-        height={40}
-      />
-
-      {showConfetti && (
-        <ConfettiCannon
-          count={20}
-          fadeOut
-          origin={{ x: 200, y: 0 }}
-          explosionSpeed={100}
-          fallSpeed={1300}
-          autoStart
-        />
-      )}
-    </SafeAreaView>
+        {showConfetti && (
+          <ConfettiCannon
+            count={20}
+            fadeOut
+            origin={{ x: 200, y: 0 }}
+            explosionSpeed={100}
+            fallSpeed={1300}
+            autoStart
+          />
+        )}
+    </View>
   );
 }

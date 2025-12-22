@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, ImageBackground, StyleSheet, StatusBar as RNStatusBar, Text, TextInput } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
@@ -21,7 +21,7 @@ function AppContent() {
   const styles = createStyles(theme);
   const fontsLoaded = useOutfitFonts();
 
-  React.useEffect(() => {
+  useEffect(() => {
     NavigationBar.setVisibilityAsync('hidden');
   }, []);
 
@@ -42,6 +42,7 @@ function AppContent() {
       imageStyle={styles.image}
       resizeMode="cover"
     >
+      <View style={styles.testeDeAltura}/>
       <View style={styles.overlay}>
         <NavigationContainer theme={navTheme}>
           <AppNavigator />

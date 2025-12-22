@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { useTheme } from '../../context/ThemeProvider';
 import { useApp } from '../../context/AppProvider';
 import { useJourney } from '../../context/JourneyProvider';
@@ -42,7 +42,7 @@ export default function VideoDay({ onComplete }) {
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+    <View style={styles.container} edges={['top', 'left', 'right']}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
@@ -75,6 +75,6 @@ export default function VideoDay({ onComplete }) {
           height={40}
         />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

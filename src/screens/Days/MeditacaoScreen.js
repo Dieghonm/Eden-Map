@@ -1,7 +1,7 @@
 // src/screens/Days/MeditacaoScreen.js
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { useApp } from '../../context/AppProvider';
 import IntroMeditacao from './Meditacao/IntroMeditacao';
 import RelembrarCena from './Meditacao/RelembrarCena';
@@ -57,10 +57,10 @@ export default function MeditacaoScreen({ onComplete }) {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right']}>
+    <View style={{ flex: 1 }} edges={['top', 'left', 'right']}>
       <View style={{ flex: 1 }}>
         {renderStep()}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

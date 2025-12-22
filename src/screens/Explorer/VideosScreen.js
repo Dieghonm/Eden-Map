@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Text, ScrollView, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 import { useTheme } from '../../context/ThemeProvider';
 import { VIDEOS } from '../../../assets/json/Semanas';
@@ -34,7 +34,7 @@ export default function VideosScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+    <View style={styles.container} edges={['top', 'left', 'right']}>
       <ScrollView 
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
@@ -73,6 +73,6 @@ export default function VideosScreen({ navigation }) {
           onPress={() => navigation.goBack()}
         />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

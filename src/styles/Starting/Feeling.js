@@ -39,7 +39,7 @@ export const createStyles = (theme) =>
       alignItems: 'center',
     },
     spacer: {
-      height:spacing.xs
+      height:spacing.md / 2
     },
     playIcon:{
       height: spacing.sm

@@ -11,8 +11,10 @@ export const createStyles = (theme) =>
     container: {
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
-      marginTop: spacing.lg,
-      gap: spacing.md,
+    },
+    gap:{
+      gap: spacing.xs,
+
     },
     TextContainer: {
       alignItems: 'flex-start',
@@ -29,7 +31,6 @@ export const createStyles = (theme) =>
       fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
       height: spacing.lg,
-      marginBottom: spacing.xs / 2
     },
     highlight: {
       color: theme.alert,
@@ -45,7 +46,6 @@ export const createStyles = (theme) =>
     entradaContainer: {
       flex: 1,
       paddingHorizontal: spacing.lg,
-      paddingTop: spacing.lg,
       alignItems: 'center',
     },
 

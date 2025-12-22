@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { useTheme } from '../context/ThemeProvider';
 import { AppContext } from '../context/AppProvider';
 import { createStyles } from '../styles/HomeScreen';
@@ -29,7 +29,6 @@ export default function HomeScreen({ navigation, route }) {
     }
   }, [appLoading, isStartingComplete]);
 
-  // Monitora o parâmetro de reset vindo do Header
   useEffect(() => {
     if (route.params?.triggerReset) {
       handleResetStarting();
@@ -41,16 +40,13 @@ export default function HomeScreen({ navigation, route }) {
   };
 
   const handleFeelingComplete = () => {
-    // Após editar, verifica novamente o status
     if (isStartingComplete) {
       setCurrentScreen('HOME');
     }
   };
 
   const handleResetStarting = async () => {
-    // Reseta os dados do Starting
     await resetStarting();
-    // Força a mudança para a tela de Starting
     setCurrentScreen('STARTING');
   };
 
@@ -79,10 +75,10 @@ export default function HomeScreen({ navigation, route }) {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={['left', 'right', 'bottom']}>
+    <View style={{ flex: 1 }} edges={['left', 'right', 'bottom']}>
       <View style={{ flex: 1 }}>
         {renderScreen()}
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

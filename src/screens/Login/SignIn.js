@@ -91,7 +91,7 @@ export default function SignIn({ navigation, onChangeScreen }) {
       <View style={styles.container}>
         <Logo width={spacing.lg} height={spacing.md + spacing.xxs} />
 
-        <WelcomeText title="Login" />
+        {/* <WelcomeText title="Login" /> */}
 
         <View style={styles.TextREGISTER}>
           <WelcomeText 

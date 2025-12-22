@@ -5,7 +5,7 @@ import { spacing, borderRadius, fontSize, fontWeight, fontFamily } from '../../t
 export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
-      padding: spacing.sm,
+      paddingBottom: spacing.xxs,
     },
     header: {
       flexDirection: 'row',
@@ -21,7 +21,7 @@ export const createStyles = (theme) =>
       color: theme.fontColor,
     },
     content: {
-      gap: spacing.sm,
+      // gap: spacing.sm,
       paddingHorizontal: spacing.xs,
     },
     item: {

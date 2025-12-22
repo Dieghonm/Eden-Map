@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Animated } from 'react-native';
 import { useTheme } from '../../context/ThemeProvider';
 import ButtonPrimary from '../../components/ButtonPrimary';
 import { createStyles } from '../../styles/Starting/Questions';
@@ -12,10 +12,10 @@ export default function Questions({ onComplete }) {
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [answers, setAnswers] = useState({});
   const [selectedOption, setSelectedOption] = useState(null);
+  const animation = useState(new Animated.Value(0))[0];
 
   const totalQuestions = Object.keys(PERGUNTAS).length;
 
-  // Reset quando o componente é montado
   useEffect(() => {
     setCurrentQuestion(1);
     setAnswers({});
@@ -26,26 +26,46 @@ export default function Questions({ onComplete }) {
     setSelectedOption(value);
   };
 
+  const animateOut = (callback) => {
+    Animated.timing(animation, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start(callback);
+  };
+
+  const animateIn = () => {
+    animation.setValue(1);
+    Animated.timing(animation, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  };
+
   const handleNext = () => {
-    const sentimento = PERGUNTAS[currentQuestion].sentimento;
+    animateOut(() => {
+      const sentimento = PERGUNTAS[currentQuestion].sentimento;
 
-    setAnswers(prev => ({
-      ...prev,
-      [sentimento]: (prev[sentimento] || 0) + selectedOption,
-    }));
+      setAnswers(prev => ({
+        ...prev,
+        [sentimento]: (prev[sentimento] || 0) + selectedOption,
+      }));
 
-    if (currentQuestion === totalQuestions) {
-      const finalAnswers = {
-        ...answers,
-        [sentimento]: (answers[sentimento] || 0) + selectedOption,
-      };
-      const porcentagem = normalizarParaPorcentagem(finalAnswers);
-      onComplete(porcentagem);
-      return;
-    }
+      if (currentQuestion === totalQuestions) {
+        const finalAnswers = {
+          ...answers,
+          [sentimento]: (answers[sentimento] || 0) + selectedOption,
+        };
+        const porcentagem = normalizarParaPorcentagem(finalAnswers);
+        onComplete(porcentagem);
+        return;
+      }
 
-    setCurrentQuestion(prev => prev + 1);
-    setSelectedOption(null);
+      setCurrentQuestion(prev => prev + 1);
+      setSelectedOption(null);
+      animateIn();
+    });
   };
 
   const normalizarParaPorcentagem = (resultados) => {
@@ -53,14 +73,14 @@ export default function Questions({ onComplete }) {
     const min = Math.min(...valores);
     const valoresPositivos = valores.map(v => v - min);
     const soma = valoresPositivos.reduce((a, b) => a + b, 0);
-    
+
     if (soma === 0) {
       const igual = 100 / valores.length;
       return Object.fromEntries(
         Object.keys(resultados).map(k => [k, Number(igual.toFixed(2))])
       );
     }
-    
+
     return Object.fromEntries(
       Object.keys(resultados).map((k, i) => [
         k,
@@ -80,6 +100,21 @@ export default function Questions({ onComplete }) {
   const currentQuestionData = PERGUNTAS[currentQuestion];
   const isLastQuestion = currentQuestion === totalQuestions;
   const buttonLabel = isLastQuestion ? 'Finalizar teste' : 'Próxima pergunta';
+
+  const animatedStyle = {
+    opacity: animation.interpolate({
+      inputRange: [0, 1],
+      outputRange: [1, 0],
+    }),
+    transform: [
+      {
+        translateX: animation.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, -350],
+        }),
+      },
+    ],
+  };
 
   return (
     <View style={styles.container}>
@@ -102,26 +137,28 @@ export default function Questions({ onComplete }) {
         ))}
       </View>
 
-      <Text style={styles.questionText}>{currentQuestionData.question}</Text>
+      <Animated.View style={animatedStyle}>
+        <Text style={styles.questionText}>{currentQuestionData.question}</Text>
 
-      <View style={styles.viewOptions}>
-        {OPTIONS.map(option => (
-          <TouchableOpacity
-            key={option.value}
-            style={[
-              styles.optionButton,
-              selectedOption === option.value && { borderWidth: 2, borderColor: theme.success }
-            ]}
-            onPress={() => handleSelect(option.value)}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.optionText}>{option.label}</Text>
-            <View style={styles.optionIconContainer}>
-              <Image source={option.icon} style={styles.optionIcon} />
-            </View>
-          </TouchableOpacity>
-        ))}
-      </View>
+        <View style={styles.viewOptions}>
+          {OPTIONS.map(option => (
+            <TouchableOpacity
+              key={option.value}
+              style={[
+                styles.optionButton,
+                selectedOption === option.value && { borderWidth: 2, borderColor: theme.success }
+              ]}
+              onPress={() => handleSelect(option.value)}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.optionText}>{option.label}</Text>
+              <View style={styles.optionIconContainer}>
+                <Image source={option.icon} style={styles.optionIcon} />
+              </View>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </Animated.View>
 
       <ButtonPrimary
         title={buttonLabel}
@@ -131,3 +168,4 @@ export default function Questions({ onComplete }) {
     </View>
   );
 }
+

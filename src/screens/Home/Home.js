@@ -23,6 +23,7 @@ export default function Home({ onEditFeeling, navigation }) {
 
   const handleEdit = () => {
     // setModalVisible(!modalVisible);
+    navigation.navigate('Completion');
   };
 
   const handlebutton = (screen) => {

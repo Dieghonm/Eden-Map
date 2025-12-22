@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Text, View, ScrollView, Platform, TextInput } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { AppContext, useApp } from '../../context/AppProvider';
 import { DESCRICAOCENA } from '../../../assets/json/Semanas';
 import GlassBox from '../../components/GlassBox';
@@ -10,6 +10,7 @@ import { spacing } from '../../theme/texts';
 import { useJourney } from '../../context/JourneyProvider';
 import { useTheme } from '../../context/ThemeProvider';
 import { createStyles } from '../../styles/Days/CenaDay';
+import HeaderAjuster from '../../components/HeaderAjuster';
 
 export default function CenaDay({ onComplete }) {
   const { theme } = useTheme();
@@ -65,7 +66,7 @@ export default function CenaDay({ onComplete }) {
   };
 
   return (
-    <SafeAreaView edges={['top', 'left', 'right']}>
+    <View edges={['top', 'left', 'right']}>
       <KeyboardAwareScrollView
         enableOnAndroid
         enableAutomaticScroll
@@ -74,6 +75,7 @@ export default function CenaDay({ onComplete }) {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
       >
+        <HeaderAjuster />
         <ScrollView
           contentContainerStyle={{
             flexGrow: 1,
@@ -136,6 +138,6 @@ export default function CenaDay({ onComplete }) {
           </View>
         </ScrollView>
       </KeyboardAwareScrollView>
-    </SafeAreaView>
+    </View>
   );
 }

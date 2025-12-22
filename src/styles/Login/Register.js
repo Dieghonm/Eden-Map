@@ -44,5 +44,4 @@ export const createStyles = (theme) =>
       fontFamily: fontFamily.r4,
       textAlign: 'center',
     },
-
   });

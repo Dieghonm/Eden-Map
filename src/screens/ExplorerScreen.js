@@ -1,5 +1,5 @@
 import { View, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 import { useTheme } from '../context/ThemeProvider';
 import { createStyles } from '../styles/ExplorerScreen';
 import ImgButton from '../components/ImgButton';
@@ -29,7 +29,7 @@ export default function ExplorerScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>      
+    <View style={styles.container} edges={['top', 'left', 'right']}>      
       <View style={styles.textContainer}>
         <Text style={styles.title}>Explore livremente o Eden</Text>
         <Text style={styles.subtitle}>
@@ -66,6 +66,6 @@ export default function ExplorerScreen({ navigation }) {
         onPress={() => navigation.goBack()}
         title="Voltar"
       />
-    </SafeAreaView>
+    </View>
   );
 }

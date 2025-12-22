@@ -10,6 +10,7 @@ import ButtonSecundary from '../../components/ButtonSecundary';
 import GlassBox from '../../components/GlassBox';
 import VideoPlayer from '../../components/VideoPlayer';
 import { api } from '../../services/api';
+import HeaderAjuster from '../../components/HeaderAjuster';
 
 const SCREENS = {
   DETAIL: 'detail',
@@ -73,6 +74,7 @@ export default function PathDetail({ selectedPathName, onConfirm, onBack }) {
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >
+      <HeaderAjuster />
       <View style={styles.headerContainer}>
         <Text style={styles.title}>{pathData.nome}</Text>
         {renderDescricao()}
@@ -114,6 +116,7 @@ export default function PathDetail({ selectedPathName, onConfirm, onBack }) {
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >
+      <HeaderAjuster />
       <Text style={styles.jornadaTitle}>Guia Eden Map</Text>
       
       <Text style={styles.text}>
@@ -199,7 +202,7 @@ export default function PathDetail({ selectedPathName, onConfirm, onBack }) {
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >
-
+      <HeaderAjuster />
       <Text style={styles.jornadaTitle}>Guia Eden Map</Text>
       
       <Text style={styles.text}>

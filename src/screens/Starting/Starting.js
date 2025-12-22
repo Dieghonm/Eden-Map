@@ -18,6 +18,7 @@ import Questions from './Questions';
 import Result from './Result';
 import PathDetail from './PathDetail';
 import Confirmation from './Confirmation';
+import HeaderAjuster from '../../components/HeaderAjuster';
 
 export default function Starting({ onComplete }) {
   const { theme } = useTheme();
@@ -129,6 +130,7 @@ export default function Starting({ onComplete }) {
     if (currentStep === 'INTRO') {
       return (
         <View style={styles.headerContainer}>
+          <HeaderAjuster />
           <Logo width={spacing.lg} height={spacing.md} />
           <View style={styles.introText}>
             <WelcomeText

@@ -22,5 +22,14 @@ export const createStyles = (colors) =>
       justifyContent: 'center',
       backgroundColor: 'transparent'
     },
+
+    testeDeAltura:{
+      backgroundColor: '#0ABAB5',
+      width: spacing.xxxl * 2,
+      height:5,
+      position: 'absolute',
+      top: spacing.xxxl * 4 + spacing.xxs,
+      // top: spacing.xxxl * 4 + 5,
+    },
   });
 
