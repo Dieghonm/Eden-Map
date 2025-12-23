@@ -42,7 +42,7 @@ function AppContent() {
       imageStyle={styles.image}
       resizeMode="cover"
     >
-      <View style={styles.testeDeAltura}/>
+      {/* <View style={styles.testeDeAltura}/> */}
       <View style={styles.overlay}>
         <NavigationContainer theme={navTheme}>
           <AppNavigator />
