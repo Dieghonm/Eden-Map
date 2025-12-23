@@ -1,4 +1,3 @@
-// src/screens/Days/PerguntasDay.js - VERSÃO CORRIGIDA
 import { useState } from 'react';
 import { View, Platform, Text, TextInput, ScrollView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -14,24 +13,23 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 export default function PerguntasDay({ onComplete }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
+  
   const { selectedPath, semanaAtual } = useApp();
   const { salvarPerguntaResposta } = useJourney();
-
+  
   const [resposta, setResposta] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
+  
   const data = PERGUNTAS[selectedPath][semanaAtual - 1];
 
   const handleConcluir = async () => {
     if (!resposta.trim()) return;
     setIsLoading(true);
     
-    // ✅ CORREÇÃO: Ordem correta dos parâmetros (SEMANA, PATH, RESPOSTA)
     const sucesso = await salvarPerguntaResposta(semanaAtual, selectedPath, resposta);
     
     setIsLoading(false);
     
-    // 📊 Log para debug
     if (__DEV__) {
       console.log('✅ Pergunta salva:', {
         semana: semanaAtual,

@@ -686,7 +686,7 @@ export const PERGUNTAS = {
     { "id": 12, "Tipo": "Luz", "Pergunta": "Em que momento do seu dia você se sente totalmente presente, sem nenhuma distração?" }
   ],
 
-  "Relacionamento": [
+  "Relacionamentos": [
     { "id": 1, "Tipo": "Luz", "Pergunta": "Quais 3 aspectos da sua vida atual serão lembrados no futuro com profunda gratidão?" },
     { "id": 2, "Tipo": "Luz", "Pergunta": "Quem na sua vida te aceita por inteiro, permitindo que você fale com liberdade? Por quê?" },
     { "id": 3, "Tipo": "Luz", "Pergunta": "Que pessoas você deseja se conectar e quais valores ou traços vocês têm em comum?" },

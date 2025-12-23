@@ -1,6 +1,6 @@
-// src/screens/DayScreen.js - TELA DE ENTRADA ESTILIZADA
+// src/screens/DayScreen.js
 import React, { useState } from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 
 import ConfettiCannon from 'react-native-confetti-cannon';
 
@@ -24,9 +24,6 @@ import PerguntasDay from './Days/PerguntasDay';
 import MeditacaoScreen from './Days/MeditacaoScreen';
 import HeaderAjuster from '../components/HeaderAjuster';
 
-// ============================================================================
-// 🎬 COMPONENTE PRINCIPAL
-// ============================================================================
 export default function DayScreen({ navigation }) {
   const { theme } = useTheme();
   const styles = createStyles(theme);
@@ -44,6 +41,8 @@ export default function DayScreen({ navigation }) {
   const [currentScreen, setCurrentScreen] = useState('');
   const [entradaScreen, setEntradaScreen] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
+  const [showParabens, setShowParabens] = useState(false);
+  const [concluindoDia, setConcluindoDia] = useState(false);
 
   const [statusDiaAtual, setStatusDiaAtual] = useState({
     exercicioConcluido: DIA.exercicio === '',
@@ -92,7 +91,11 @@ export default function DayScreen({ navigation }) {
   };
 
   const handleConcluirDia = async () => {
+    if (concluindoDia) return;
+
+    setConcluindoDia(true);
     setShowConfetti(true);
+    setShowParabens(true);
 
     setTimeout(async () => {
       await avancarDia();
@@ -108,7 +111,9 @@ export default function DayScreen({ navigation }) {
       });
 
       setShowConfetti(false);
-    }, 1300);
+      setShowParabens(false);
+      setConcluindoDia(false);
+    }, 1500);
   };
 
   const diaCompleto =
@@ -119,9 +124,6 @@ export default function DayScreen({ navigation }) {
     <ImgButton title="Finalizado" img="Checked" onPress={() => {}} />
   );
 
-  // ========================================================================
-  // 🎨 LÓGICA DA FASE
-  // ========================================================================
   const getFaseInfo = () => {
     if (semanaAtual >= 1 && semanaAtual <= 4) {
       return {
@@ -168,9 +170,6 @@ export default function DayScreen({ navigation }) {
     }
   };
 
-  // ========================================================================
-  // TELAS DINÂMICAS
-  // ========================================================================
   switch (currentScreen) {
     case 'DESCRICAOCENA':
       return <CenaDay onComplete={handleExercicioComplete} />;
@@ -188,9 +187,6 @@ export default function DayScreen({ navigation }) {
       break;
   }
 
-  // ========================================================================
-  // 🎨 TELA DE ENTRADA ESTILIZADA
-  // ========================================================================
   if (!entradaScreen) {
     const concluidos = 7 * (semanaAtual - 1) + diaAtual - 1;
     const total = 84;
@@ -201,9 +197,7 @@ export default function DayScreen({ navigation }) {
       <View style={styles.entradaContainer}>
         <View style={styles.headerEntrada}>
           <Text style={styles.diaText}>Dia {diaAtual} - Semana {semanaAtual}</Text>
-          
           <Text style={styles.faseTitle}>Fase {faseInfo.numero} - {faseInfo.tipo}</Text>
-          
           <Text style={styles.faseDescricao}>
             {faseInfo.descricao[0]}
             <Text style={styles.highlight}>{faseInfo.descricao[1]}</Text>
@@ -215,7 +209,6 @@ export default function DayScreen({ navigation }) {
           </Text>
         </View>
 
-        {/* IMAGEM */}
         <View style={styles.imageContainer}>
           <Image
             source={{ uri: SEMANA.img }}
@@ -224,29 +217,20 @@ export default function DayScreen({ navigation }) {
           />
         </View>
 
-        {/* BARRA DE PROGRESSO */}
         <View style={styles.progressSection}>
           <Text style={styles.progressPercentage}>{porcentagem}%</Text>
-          
           <View style={styles.progressBarContainer}>
             <View style={styles.progressBarBackground}>
-              <View 
-                style={[
-                  styles.progressBarFill, 
-                  { width: `${porcentagem}%` }
-                ]} 
-              />
+              <View style={[styles.progressBarFill, { width: `${porcentagem}%` }]} />
             </View>
           </View>
         </View>
 
-        {/* BOTÕES */}
-        <View >
+        <View>
           <ButtonPrimary
             title="Entrar no Eden"
             onPress={() => setEntradaScreen(true)}
           />
-
           <ButtonSecundary
             title="Voltar"
             onPress={() => navigation.goBack()}
@@ -256,14 +240,10 @@ export default function DayScreen({ navigation }) {
     );
   }
 
-  // ========================================================================
-  // TELA PRINCIPAL DO DIA
-  // ========================================================================
   return (
     <View style={styles.container}>
       <HeaderAjuster />
       <View style={styles.gap}>
-
         <View style={styles.TextContainer}>
           <Text style={styles.Title}>{SEMANA.nome}</Text>
           <Text style={styles.Text}>
@@ -275,10 +255,7 @@ export default function DayScreen({ navigation }) {
 
           <Image
             source={{ uri: SEMANA.img }}
-            style={{
-              width: horizontalScale(290),
-              height: verticalScale(290),
-            }}
+            style={{ width: horizontalScale(290), height: verticalScale(290) }}
             resizeMode="cover"
           />
         </View>
@@ -318,23 +295,58 @@ export default function DayScreen({ navigation }) {
         )}
 
         <ButtonPrimary
-          title="Concluir o dia"
+          title={concluindoDia ? 'Concluindo...' : 'Concluir o dia'}
           onPress={handleConcluirDia}
-          disabled={!diaCompleto}
+          disabled={!diaCompleto || concluindoDia}
           height={40}
         />
-
       </View>
-        {showConfetti && (
-          <ConfettiCannon
-            count={20}
-            fadeOut
-            origin={{ x: 200, y: 0 }}
-            explosionSpeed={100}
-            fallSpeed={1300}
-            autoStart
-          />
-        )}
+
+      {showParabens && (
+        <View style={overlay.parabensOverlay}>
+          <Text style={overlay.parabensTitle}>🎉 Parabéns!</Text>
+          <Text style={overlay.parabensText}>
+            Você concluiu mais um dia da sua jornada
+          </Text>
+        </View>
+      )}
+
+      {showConfetti && (
+        <ConfettiCannon
+          count={20}
+          fadeOut
+          origin={{ x: 200, y: 0 }}
+          explosionSpeed={100}
+          fallSpeed={1300}
+          autoStart
+        />
+      )}
     </View>
   );
 }
+
+const overlay = StyleSheet.create({
+  parabensOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    zIndex: 10,
+  },
+  parabensTitle: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#FFF',
+    marginBottom: 8,
+  },
+  parabensText: {
+    fontSize: 16,
+    color: '#FFF',
+    textAlign: 'center',
+    paddingHorizontal: 20,
+  },
+});
