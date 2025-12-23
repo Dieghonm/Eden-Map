@@ -69,25 +69,39 @@ export default function DayScreen({ navigation }) {
     }
   };
 
-  const handleExercicioComplete = sucesso => {
-    if (!sucesso) return;
-
+  // ============================================================================
+  // ✅ FUNÇÃO CORRIGIDA: handleExercicioComplete
+  // ============================================================================
+  const handleExercicioComplete = (sucesso) => {
+    // SEMPRE limpa o currentScreen primeiro (volta para DayScreen)
     setCurrentScreen('');
-    setStatusDiaAtual(prev => ({
-      ...prev,
-      exercicioConcluido: true,
-      meditacaoLiberada: true,
-    }));
+    
+    // Só marca como concluído se sucesso === true
+    if (sucesso) {
+      setStatusDiaAtual(prev => ({
+        ...prev,
+        exercicioConcluido: true,
+        meditacaoLiberada: true,
+      }));
+    }
+    // Se sucesso === false ou undefined, apenas volta sem marcar como concluído
   };
 
-  const handleMeditacaoComplete = sucesso => {
-    if (!sucesso) return;
-
+  // ============================================================================
+  // ✅ FUNÇÃO CORRIGIDA: handleMeditacaoComplete
+  // ============================================================================
+  const handleMeditacaoComplete = (sucesso) => {
+    // SEMPRE limpa o currentScreen primeiro (volta para DayScreen)
     setCurrentScreen('');
-    setStatusDiaAtual(prev => ({
-      ...prev,
-      meditacaoConcluida: true,
-    }));
+    
+    // Só marca como concluído se sucesso === true
+    if (sucesso) {
+      setStatusDiaAtual(prev => ({
+        ...prev,
+        meditacaoConcluida: true,
+      }));
+    }
+    // Se sucesso === false ou undefined, apenas volta sem marcar como concluído
   };
 
   const handleConcluirDia = async () => {
@@ -170,6 +184,9 @@ export default function DayScreen({ navigation }) {
     }
   };
 
+  // ============================================================================
+  // RENDERIZAÇÃO DAS TELAS DE ATIVIDADES
+  // ============================================================================
   switch (currentScreen) {
     case 'DESCRICAOCENA':
       return <CenaDay onComplete={handleExercicioComplete} />;
@@ -187,6 +204,9 @@ export default function DayScreen({ navigation }) {
       break;
   }
 
+  // ============================================================================
+  // TELA DE ENTRADA (Resumo da Semana)
+  // ============================================================================
   if (!entradaScreen) {
     const concluidos = 7 * (semanaAtual - 1) + diaAtual - 1;
     const total = 84;
@@ -240,6 +260,9 @@ export default function DayScreen({ navigation }) {
     );
   }
 
+  // ============================================================================
+  // TELA PRINCIPAL (Atividades do Dia)
+  // ============================================================================
   return (
     <View style={styles.container}>
       <HeaderAjuster />
@@ -340,12 +363,12 @@ const overlay = StyleSheet.create({
   parabensTitle: {
     fontSize: 26,
     fontWeight: 'bold',
-    color: '#FFF',
+    color: '#fcec0aff',
     marginBottom: 8,
   },
   parabensText: {
     fontSize: 16,
-    color: '#FFF',
+    color: '#fcec0aff',
     textAlign: 'center',
     paddingHorizontal: 20,
   },

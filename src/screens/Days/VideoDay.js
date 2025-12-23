@@ -9,6 +9,7 @@ import { createStyles } from '../../styles/Days/VideoDay';
 import GlassBox from '../../components/GlassBox';
 import VideoPlayer from '../../components/VideoPlayer';
 import ButtonSecundary from '../../components/ButtonSecundary';
+import HeaderAjuster from '../../components/HeaderAjuster';
 
 export default function VideoDay({ onComplete }) {
   const { theme } = useTheme();
@@ -47,6 +48,7 @@ export default function VideoDay({ onComplete }) {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
+        <HeaderAjuster />
         <Text style={styles.sinopse}>Sinopse do vídeo: </Text>
 
         <Text style={styles.videoDescription}>

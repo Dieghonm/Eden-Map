@@ -8,7 +8,7 @@ export const createStyles = (theme) =>
       fontSize: fontSize.xl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      marginTop: spacing.xxl,
+      marginTop: spacing.xl + spacing.xxs,
       marginBottom: spacing.sm,
       alignSelf: 'flex-start',
       width: '100%'

@@ -7,7 +7,7 @@ export const createStyles = (theme) =>
     container: {
       flex: 1,
       backgroundColor: 'transparent',
-      marginTop: spacing.xl,
+      marginTop: spacing.lg + spacing.xs / 2,
     },
     scrollContent: {
       flexGrow: 1,

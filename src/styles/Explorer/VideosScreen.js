@@ -10,7 +10,7 @@ export const createStyles = (theme) =>
       alignItems: 'center',
       width: spacing.giant,
       marginHorizontal: spacing.sm * 2,
-      marginTop: spacing.lg,
+      marginTop: spacing.lg + spacing.sm,
     },
     videoTitle: {
       fontSize: fontSize.xxl,

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Image, View, Text, TextInput, Animated, StyleSheet } from "react-native";
+import { Image, View, Text, TextInput, Animated } from "react-native";
 import { useTheme } from "../../context/ThemeProvider";
 import { createStyles } from "../../styles/Days/MissaoDay";
 import { useApp } from '../../context/AppProvider';
@@ -9,6 +9,7 @@ import ButtonPrimary from "../../components/ButtonPrimary";
 import ButtonSecundary from "../../components/ButtonSecundary";
 import GlassBox from "../../components/GlassBox";
 import ImgButton from "../../components/ImgButton";
+import HeaderAjuster from "../../components/HeaderAjuster";
 
 export default function MissaoDay({ onComplete }) {
   const { theme } = useTheme();
@@ -46,6 +47,18 @@ export default function MissaoDay({ onComplete }) {
     }
   }, [tela]);
 
+  // ============================================================================
+  // HANDLER: Voltar para DayScreen sem salvar dados
+  // ============================================================================
+  const handleVoltar = () => {
+    if (onComplete) {
+      onComplete(false); // Retorna false = não concluiu
+    }
+  };
+
+  // ============================================================================
+  // TELA: SEMANA ÍMPAR (Missão Bloqueada)
+  // ============================================================================
   if (Number(semanaAtual) % 2 !== 0) {
     return (
       <View style={styles.container}>
@@ -77,15 +90,19 @@ export default function MissaoDay({ onComplete }) {
         </GlassBox>
         <ButtonPrimary 
           title='Desligue para conectar'
-          onPress={() => onComplete && onComplete(true)}
+          onPress={handleVoltar}
         />
       </View>
     );
   }
 
+  // ============================================================================
+  // TELA 1: TIMER
+  // ============================================================================
   if (tela === 'TIMER') {
     return (
       <View style={[styles.container, styles.timerSize]}>
+        <HeaderAjuster />
         <GlassBox>
           <View style={styles.starsView}>
             {Array.from({ length: 5 }).map((_, idx) => (
@@ -124,15 +141,19 @@ export default function MissaoDay({ onComplete }) {
 
         <ButtonPrimary 
           title='Voltar'
-          onPress={() => onComplete(false)}
+          onPress={handleVoltar}
         />
       </View>
     );
   }
 
+  // ============================================================================
+  // TELA 2: MISSÃO CONCLUÍDA
+  // ============================================================================
   if (tela === 'CONCLUIDA') {
     return (
       <View style={[styles.container, styles.conclSize]}>
+        <HeaderAjuster />
         <Text style={styles.parabens}>Parabéns!</Text>
         <Text style={styles.textoParabens}>Parabéns! Você desbloqueou o emblema da missão.</Text>
 
@@ -166,9 +187,13 @@ export default function MissaoDay({ onComplete }) {
     );
   }
 
+  // ============================================================================
+  // TELA 3: INSIGHT
+  // ============================================================================
   if (tela === 'INSIGHT') {
     return (
       <View style={[styles.container, styles.insightSize]}>
+        <HeaderAjuster />
         <GlassBox>
           <Text style={styles.pergunta}>Como foi sua experiência com a missão?</Text>
           
@@ -195,7 +220,7 @@ export default function MissaoDay({ onComplete }) {
               insight: insightText,
               concluidaEm: new Date().toISOString()
             });
-            onComplete(true);
+            onComplete(true); // Retorna true = concluiu com sucesso
           }}
         />
 

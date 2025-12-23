@@ -9,6 +9,7 @@ import { PERGUNTAS } from '../../../assets/json/Semanas';
 import { spacing } from '../../theme/texts';
 import GlassBox from '../../components/GlassBox';
 import ButtonPrimary from '../../components/ButtonPrimary';
+import HeaderAjuster from '../../components/HeaderAjuster';
 
 export default function PerguntasDay({ onComplete }) {
   const { theme } = useTheme();
@@ -61,6 +62,7 @@ export default function PerguntasDay({ onComplete }) {
           }}
           keyboardShouldPersistTaps="handled"
         >
+          <HeaderAjuster />
           <Text style={styles.perguntaTexto}>{data.Pergunta}</Text>
           <GlassBox>
             <Text style={styles.labelResposta}>Reflita sobre e responda.</Text>

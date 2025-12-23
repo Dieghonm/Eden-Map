@@ -60,7 +60,7 @@ export const createStyles = (theme) =>
     // TELA 1 - TIMER
     // ============================================================================
     timerSize:{
-      marginTop:spacing.xxxl - spacing.xs
+      marginTop:spacing.xxl + spacing.md
     },
     
     // textoTopo: {
@@ -117,7 +117,7 @@ export const createStyles = (theme) =>
     // TELA 2 - MISSÃO CONCLUÍDA
     // ============================================================================
     conclSize:{
-      marginTop:spacing.xxl - spacing.xxs
+      marginTop:spacing.xl + spacing.xxs * 2
     },
     imageContainer: {
       margin: spacing.sm,
@@ -152,7 +152,7 @@ export const createStyles = (theme) =>
     // TELA 3 - INSIGHT
     // ============================================================================
     insightSize: {
-      marginTop: spacing.xxxl - spacing.md
+      marginTop: spacing.xxl
     },
     pergunta: {
       fontSize: fontSize.lg,

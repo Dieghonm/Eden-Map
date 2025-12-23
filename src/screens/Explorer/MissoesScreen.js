@@ -10,6 +10,7 @@ import ButtonPrimary from '../../components/ButtonPrimary';
 import GlassBox from '../../components/GlassBox';
 import NavigationControls from '../../components/NavigationControls';
 import { MISSAO } from '../../../assets/json/Semanas';
+import HeaderAjuster from '../../components/HeaderAjuster';
 
 export default function MissoesScreen({ navigation }) {
   const { theme } = useTheme();
@@ -51,6 +52,7 @@ export default function MissoesScreen({ navigation }) {
 
   return (
     <View style={styles.container} >
+      <HeaderAjuster />
       <GlassBox>
         <View style={styles.starsView}>
           {Array.from({ length: 5 }).map((_, index) => (

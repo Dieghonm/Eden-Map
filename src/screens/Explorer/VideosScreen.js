@@ -11,6 +11,7 @@ import VideoPlayer from '../../components/VideoPlayer';
 import NavigationControls from '../../components/NavigationControls';
 
 import { createStyles } from '../../styles/Explorer/VideosScreen';
+import HeaderAjuster from '../../components/HeaderAjuster';
 
 export default function VideosScreen({ navigation }) {
   const { theme } = useTheme();
@@ -35,6 +36,7 @@ export default function VideosScreen({ navigation }) {
 
   return (
     <View style={styles.container} >
+      <HeaderAjuster />
       <ScrollView 
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}

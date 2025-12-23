@@ -10,7 +10,7 @@ export const createStyles = (theme) =>
       paddingHorizontal: spacing.lg,
       alignItems: 'center',
       paddingBottom: spacing.sm,
-      marginTop: spacing.xl - spacing.xs,
+      marginTop: spacing.xl,
     },
     starsView: {
       flexDirection: "row",
