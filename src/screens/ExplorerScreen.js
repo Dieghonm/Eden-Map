@@ -4,6 +4,7 @@ import { useTheme } from '../context/ThemeProvider';
 import { createStyles } from '../styles/ExplorerScreen';
 import ImgButton from '../components/ImgButton';
 import ButtonPrimary from '../components/ButtonPrimary';
+import HeaderAjuster from '../components/HeaderAjuster';
 
 export default function ExplorerScreen({ navigation }) {
   const { theme } = useTheme();
@@ -29,7 +30,8 @@ export default function ExplorerScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container} >      
+    <View style={styles.container} >    
+      <HeaderAjuster />  
       <View style={styles.textContainer}>
         <Text style={styles.title}>Explore livremente o Eden</Text>
         <Text style={styles.subtitle}>

@@ -215,12 +215,69 @@ export default function AppNavigator() {
               )}
             </Stack.Screen>
 
-            <Stack.Screen name="Explorer" component={ExplorerScreen} />
-            <Stack.Screen name="Videos" component={VideosScreen} options={{ animation: 'slide_from_bottom' }} />
-            <Stack.Screen name="Missoes" component={MissoesScreen} options={{ animation: 'slide_from_bottom' }} />
-            <Stack.Screen name="Meditacoes" component={MeditacoesScreen} options={{ animation: 'slide_from_bottom' }} />
-            <Stack.Screen name="Reflexoes" component={ReflexoesScreen} options={{ animation: 'slide_from_bottom' }} />
-            <Stack.Screen name="Completion" component={CompletionScreen} options={{ animation: 'fade' }} />
+            {/* ========== ROTAS EXPLORAR COM HEADER ========== */}
+            <Stack.Screen name="Explorer">
+              {(props) => (
+                <View style={{ flex: 1 }}>
+                  <Header onHomePress={() => props.navigation.navigate('Home')} />
+                  <ExplorerScreen {...props} />
+                </View>
+              )}
+            </Stack.Screen>
+
+            <Stack.Screen 
+              name="Videos" 
+              options={{ animation: 'slide_from_bottom' }}
+            >
+              {(props) => (
+                <View style={{ flex: 1 }}>
+                  <Header onHomePress={() => props.navigation.navigate('Home')} />
+                  <VideosScreen {...props} />
+                </View>
+              )}
+            </Stack.Screen>
+
+            <Stack.Screen 
+              name="Missoes" 
+              options={{ animation: 'slide_from_bottom' }}
+            >
+              {(props) => (
+                <View style={{ flex: 1 }}>
+                  <Header onHomePress={() => props.navigation.navigate('Home')} />
+                  <MissoesScreen {...props} />
+                </View>
+              )}
+            </Stack.Screen>
+
+            <Stack.Screen 
+              name="Meditacoes" 
+              options={{ animation: 'slide_from_bottom' }}
+            >
+              {(props) => (
+                <View style={{ flex: 1 }}>
+                  <Header onHomePress={() => props.navigation.navigate('Home')} />
+                  <MeditacoesScreen {...props} />
+                </View>
+              )}
+            </Stack.Screen>
+
+            <Stack.Screen 
+              name="Reflexoes" 
+              options={{ animation: 'slide_from_bottom' }}
+            >
+              {(props) => (
+                <View style={{ flex: 1 }}>
+                  <Header onHomePress={() => props.navigation.navigate('Home')} />
+                  <ReflexoesScreen {...props} />
+                </View>
+              )}
+            </Stack.Screen>
+
+            <Stack.Screen 
+              name="Completion" 
+              component={CompletionScreen} 
+              options={{ animation: 'fade' }} 
+            />
           </>
         ) : (
           <Stack.Screen name="Login" component={LoginScreen} />

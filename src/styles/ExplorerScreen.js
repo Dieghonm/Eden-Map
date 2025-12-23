@@ -8,7 +8,7 @@ export const createStyles = (theme) =>
       flex: 1,
       alignItems: 'center',
       paddingHorizontal: spacing.lg,
-      marginTop: spacing.huge + spacing.sm
+      marginTop: spacing.xl + spacing.xxs
     },
     title: {
       fontSize: fontSize.xxl,

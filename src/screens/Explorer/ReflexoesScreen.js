@@ -146,14 +146,12 @@ export default function ReflexoesScreen({ navigation }) {
               </GlassBox>
             </>
           )}
-
           <NavigationControls
             currentIndex={currentCenaIndex}
             total={cenasList.length}
             onPrevious={() => setCurrentCenaIndex(i => Math.max(i - 1, 0))}
             onNext={() => setCurrentCenaIndex(i => Math.min(i + 1, cenasList.length - 1))}
           />
-
           <ButtonPrimary title="Voltar" onPress={() => setRespostasScreen(false)} />
         </ScrollView>
       </View>
@@ -175,7 +173,6 @@ export default function ReflexoesScreen({ navigation }) {
             <View style={styles.barsRow}>
               {values.map((value, index) => {
                 const height = (value / totalBars) * maxBarHeight;
-
                 return (
                   <View key={index} style={styles.barWrapper}>
                     <View style={[styles.bar, { height, backgroundColor: barColors[index] }]} />
