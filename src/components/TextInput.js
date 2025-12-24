@@ -16,13 +16,14 @@ export default function TextInput({
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const finalContainerStyle = [
-    styles.container,
-    showValidation && !isValid && { borderColor: theme.error }
-  ];
+
+  const validationStyle =
+    showValidation
+      ? { borderColor: isValid ? theme.success : theme.error }
+      : {};
 
   return (
-    <View style={finalContainerStyle}>
+    <View style={[styles.container, validationStyle]}>
       <RNTextInput
         style={styles.input}
         placeholder={placeholder}

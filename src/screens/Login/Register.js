@@ -17,19 +17,22 @@ export default function Register({ navigation, onChangeScreen }) {
   const { theme } = useTheme();
   const { setUser } = useContext(AppContext);
   const styles = createStyles(theme);
-  
+
   const [showInfo, setShowInfo] = useState(true);
   const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
   });
+
   const [touched, setTouched] = useState({
     username: false,
     email: false,
     password: false,
   });
+
   const [errorMessage, setErrorMessage] = useState('');
 
   const userRules = [' •  entre 4 - 20 caracteres'];
@@ -38,9 +41,8 @@ export default function Register({ navigation, onChangeScreen }) {
     ' •  use letras maiúsculas e minúsculas, números, sem espaçamentos'
   ];
 
-  const validateUsername = (username) => {
-    return username.length >= 4 && username.length <= 20;
-  };
+  const validateUsername = (username) =>
+    username.length >= 4 && username.length <= 20;
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -53,7 +55,6 @@ export default function Register({ navigation, onChangeScreen }) {
     const hasLowerCase = /[a-z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
     const noSpaces = !/\s/.test(password);
-    
     return hasMinLength && hasUpperCase && hasLowerCase && hasNumber && noSpaces;
   };
 
@@ -67,29 +68,30 @@ export default function Register({ navigation, onChangeScreen }) {
         password: formData.password,
         email: formData.email.toLowerCase().trim(),
         tag: 'cliente',
-        plan: 'trial'
+        plan: 'trial',
       };
 
       const response = await api.cadastro(userData);
+
       if (response.access_token) {
         await tokenHelpers.save(response.access_token, response.refresh_token);
       }
+
       await setUser({
         login: response.user.login,
         email: response.user.email,
         tag: response.user.tag,
         plan: response.user.plan,
       });
+
       navigation.replace('Home');
     } catch (error) {
-      console.error('❌ Erro no cadastro:', error);
-
       let errorMsg = 'Erro ao criar conta. Tente novamente.';
-      
+
       if (error.status === 400) {
-        if (error.message.includes('Email')) {
+        if (error.message?.includes('Email')) {
           errorMsg = 'Email já está cadastrado.';
-        } else if (error.message.includes('Login')) {
+        } else if (error.message?.includes('Login')) {
           errorMsg = 'Nome de usuário já cadastrado.';
         } else {
           errorMsg = error.message;
@@ -97,11 +99,10 @@ export default function Register({ navigation, onChangeScreen }) {
       } else if (error.status === 429) {
         errorMsg = 'Muitas tentativas. Aguarde um momento.';
       } else if (error.status === 0) {
-        errorMsg = 'Erro de conexão. Verifique sua internet e se o backend está rodando.';
+        errorMsg = 'Erro de conexão. Verifique sua internet.';
       }
 
       setErrorMessage(errorMsg);
-
     } finally {
       setLoading(false);
     }
@@ -111,9 +112,9 @@ export default function Register({ navigation, onChangeScreen }) {
     onChangeScreen('SIGNIN');
   };
 
-  const isFormValid = 
-    validateUsername(formData.username) && 
-    validateEmail(formData.email) && 
+  const isFormValid =
+    validateUsername(formData.username) &&
+    validateEmail(formData.email) &&
     validatePassword(formData.password);
 
   return (
@@ -121,10 +122,10 @@ export default function Register({ navigation, onChangeScreen }) {
       style={{ flex: 1 }}
       contentContainerStyle={[
         styles.scrollContent,
-        { flexGrow: 1, justifyContent: 'center', paddingHorizontal: spacing.xs }
+        { flexGrow: 1, justifyContent: 'center', paddingHorizontal: spacing.xs },
       ]}
-      enableOnAndroid={true}
-      enableAutomaticScroll={true}
+      enableOnAndroid
+      enableAutomaticScroll
       extraScrollHeight={Platform.OS === 'ios' ? spacing.xs : spacing.xxxl / 2}
       keyboardOpeningTime={0}
       showsVerticalScrollIndicator={false}
@@ -133,39 +134,30 @@ export default function Register({ navigation, onChangeScreen }) {
       {showInfo && (
         <GlassBox style={styles.infoCardContainer}>
           <InfoCard
-            title='Regras usuário e senha'
-            items={[
-              'Usuário:',
-              ...userRules,
-              'Senha:',
-              ...passwordRules,
-            ]}
+            title="Regras usuário e senha"
+            items={['Usuário:', ...userRules, 'Senha:', ...passwordRules]}
             onClose={() => setShowInfo(false)}
           />
           <View style={styles.space} />
         </GlassBox>
       )}
-      
-      <View>
-        <Logo />
-      </View>
-      
-      <WelcomeText 
-        title='Inscreva-se'
-        subtitle='Já possui uma conta? Faça login'
-        linkText='Faça login'
+
+      <Logo />
+
+      <WelcomeText
+        title="Inscreva-se"
+        subtitle="Já possui uma conta? Faça login"
+        linkText="Faça login"
         onLinkPress={handleGoToLogin}
       />
 
       <GlassBox>
         <TextInput
-          placeholder='Nome de Usuário'
+          placeholder="Nome de Usuário"
           value={formData.username}
           onChangeText={(text) => {
-            setFormData({ ...formData, username: text });
-            if (!touched.username && text.length > 0) {
-              setTouched({ ...touched, username: true });
-            }
+            setFormData((prev) => ({ ...prev, username: text }));
+            setTouched((prev) => ({ ...prev, username: true }));
             setErrorMessage('');
           }}
           isValid={validateUsername(formData.username)}
@@ -174,13 +166,11 @@ export default function Register({ navigation, onChangeScreen }) {
         />
 
         <TextInput
-          placeholder='E-mail'
+          placeholder="E-mail"
           value={formData.email}
           onChangeText={(text) => {
-            setFormData({ ...formData, email: text });
-            if (!touched.email && text.length > 0) {
-              setTouched({ ...touched, email: true });
-            }
+            setFormData((prev) => ({ ...prev, email: text }));
+            setTouched((prev) => ({ ...prev, email: true }));
             setErrorMessage('');
           }}
           isValid={validateEmail(formData.email)}
@@ -191,17 +181,15 @@ export default function Register({ navigation, onChangeScreen }) {
         />
 
         <TextInput
-          placeholder='Senha'
+          placeholder="Senha"
           value={formData.password}
           onChangeText={(text) => {
-            setFormData({ ...formData, password: text });
-            if (!touched.password && text.length > 0) {
-              setTouched({ ...touched, password: true });
-            }
+            setFormData((prev) => ({ ...prev, password: text }));
+            setTouched((prev) => ({ ...prev, password: true }));
             setErrorMessage('');
           }}
-          secureTextEntry={true}
-          showPasswordToggle={true}
+          secureTextEntry
+          showPasswordToggle
           isValid={validatePassword(formData.password)}
           showValidation={touched.password}
           disabled={loading}
@@ -209,9 +197,9 @@ export default function Register({ navigation, onChangeScreen }) {
 
         {errorMessage ? (
           <View style={styles.errorContainer}>
-            <Image 
-              style={styles.errorImg} 
-              source={require('../../../assets/icons/Exclamation.png')} 
+            <Image
+              style={styles.errorImg}
+              source={require('../../../assets/icons/Exclamation.png')}
             />
             <Text style={styles.errorText}>{errorMessage}</Text>
           </View>
@@ -226,7 +214,7 @@ export default function Register({ navigation, onChangeScreen }) {
           </View>
         ) : (
           <ButtonPrimary
-            title='Criar minha conta'
+            title="Criar minha conta"
             onPress={handleRegister}
             disabled={!isFormValid}
             width={220}

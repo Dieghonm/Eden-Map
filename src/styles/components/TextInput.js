@@ -18,7 +18,6 @@ export const createStyles = (theme, isValid = true, showValidation = false) =>
     containerInvalid: {
       backgroundColor: theme.warning,
       opacity: 0.4,
-
     },
     input: {
       flex: 1,

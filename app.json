@@ -4,11 +4,11 @@
     "slug": "EdenMap",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/Logo.png",
+    "icon": "./assets/Logo3.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/Logo.png",
+      "image": "./assets/Logo3.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,16 +17,24 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/Logo.png",
+        "foregroundImage": "./assets/Logo3.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.dieghonm.EdenMap"
     },
     "web": {
-      "favicon": "./assets/Logo.png"
+      "favicon": "./assets/Logo3.png"
     },
     "plugins": [
-      "expo-font"
-    ]
+      "expo-font",
+      "expo-asset",
+      "expo-audio"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "70defd54-9375-4369-804c-44ecad7de94d"
+      }
+    }
   }
 }
