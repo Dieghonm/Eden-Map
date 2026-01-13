@@ -1,4 +1,3 @@
-// src/screens/Home/EditModal.js - CORRIGIDO
 import React, { useState, useContext } from 'react';
 import { View, Text, Modal, TouchableOpacity, TextInput as RNTextInput, Platform, Image } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';

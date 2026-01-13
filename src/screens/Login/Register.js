@@ -59,6 +59,7 @@ export default function Register({ navigation, onChangeScreen }) {
   };
 
   const handleRegister = async () => {
+    console.log('🚀 [REGISTER] Iniciando cadastro...');
     setLoading(true);
     setErrorMessage('');
 
@@ -71,21 +72,65 @@ export default function Register({ navigation, onChangeScreen }) {
         plan: 'trial',
       };
 
-      const response = await api.cadastro(userData);
-
-      if (response.access_token) {
-        await tokenHelpers.save(response.access_token, response.refresh_token);
-      }
-
-      await setUser({
-        login: response.user.login,
-        email: response.user.email,
-        tag: response.user.tag,
-        plan: response.user.plan,
+      console.log('📤 [REGISTER] Enviando dados:', {
+        login: userData.login,
+        email: userData.email,
+        tag: userData.tag,
+        plan: userData.plan,
+        // Não loga a senha por segurança
       });
 
-      navigation.replace('Home');
+      const response = await api.cadastro(userData);
+      console.log('✅ [REGISTER] Resposta da API recebida:', {
+        hasAccessToken: !!response.access_token,
+        hasRefreshToken: !!response.refresh_token,
+        hasUser: !!response.user,
+        userLogin: response.user?.login,
+        userEmail: response.user?.email,
+      });
+
+      // Salvar tokens
+      if (response.access_token) {
+        console.log('💾 [REGISTER] Salvando tokens...');
+        await tokenHelpers.save(response.access_token, response.refresh_token);
+        console.log('✅ [REGISTER] Tokens salvos com sucesso');
+      } else {
+        console.warn('⚠️ [REGISTER] Nenhum access_token recebido!');
+      }
+
+      // Salvar usuário no contexto
+      const userToSave = {
+        login: response.user?.login || userData.login,
+        email: response.user?.email || userData.email,
+        tag: response.user?.tag || userData.tag,
+        plan: response.user?.plan || userData.plan,
+      };
+
+      console.log('👤 [REGISTER] Salvando usuário no contexto:', userToSave);
+      await setUser(userToSave);
+      console.log('✅ [REGISTER] Usuário salvo no contexto');
+
+      console.log('🎉 [REGISTER] Navegando para Home...');
+      
+      // ✅ CORREÇÃO: Usar navigation corretamente
+      if (navigation && navigation.replace) {
+        navigation.replace('Home');
+        console.log('✅ [REGISTER] Navegação executada com sucesso');
+      } else {
+        console.error('❌ [REGISTER] navigation.replace não disponível!', {
+          hasNavigation: !!navigation,
+          navigationKeys: navigation ? Object.keys(navigation) : 'null'
+        });
+      }
+
     } catch (error) {
+      console.error('❌ [REGISTER] Erro durante cadastro:', {
+        message: error.message,
+        status: error.status,
+        data: error.data,
+        stack: error.stack
+      });
+
       let errorMsg = 'Erro ao criar conta. Tente novamente.';
 
       if (error.status === 400) {
@@ -104,11 +149,13 @@ export default function Register({ navigation, onChangeScreen }) {
 
       setErrorMessage(errorMsg);
     } finally {
+      console.log('🏁 [REGISTER] Processo finalizado');
       setLoading(false);
     }
   };
 
   const handleGoToLogin = () => {
+    console.log('🔙 [REGISTER] Indo para tela de login');
     onChangeScreen('SIGNIN');
   };
 

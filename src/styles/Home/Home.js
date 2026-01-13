@@ -6,9 +6,8 @@ export const createStyles = (theme) =>
   StyleSheet.create({
     container: {
       alignItems: 'center',
-      marginTop: spacing.lg + spacing.xxs * 2,
+      marginTop: spacing.md,
       paddingHorizontal: spacing.sm,
-      // paddingTop: spacing.xs,
     },
     title: {
       fontSize: fontSize.xxl,
@@ -19,52 +18,47 @@ export const createStyles = (theme) =>
       fontSize: fontSize.md,
       fontFamily: fontFamily.r4,
       color: theme.fontColor,
+      alignSelf: 'flex-start',
+      marginLeft: spacing.sm,
+      marginBottom: spacing.xs,
     },
     highlight: {
       color: theme.alert,
-    },
-    desireCard: {
-      paddingTop: spacing.sm,
     },
     cardTitle: {
       fontSize: fontSize.xl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-      textAlign: 'left',
-      marginBottom: spacing.xs,
+      alignSelf: 'flex-start',
+      marginBottom: spacing.xs / 2,
       paddingHorizontal: spacing.sm,
     },
     line:{
-      height:2,
-      width: spacing.huge,
+      height:1,
+      width: spacing.giant,
       backgroundColor: theme.alert,
       marginBottom: spacing.xs,
+
     },
-    feelingsContainer: {
-      gap: spacing.xs,
-      marginBottom: spacing.sm,
-      paddingHorizontal: spacing.xs,
-    },
-    feelingChip: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
+    imageContainer: {
+      width: horizontalScale(250),
+      height: verticalScale(250),
+      marginBottom: spacing.xs,
       borderRadius: borderRadius.m,
-      backgroundColor: theme.secondary,
-      height:spacing.xxl /2,
-      width: spacing.huge,
-      alignItems: 'center',
-      paddingHorizontal: spacing.xs
-      
+      overflow: 'hidden',
     },
-    feelingText: {
-      fontSize: fontSize.md,
+    pathImage: {
+      width: '100%',
+      height: '100%',
+    },
+    path: {
+      fontSize: fontSize.xl,
       fontFamily: fontFamily.b7,
       color: theme.fontColor,
-    },
-    color: {
-      height:spacing.xl/2,
-      width: spacing.xl/2,
-      borderRadius: borderRadius.m,
+      alignSelf: 'flex-start',
+      marginTop: spacing.xxs,
+      marginBottom: spacing.sm / 2,
+      paddingHorizontal: spacing.xs / 2,
     },
     editButton: {
       height: spacing.xs * 2,
@@ -72,8 +66,7 @@ export const createStyles = (theme) =>
       backgroundColor: theme.terciario,
       alignItems: 'center',
       justifyContent: 'center',
-      marginBottom: spacing.sm
-
+      marginBottom: spacing.xs
     },
     editButtonText: {
       color: theme.fontColor,

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, ActivityIndicator, TouchableOpacity, Text, Platform } from 'react-native';
+import { View, ActivityIndicator, TouchableOpacity, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { AppContext } from '../context/AppProvider';
 import { useTheme } from '../context/ThemeProvider';
@@ -194,6 +194,7 @@ export default function AppNavigator() {
       >
         {isAuthenticated ? (
           <>
+            {/* HOME - COM HEADER */}
             <Stack.Screen name="Home">
               {(props) => (
                 <View style={{ flex: 1 }}>
@@ -203,6 +204,7 @@ export default function AppNavigator() {
               )}
             </Stack.Screen>
 
+            {/* DAY - COM HEADER */}
             <Stack.Screen
               name="Day"
               options={{ animation: 'slide_from_bottom' }}
@@ -215,7 +217,7 @@ export default function AppNavigator() {
               )}
             </Stack.Screen>
 
-            {/* ========== ROTAS EXPLORAR COM HEADER ========== */}
+            {/* EXPLORER - COM HEADER */}
             <Stack.Screen name="Explorer">
               {(props) => (
                 <View style={{ flex: 1 }}>
@@ -225,6 +227,7 @@ export default function AppNavigator() {
               )}
             </Stack.Screen>
 
+            {/* VÍDEOS - COM HEADER */}
             <Stack.Screen 
               name="Videos" 
               options={{ animation: 'slide_from_bottom' }}
@@ -237,6 +240,7 @@ export default function AppNavigator() {
               )}
             </Stack.Screen>
 
+            {/* MISSÕES - COM HEADER */}
             <Stack.Screen 
               name="Missoes" 
               options={{ animation: 'slide_from_bottom' }}
@@ -249,6 +253,7 @@ export default function AppNavigator() {
               )}
             </Stack.Screen>
 
+            {/* MEDITAÇÕES - COM HEADER */}
             <Stack.Screen 
               name="Meditacoes" 
               options={{ animation: 'slide_from_bottom' }}
@@ -261,6 +266,7 @@ export default function AppNavigator() {
               )}
             </Stack.Screen>
 
+            {/* REFLEXÕES - COM HEADER */}
             <Stack.Screen 
               name="Reflexoes" 
               options={{ animation: 'slide_from_bottom' }}
@@ -273,6 +279,7 @@ export default function AppNavigator() {
               )}
             </Stack.Screen>
 
+            {/* COMPLETION - COM HEADER */}
             <Stack.Screen 
               name="Completion" 
               component={CompletionScreen} 
@@ -280,7 +287,11 @@ export default function AppNavigator() {
             />
           </>
         ) : (
-          <Stack.Screen name="Login" component={LoginScreen} />
+          // LOGIN - SEM HEADER
+          <Stack.Screen 
+            name="Login" 
+            component={LoginScreen} 
+          />
         )}
       </Stack.Navigator>
 

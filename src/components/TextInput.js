@@ -11,19 +11,25 @@ export default function TextInput({
   showPasswordToggle = false,
   disabled = false,
   isValid = true,
-  showValidation = false
+  showValidation = false,
+  keyboardType = 'default',
+  autoCapitalize = 'sentences'
 }) {
   const { theme } = useTheme();
-  const styles = useMemo(() => createStyles(theme), [theme]);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const validationStyle =
-    showValidation
-      ? { borderColor: isValid ? theme.success : theme.error }
-      : {};
+  // ✅ CORREÇÃO: Criar styles dinamicamente baseado em isValid e showValidation
+  const styles = useMemo(() => 
+    createStyles(theme, isValid, showValidation), 
+    [theme, isValid, showValidation]
+  );
 
   return (
-    <View style={[styles.container, validationStyle]}>
+    <View style={[
+      styles.container,
+      // ✅ APLICAR ESTILO DE VALIDAÇÃO APENAS SE showValidation === true
+      showValidation && (isValid ? styles.containerValid : styles.containerInvalid)
+    ]}>
       <RNTextInput
         style={styles.input}
         placeholder={placeholder}
@@ -32,6 +38,8 @@ export default function TextInput({
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry && !isPasswordVisible}
         editable={!disabled}
+        keyboardType={keyboardType}
+        autoCapitalize={autoCapitalize}
       />
 
       {showPasswordToggle && (

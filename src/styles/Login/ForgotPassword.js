@@ -7,7 +7,6 @@ export const createStyles = (theme) =>
     // Container principal
     container: {
       alignItems: 'center',
-      
     },
 
     // Espaçamento vertical

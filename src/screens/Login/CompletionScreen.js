@@ -20,19 +20,13 @@ export default function CompletionScreen({ navigation }) {
   const {
     user,
     desireName,
-    desireDescription,
-    selectedFeelings,
     selectedPath,
     semanaAtual,
     diaAtual,
   } = useApp();
 
   const {
-    cenasRespostas,
-    videosAssistidos,
     trackingRespostas,
-    perguntasRespostas,
-    missoesConcluidas,
     obterProgressoGeral,
   } = useJourney();
 

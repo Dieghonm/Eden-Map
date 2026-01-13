@@ -10,9 +10,9 @@ export const createStyles = (theme) =>
       alignItems: 'center',
     },
     modalBox: {
-      marginTop: spacing.xs * 6,
+      marginTop: spacing.xs * 4,
       backgroundColor: theme.background,
-      paddingTop: spacing.sm,
+      paddingTop: spacing.xs,
       borderRadius: borderRadius.p,
       width: spacing.giant,
       alignItems: 'center',
@@ -101,6 +101,10 @@ export const createStyles = (theme) =>
       borderRadius: borderRadius.circle,
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    playIcon: {
+      width: horizontalScale(40),
+      height: horizontalScale(40),
     },
     spacer: {
       height: spacing.xs

@@ -13,12 +13,19 @@ export const createStyles = (theme, isValid = true, showValidation = false) =>
       marginTop: spacing.xs - spacing.xxs,
       marginBottom: spacing.xs - spacing.xxs,
       borderWidth: horizontalScale(2),
-      borderColor: 'transparent',
+      borderColor: 'transparent', // ✅ Padrão sem borda
     },
+    
+    // ✅ NOVO: Estilo para input VÁLIDO
+    containerValid: {
+      borderColor: theme.success,
+    },
+    
+    // ✅ NOVO: Estilo para input INVÁLIDO
     containerInvalid: {
-      backgroundColor: theme.warning,
-      opacity: 0.4,
+      borderColor: theme.warning,
     },
+    
     input: {
       flex: 1,
       fontSize: fontSize.sm,
@@ -27,6 +34,7 @@ export const createStyles = (theme, isValid = true, showValidation = false) =>
       paddingHorizontal: spacing.xxs * 2,
       height: '100%',
     },
+    
     eyeButton: {
       paddingRight: spacing.xxs * 2,
     },
